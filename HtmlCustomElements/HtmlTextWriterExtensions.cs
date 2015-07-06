@@ -61,20 +61,15 @@ namespace HtmlCustomElements
             string value = "")
         {
             writer.RenderBeginTag(tag);
-            if (value != "")
-            {
-                writer.Write(value);
-            }
+            writer.Write(value != "" ? value : Environment.NewLine);
             writer.RenderEndTag();
         }
 
         public static void AddTag(this HtmlTextWriter writer, string tag, string value = "")
         {
             writer.RenderBeginTag(tag);
-            if (value != "")
-            {
-                writer.Write(value);
-            }
+
+            writer.Write(value != "" ? value : Environment.NewLine);
             writer.RenderEndTag();
         }
     }

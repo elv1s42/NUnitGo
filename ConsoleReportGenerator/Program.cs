@@ -39,14 +39,19 @@ namespace ConsoleReportGenerator
             var uri = new UriBuilder(codeBase);
             var path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
 
-            var page = new HtmlPage("NUnitGo Report");
+            //TODO: change to output path:
+            outputPath = path;
+
+            PageGenerator.GenerateReport(fullSuite, outputPath);
+
+            /*var page = new HtmlPage("NUnitGo Report");
             page.AddToBody("TEST1!!!!!!!");
             page.AddToBody("TEST2!!!!!!!");
             page.AddToBody("TEST3!!!!!!!");
             page.AddToBody("TEST1: тест!!!!!!!");
             page.AddToBody("TEST2: тест тест!!!!!!!");
             page.AddToBody("TEST3: тест тест тест!!!!!!!");
-            page.SavePage(path, "testingPage"); //TODO: change to output path
+            page.SavePage(path, "testingPage");*/
 
             //Console.ReadKey();
         }

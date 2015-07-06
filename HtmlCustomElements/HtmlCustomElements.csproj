@@ -49,11 +49,15 @@
     <Compile Include="HtmlElements.cs" />
     <Compile Include="HtmlPage.cs" />
     <Compile Include="HtmlTextWriterExtensions.cs" />
+    <Compile Include="PageGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
+    <ProjectReference Include="..\NunitResultAnalyzer\NunitResultAnalyzer.csproj">
+      <Project>{55695586-8898-4a6a-8d1a-fe495f6cdad8}</Project>
+      <Name>NunitResultAnalyzer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

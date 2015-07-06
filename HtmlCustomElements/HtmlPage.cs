@@ -26,12 +26,14 @@ namespace HtmlCustomElements
                     {"charset", "utf-8"}
                 });
                 writer.AddTag(HtmlTextWriterTag.Title, pageTitle);
+                writer.AddTag(HtmlTextWriterTag.Style, new Dictionary<HtmlTextWriterAttribute, string>
+                {
+                    {HtmlTextWriterAttribute.Type, @"text/css"}
+                });
 
                 writer.RenderEndTag(); //HEAD
 
-                writer.RenderBeginTag(HtmlTextWriterTag.Body);
-                writer.RenderEndTag(); //BODY
-
+                writer.AddTag(HtmlTextWriterTag.Body);
                 writer.AddTag("footer", "Copyright 2015 " + '\u00a9' + " NUnitGo");
                 
                 writer.RenderEndTag(); //HTML
@@ -40,10 +42,15 @@ namespace HtmlCustomElements
             _page = strWr.ToString();
         }
 
-        public string AddToBody(string stringToAdd)
+        public string GetFullPage()
+        {
+            return _page;
+        }
+
+        public string AddInsideTag(string tagName, string stringToAdd)
         {
             var lines = _page.SplitToLines().ToList();
-            foreach (var line in lines.Where(line => line.Contains(@"</body>")))
+            foreach (var line in lines.Where(line => line.Contains(@"</" + tagName + @">")))
             {
                 lines.Insert(lines.IndexOf(line), stringToAdd);
                 _page = String.Join(Environment.NewLine, lines);
@@ -52,7 +59,12 @@ namespace HtmlCustomElements
             return _page;
         }
 
-        public void SavePage(string path, string name)
+        public string AddToBody(string stringToAdd)
+        {
+            return AddInsideTag("body", stringToAdd);
+        }
+
+        public void SavePage(string path, string name = "index")
         {
             File.WriteAllText(path + @"\" + name + ".html", _page);
         }
