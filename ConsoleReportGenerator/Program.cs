@@ -24,7 +24,7 @@ namespace ConsoleReportGenerator
 
             var xmlPath = args[0];
             var screenshotPath = args[1];
-            var outputPath = args[1];
+            var outputPath = args[2];
 
             Console.WriteLine("XML file: '{0}'", xmlPath);
             Console.WriteLine("Screenshots: '{0}'", screenshotPath);
@@ -39,8 +39,14 @@ namespace ConsoleReportGenerator
             var uri = new UriBuilder(codeBase);
             var path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
 
-            var page = new HtmlPage(path); //TODO: change to output path
-            page.SavePage(path, "testingPage");
+            var page = new HtmlPage("NUnitGo Report");
+            page.AddToBody("TEST1!!!!!!!");
+            page.AddToBody("TEST2!!!!!!!");
+            page.AddToBody("TEST3!!!!!!!");
+            page.AddToBody("TEST1: тест!!!!!!!");
+            page.AddToBody("TEST2: тест тест!!!!!!!");
+            page.AddToBody("TEST3: тест тест тест!!!!!!!");
+            page.SavePage(path, "testingPage"); //TODO: change to output path
 
             //Console.ReadKey();
         }

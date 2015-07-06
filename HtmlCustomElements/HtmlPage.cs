@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Web.UI;
 
 namespace HtmlCustomElements
@@ -22,7 +23,7 @@ namespace HtmlCustomElements
                 {
                     {"http-equiv", "Content-Type"},
                     {"content", @"text/html"},
-                    {"charset", "windows-1251"}
+                    {"charset", "utf-8"}
                 });
                 writer.AddTag(HtmlTextWriterTag.Title, pageTitle);
 
@@ -30,19 +31,25 @@ namespace HtmlCustomElements
 
                 writer.RenderBeginTag(HtmlTextWriterTag.Body);
                 writer.RenderEndTag(); //BODY
+
+                writer.AddTag("footer", "Copyright 2015 " + '\u00a9' + " NUnitGo");
                 
                 writer.RenderEndTag(); //HTML
+
             }
             _page = strWr.ToString();
         }
 
-        public void AddToBody(string stringToAdd)
+        public string AddToBody(string stringToAdd)
         {
-            var strWr = new StringWriter(new StringBuilder(_page));
-            using (var writer = new HtmlTextWriter(strWr))
+            var lines = _page.SplitToLines().ToList();
+            foreach (var line in lines.Where(line => line.Contains(@"</body>")))
             {
-
+                lines.Insert(lines.IndexOf(line), stringToAdd);
+                _page = String.Join(Environment.NewLine, lines);
+                return _page;
             }
+            return _page;
         }
 
         public void SavePage(string path, string name)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.UI;
 
 namespace HtmlCustomElements
@@ -57,16 +58,23 @@ namespace HtmlCustomElements
         }
 
         public static void AddTag(this HtmlTextWriter writer, HtmlTextWriterTag tag,
-            string value)
+            string value = "")
         {
             writer.RenderBeginTag(tag);
-            writer.Write(value);
+            if (value != "")
+            {
+                writer.Write(value);
+            }
             writer.RenderEndTag();
         }
 
-        public static void AddTag(this HtmlTextWriter writer, HtmlTextWriterTag tag)
+        public static void AddTag(this HtmlTextWriter writer, string tag, string value = "")
         {
             writer.RenderBeginTag(tag);
+            if (value != "")
+            {
+                writer.Write(value);
+            }
             writer.RenderEndTag();
         }
     }
