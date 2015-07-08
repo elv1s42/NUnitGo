@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSSElements\CssElement.cs" />
+    <Compile Include="CSSElements\CssStyle.cs" />
+    <Compile Include="CSSElements\StyleAttribute.cs" />
     <Compile Include="HtmlCustomElements\HorizontalBar.cs" />
     <Compile Include="HtmlCustomElements\HtmlBaseElement.cs" />
     <Compile Include="HtmlElements.cs" />

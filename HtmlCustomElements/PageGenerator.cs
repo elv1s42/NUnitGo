@@ -4,15 +4,15 @@ using NunitResultAnalyzer.XmlClasses;
 
 namespace HtmlCustomElements
 {
-    public class PageGenerator
-    {
-        public static void GenerateReport(TestResults testResults, string pathToSave)
-        {
-            var report = new HtmlPage("NUnitGo Report");
+	public class PageGenerator
+	{
+		public static void GenerateReport(TestResults testResults, string pathToSave)
+		{
+			var report = new HtmlPage("NUnitGo Report");
 
-            //TODO: report generation here
+			//TODO: report generation here
 
-            report.AddInsideTag("style", 
+			report.AddInsideTag("style", 
 @"
 a:hover {
 	text-decoration	: none;
@@ -28,31 +28,31 @@ a.tooltip:hover span {
 	position		: absolute;
 	border			: 1px solid #cccccc;
 }");
-            
-            var strWr = new StringWriter();
-            using (var writer = new HtmlTextWriter(strWr))
-            {
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write("Simple");
-                
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "tooltip");
-                writer.AddStyleAttribute(HtmlTextWriterStyle.TextDecoration, "none");
-                writer.RenderBeginTag(HtmlTextWriterTag.A);
-                writer.Write("Tooltip");
+			
+			var strWr = new StringWriter();
+			using (var writer = new HtmlTextWriter(strWr))
+			{
+				writer.RenderBeginTag(HtmlTextWriterTag.Div);
+				writer.Write("Simple");
+				
+				writer.AddAttribute(HtmlTextWriterAttribute.Class, "tooltip");
+				//writer.AddStyleAttribute(HtmlTextWriterStyle.TextDecoration, "none");
+				writer.RenderBeginTag(HtmlTextWriterTag.A);
+				writer.Write("Tooltip");
 
-                writer.RenderBeginTag(HtmlTextWriterTag.Span);
+				writer.RenderBeginTag(HtmlTextWriterTag.Span);
 
-                writer.Write("Tooltip text");
+				writer.Write("Tooltip text");
 
-                writer.RenderEndTag(); //SPAN
-                writer.RenderEndTag(); //A
-                writer.RenderEndTag(); //DIV
+				writer.RenderEndTag(); //SPAN
+				writer.RenderEndTag(); //A
+				writer.RenderEndTag(); //DIV
 
-            }
+			}
 
-            report.AddToBody(strWr.ToString());
+			report.AddToBody(strWr.ToString());
 
-            report.SavePage(pathToSave);
-        }
-    }
+			report.SavePage(pathToSave);
+		}
+	}
 }

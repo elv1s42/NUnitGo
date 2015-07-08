@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using HtmlCustomElements;
 using NunitResultAnalyzer;
+using NunitResultAnalyzer.XmlClasses;
 
 namespace ConsoleReportGenerator
 {
@@ -22,7 +23,7 @@ namespace ConsoleReportGenerator
                 return;
             }
 
-            var xmlPath = args[0];
+            /*var xmlPath = args[0];
             var screenshotPath = args[1];
             var outputPath = args[2];
 
@@ -34,26 +35,20 @@ namespace ConsoleReportGenerator
             var results = reader.Deserialize();
             var resultAnalyzer = new ResultsAnalyzer(results, screenshotPath);
             var fullSuite = resultAnalyzer.GetFullSuite();
-
+            
             var codeBase = Assembly.GetExecutingAssembly().CodeBase;
             var uri = new UriBuilder(codeBase);
             var path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
-
+            
             //TODO: change to output path:
             outputPath = path;
 
-            PageGenerator.GenerateReport(fullSuite, outputPath);
-
-            /*var page = new HtmlPage("NUnitGo Report");
-            page.AddToBody("TEST1!!!!!!!");
-            page.AddToBody("TEST2!!!!!!!");
-            page.AddToBody("TEST3!!!!!!!");
-            page.AddToBody("TEST1: тест!!!!!!!");
-            page.AddToBody("TEST2: тест тест!!!!!!!");
-            page.AddToBody("TEST3: тест тест тест!!!!!!!");
-            page.SavePage(path, "testingPage");*/
-
-            //Console.ReadKey();
+            PageGenerator.GenerateReport(fullSuite, outputPath);*/
+            var codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            var uri = new UriBuilder(codeBase);
+            var path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
+            
+            PageGenerator.GenerateReport(new TestResults(), path);
         }
     }
 }
