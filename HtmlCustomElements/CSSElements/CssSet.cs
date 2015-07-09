@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace HtmlCustomElements.CSSElements
 {
-    public class CssStyle
+    public class CssSet
     {
         public string Name;
         private readonly HashSet<CssElement> _elements;
 
-        public CssStyle(HashSet<CssElement> elements)
+        public CssSet()
         {
-            _elements = elements;
+            _elements = new HashSet<CssElement>();
         }
 
         public void AddElement(CssElement element)
@@ -28,6 +29,9 @@ namespace HtmlCustomElements.CSSElements
         }
 
         //TODO: CssStyle.ToString
-
+        public new string ToString()
+        {
+            return _elements.Aggregate("", (current, element) => current + element.ToString());
+        }
     }
 }

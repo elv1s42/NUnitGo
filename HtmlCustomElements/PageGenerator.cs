@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Web.UI;
+using HtmlCustomElements.CSSElements;
 using NunitResultAnalyzer.XmlClasses;
 
 namespace HtmlCustomElements
@@ -11,23 +13,35 @@ namespace HtmlCustomElements
 			var report = new HtmlPage("NUnitGo Report");
 
 			//TODO: report generation here
+			var cssSet = new CssSet();
+			cssSet.AddElement(new CssElement("a:hover")
+			{
+				StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute{Style = HtmlTextWriterStyle.TextDecoration, Value = "none"} 
+				}
+			});
+			cssSet.AddElement(new CssElement("a.tooltip span")
+			{
+				StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute{Style = HtmlTextWriterStyle.Display, Value = "none"},
+					new StyleAttribute{Style = HtmlTextWriterStyle.Padding, Value = "2px 3px"},
+					new StyleAttribute{Style = HtmlTextWriterStyle.MarginLeft, Value = "8px"},
+					new StyleAttribute{Style = HtmlTextWriterStyle.Width, Value = "130px"} 
+				}
+			});
+			cssSet.AddElement(new CssElement("a.tooltip:hover span")
+			{
+				StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute{Style = HtmlTextWriterStyle.Display, Value = "inline"},
+					new StyleAttribute{Style = HtmlTextWriterStyle.Padding, Value = "absolute"},
+					new StyleAttribute{Style = HtmlTextWriterStyle.Width, Value = "1px solid #cccccc"} 
+				}
+			});
 
-			report.AddInsideTag("style", 
-@"
-a:hover {
-	text-decoration	: none;
-}
-a.tooltip span {
-	display			: none; 
-	padding			: 2px 3px; 
-	margin-left		: 8px; 
-	width			: 130px;
-}
-a.tooltip:hover span {
-	display			: inline; 
-	position		: absolute;
-	border			: 1px solid #cccccc;
-}");
+			report.AddInsideTag("style", cssSet.ToString());
 			
 			var strWr = new StringWriter();
 			using (var writer = new HtmlTextWriter(strWr))
