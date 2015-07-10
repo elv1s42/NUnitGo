@@ -3,6 +3,7 @@ using System.IO;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
 using NunitResultAnalyzer.XmlClasses;
+using Environment = System.Environment;
 
 namespace HtmlCustomElements
 {
@@ -12,7 +13,6 @@ namespace HtmlCustomElements
 		{
 			var report = new HtmlPage("NUnitGo Report");
 
-			//TODO: report generation here
 			var cssSet = new CssSet();
 			cssSet.AddElement(new CssElement("a:hover")
 			{
@@ -37,7 +37,7 @@ namespace HtmlCustomElements
 				{
 					new StyleAttribute{Style = HtmlTextWriterStyle.Display, Value = "inline"},
 					new StyleAttribute{Style = HtmlTextWriterStyle.Padding, Value = "absolute"},
-					new StyleAttribute{Style = HtmlTextWriterStyle.Width, Value = "1px solid #cccccc"} 
+                    new StyleAttribute{Style = HtmlTextWriterStyle.BackgroundColor, Value = "#BFBFBF"}
 				}
 			});
 
@@ -47,16 +47,15 @@ namespace HtmlCustomElements
 			using (var writer = new HtmlTextWriter(strWr))
 			{
 				writer.RenderBeginTag(HtmlTextWriterTag.Div);
-				writer.Write("Simple");
+				writer.Write("Simple ");
 				
 				writer.AddAttribute(HtmlTextWriterAttribute.Class, "tooltip");
-				//writer.AddStyleAttribute(HtmlTextWriterStyle.TextDecoration, "none");
 				writer.RenderBeginTag(HtmlTextWriterTag.A);
 				writer.Write("Tooltip");
 
 				writer.RenderBeginTag(HtmlTextWriterTag.Span);
 
-				writer.Write("Tooltip text");
+                writer.Write("Tooltip text" + Environment.NewLine + "");
 
 				writer.RenderEndTag(); //SPAN
 				writer.RenderEndTag(); //A

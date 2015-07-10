@@ -32,8 +32,8 @@ namespace HtmlCustomElements.CSSElements
         {
             var elementString = "";
             var nl = Environment.NewLine;
-            elementString = Name + nl + "{" + nl + StyleFields.Aggregate(elementString, 
-                (current, field) => current + field.ToString()) + nl + "}" + nl;
+            elementString = Name + " {" + nl + StyleFields.Aggregate(elementString, 
+                (current, field) => current + "    " + field.ToString() + nl) + "}" + nl;
             return elementString;
         }
     }
