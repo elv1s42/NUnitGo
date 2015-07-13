@@ -7,7 +7,19 @@ namespace HtmlCustomElements.CSSElements
     public class StyleAttribute
     {
         public string Value;
-        public HtmlTextWriterStyle Style;
+        public string StyleString;
+
+        public StyleAttribute(HtmlTextWriterStyle style, string value)
+        {
+            Value = value;
+            StyleString = StyleToString(style);
+        }
+
+        public StyleAttribute(string styleString, string value)
+        {
+            Value = value;
+            StyleString = styleString;
+        }
 
         private readonly Dictionary<string, HtmlTextWriterStyle> _stringStyleDictionary = 
             new Dictionary<string, HtmlTextWriterStyle>
@@ -64,7 +76,7 @@ namespace HtmlCustomElements.CSSElements
 
         public new string ToString()
         {
-            return StyleToString(Style) + " : " + Value + "; ";
+            return StyleString + " : " + Value + "; ";
         }
     }
 }

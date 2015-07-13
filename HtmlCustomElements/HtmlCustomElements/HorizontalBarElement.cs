@@ -5,10 +5,14 @@
         public string InnerText;
         public string TooltipText;
         public string BackgroundColor;
+        public int Value;
 
-        public HorizontalBarElement()
+        public HorizontalBarElement(string innerText, string tooltipText, string backgroundColor, int value)
         {
-            //TODO: Add elements
+            Value = value;
+            InnerText = innerText;
+            TooltipText = tooltipText;
+            BackgroundColor = backgroundColor;
         }
     }
 }

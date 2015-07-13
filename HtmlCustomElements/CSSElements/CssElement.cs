@@ -19,8 +19,8 @@ namespace HtmlCustomElements.CSSElements
         {
             foreach (var styleField in styleFields)
             {
-                if (StyleFields.Any(x => x.Style.Equals(styleField.Style)))
-                    StyleFields.First(x => x.Style.Equals(styleField.Style)).Value = styleField.Value;
+                if (StyleFields.Any(x => x.StyleString.Equals(styleField.StyleString)))
+                    StyleFields.First(x => x.StyleString.Equals(styleField.StyleString)).Value = styleField.Value;
                 else
                 {
                     StyleFields.Add(styleField);
