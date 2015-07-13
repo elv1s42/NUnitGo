@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
+using HtmlCustomElements.HtmlCustomElements;
 using NunitResultAnalyzer.XmlClasses;
 using Environment = System.Environment;
 
@@ -13,15 +14,15 @@ namespace HtmlCustomElements
 		{
 			var report = new HtmlPage("NUnitGo Report");
 
-			var cssSet = new CssSet();
-			cssSet.AddElement(new CssElement("a:hover")
+			var mainCssSet = new CssSet("main-style");
+			mainCssSet.AddElement(new CssElement("div:hover")
 			{
 				StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute{Style = HtmlTextWriterStyle.TextDecoration, Value = "none"} 
+					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
 			});
-			cssSet.AddElement(new CssElement("a.tooltip span")
+			/*mainCssSet.AddElement(new CssElement("div.tooltip span")
 			{
 				StyleFields = new List<StyleAttribute>
 				{
@@ -31,7 +32,7 @@ namespace HtmlCustomElements
 					new StyleAttribute{Style = HtmlTextWriterStyle.Width, Value = "130px"} 
 				}
 			});
-			cssSet.AddElement(new CssElement("a.tooltip:hover span")
+			mainCssSet.AddElement(new CssElement("div.tooltip:hover span")
 			{
 				StyleFields = new List<StyleAttribute>
 				{
@@ -39,10 +40,47 @@ namespace HtmlCustomElements
 					new StyleAttribute{Style = HtmlTextWriterStyle.Padding, Value = "absolute"},
                     new StyleAttribute{Style = HtmlTextWriterStyle.BackgroundColor, Value = "#BFBFBF"}
 				}
-			});
+			});*/
 
-			report.AddInsideTag("style", cssSet.ToString());
-			
+            mainCssSet.AddElement(new CssElement(".tooltip")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.Width, "100%") 
+				}
+            });
+            mainCssSet.AddElement(new CssElement(".tooltip::after")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.Display, "inline"),
+					new StyleAttribute(HtmlTextWriterStyle.Padding, "absolute"),
+                    new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "#BFBFBF")
+				}
+            });
+            mainCssSet.AddElement(new CssElement(".tooltip:hover::after")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.Display, "inline"),
+					new StyleAttribute(HtmlTextWriterStyle.Padding, "absolute"),
+                    new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "#BFBFBF")
+				}
+            });
+
+			report.AddInsideTag("style", mainCssSet.ToString());
+
+		    var statisticBar = new HorizontalBar("main-bar", "Main bar");
+		    var list = new List<HorizontalBarElement>
+		    {
+                new HorizontalBarElement("test1", "tooltip1", "red", 10),
+                new HorizontalBarElement("test2", "tooltip2", "green", 3),
+                new HorizontalBarElement("test3", "tooltip3", "yellow", 6),
+		    };
+		    var bar = statisticBar.GetBar(list);
+            report.AddToBody(bar);
+            report.AddInsideTag("style", statisticBar.Style);
+
 			var strWr = new StringWriter();
 			using (var writer = new HtmlTextWriter(strWr))
 			{
