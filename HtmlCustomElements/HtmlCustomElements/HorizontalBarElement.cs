@@ -5,9 +5,9 @@
         public string InnerText;
         public string TooltipText;
         public string BackgroundColor;
-        public int Value;
+        public double Value;
 
-        public HorizontalBarElement(string innerText, string tooltipText, string backgroundColor, int value)
+        public HorizontalBarElement(string innerText, string tooltipText, string backgroundColor, double value)
         {
             Value = value;
             InnerText = innerText;

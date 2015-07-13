@@ -12,7 +12,7 @@ namespace ConsoleReportGenerator
     {
         static void Main(string[] args)
         {
-            if (!args.Any())
+            /*if (!args.Any())
             {
                 Console.WriteLine("No arguments specified");
                 return;
@@ -21,7 +21,7 @@ namespace ConsoleReportGenerator
             {
                 Console.WriteLine("Three arguments required");
                 return;
-            }
+            }*/
 
             /*var xmlPath = args[0];
             var screenshotPath = args[1];

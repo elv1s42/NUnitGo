@@ -22,64 +22,52 @@ namespace HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
 			});
-			/*mainCssSet.AddElement(new CssElement("div.tooltip span")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute{Style = HtmlTextWriterStyle.Display, Value = "none"},
-					new StyleAttribute{Style = HtmlTextWriterStyle.Padding, Value = "2px 3px"},
-					new StyleAttribute{Style = HtmlTextWriterStyle.MarginLeft, Value = "8px"},
-					new StyleAttribute{Style = HtmlTextWriterStyle.Width, Value = "130px"} 
-				}
-			});
-			mainCssSet.AddElement(new CssElement("div.tooltip:hover span")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute{Style = HtmlTextWriterStyle.Display, Value = "inline"},
-					new StyleAttribute{Style = HtmlTextWriterStyle.Padding, Value = "absolute"},
-                    new StyleAttribute{Style = HtmlTextWriterStyle.BackgroundColor, Value = "#BFBFBF"}
-				}
-			});*/
-
             mainCssSet.AddElement(new CssElement(".tooltip")
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute("border-bottom", "1px dotted #0077AA"), 
 					new StyleAttribute(HtmlTextWriterStyle.Width, "100%") 
 				}
             });
             mainCssSet.AddElement(new CssElement(".tooltip::after")
             {
                 StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Display, "inline"),
-					new StyleAttribute(HtmlTextWriterStyle.Padding, "absolute"),
-                    new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "#BFBFBF")
+				{                                 
+                    new StyleAttribute("background", "#BFBFBF"),
+					new StyleAttribute("border-radius", "8px 8px 8px 0px"),
+					new StyleAttribute("box-shadow", "1px 1px 10px rgba(0, 0, 0, 0.5)"),
+					new StyleAttribute(HtmlTextWriterStyle.Color, "#FFF"),
+					new StyleAttribute("content", "attr(data-tooltip)"),
+					new StyleAttribute(HtmlTextWriterStyle.MarginTop, "-24px"),
+					new StyleAttribute("opacity", "0"),
+					new StyleAttribute(HtmlTextWriterStyle.Padding, "3px 7px"),
+					new StyleAttribute(HtmlTextWriterStyle.Position, "absolute"),
+					new StyleAttribute(HtmlTextWriterStyle.Visibility, "hidden"),
+					new StyleAttribute("transition", "all 0.4s ease-in-out")
 				}
             });
             mainCssSet.AddElement(new CssElement(".tooltip:hover::after")
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.Display, "inline"),
-					new StyleAttribute(HtmlTextWriterStyle.Padding, "absolute"),
-                    new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "#BFBFBF")
+					new StyleAttribute("opacity", "1"),
+                    new StyleAttribute(HtmlTextWriterStyle.Visibility, "visible")
 				}
             });
+            report.AddInsideTag("style", mainCssSet.ToString());
 
-			report.AddInsideTag("style", mainCssSet.ToString());
+            report.AddToBody(@"<h1>NUnitGo Test Run Report</h1>");
 
-		    var statisticBar = new HorizontalBar("main-bar", "Main bar");
-		    var list = new List<HorizontalBarElement>
+            var list = new List<HorizontalBarElement>
 		    {
-                new HorizontalBarElement("test1", "tooltip1", "red", 10),
-                new HorizontalBarElement("test2", "tooltip2", "green", 3),
-                new HorizontalBarElement("test3", "tooltip3", "yellow", 6),
+                new HorizontalBarElement("test1", "tooltip1", "red", 10.0),
+                new HorizontalBarElement("test2", "tooltip2", "green", 3.0),
+                new HorizontalBarElement("test3", "tooltip3", "yellow", 6.0),
 		    };
-		    var bar = statisticBar.GetBar(list);
-            report.AddToBody(bar);
-            report.AddInsideTag("style", statisticBar.Style);
+		    var hb = new HorizontalBar("main-bar", "Main bar", list);
+            report.AddToBody(hb.Bar);
+            report.AddInsideTag("style", hb.Style);
 
 			var strWr = new StringWriter();
 			using (var writer = new HtmlTextWriter(strWr))
