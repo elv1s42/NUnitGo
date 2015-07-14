@@ -6,26 +6,33 @@ using HtmlCustomElements.CSSElements;
 
 namespace HtmlCustomElements.HtmlCustomElements
 {
-    public class Tooltip
+    public class Tooltip : HtmlBaseElement
     {
-        public string StyleString;
         public string HtmlCode;
+        public static string StyleString
+        {
+            get { return GetStyle(); }
+        }
 
         public static string GetStyle()
         {
             var tooltipCssSet = new CssSet("tooltip-style");
-            tooltipCssSet.AddElement(new CssElement("div:hover")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
-				}
-            });
             tooltipCssSet.AddElement(new CssElement(".tooltip")
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute("border-bottom", "1px dotted #0077AA"), 
+					new StyleAttribute("border-bottom", "1px solid rgba(166,166,166,0.75)"),
+					new StyleAttribute("border-right", "1px solid rgba(166,166,166,0.75)"),
+					new StyleAttribute("border-left", "1px solid #BFBFBF"),
+					new StyleAttribute("border-top", "1px solid #BFBFBF"),
+					new StyleAttribute(HtmlTextWriterStyle.Width, "100%") 
+				}
+            });
+            tooltipCssSet.AddElement(new CssElement("#tooltip-item-inner-text")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.TextAlign, "center"),
 					new StyleAttribute(HtmlTextWriterStyle.Width, "100%") 
 				}
             });
@@ -35,10 +42,12 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
                     new StyleAttribute("background", "#BFBFBF"),
 					new StyleAttribute("border-radius", "8px 8px 8px 0px"),
-					new StyleAttribute("box-shadow", "1px 1px 10px rgba(0, 0, 0, 0.5)"),
+                    new StyleAttribute("-webkit-box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
+                    new StyleAttribute("-moz-box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
+                    new StyleAttribute("box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
 					new StyleAttribute(HtmlTextWriterStyle.Color, "#FFF"),
 					new StyleAttribute("content", "attr(data-tooltip)"),
-					new StyleAttribute(HtmlTextWriterStyle.MarginTop, "-24px"),
+					new StyleAttribute(HtmlTextWriterStyle.MarginTop, "-50px"),
 					new StyleAttribute("opacity", "0"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "3px 7px"),
 					new StyleAttribute(HtmlTextWriterStyle.Position, "absolute"),
@@ -59,7 +68,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 
         public Tooltip(string tooltipText, string innerText, string backgroundColor, string id,  double width)
         {
-            StyleString = GetStyle();
+            Style = GetStyle();
 
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
@@ -71,6 +80,9 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Width, width.ToString("N", CultureInfo.InvariantCulture) + @"%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "inline-block");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "hidden");
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, "tooltip-item-inner-text");
                 writer.RenderBeginTag(HtmlTextWriterTag.A);
                 writer.Write(innerText);
                 writer.RenderEndTag(); //A

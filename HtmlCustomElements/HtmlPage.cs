@@ -3,12 +3,38 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
+using HtmlCustomElements.CSSElements;
 
 namespace HtmlCustomElements
 {
     public class HtmlPage
     {
         private string _page;
+
+        public static string PageStyle
+        {
+            get
+            {
+                var mainCssSet = new CssSet("main-style"); 
+                mainCssSet.AddElement(new CssElement("body")
+                {
+                    StyleFields = new List<StyleAttribute>
+                    {
+                        new StyleAttribute("background", "#DAE7E6"),
+                        new StyleAttribute(HtmlTextWriterStyle.FontFamily, "\"Franklin Gothic Medium\",\"Franklin Gothic\"," +
+                            "\"ITC Franklin Gothic\",Arial,sans-serif")
+                    }
+                });
+                mainCssSet.AddElement(new CssElement("div:hover")
+                {
+                    StyleFields = new List<StyleAttribute>
+                    {
+                        new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
+                    }
+                });
+                return mainCssSet.ToString();
+            }
+        }
 
         public HtmlPage(string pageTitle)
         {
@@ -34,10 +60,10 @@ namespace HtmlCustomElements
                 writer.RenderEndTag(); //HEAD
 
                 writer.AddTag(HtmlTextWriterTag.Body);
-                writer.AddTag("footer", "Copyright 2015 " + '\u00a9' + " NUnitGo");
                 
                 writer.RenderEndTag(); //HTML
 
+                writer.AddTag("footer");
             }
             _page = strWr.ToString();
         }

@@ -13,12 +13,9 @@ namespace HtmlCustomElements.HtmlCustomElements
         public string Bar;
         public static string StyleString
         {
-            get
-            {
-                return GetStyle();
-            }
+            get { return GetStyle(); }
         }
-
+        
         public HorizontalBar(string id, string title, List<HorizontalBarElement> elements)
         {
             Id = id;
@@ -35,8 +32,13 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
+                    new StyleAttribute("-webkit-box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
+                    new StyleAttribute("-moz-box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
+                    new StyleAttribute("box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
+					new StyleAttribute("border-bottom", "1px solid #BFBFBF"),
+					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"),
 					new StyleAttribute(HtmlTextWriterStyle.Width, "80%"),
-					new StyleAttribute(HtmlTextWriterStyle.Padding, "10% 10% 10% 10%"),
+					new StyleAttribute(HtmlTextWriterStyle.Padding, "5% 10% 5% 10%"),
 					new StyleAttribute(HtmlTextWriterStyle.Display, "table"),
 					new StyleAttribute("table-layout", "fixed")
 				}
@@ -45,7 +47,11 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.Display, "table-cell")
+                    new StyleAttribute("-webkit-box-shadow", "0px 5px 5px 0px rgba(166,166,166,0.75)"),
+                    new StyleAttribute("-moz-box-shadow", "0px 5px 5px 0px rgba(166,166,166,0.75)"),
+                    new StyleAttribute("box-shadow", "0px 5px 5px 0px rgba(166,166,166,0.75)"),
+					new StyleAttribute(HtmlTextWriterStyle.Display, "table-cell"),
+					new StyleAttribute(HtmlTextWriterStyle.Height, "35px")
 				}
             });
             return barCssSet.ToString();
@@ -68,8 +74,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     from item in sortedItems
                     let value = item.Value
                     let width = Math.Max((value / sum) * 100, 0.0)
-                    select new Tooltip(item.TooltipText, item.InnerText, item.BackgroundColor,
-                        "horizontal-bar-item", width))
+                    select new Tooltip(item.TooltipText, item.InnerText, item.BackgroundColor, "horizontal-bar-item", width))
                 {
                     writer.Write(tooltip.HtmlCode);
                 }

@@ -8,7 +8,7 @@ namespace HtmlCustomElements.CSSElements
         public string Name;
         private readonly HashSet<CssElement> _elements;
 
-        public CssSet(string name)
+        public CssSet(string name = "")
         {
             Name = name;
             _elements = new HashSet<CssElement>();
