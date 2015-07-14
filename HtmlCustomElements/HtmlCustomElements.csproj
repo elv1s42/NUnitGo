@@ -50,6 +50,7 @@
     <Compile Include="HtmlCustomElements\HorizontalBar.cs" />
     <Compile Include="HtmlCustomElements\HorizontalBarElement.cs" />
     <Compile Include="HtmlCustomElements\HtmlBaseElement.cs" />
+    <Compile Include="HtmlCustomElements\Tooltip.cs" />
     <Compile Include="HtmlElements.cs" />
     <Compile Include="HtmlPage.cs" />
     <Compile Include="HtmlTextWriterExtensions.cs" />

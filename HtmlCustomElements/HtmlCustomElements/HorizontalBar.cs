@@ -11,28 +11,36 @@ namespace HtmlCustomElements.HtmlCustomElements
     {
         public List<HorizontalBarElement> Elements;
         public string Bar;
+        public static string StyleString
+        {
+            get
+            {
+                return GetStyle();
+            }
+        }
 
-        public HorizontalBar(string id, string title, List<HorizontalBarElement> elements, string style = "")
+        public HorizontalBar(string id, string title, List<HorizontalBarElement> elements)
         {
             Id = id;
-            Style = style;
+            Style = GetStyle();
             Title = title;
             Elements = elements;
             Bar = GetBar();
         }
 
-        private string GetBar()
+        private static string GetStyle()
         {
             var barCssSet = new CssSet("bar-style");
             barCssSet.AddElement(new CssElement(".horizontal-bar")
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute(HtmlTextWriterStyle.Width, "80%"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "10% 10% 10% 10%"),
 					new StyleAttribute(HtmlTextWriterStyle.Display, "table"),
 					new StyleAttribute("table-layout", "fixed")
 				}
-            }); 
+            });
             barCssSet.AddElement(new CssElement("#horizontal-bar-item")
             {
                 StyleFields = new List<StyleAttribute>
@@ -40,8 +48,11 @@ namespace HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.Display, "table-cell")
 				}
             });
-            Style = barCssSet.ToString();
+            return barCssSet.ToString();
+        }
 
+        private string GetBar()
+        {
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
@@ -53,23 +64,14 @@ namespace HtmlCustomElements.HtmlCustomElements
                 var sum = Elements.Sum(x => x.Value);
 
                 var sortedItems = Elements.OrderByDescending(x => x.Value);
-                foreach (var item in sortedItems)
+                foreach (var tooltip in
+                    from item in sortedItems
+                    let value = item.Value
+                    let width = Math.Max((value / sum) * 100, 0.0)
+                    select new Tooltip(item.TooltipText, item.InnerText, item.BackgroundColor,
+                        "horizontal-bar-item", width))
                 {
-                    var value = item.Value;
-                    var width = Math.Max((value/sum)*100, 0.0);
-                    Console.WriteLine("width: " + width);
-                    writer.AddAttribute("data-tooltip", item.TooltipText);
-                    writer.AddAttribute(HtmlTextWriterAttribute.Class, "tooltip");
-                    writer.AddAttribute(HtmlTextWriterAttribute.Id, "horizontal-bar-item");
-                    writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, item.BackgroundColor);
-                    writer.AddStyleAttribute(HtmlTextWriterStyle.Width, width.ToString("##.##") + @"%");
-                    writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                    
-                    writer.RenderBeginTag(HtmlTextWriterTag.A);
-                    writer.Write(item.InnerText);
-                    writer.RenderEndTag(); //A
-                    
-                    writer.RenderEndTag(); //DIV
+                    writer.Write(tooltip.HtmlCode);
                 }
                 writer.RenderEndTag();
             }

@@ -22,40 +22,9 @@ namespace HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
 			});
-            mainCssSet.AddElement(new CssElement(".tooltip")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute("border-bottom", "1px dotted #0077AA"), 
-					new StyleAttribute(HtmlTextWriterStyle.Width, "100%") 
-				}
-            });
-            mainCssSet.AddElement(new CssElement(".tooltip::after")
-            {
-                StyleFields = new List<StyleAttribute>
-				{                                 
-                    new StyleAttribute("background", "#BFBFBF"),
-					new StyleAttribute("border-radius", "8px 8px 8px 0px"),
-					new StyleAttribute("box-shadow", "1px 1px 10px rgba(0, 0, 0, 0.5)"),
-					new StyleAttribute(HtmlTextWriterStyle.Color, "#FFF"),
-					new StyleAttribute("content", "attr(data-tooltip)"),
-					new StyleAttribute(HtmlTextWriterStyle.MarginTop, "-24px"),
-					new StyleAttribute("opacity", "0"),
-					new StyleAttribute(HtmlTextWriterStyle.Padding, "3px 7px"),
-					new StyleAttribute(HtmlTextWriterStyle.Position, "absolute"),
-					new StyleAttribute(HtmlTextWriterStyle.Visibility, "hidden"),
-					new StyleAttribute("transition", "all 0.4s ease-in-out")
-				}
-            });
-            mainCssSet.AddElement(new CssElement(".tooltip:hover::after")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute("opacity", "1"),
-                    new StyleAttribute(HtmlTextWriterStyle.Visibility, "visible")
-				}
-            });
-            report.AddInsideTag("style", mainCssSet.ToString());
+
+            report.AddInsideTag("style", HorizontalBar.StyleString);
+            report.AddInsideTag("style", Tooltip.GetStyle());
 
             report.AddToBody(@"<h1>NUnitGo Test Run Report</h1>");
 
@@ -63,7 +32,9 @@ namespace HtmlCustomElements
 		    {
                 new HorizontalBarElement("test1", "tooltip1", "red", 10.0),
                 new HorizontalBarElement("test2", "tooltip2", "green", 3.0),
-                new HorizontalBarElement("test3", "tooltip3", "yellow", 6.0),
+                new HorizontalBarElement("test3", "tooltip3", "orange", 6.0),
+                new HorizontalBarElement("test4", "tooltip4", "yellow", 6.0),
+                new HorizontalBarElement("test5", "tooltip5", "blue", 1.0)
 		    };
 		    var hb = new HorizontalBar("main-bar", "Main bar", list);
             report.AddToBody(hb.Bar);
