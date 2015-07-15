@@ -10,11 +10,12 @@ namespace HtmlCustomElements.HtmlCustomElements
     public class HorizontalBar : HtmlBaseElement
     {
         public List<HorizontalBarElement> Elements;
-        public string Bar;
+        public string BarHtml;
         public static string StyleString
         {
             get { return GetStyle(); }
         }
+
         
         public HorizontalBar(string id, string title, List<HorizontalBarElement> elements)
         {
@@ -22,7 +23,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             Style = GetStyle();
             Title = title;
             Elements = elements;
-            Bar = GetBar();
+            BarHtml = GetBar();
         }
 
         private static string GetStyle()
@@ -32,13 +33,9 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-                    new StyleAttribute("-webkit-box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
-                    new StyleAttribute("-moz-box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
-                    new StyleAttribute("box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
-					new StyleAttribute("border-bottom", "1px solid #BFBFBF"),
 					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"),
-					new StyleAttribute(HtmlTextWriterStyle.Width, "80%"),
-					new StyleAttribute(HtmlTextWriterStyle.Padding, "5% 10% 5% 10%"),
+					new StyleAttribute(HtmlTextWriterStyle.Width, "94%"),
+					new StyleAttribute(HtmlTextWriterStyle.Padding, "3% 3% 3% 3%"),
 					new StyleAttribute(HtmlTextWriterStyle.Display, "table"),
 					new StyleAttribute("table-layout", "fixed")
 				}
@@ -47,11 +44,30 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute("border-bottom", "1px solid rgba(166,166,166,0.75)"),
+					new StyleAttribute("border-right", "1px solid rgba(166,166,166,0.75)"),
+					new StyleAttribute("border-left", "1px solid rgba(218,231,230,0.8)"),
+					new StyleAttribute("border-top", "1px solid rgba(218,231,230,0.8)"),
                     new StyleAttribute("-webkit-box-shadow", "0px 5px 5px 0px rgba(166,166,166,0.75)"),
                     new StyleAttribute("-moz-box-shadow", "0px 5px 5px 0px rgba(166,166,166,0.75)"),
                     new StyleAttribute("box-shadow", "0px 5px 5px 0px rgba(166,166,166,0.75)"),
 					new StyleAttribute(HtmlTextWriterStyle.Display, "table-cell"),
 					new StyleAttribute(HtmlTextWriterStyle.Height, "35px")
+				}
+            });
+            barCssSet.AddElement(new CssElement("#horizontal-bar-item:hover")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute("border-bottom", "1px solid rgba(166,166,166,1)"),
+					new StyleAttribute("border-right", "1px solid rgba(166,166,166,1)"),
+					new StyleAttribute("border-left", "1px solid rgba(218,231,230,1)"),
+					new StyleAttribute("border-top", "1px solid rgba(218,231,230,1)"),
+                    new StyleAttribute("-webkit-box-shadow", "0px 10px 10px 0px rgba(166,166,166,0.75)"),
+                    new StyleAttribute("-moz-box-shadow", "0px 10px 10px 0px rgba(166,166,166,0.75)"),
+                    new StyleAttribute("box-shadow", "0px 10px 10px 0px rgba(166,166,166,0.75)"),
+                    new StyleAttribute(HtmlTextWriterStyle.MarginBottom, "10px"),
+					//new StyleAttribute("opacity", "0.75")
 				}
             });
             return barCssSet.ToString();

@@ -21,10 +21,6 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute("border-bottom", "1px solid rgba(166,166,166,0.75)"),
-					new StyleAttribute("border-right", "1px solid rgba(166,166,166,0.75)"),
-					new StyleAttribute("border-left", "1px solid #BFBFBF"),
-					new StyleAttribute("border-top", "1px solid #BFBFBF"),
 					new StyleAttribute(HtmlTextWriterStyle.Width, "100%") 
 				}
             });

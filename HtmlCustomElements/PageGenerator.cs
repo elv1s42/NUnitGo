@@ -25,9 +25,21 @@ namespace HtmlCustomElements
                 new HorizontalBarElement("test3", "tooltip3", "orange", 6.0),
                 new HorizontalBarElement("test4", "tooltip4", "yellow", 6.0),
                 new HorizontalBarElement("test5", "tooltip5", "blue", 0.1),
-                new HorizontalBarElement("test5", "tooltip5", "purple", 0.2)
+                new HorizontalBarElement("test6", "tooltip6", "purple", 0.2)
 		    };
-            report.AddToBody(new HorizontalBar("main-bar", "Main bar", list).Bar);
+		    var bar = new HorizontalBar("main-bar", "Main bar", list);
+            var accElements = new List<AccordionElement>
+		    {
+                new AccordionElement(bar.BarHtml, "element1", "tab1"),
+                new AccordionElement("test2", "element2", "tab2"),
+                new AccordionElement("test3", "element3", "tab3"),
+                new AccordionElement("test4", "element4", "tab4"),
+                new AccordionElement("test5", "element5", "tab5"),
+                new AccordionElement("test6", "element6", "tab6")
+		    };
+		    var accordion = new Accordion("main-accordion", "Main Accordion", accElements);
+            report.AddInsideTag("style", accordion.GetStyleString());
+		    report.AddToBody(accordion.AccordionHtml);
 
             report.AddInsideTag("footer", new ReportFooter().HtmlCode);
 

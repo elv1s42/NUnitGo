@@ -32,10 +32,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                 StyleFields = new List<StyleAttribute>
 				{
                     new StyleAttribute(HtmlTextWriterStyle.Position, "relative"),
-                    new StyleAttribute(HtmlTextWriterStyle.MarginTop, "-3em"),
-                    new StyleAttribute(HtmlTextWriterStyle.Height, "3em"),
-                    new StyleAttribute(HtmlTextWriterStyle.ZIndex, "10"),
-                    new StyleAttribute("clear", "both"),
+                    new StyleAttribute("bottom", "0"),
+					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "5%"),
 					new StyleAttribute(HtmlTextWriterStyle.FontSize, "15px")
 				}
             });

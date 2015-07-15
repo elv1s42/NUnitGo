@@ -20,7 +20,7 @@ namespace HtmlCustomElements
                 {
                     StyleFields = new List<StyleAttribute>
                     {
-                        new StyleAttribute("background", "#DAE7E6"),
+                        new StyleAttribute("background", "#D6FAF7"),
                         new StyleAttribute(HtmlTextWriterStyle.FontFamily, "\"Franklin Gothic Medium\",\"Franklin Gothic\"," +
                             "\"ITC Franklin Gothic\",Arial,sans-serif")
                     }
