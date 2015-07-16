@@ -20,9 +20,13 @@ namespace HtmlCustomElements
                 {
                     StyleFields = new List<StyleAttribute>
                     {
-                        new StyleAttribute("background", "#D6FAF7"),
-                        new StyleAttribute(HtmlTextWriterStyle.FontFamily, "\"Franklin Gothic Medium\",\"Franklin Gothic\"," +
-                            "\"ITC Franklin Gothic\",Arial,sans-serif")
+                        new StyleAttribute("background", Colors.BodyBackground),
+                        new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
+                        new StyleAttribute(HtmlTextWriterStyle.FontFamily, "Tahoma,Verdana,Segoe,sans-serif")
+                        //new StyleAttribute(HtmlTextWriterStyle.FontFamily, "\"Segoe UI\",Frutiger,\"Frutiger Linotype\"," +
+                        //                                                   "\"Dejavu Sans\",\"Helvetica Neue\",Arial,sans-serif")
+                        //new StyleAttribute(HtmlTextWriterStyle.FontFamily, "\"Franklin Gothic Medium\",\"Franklin Gothic\"," +
+                        //    "\"ITC Franklin Gothic\",Arial,sans-serif")
                     }
                 });
                 mainCssSet.AddElement(new CssElement("div:hover")

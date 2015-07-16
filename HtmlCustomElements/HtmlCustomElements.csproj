@@ -44,14 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Colors.cs" />
     <Compile Include="CSSElements\CssElement.cs" />
     <Compile Include="CSSElements\CssSet.cs" />
     <Compile Include="CSSElements\StyleAttribute.cs" />
     <Compile Include="HtmlCustomElements\Accordion.cs" />
     <Compile Include="HtmlCustomElements\AccordionElement.cs" />
+    <Compile Include="HtmlCustomElements\Bullet.cs" />
     <Compile Include="HtmlCustomElements\HorizontalBar.cs" />
     <Compile Include="HtmlCustomElements\HorizontalBarElement.cs" />
     <Compile Include="HtmlCustomElements\HtmlBaseElement.cs" />
+    <Compile Include="HtmlCustomElements\MainInformation.cs" />
     <Compile Include="HtmlCustomElements\ReportFooter.cs" />
     <Compile Include="HtmlCustomElements\ReportTitle.cs" />
     <Compile Include="HtmlCustomElements\Tooltip.cs" />

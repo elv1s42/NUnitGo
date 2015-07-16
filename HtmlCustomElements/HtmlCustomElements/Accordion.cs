@@ -28,8 +28,8 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "7px"),
-					new StyleAttribute(HtmlTextWriterStyle.PaddingLeft, "20px"),
+					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "0.25em"),
+					new StyleAttribute(HtmlTextWriterStyle.PaddingLeft, "10.25em"),
                     new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
                     new StyleAttribute(HtmlTextWriterStyle.Display, "block"),
 					new StyleAttribute(HtmlTextWriterStyle.Height, "35px"),
@@ -41,7 +41,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                 StyleFields = new List<StyleAttribute>
 				{
                     new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
-					new StyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 2% 97%"),
+					new StyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%"),
+					new StyleAttribute(HtmlTextWriterStyle.PaddingBottom, "1%"),
                     new StyleAttribute(HtmlTextWriterStyle.Display, "block"),
 					new StyleAttribute(HtmlTextWriterStyle.Height, "35px"),
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
@@ -66,8 +67,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                     new StyleAttribute("-webkit-transition", "0.5s ease-out, background 0.5s ease-in"),
                     new StyleAttribute("transition", "0.5s ease-out, background 0.5s ease-in"),
 					new StyleAttribute("background", "#CCEBE8"),
-					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "10px"),
-					new StyleAttribute(HtmlTextWriterStyle.PaddingLeft, "25px"),
+					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "0.5em"),
+					new StyleAttribute(HtmlTextWriterStyle.PaddingLeft, "10.75em"),
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
@@ -83,7 +84,8 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-                    new StyleAttribute(HtmlTextWriterStyle.Height, "70%"),
+                    new StyleAttribute(HtmlTextWriterStyle.Overflow, "scroll"),
+                    new StyleAttribute(HtmlTextWriterStyle.Height, "90%"),
                     new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"),
                     new StyleAttribute(HtmlTextWriterStyle.Display, "none")
 				}
@@ -107,49 +109,8 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-                    new StyleAttribute(HtmlTextWriterStyle.Height, "300px")
-				}
-            });
-            barCssSet.AddElement(new CssElement(_id + ".accordion .content h1")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute("font", "18px/32px Arial, sans-serif")
-				}
-            });
-            barCssSet.AddElement(new CssElement(_id + ".accordion .content p")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute(HtmlTextWriterStyle.Margin, "10px 0"),
-                    new StyleAttribute("font", "11px/16px Arial, sans-serif")
-				}
-            });
-            barCssSet.AddElement(new CssElement(_id + ".accordion .content span")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute(HtmlTextWriterStyle.Color, "#4f4f4f"),
-                    new StyleAttribute("font", "italic 11px/12px Georgia, Arial, sans-serif")
-				}
-            });
-            barCssSet.AddElement(new CssElement(_id + ".accordion .content em.bullet")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute(HtmlTextWriterStyle.Width, "5px"),
-                    new StyleAttribute(HtmlTextWriterStyle.Height, "5px"),
-                    new StyleAttribute(HtmlTextWriterStyle.Margin, "0 5px"),
-                    new StyleAttribute("background", "#6b8f1a"),
-                    new StyleAttribute(HtmlTextWriterStyle.Display, "inline-block")
-				}
-            });
-            barCssSet.AddElement(new CssElement(_id + ".accordion .content ul li")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute("list-style", "none"),
-                    new StyleAttribute("float", "left")
+                    new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
+                    new StyleAttribute(HtmlTextWriterStyle.Height, "100%")
 				}
             });
             return barCssSet.ToString();

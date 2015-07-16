@@ -15,8 +15,13 @@ namespace HtmlCustomElements
             report.AddInsideTag("style", Tooltip.StyleString);
             report.AddInsideTag("style", HorizontalBar.StyleString);
             report.AddInsideTag("style", ReportFooter.StyleString);
+            report.AddInsideTag("style", MainInformation.StyleString);
+            report.AddInsideTag("style", Bullet.StyleString);
 
-		    report.AddToBody(new ReportTitle().HtmlCode);
+		    var mainInformation = new MainInformation(testResults);
+
+            report.AddToBody(new ReportTitle().HtmlCode);
+            report.AddToBody(mainInformation.HtmlCode);
 
             var list = new List<HorizontalBarElement>
 		    {

@@ -33,7 +33,6 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
                     new StyleAttribute(HtmlTextWriterStyle.Position, "relative"),
                     new StyleAttribute("bottom", "0"),
-					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "5%"),
 					new StyleAttribute(HtmlTextWriterStyle.FontSize, "15px")
 				}
             });

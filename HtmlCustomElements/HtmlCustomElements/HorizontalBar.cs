@@ -44,10 +44,6 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute("border-bottom", "1px solid rgba(166,166,166,0.75)"),
-					new StyleAttribute("border-right", "1px solid rgba(166,166,166,0.75)"),
-					new StyleAttribute("border-left", "1px solid rgba(218,231,230,0.8)"),
-					new StyleAttribute("border-top", "1px solid rgba(218,231,230,0.8)"),
                     new StyleAttribute("-webkit-box-shadow", "0px 5px 5px 0px rgba(166,166,166,0.75)"),
                     new StyleAttribute("-moz-box-shadow", "0px 5px 5px 0px rgba(166,166,166,0.75)"),
                     new StyleAttribute("box-shadow", "0px 5px 5px 0px rgba(166,166,166,0.75)"),
@@ -59,10 +55,6 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute("border-bottom", "1px solid rgba(166,166,166,1)"),
-					new StyleAttribute("border-right", "1px solid rgba(166,166,166,1)"),
-					new StyleAttribute("border-left", "1px solid rgba(218,231,230,1)"),
-					new StyleAttribute("border-top", "1px solid rgba(218,231,230,1)"),
                     new StyleAttribute("-webkit-box-shadow", "0px 10px 10px 0px rgba(166,166,166,0.75)"),
                     new StyleAttribute("-moz-box-shadow", "0px 10px 10px 0px rgba(166,166,166,0.75)"),
                     new StyleAttribute("box-shadow", "0px 10px 10px 0px rgba(166,166,166,0.75)"),
@@ -89,7 +81,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                 foreach (var tooltip in
                     from item in sortedItems
                     let value = item.Value
-                    let width = Math.Max((value / sum) * 100, 0.0)
+                    let width = Math.Max((value / sum) * 100, 1.0)
                     select new Tooltip(item.TooltipText, item.InnerText, item.BackgroundColor, "horizontal-bar-item", width))
                 {
                     writer.Write(tooltip.HtmlCode);

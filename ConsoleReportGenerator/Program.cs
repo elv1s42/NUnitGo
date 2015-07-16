@@ -1,10 +1,7 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using HtmlCustomElements;
 using NunitResultAnalyzer;
-using NunitResultAnalyzer.XmlClasses;
 
 namespace ConsoleReportGenerator
 {
@@ -12,7 +9,7 @@ namespace ConsoleReportGenerator
     {
         static void Main(string[] args)
         {
-            /*if (!args.Any())
+            if (!args.Any())
             {
                 Console.WriteLine("No arguments specified");
                 return;
@@ -21,9 +18,9 @@ namespace ConsoleReportGenerator
             {
                 Console.WriteLine("Three arguments required");
                 return;
-            }*/
+            }
 
-            /*var xmlPath = args[0];
+            var xmlPath = args[0];
             var screenshotPath = args[1];
             var outputPath = args[2];
 
@@ -36,19 +33,8 @@ namespace ConsoleReportGenerator
             var resultAnalyzer = new ResultsAnalyzer(results, screenshotPath);
             var fullSuite = resultAnalyzer.GetFullSuite();
             
-            var codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            var uri = new UriBuilder(codeBase);
-            var path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
+            PageGenerator.GenerateReport(fullSuite, outputPath);
             
-            //TODO: change to output path:
-            outputPath = path;
-
-            PageGenerator.GenerateReport(fullSuite, outputPath);*/
-            var codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            var uri = new UriBuilder(codeBase);
-            var path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
-            
-            PageGenerator.GenerateReport(new TestResults(), path);
         }
     }
 }

@@ -36,12 +36,12 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-                    new StyleAttribute("background", "#BFBFBF"),
+                    new StyleAttribute("background", Colors.TooltipBackground),
 					new StyleAttribute("border-radius", "8px 8px 8px 0px"),
                     new StyleAttribute("-webkit-box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
                     new StyleAttribute("-moz-box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
                     new StyleAttribute("box-shadow", "3px 3px 5px 0px rgba(166,166,166,0.75)"),
-					new StyleAttribute(HtmlTextWriterStyle.Color, "#FFF"),
+					new StyleAttribute(HtmlTextWriterStyle.Color, "white"),
 					new StyleAttribute("content", "attr(data-tooltip)"),
 					new StyleAttribute(HtmlTextWriterStyle.MarginTop, "-50px"),
 					new StyleAttribute("opacity", "0"),
