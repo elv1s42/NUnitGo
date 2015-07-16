@@ -66,7 +66,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     new StyleAttribute("-moz-transition:color", "0.5s ease-out, background 0.5s ease-in"),
                     new StyleAttribute("-webkit-transition", "0.5s ease-out, background 0.5s ease-in"),
                     new StyleAttribute("transition", "0.5s ease-out, background 0.5s ease-in"),
-					new StyleAttribute("background", "#CCEBE8"),
+					new StyleAttribute("background", Colors.AccordionHoverBackground),
 					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "0.5em"),
 					new StyleAttribute(HtmlTextWriterStyle.PaddingLeft, "10.75em"),
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
