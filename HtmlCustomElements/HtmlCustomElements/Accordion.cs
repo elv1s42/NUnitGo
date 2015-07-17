@@ -24,6 +24,13 @@ namespace HtmlCustomElements.HtmlCustomElements
         public string GetStyleString()
         {
             var barCssSet = new CssSet("accordion-style");
+            barCssSet.AddElement(new CssElement(_id + ".accordion")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.MarginBottom, "10%")
+				}
+            }); 
             barCssSet.AddElement(new CssElement(_id + ".accordion .tab")
             {
                 StyleFields = new List<StyleAttribute>

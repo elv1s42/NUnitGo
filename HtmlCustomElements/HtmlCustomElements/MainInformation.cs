@@ -26,7 +26,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.Margin, "2% 2% 2% 2%"),
+					new StyleAttribute(HtmlTextWriterStyle.Margin, "1% 0% 0% 0%"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "1% 2% 2% 2%"),
 					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"), 
 					new StyleAttribute(HtmlTextWriterStyle.Width, "80%"), 

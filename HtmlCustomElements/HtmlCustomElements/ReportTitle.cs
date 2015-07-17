@@ -7,6 +7,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 {
     public class ReportTitle : HtmlBaseElement
     {
+        public static string ClassName;
+
         public static string StyleString
         {
             get { return GetStyle(); }
@@ -17,10 +19,10 @@ namespace HtmlCustomElements.HtmlCustomElements
             get { return GetCode(); }
         }
 
-        public ReportTitle()
+        public ReportTitle(string title = "NUnitGo Test Run Report", string id = "main-title")
         {
-            Title = "NUnitGo Test Run Report";
-            Id = "main-title";
+            Title = title;
+            Id = id;
             Style = GetStyle();
         }
 
