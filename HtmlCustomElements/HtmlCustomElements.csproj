@@ -63,6 +63,7 @@
     <Compile Include="HtmlCustomElements\ReportFooter.cs" />
     <Compile Include="HtmlCustomElements\ReportTitle.cs" />
     <Compile Include="HtmlCustomElements\Tooltip.cs" />
+    <Compile Include="HtmlCustomElements\Tree.cs" />
     <Compile Include="HtmlElements.cs" />
     <Compile Include="HtmlPage.cs" />
     <Compile Include="HtmlTextWriterExtensions.cs" />
