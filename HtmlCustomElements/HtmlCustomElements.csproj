@@ -60,6 +60,7 @@
     <Compile Include="HtmlCustomElements\HtmlBaseElement.cs" />
     <Compile Include="HtmlCustomElements\MainInformation.cs" />
     <Compile Include="HtmlCustomElements\ModalWindow.cs" />
+    <Compile Include="HtmlCustomElements\NunitTest.cs" />
     <Compile Include="HtmlCustomElements\ReportFooter.cs" />
     <Compile Include="HtmlCustomElements\ReportTitle.cs" />
     <Compile Include="HtmlCustomElements\Tooltip.cs" />

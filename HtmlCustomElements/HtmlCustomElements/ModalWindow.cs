@@ -55,10 +55,14 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
-                writer.Write(InnerHtml);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.TextAlign, "right");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 var closeButton = new JsCloseButton(Id);
                 writer.Write(closeButton.ButtonHtml);
+                writer.RenderEndTag();
 
+                writer.Write(InnerHtml);
+                
                 writer.RenderEndTag();
             }
             return stringWriter.ToString();

@@ -20,6 +20,7 @@ namespace HtmlCustomElements
             report.AddInsideTag("style", ModalBackground.StyleString);
             report.AddInsideTag("style", ModalWindow.StyleString);
             report.AddInsideTag("style", HrefButton.StyleString);
+            report.AddInsideTag("style", Tree.StyleString);
 
 		    var mainInformation = new MainInformation(testResults);
 
@@ -45,19 +46,19 @@ namespace HtmlCustomElements
             var hrefButton = new HrefButton("test-href-button", "Test it!",
                 "#tab1"); 
             var openButton = new JsOpenButton("Open modal", "modal-test");
+		    var tree = new Tree(testResults);
             var accElements = new List<AccordionElement>
 		    {
                 new AccordionElement(bar.BarHtml, "element1", "tab1"),
                 new AccordionElement(hrefButton.HrefButtonHtml, "element2", "tab2"),
                 new AccordionElement(openButton.ButtonHtml, "element3", "tab3"),
-                new AccordionElement("test4", "element4", "tab4"),
+                new AccordionElement(tree.HtmlCode, "element4", "tab4"),
                 new AccordionElement("test5", "element5", "tab5"),
                 new AccordionElement("test6", "element6", "tab6")
 		    };
 		    var accordion = new Accordion("main-accordion", "Main Accordion", accElements);
             report.AddInsideTag("style", accordion.GetStyleString());
 		    report.AddToBody(accordion.AccordionHtml);
-
 
             report.AddInsideTag("footer", new ReportFooter().HtmlCode);
 
