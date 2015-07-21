@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
+using HtmlCustomElements.CSSElements;
 
 namespace HtmlCustomElements.HtmlCustomElements
 {
@@ -10,9 +12,14 @@ namespace HtmlCustomElements.HtmlCustomElements
         private readonly string _backgroundId;
         private readonly string _buttonText;
         private readonly string _href;
+        private readonly string _backgroundColor;
         public string ButtonHtml;
+        public new static string StyleString
+        {
+            get { return GetStyle(); }
+        }
         
-        public JsOpenButton(string buttonText, string idToOpen,
+        public JsOpenButton(string buttonText, string idToOpen, string bcgColor = "white",
             string href = "javascript:void(0)", string backgroundId = "modal-background")
             : base(buttonText, href)
         {
@@ -20,7 +27,36 @@ namespace HtmlCustomElements.HtmlCustomElements
             _backgroundId = backgroundId;
             _buttonText = buttonText;
             _href = href;
+            _backgroundColor = bcgColor;
             ButtonHtml = GetHtml();
+            Style = GetStyle();
+        }
+
+        private static string GetStyle()
+        {
+            var hrefButtonCssSet = new CssSet("href-open-button-style");
+            hrefButtonCssSet.AddElement(new CssElement(".href-open-button")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+                    new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
+                    new StyleAttribute(HtmlTextWriterStyle.Display, "block"),
+					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none"),
+                    new StyleAttribute(HtmlTextWriterStyle.Padding, "2px")
+				}
+            });
+            hrefButtonCssSet.AddElement(new CssElement(".href-open-button:hover")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+                    new StyleAttribute("filter", "alpha(opacity=70)"),
+					new StyleAttribute("-moz-opacity", "0.7"),
+					new StyleAttribute("opacity", ".70"),
+                    new StyleAttribute(HtmlTextWriterStyle.Color, "white"),
+					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none !important")
+				}
+            });
+            return hrefButtonCssSet.ToString();
         }
 
         private string GetHtml()
@@ -34,10 +70,11 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Href, _href);
                 writer.AddAttribute(HtmlTextWriterAttribute.Onclick, onClickString);
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "href-button");
+                writer.AddAttribute(HtmlTextWriterAttribute.Class, "href-open-button");
+                writer.AddStyleAttribute("background", _backgroundColor);
                 writer.RenderBeginTag(HtmlTextWriterTag.A);
                 writer.Write(_buttonText);
-                writer.RenderEndTag();
+                writer.RenderEndTag(); //A
             }
             return stringWriter.ToString();
         }

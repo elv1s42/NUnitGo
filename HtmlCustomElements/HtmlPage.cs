@@ -36,6 +36,13 @@ namespace HtmlCustomElements
                         new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
                     }
                 });
+                mainCssSet.AddElement(new CssElement("a:hover")
+                {
+                    StyleFields = new List<StyleAttribute>
+                    {
+                        new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
+                    }
+                });
                 return mainCssSet.ToString();
             }
         }

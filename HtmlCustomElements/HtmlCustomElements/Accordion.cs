@@ -35,6 +35,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute(HtmlTextWriterStyle.FontSize, "25px"),
 					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "0.25em"),
 					new StyleAttribute(HtmlTextWriterStyle.PaddingLeft, "10.25em"),
                     new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
@@ -74,7 +75,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     new StyleAttribute("-webkit-transition", "0.5s ease-out, background 0.5s ease-in"),
                     new StyleAttribute("transition", "0.5s ease-out, background 0.5s ease-in"),
 					new StyleAttribute("background", Colors.AccordionHoverBackground),
-					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "0.5em"),
+					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "0.35em"),
 					new StyleAttribute(HtmlTextWriterStyle.PaddingLeft, "10.75em"),
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}

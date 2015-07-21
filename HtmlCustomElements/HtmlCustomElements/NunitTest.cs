@@ -8,6 +8,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 {
     public class NunitTest : HtmlBaseElement
     {
+        public string BackgroundColor;
         public string HtmlCode;
         public static string StyleString
         {
@@ -16,16 +17,41 @@ namespace HtmlCustomElements.HtmlCustomElements
         
         private new const string Id = "testcase-element";
 
+        private string GetBackgroundColor(TestCase testCase)
+        {
+            string res;
+            switch (testCase.Result)
+            {
+                case "Failure":
+                    res = Colors.TestFailed;
+                    break;
+                case "Success":
+                    res = Colors.TestPassed;
+                    break;
+                case "Error":
+                    res = Colors.TestBroken;
+                    break;
+                case "Ignored":
+                    res = Colors.TestIgnored;
+                    break;
+                default:
+                    res = Colors.TestUnknown;
+                    break;
+            }
+            return res;
+        }
+
         public static string GetStyle()
         {
             var treeCssSet = new CssSet("testcase-element");
-            treeCssSet.AddElement(new CssElement(Id)
+            treeCssSet.AddElement(new CssElement("#" + Id)
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
 					new StyleAttribute(HtmlTextWriterStyle.Margin, "0"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "0"),
-					new StyleAttribute("list-style", "none")
+					new StyleAttribute(HtmlTextWriterStyle.FontSize, "18px")
 				}
             });
             return treeCssSet.ToString();
@@ -34,13 +60,13 @@ namespace HtmlCustomElements.HtmlCustomElements
         public NunitTest(TestCase testCase)
         {
             Style = GetStyle();
-
+            BackgroundColor = GetBackgroundColor(testCase);
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
             {
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write("Test name:" + testCase.Name);
+                writer.Write("Test name: " + testCase.Name);
                 writer.RenderEndTag();//DIV
             }
 

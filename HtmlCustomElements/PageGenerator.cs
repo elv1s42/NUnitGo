@@ -21,6 +21,8 @@ namespace HtmlCustomElements
             report.AddInsideTag("style", ModalWindow.StyleString);
             report.AddInsideTag("style", HrefButton.StyleString);
             report.AddInsideTag("style", Tree.StyleString);
+            report.AddInsideTag("style", NunitTest.StyleString);
+            report.AddInsideTag("style", JsOpenButton.StyleString);
 
 		    var mainInformation = new MainInformation(testResults);
 
@@ -31,7 +33,7 @@ namespace HtmlCustomElements
 
             report.AddToBody(new ReportTitle().HtmlCode);
             report.AddToBody(mainInformation.HtmlCode);
-            report.AddToBody(new ReportTitle("Main menu", "report-main-menu").HtmlCode);
+            report.AddToBody(new ReportTitle("Report menu", "report-main-menu").HtmlCode);
             
             var list = new List<HorizontalBarElement>
 		    {
@@ -49,10 +51,10 @@ namespace HtmlCustomElements
 		    var tree = new Tree(testResults);
             var accElements = new List<AccordionElement>
 		    {
-                new AccordionElement(bar.BarHtml, "element1", "tab1"),
+                new AccordionElement(bar.BarHtml, "Main statistics", "tab1"),
                 new AccordionElement(hrefButton.HrefButtonHtml, "element2", "tab2"),
                 new AccordionElement(openButton.ButtonHtml, "element3", "tab3"),
-                new AccordionElement(tree.HtmlCode, "element4", "tab4"),
+                new AccordionElement(tree.HtmlCode, "Test list", "tab4"),
                 new AccordionElement("test5", "element5", "tab5"),
                 new AccordionElement("test6", "element6", "tab6")
 		    };

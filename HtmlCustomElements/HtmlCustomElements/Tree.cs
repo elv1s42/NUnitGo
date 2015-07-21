@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
+using NunitResultAnalyzer;
 using NunitResultAnalyzer.XmlClasses;
 
 namespace HtmlCustomElements.HtmlCustomElements
@@ -136,40 +137,46 @@ namespace HtmlCustomElements.HtmlCustomElements
             foreach (var suite in testSuites)
             {
                 var id = GetSuiteId();
+                var type = suite.Type;
+                var name = suite.Name;
+                var testCases = suite.Results.TestCases;
+                var passedCountString = suite.CountPassed();//testCases.Any() ? testCases.CountPassed() : "";
+
                 writer.RenderBeginTag(HtmlTextWriterTag.Ul);
                 writer.RenderBeginTag(HtmlTextWriterTag.Li);
                 writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
+
+                if (type.Equals("Namespace") || type.Equals("Assembly") || type.Equals("Project"))
+                    writer.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
+
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, id);
                 writer.RenderBeginTag(HtmlTextWriterTag.Input);
-                writer.RenderEndTag();//INPUT
+                writer.RenderEndTag(); //INPUT
                 writer.AddAttribute(HtmlTextWriterAttribute.For, id);
-                writer.AddAttribute(HtmlTextWriterAttribute.Title, suite.Name);
+                writer.AddAttribute(HtmlTextWriterAttribute.Title, name);
                 writer.RenderBeginTag(HtmlTextWriterTag.Label);
-                writer.Write(suite.Type + ": " + suite.Name);
-                writer.RenderEndTag();//LABEL
+                writer.Write(type + ": " + name + " " + passedCountString);
+                writer.RenderEndTag(); //LABEL
                 writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-                var testCases = suite.Results.TestCases;
-                if (testCases.Any())
+                foreach (var testCase in testCases)
                 {
-                    foreach (var testCase in testCases)
-                    {
-                        var testId = GetTestId();
-                        writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
-                        writer.RenderBeginTag(HtmlTextWriterTag.Li);
+                    var testId = GetTestId();
+                    var test = new NunitTest(testCase);
+                    var modalId = "modal-" + testId;
+                    var modalWindow = new ModalWindow("modal-" + testId, test.HtmlCode);
+                    var openButton = new JsOpenButton(testCase.Name, modalId, test.BackgroundColor);
 
-                        writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.Name);
-                        writer.RenderBeginTag(HtmlTextWriterTag.A);
+                    writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
+                    writer.RenderBeginTag(HtmlTextWriterTag.Li);
 
-                        var test = new NunitTest(testCase);
-                        var modalId = "modal-" + testId;
-                        var modalWindow = new ModalWindow("modal-" + testId, test.HtmlCode);
-                        writer.Write(modalWindow.ModalWindowHtml);
-                        var openButton = new JsOpenButton(testCase.Name, modalId);
-                        writer.Write(openButton.ButtonHtml);
+                    writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.Name);
+                    writer.RenderBeginTag(HtmlTextWriterTag.A);
 
-                        writer.RenderEndTag(); //A
-                        writer.RenderEndTag(); //LI
-                    }
+                    writer.Write(modalWindow.ModalWindowHtml);
+                    writer.Write(openButton.ButtonHtml);
+
+                    writer.RenderEndTag(); //A
+                    writer.RenderEndTag(); //LI
                 }
                 if (suite.Results.TestSuites.Any())
                 {
@@ -195,7 +202,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 
                 BuildTree(writer, new List<TestSuite>{results.TestSuite});
                 
-                writer.RenderEndTag();//DIV
+                writer.RenderEndTag(); //DIV
             }
 
             HtmlCode = strWr.ToString();

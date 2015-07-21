@@ -49,7 +49,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                 StyleFields = new List<StyleAttribute>
 				{
 					new StyleAttribute(HtmlTextWriterStyle.Color, "red"),
-					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
+					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none !important")
 				}
             });
             return hrefButtonCssSet.ToString();
