@@ -45,10 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainStatistics.cs" />
     <Compile Include="NunitXmlReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultsAnalyzer.cs" />
     <Compile Include="TestCasesExtensions.cs" />
+    <Compile Include="TestSuiteExtensions.cs" />
     <Compile Include="XmlClasses\CultureInfoXml.cs" />
     <Compile Include="XmlClasses\Environment.cs" />
     <Compile Include="XmlClasses\Failure.cs" />

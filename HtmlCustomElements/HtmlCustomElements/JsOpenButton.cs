@@ -49,10 +49,10 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-                    new StyleAttribute("filter", "alpha(opacity=70)"),
-					new StyleAttribute("-moz-opacity", "0.7"),
-					new StyleAttribute("opacity", ".70"),
-                    new StyleAttribute(HtmlTextWriterStyle.Color, "white"),
+                    new StyleAttribute("filter", "alpha(opacity=85)"),
+					new StyleAttribute("-moz-opacity", "0.85"),
+					new StyleAttribute("opacity", ".85"),
+                    new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none !important")
 				}
             });

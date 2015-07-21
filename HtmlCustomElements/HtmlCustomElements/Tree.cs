@@ -154,6 +154,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.RenderEndTag(); //INPUT
                 writer.AddAttribute(HtmlTextWriterAttribute.For, id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, name);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, "110%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Label);
                 writer.Write(type + ": " + name + " " + passedCountString);
                 writer.RenderEndTag(); //LABEL
@@ -164,7 +166,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     var test = new NunitTest(testCase);
                     var modalId = "modal-" + testId;
                     var modalWindow = new ModalWindow("modal-" + testId, test.HtmlCode);
-                    var openButton = new JsOpenButton(testCase.Name, modalId, test.BackgroundColor);
+                    var openButton = new JsOpenButton(testCase.Name.Split('.').Last(), modalId, test.BackgroundColor);
 
                     writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
                     writer.RenderBeginTag(HtmlTextWriterTag.Li);

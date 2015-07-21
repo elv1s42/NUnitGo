@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using HtmlCustomElements.HtmlCustomElements;
+using NunitResultAnalyzer;
 using NunitResultAnalyzer.XmlClasses;
 
 namespace HtmlCustomElements
@@ -34,15 +35,25 @@ namespace HtmlCustomElements
             report.AddToBody(new ReportTitle().HtmlCode);
             report.AddToBody(mainInformation.HtmlCode);
             report.AddToBody(new ReportTitle("Report menu", "report-main-menu").HtmlCode);
-            
+
+		    var mainStats = new MainStatistics(testResults.TestSuite);
             var list = new List<HorizontalBarElement>
 		    {
-                new HorizontalBarElement("test1", "tooltip1", "red", 12.0),
-                new HorizontalBarElement("test2", "tooltip2", "green", 3.0),
-                new HorizontalBarElement("test3", "tooltip3", "orange", 6.0),
-                new HorizontalBarElement("test4", "tooltip4", "yellow", 6.0),
-                new HorizontalBarElement("test5", "tooltip5", "blue", 0.1),
-                new HorizontalBarElement("test6", "tooltip6", "purple", 0.2)
+                new HorizontalBarElement("Passed", "Passed (" + mainStats.TotalPassed + @"/" + mainStats.TotalAll + ")", 
+                    Colors.TestPassed, 
+                    mainStats.TotalPassed/(double)mainStats.TotalAll),
+                new HorizontalBarElement("Failed", "Failed (" + mainStats.TotalFailed + @"/" + mainStats.TotalAll + ")", 
+                    Colors.TestFailed, 
+                    mainStats.TotalFailed/(double)mainStats.TotalAll),
+                new HorizontalBarElement("Broken", "Broken (" + mainStats.TotalBroken + @"/" + mainStats.TotalAll + ")", 
+                    Colors.TestBroken, 
+                    mainStats.TotalBroken/(double)mainStats.TotalAll),
+                new HorizontalBarElement("Ignored", "Ignored (" + mainStats.TotalIgnored + @"/" + mainStats.TotalAll + ")", 
+                    Colors.TestIgnored, 
+                    mainStats.TotalIgnored/(double)mainStats.TotalAll),
+                new HorizontalBarElement("Unknown", "Unknown (" + mainStats.TotalUnknown + @"/" + mainStats.TotalAll + ")", 
+                    Colors.TestUnknown, 
+                    mainStats.TotalUnknown/(double)mainStats.TotalAll)
 		    };
 		    var bar = new HorizontalBar("main-bar", "Main bar", list);
             var hrefButton = new HrefButton("test-href-button", "Test it!",
