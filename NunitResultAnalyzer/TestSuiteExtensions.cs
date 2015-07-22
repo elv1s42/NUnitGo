@@ -28,9 +28,16 @@ namespace NunitResultAnalyzer
 
         private static int CountSuccess(this TestSuite testSuite, int count, bool success)
         {
-            count += testSuite.Results.TestCases.Count(x => x.Success.Equals(success.ToString()));
+            count += testSuite.Results.TestCases.Count(x => x.Executed.Equals("True") && x.Success.Equals(success.ToString()));
             return testSuite.Results.TestSuites.Aggregate(count, (current, innerTestSuite) =>
                 CountSuccess(innerTestSuite, current, success));
+        }
+
+        private static int CountExecuted(this TestSuite testSuite, int count)
+        {
+            count += testSuite.Results.TestCases.Count(x => x.Executed.Equals("True"));
+            return testSuite.Results.TestSuites.Aggregate(count, (current, innerTestSuite) =>
+                CountExecuted(innerTestSuite, current));
         }
 
         public static string CountPassed(this TestSuite testSuite)
@@ -55,6 +62,13 @@ namespace NunitResultAnalyzer
         {
             const int resultCount = 0;
             var result = CountSuccess(testSuite, resultCount, success);
+            return result;
+        }
+
+        public static int CountExecuted(this TestSuite testSuite)
+        {
+            const int resultCount = 0;
+            var result = CountExecuted(testSuite, resultCount);
             return result;
         }
 

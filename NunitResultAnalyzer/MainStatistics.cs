@@ -14,6 +14,8 @@ namespace NunitResultAnalyzer
         public int TotalSuccessTrue;
         public int TotalSuccessFalse;
 
+        public int TotalExecuted;
+
         public MainStatistics(TestSuite suite)
         {
             TotalAll = suite.CountAll();
@@ -25,6 +27,8 @@ namespace NunitResultAnalyzer
 
             TotalSuccessTrue = suite.CountBySuccess(true);
             TotalSuccessFalse = suite.CountBySuccess(false);
+
+            TotalExecuted = suite.CountExecuted();
         }
     }
 }

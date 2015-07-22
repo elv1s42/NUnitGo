@@ -17,7 +17,7 @@ namespace HtmlCustomElements.HtmlCustomElements
         
         private new const string Id = "testcase-element";
 
-        private string GetBackgroundColor(TestCase testCase)
+        private static string GetBackgroundColor(TestCase testCase)
         {
             string res;
             switch (testCase.Result)
@@ -67,7 +67,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 writer.Write("Test name: " + testCase.Name);
-                writer.RenderEndTag();//DIV
+                writer.RenderEndTag(); //DIV
             }
 
             HtmlCode = strWr.ToString();

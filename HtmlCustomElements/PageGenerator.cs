@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using HtmlCustomElements.HtmlCustomElements;
-using NunitResultAnalyzer;
+using HtmlCustomElements.ReportSections;
 using NunitResultAnalyzer.XmlClasses;
 
 namespace HtmlCustomElements
@@ -25,55 +25,34 @@ namespace HtmlCustomElements
             report.AddInsideTag("style", NunitTest.StyleString);
             report.AddInsideTag("style", JsOpenButton.StyleString);
 
-		    var mainInformation = new MainInformation(testResults);
-
-            var modalTest = new ModalWindow("modal-test", "Test!");
-            report.AddToBody(modalTest.ModalWindowHtml);
             var modalBackground = new ModalBackground();
             report.AddToBody(modalBackground.ModalBackgroundHtml);
 
-            report.AddToBody(new ReportTitle().HtmlCode);
-            report.AddToBody(mainInformation.HtmlCode);
-            report.AddToBody(new ReportTitle("Report menu", "report-main-menu").HtmlCode);
+		    var mainTitle = new ReportTitle();
+            report.AddToBody(mainTitle.HtmlCode);
 
-		    var mainStats = new MainStatistics(testResults.TestSuite);
-            var list = new List<HorizontalBarElement>
-		    {
-                new HorizontalBarElement("Passed", "Passed (" + mainStats.TotalPassed + @"/" + mainStats.TotalAll + ")", 
-                    Colors.TestPassed, 
-                    mainStats.TotalPassed/(double)mainStats.TotalAll),
-                new HorizontalBarElement("Failed", "Failed (" + mainStats.TotalFailed + @"/" + mainStats.TotalAll + ")", 
-                    Colors.TestFailed, 
-                    mainStats.TotalFailed/(double)mainStats.TotalAll),
-                new HorizontalBarElement("Broken", "Broken (" + mainStats.TotalBroken + @"/" + mainStats.TotalAll + ")", 
-                    Colors.TestBroken, 
-                    mainStats.TotalBroken/(double)mainStats.TotalAll),
-                new HorizontalBarElement("Ignored", "Ignored (" + mainStats.TotalIgnored + @"/" + mainStats.TotalAll + ")", 
-                    Colors.TestIgnored, 
-                    mainStats.TotalIgnored/(double)mainStats.TotalAll),
-                new HorizontalBarElement("Unknown", "Unknown (" + mainStats.TotalUnknown + @"/" + mainStats.TotalAll + ")", 
-                    Colors.TestUnknown, 
-                    mainStats.TotalUnknown/(double)mainStats.TotalAll)
-		    };
-		    var bar = new HorizontalBar("main-bar", "Main bar", list);
-            var hrefButton = new HrefButton("test-href-button", "Test it!",
-                "#tab1"); 
-            var openButton = new JsOpenButton("Open modal", "modal-test");
-		    var tree = new Tree(testResults);
+            var mainInformation = new MainInformation(testResults);
+            report.AddToBody(mainInformation.HtmlCode);
+
+		    var reportMenuTitle = new ReportTitle("Report menu", "report-main-menu");
+            report.AddToBody(reportMenuTitle.HtmlCode);
+
+            var statisticsSection = new StatisticsSection(testResults);
+		    var testListSection = new TestListSection(testResults);
+
             var accElements = new List<AccordionElement>
 		    {
-                new AccordionElement(bar.BarHtml, "Main statistics", "tab1"),
-                new AccordionElement(hrefButton.HrefButtonHtml, "element2", "tab2"),
-                new AccordionElement(openButton.ButtonHtml, "element3", "tab3"),
-                new AccordionElement(tree.HtmlCode, "Test list", "tab4"),
-                new AccordionElement("test5", "element5", "tab5"),
-                new AccordionElement("test6", "element6", "tab6")
+                new AccordionElement(statisticsSection.HtmlCode, "Main statistics", "tab1"),
+                new AccordionElement(testListSection.HtmlCode, "Test list", "tab2"),
+                new AccordionElement("timeline goes here", "Timeline", "tab3"),
+                new AccordionElement("top defects list goes here", "Top Defects", "tab4")
 		    };
 		    var accordion = new Accordion("main-accordion", "Main Accordion", accElements);
             report.AddInsideTag("style", accordion.GetStyleString());
 		    report.AddToBody(accordion.AccordionHtml);
 
-            report.AddInsideTag("footer", new ReportFooter().HtmlCode);
+		    var footer = new ReportFooter();
+            report.AddInsideTag("footer", footer.HtmlCode);
 
 			report.SavePage(pathToSave);
 		}

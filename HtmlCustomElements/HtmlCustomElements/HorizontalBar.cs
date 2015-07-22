@@ -35,7 +35,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"),
 					new StyleAttribute(HtmlTextWriterStyle.Width, "94%"),
-					new StyleAttribute(HtmlTextWriterStyle.Padding, "3% 3% 3% 3%"),
+					new StyleAttribute(HtmlTextWriterStyle.Padding, "1% 3% 1% 3%"),
 					new StyleAttribute(HtmlTextWriterStyle.Display, "table"),
 					new StyleAttribute("table-layout", "fixed")
 				}
@@ -77,7 +77,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 
                 var sum = Elements.Sum(x => x.Value);
 
-                var sortedItems = Elements.Where(x => x.Value >= 0.0001).OrderByDescending(x => x.Value);
+                var sortedItems = Elements.Where(x => x.Value >= 0.0000001).OrderByDescending(x => x.Value);
                 foreach (var tooltip in
                     from item in sortedItems
                     let value = item.Value

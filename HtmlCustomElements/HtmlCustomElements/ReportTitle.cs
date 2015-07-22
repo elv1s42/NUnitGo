@@ -19,7 +19,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             get { return GetCode(); }
         }
 
-        public ReportTitle(string title = "NUnitGo Test Run Report", string id = "main-title")
+        public ReportTitle(string title = "Test Run Report", string id = "main-title")
         {
             Title = title;
             Id = id;
@@ -28,8 +28,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 
         private static string GetStyle()
         {
-            var barCssSet = new CssSet("title-style");
-            barCssSet.AddElement(new CssElement(".report-title")
+            var titleCssSet = new CssSet("title-style");
+            titleCssSet.AddElement(new CssElement(".report-title")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -40,7 +40,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.PaddingBottom, "30px")
 				}
             });
-            return barCssSet.ToString();
+            return titleCssSet.ToString();
         }
 
         private string GetCode()

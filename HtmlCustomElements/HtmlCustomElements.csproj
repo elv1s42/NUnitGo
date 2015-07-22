@@ -71,6 +71,8 @@
     <Compile Include="HtmlTextWriterExtensions.cs" />
     <Compile Include="PageGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportSections\StatisticsSection.cs" />
+    <Compile Include="ReportSections\TestListSection.cs" />
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
