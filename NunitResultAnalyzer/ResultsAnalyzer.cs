@@ -55,11 +55,38 @@ namespace NunitResultAnalyzer
                     }
                 }
 
-                if (!suite.Results.TestSuites.Any()) continue;
-                _currentTestTemplateDate = suite.StartDateTime;
-                AddDatesAndScreensToTestSuites(suite.Results.TestSuites, screensDict);
+                if (suite.Results.TestSuites.Any())
+                {
+                    _currentTestTemplateDate = suite.StartDateTime;
+                    AddDatesAndScreensToTestSuites(suite.Results.TestSuites, screensDict);
+                }
             }
             return testSuites;
+        }
+        
+        private TestSuite AddDatesToSuites(TestSuite testSuite)
+        {
+            testSuite.StartDateTime = _currentTestTemplateDate;
+            testSuite.Time = testSuite.Time ?? "0.0";
+            testSuite.EndDateTime = _currentTestTemplateDate.AddSeconds(Double.Parse(testSuite.Time,
+                    CultureInfo.InvariantCulture));
+
+            var testSuites = testSuite.Results.TestSuites;
+            foreach (var suite in testSuites)
+            {
+                suite.StartDateTime = new[]{_currentTestTemplateDate, testSuite.EndDateTime}.Min();
+                suite.Time = suite.Time ?? "0.0";
+                _currentTestTemplateDate = _currentTestTemplateDate.AddSeconds(Double.Parse(suite.Time,
+                        CultureInfo.InvariantCulture));
+                suite.EndDateTime = _currentTestTemplateDate;
+
+                if (suite.Results.TestSuites.Any())
+                {
+                    _currentTestTemplateDate = suite.StartDateTime;
+                    AddDatesToSuites(suite);
+                }
+            }
+            return testSuite;
         }
         
         public TestResults GetFullSuite()
@@ -76,8 +103,11 @@ namespace NunitResultAnalyzer
             mainSuite.StartDateTime = _startDate;
             var suites = mainSuite.Results.TestSuites;
             
-            suites = AddDatesAndScreensToTestSuites(suites, screenshotsDictionary);
-            _testResults.TestSuite.Results.TestSuites = suites;
+            //suites = AddDatesToSuites(suites);//, screenshotsDictionary);
+            mainSuite = AddDatesToSuites(mainSuite);
+
+            _testResults.TestSuite = mainSuite;
+            //_testResults.TestSuite.Results.TestSuites = suites;
             
             return _testResults;
         }

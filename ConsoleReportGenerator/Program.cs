@@ -32,9 +32,11 @@ namespace ConsoleReportGenerator
             var results = reader.Deserialize();
             var resultAnalyzer = new ResultsAnalyzer(results, screenshotPath);
             var fullSuite = resultAnalyzer.GetFullSuite();
-            
+
+            reader.Save(fullSuite, "C:/Test.xml");
+
             PageGenerator.GenerateReport(fullSuite, outputPath);
-            
+
         }
     }
 }

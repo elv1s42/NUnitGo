@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
 using NunitResultAnalyzer.XmlClasses;
@@ -51,6 +52,16 @@ namespace HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
 					new StyleAttribute(HtmlTextWriterStyle.Margin, "0"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "0"),
+					new StyleAttribute(HtmlTextWriterStyle.FontSize, "16px")
+				}
+            });
+            treeCssSet.AddElement(new CssElement("#" + Id + " b")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
+					new StyleAttribute(HtmlTextWriterStyle.Margin, "0"),
+					new StyleAttribute(HtmlTextWriterStyle.Padding, "0"),
 					new StyleAttribute(HtmlTextWriterStyle.FontSize, "18px")
 				}
             });
@@ -66,7 +77,31 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write("Test name: " + testCase.Name);
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Test name: ");
+                writer.Write(testCase.Name.Split('.').Last());
+                writer.RenderEndTag(); //P
+
+                writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, GetBackgroundColor(testCase));
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.RenderBeginTag(HtmlTextWriterTag.B);
+                writer.Write("Test result: ");
+                writer.RenderEndTag(); //B
+                writer.Write(testCase.Result);
+                writer.RenderEndTag(); //P
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Test duration: ");
+                writer.Write(testCase.Time);
+                writer.RenderEndTag(); //P
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Time period: ");
+                writer.Write(testCase.StartDateTime.ToString("dd.MM.yy hh:mm:ss") + " - " + 
+                    testCase.EndDateTime.ToString("dd.MM.yy hh:mm:ss"));
+                writer.RenderEndTag(); //P
+
                 writer.RenderEndTag(); //DIV
             }
 
