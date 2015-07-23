@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventListener.cs" />
+    <Compile Include="ExtraTestInfo.cs" />
     <Compile Include="GoAddin.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="NunitGoEventListener.cs" />

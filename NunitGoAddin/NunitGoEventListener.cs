@@ -12,8 +12,8 @@ namespace NunitGoAddin
     {
 
         private StringBuilder _log = new StringBuilder();
-        private StringBuilder _stdErr = new StringBuilder();
-        private StringBuilder _stdOut = new StringBuilder();
+        private StringBuilder _error = new StringBuilder();
+        private StringBuilder _out = new StringBuilder();
         private StringBuilder _trace = new StringBuilder();
         private static string _outputPath;
 
@@ -121,7 +121,7 @@ namespace NunitGoAddin
             switch (testOutput.Type)
             {
                 case TestOutputType.Out:
-                    _stdOut.Append(testOutput.Text);
+                    _out.Append(testOutput.Text);
                     break;
                 case TestOutputType.Trace:
                     _trace.Append(testOutput.Text);
@@ -130,7 +130,7 @@ namespace NunitGoAddin
                     _log.Append(testOutput.Text);
                     break;
                 case TestOutputType.Error:
-                    _stdErr.Append(testOutput.Text);
+                    _error.Append(testOutput.Text);
                     break;
             }
         }
@@ -139,10 +139,10 @@ namespace NunitGoAddin
         {
             //TODO: add output
             
-            _stdOut = new StringBuilder();
+            _out = new StringBuilder();
             _trace = new StringBuilder();
             _log = new StringBuilder();
-            _stdErr = new StringBuilder();
+            _error = new StringBuilder();
         }
 
         private void TakeScreenshot()

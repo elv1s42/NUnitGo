@@ -55,14 +55,12 @@
     <Compile Include="XmlClasses\Environment.cs" />
     <Compile Include="XmlClasses\Failure.cs" />
     <Compile Include="XmlClasses\Message.cs" />
+    <Compile Include="XmlClasses\Reason.cs" />
     <Compile Include="XmlClasses\Results.cs" />
     <Compile Include="XmlClasses\StackTrace.cs" />
     <Compile Include="XmlClasses\TestCase.cs" />
     <Compile Include="XmlClasses\TestResults.cs" />
     <Compile Include="XmlClasses\TestSuite.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ScreenshotsAnalyzer\ScreenshotsAnalyzer.csproj">

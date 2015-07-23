@@ -158,8 +158,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, "110%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Label);
                 writer.Write(type + ": " + name + " " + passedCountString
-                    + " " + suite.StartDateTime.ToString("dd.MM.yy hh:mm:ss") + " - " +
-                        suite.EndDateTime.ToString("dd.MM.yy hh:mm:ss"));
+                    + " " + suite.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                        suite.EndDateTime.ToString("dd.MM.yy HH:mm:ss"));
                 writer.RenderEndTag(); //LABEL
                 writer.RenderBeginTag(HtmlTextWriterTag.Ul);
                 foreach (var testCase in testCases)
@@ -169,8 +169,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                     var modalId = "modal-" + testId;
                     var modalWindow = new ModalWindow("modal-" + testId, test.HtmlCode);
                     var openButton = new JsOpenButton(testCase.Name.Split('.').Last()
-                        + " " + testCase.StartDateTime.ToString("dd.MM.yy hh:mm:ss") + " - " +
-                        testCase.EndDateTime.ToString("dd.MM.yy hh:mm:ss")
+                        + " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                        testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss")
                         , modalId, test.BackgroundColor);
 
                     writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);

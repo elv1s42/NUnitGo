@@ -9,6 +9,9 @@ namespace NunitResultAnalyzer.XmlClasses
         [XmlElement("failure")]
         public Failure Failure { get; set; }
 
+        [XmlElement("reason")]
+        public Reason Reason { get; set; }
+
         [XmlAttribute("name")]
         public string Name { get; set; }
 
