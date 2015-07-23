@@ -74,9 +74,21 @@
       <Project>{4bc2ab27-f2b2-42b1-8faa-b46874dd0302}</Project>
       <Name>HtmlCustomElements</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NunitGoAddin\NunitGoAddin.csproj">
+      <Project>{b7617ecd-fee5-4ace-878f-fc11649edaa1}</Project>
+      <Name>NunitGoAddin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NunitResultAnalyzer\NunitResultAnalyzer.csproj">
       <Project>{55695586-8898-4a6a-8d1a-fe495f6cdad8}</Project>
       <Name>NunitResultAnalyzer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NunitTestsExample\NunitTestsExample.csproj">
+      <Project>{6ad67fd6-5cae-46ed-81d8-6b2b7f7889aa}</Project>
+      <Name>NunitTestsExample</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ScreenshotsAnalyzer\ScreenshotsAnalyzer.csproj">
+      <Project>{64d2d926-59a8-40a1-946a-b3ae5638c382}</Project>
+      <Name>ScreenshotsAnalyzer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
