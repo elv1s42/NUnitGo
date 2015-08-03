@@ -21,6 +21,7 @@ namespace NunitGoAddin
         private static readonly string OutputPath = Locator.Output;
         private readonly List<ExtraTestInfo> _allTests = new List<ExtraTestInfo>();
         private ExtraTestInfo _currentTest;
+        private string _workingDirectory = "";
 
         static NunitGoEventListener()
         {
@@ -53,14 +54,19 @@ namespace NunitGoAddin
             }
         }
 
+        private void AfterRunActions()
+        {
+            var xs = new XmlSerializer(typeof(List<ExtraTestInfo>));
+            var sw = new StreamWriter(OutputPath + @"\" + "ExtraInfo.xml");
+            xs.Serialize(sw, _allTests);
+        }
+
         public override void RunFinished(TestResult result)
         {
             try
             {
                 Log.Write("RunFinished :)");
-                var xs = new XmlSerializer(typeof(List<ExtraTestInfo>));
-                var sw = new StreamWriter(OutputPath + @"\" + "ExtraInfo.xml");
-                xs.Serialize(sw, _allTests);
+                AfterRunActions();
             }
             catch (Exception e)
             {
@@ -73,6 +79,7 @@ namespace NunitGoAddin
             try
             {
                 Log.Write("RunFinished with exception: " + exception.Message + ", Trace = " + exception.StackTrace);
+                AfterRunActions();
             }
             catch (Exception e)
             {

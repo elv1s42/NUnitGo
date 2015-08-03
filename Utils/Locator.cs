@@ -10,6 +10,7 @@ namespace Utils
     {
         public static string Output;
         public static string Screenshots;
+        public static string Results;
 
         static Locator()
         {
@@ -25,6 +26,11 @@ namespace Utils
             Screenshots = XDocument.Load(path + "/config.xml")
                 .Descendants()
                 .First(x => x.Name.LocalName.Equals("screenshots-path"))
+                .Value;
+
+            Results = XDocument.Load(path + "/config.xml")
+                .Descendants()
+                .First(x => x.Name.LocalName.Equals("results-path"))
                 .Value;
         }
     }

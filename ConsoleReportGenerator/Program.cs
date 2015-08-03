@@ -10,19 +10,20 @@ namespace ConsoleReportGenerator
     {
         static void Main(string[] args)
         {
-            if (!args.Any())
+            if (args.Any())
             {
-                Console.WriteLine("No arguments specified");
+                Console.WriteLine("No arguments needed");
                 return;
             }
-            if (args.Count() <= 1)
-            {
-                Console.WriteLine("One argument required");
-                return;
-            }
+            
+            GenerateReport();
 
+        }
+
+        public static void GenerateReport()
+        {
             var outputPath = Locator.Output;
-            var xmlPath = args[0];
+            var xmlPath = Locator.Results;
             var screenshotsPath = Locator.Screenshots;
 
             Console.WriteLine("XML file: '{0}'", xmlPath);
@@ -34,10 +35,7 @@ namespace ConsoleReportGenerator
             var resultAnalyzer = new ResultsAnalyzer(results, screenshotsPath);
             var fullSuite = resultAnalyzer.GetFullSuite();
 
-            reader.Save(fullSuite, outputPath + "Test.xml");
-
             PageGenerator.GenerateReport(fullSuite, outputPath);
-
         }
     }
 }

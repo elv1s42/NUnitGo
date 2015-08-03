@@ -3,4 +3,5 @@
   <!-- Specify absolute path, otherwise it will be relative to current directory which can lead to unpredictable results -->
   <output-path>C:\_NUnitGoResults</output-path>
   <screenshots-path>C:\_NUnitGoResults\Screenshots</screenshots-path>
+  <results-path>C:\_NUnitGoResults\</results-path>
 </config>
