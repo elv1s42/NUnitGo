@@ -1,18 +1,33 @@
-﻿namespace NunitGoAddin
+﻿using System;
+using System.IO;
+
+namespace NunitGoAddin
 {
     public static class Log
     {
         private static string GetFilePath()
         {
-            return "";
+            return ConfigBase.Location;
         }
-        
-        public static void Write(string msg)
+
+        public static void Clean()
         {
-            var sw = System.IO.File.AppendText(GetFilePath() + "NunitGoAddinLog.txt");
             try
             {
-                var logLine = System.String.Format("{0:G}: {1}", System.DateTime.Now, msg);
+                File.WriteAllText(GetFilePath() + "NunitGoAddinLog.txt", String.Empty);
+            }
+            catch (Exception e)
+            {
+                Write("Exception in Clean() method: " + e.Message + " " + e.StackTrace);
+            }
+        }
+
+        public static void Write(string msg)
+        {
+            var sw = File.AppendText(GetFilePath() + "NunitGoAddinLog.txt");
+            try
+            {
+                var logLine = String.Format("{0:G}: {1}", DateTime.Now, msg);
                 sw.WriteLine(logLine);
             }
             finally

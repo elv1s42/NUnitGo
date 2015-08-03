@@ -1,41 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Xml.Linq;
 using NUnit.Core;
 
 namespace NunitGoAddin
 {
     public class NunitGoEventListener : EventListener
     {
-
         private StringBuilder _log = new StringBuilder();
         private StringBuilder _error = new StringBuilder();
         private StringBuilder _out = new StringBuilder();
         private StringBuilder _trace = new StringBuilder();
-        private static string _outputPath;
+        private static readonly string OutputPath = ConfigBase.Location;
+        private List<ExtraTestInfo> _allTests = new List<ExtraTestInfo>();
+        private ExtraTestInfo _currentTest;
 
         static NunitGoEventListener()
         {
             try
             {
-                var codeBase = Assembly.GetExecutingAssembly().CodeBase;
-                var uri = new UriBuilder(codeBase);
-                var path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
-
-                _outputPath =
-                    XDocument.Load(path + "/config.xml")
-                        .Descendants()
-                        .First(x => x.Name.LocalName.Equals("output-path"))
-                        .Value + "/";
-
-                if (Directory.Exists(_outputPath))
+                if (Directory.Exists(OutputPath))
                 {
-                    Directory.Delete(_outputPath, true);
+                    Directory.Delete(OutputPath, true);
                 }
-                Directory.CreateDirectory(_outputPath);
+                Directory.CreateDirectory(OutputPath);
+                Directory.CreateDirectory(OutputPath + @"\Attachments");
+                Log.Clean();
+
             }
             catch (Exception e)
             {
@@ -47,7 +40,16 @@ namespace NunitGoAddin
         {
             try
             {
-                Log.Write("TestStarted: " + testName);
+                _currentTest = new ExtraTestInfo();
+                Log.Write("TestStarted: " + testName.FullName);
+                var guid = Guid.NewGuid();
+                while (_allTests.Any() && _allTests.Any(x => x.Guid.Equals(guid)))
+                {
+                    guid = Guid.NewGuid();
+                }
+                _currentTest.Guid = guid;
+                _currentTest.TestName = testName.Name;
+                _currentTest.StartDate = DateTime.Now;
 
             }
             catch (Exception e)
@@ -60,6 +62,8 @@ namespace NunitGoAddin
         {
             try
             {
+                _currentTest.FinishDate = DateTime.Now;
+                
                 if (result.IsError)
                 {
                     TakeScreenshot();
@@ -83,7 +87,8 @@ namespace NunitGoAddin
                         Log.Write("TestFinished: Pending " + result.StackTrace + " " + result.Message);
                     }
                 }
-                //TODO: write output!
+                _allTests.Add(_currentTest);
+                Log.Write("TestFinished! tests count: " + _allTests.Count);
                 WriteOutputToAttachment();
             }
             catch (Exception e)
@@ -137,8 +142,58 @@ namespace NunitGoAddin
 
         private void WriteOutputToAttachment()
         {
-            //TODO: add output
-            
+            var testAttachPath = OutputPath + @"\Attachments\" + _currentTest.Guid + @"\";
+
+            Directory.CreateDirectory(testAttachPath);
+            if(_out.Length > 0)
+            {
+                var sw = File.AppendText(testAttachPath + "out.txt");
+                try
+                {
+                    sw.WriteLine(_out.ToString());
+                }
+                finally
+                {
+                    sw.Close();
+                }
+            }
+            if (_trace.Length > 0)
+            {
+                var sw = File.AppendText(testAttachPath + "trace.txt");
+                try
+                {
+                    sw.WriteLine(_trace.ToString());
+                }
+                finally
+                {
+                    sw.Close();
+                }
+            }
+            if (_log.Length > 0)
+            {
+                var sw = File.AppendText(testAttachPath + "log.txt");
+                try
+                {
+                    sw.WriteLine(_log.ToString());
+                }
+                finally
+                {
+                    sw.Close();
+                }
+            }
+            if (_error.Length > 0)
+            {
+                var sw = File.AppendText(testAttachPath + "error.txt");
+                try
+                {
+                    sw.WriteLine(_error.ToString());
+                }
+                finally
+                {
+                    sw.Close();
+                }
+            }
+
             _out = new StringBuilder();
             _trace = new StringBuilder();
             _log = new StringBuilder();

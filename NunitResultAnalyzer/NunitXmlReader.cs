@@ -30,10 +30,10 @@ namespace NunitResultAnalyzer
         public string Serialize(TestResults testResults)
         {
             var s = new XmlSerializer(typeof(TestResults), new XmlRootAttribute("test-results"));
-            var sww = new StringWriter();
-            var writer = XmlWriter.Create(sww);
+            var sw = new StringWriter();
+            var writer = XmlWriter.Create(sw);
             s.Serialize(writer, testResults);
-            var xml = sww.ToString();
+            var xml = sw.ToString();
             return xml;
         }
 

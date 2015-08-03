@@ -9,6 +9,7 @@ namespace NunitTestsExample
         [Test]
         public void TestMethod1()
         {
+            Console.WriteLine("Testing log writing");
             Assert.AreEqual(1, 2);
         }
 

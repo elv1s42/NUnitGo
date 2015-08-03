@@ -5,6 +5,9 @@ namespace NunitGoAddin
 {
     public class ExtraTestInfo
     {
+        [XmlElement("guid")]
+        public Guid Guid { get; set; }
+
         [XmlElement("test-name")]
         public string TestName { get; set; }
 
