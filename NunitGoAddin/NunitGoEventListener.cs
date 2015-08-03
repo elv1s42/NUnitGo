@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using NUnit.Core;
+using NUnit.Framework;
 
 namespace NunitGoAddin
 {
@@ -33,6 +37,42 @@ namespace NunitGoAddin
             catch (Exception e)
             {
                 Log.Write("Exception! " + e.Message + " " + e.StackTrace);
+            }
+        }
+
+        public override void RunStarted(string name, int testCount)
+        {
+            try
+            {
+                Log.Write("RunStarted: " + name + ", testCount = " + testCount);
+            }
+            catch (Exception e)
+            {
+                Log.Write(String.Format("Exception in RunStarted {0}, {1}, {2}", name, e.Message, e.StackTrace));
+            }
+        }
+
+        public override void RunFinished(TestResult result)
+        {
+            try
+            {
+                Log.Write("RunFinished :)");
+            }
+            catch (Exception e)
+            {
+                Log.Write(String.Format("Exception in RunStarted '{0}', {1}, {2}", result.Name, e.Message, e.StackTrace));
+            }
+        }
+
+        public override void RunFinished(Exception exception)
+        {
+            try
+            {
+                Log.Write("RunFinished with exception: " + exception.Message + ", Trace = " + exception.StackTrace);
+            }
+            catch (Exception e)
+            {
+                Log.Write(String.Format("Exception in RunStarted {0}, {1}, {2}", e, e.Message, e.StackTrace));
             }
         }
 
@@ -200,9 +240,29 @@ namespace NunitGoAddin
             _error = new StringBuilder();
         }
 
-        private void TakeScreenshot()
+        public void TakeScreenshot()
         {
-            //TODO: take screenshot
+            var format = ImageFormat.Png;
+            var now = DateTime.Now;
+            var screenPath = OutputPath + @"\Attachments\" + _currentTest.Guid + @"\";
+            Directory.CreateDirectory(screenPath);
+            var screenName = String.Format("screenshot_{0}.{1}",
+                now.ToString("yyyyMMddHHmmssfff"), format.ToString().ToLower());
+
+            using (var bmpScreenCapture = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
+                                            Screen.PrimaryScreen.Bounds.Height))
+            {
+                using (var g = Graphics.FromImage(bmpScreenCapture))
+                {
+                    g.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
+                                     Screen.PrimaryScreen.Bounds.Y,
+                                     0, 0,
+                                     bmpScreenCapture.Size,
+                                     CopyPixelOperation.SourceCopy);
+                    Log.Write("Saving... " + screenPath + screenName);
+                    bmpScreenCapture.Save(screenPath + screenName, format);
+                }
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace NunitGoAddin
         {
             try
             {
-                File.WriteAllText(GetFilePath() + "NunitGoAddinLog.txt", String.Empty);
+                File.WriteAllText(GetFilePath() + @"\NunitGoAddinLog.txt", String.Empty);
             }
             catch (Exception e)
             {
@@ -24,11 +24,12 @@ namespace NunitGoAddin
 
         public static void Write(string msg)
         {
-            var sw = File.AppendText(GetFilePath() + "NunitGoAddinLog.txt");
+            var sw = File.AppendText(GetFilePath() + @"\NunitGoAddinLog.txt");
             try
             {
                 var logLine = String.Format("{0:G}: {1}", DateTime.Now, msg);
                 sw.WriteLine(logLine);
+                Console.WriteLine(logLine);
             }
             finally
             {

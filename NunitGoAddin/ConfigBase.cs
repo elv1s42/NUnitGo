@@ -20,7 +20,7 @@ namespace NunitGoAddin
                 XDocument.Load(path + "/config.xml")
                     .Descendants()
                     .First(x => x.Name.LocalName.Equals("output-path"))
-                    .Value + @"\";
+                    .Value;
 
             Location = outputPath;
         }
