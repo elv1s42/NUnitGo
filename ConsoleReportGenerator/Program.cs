@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Xml.Linq;
 using HtmlCustomElements;
 using NunitResultAnalyzer;
+using Utils;
 
 namespace ConsoleReportGenerator
 {
@@ -19,24 +17,13 @@ namespace ConsoleReportGenerator
             }
             if (args.Count() <= 1)
             {
-                Console.WriteLine("Two arguments required");
+                Console.WriteLine("One argument required");
                 return;
             }
 
-            //TODO: Remove this, use ConfigBase:
-            var codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            var uri = new UriBuilder(codeBase);
-            var path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
-
-            var outputPath =
-                XDocument.Load(path + "/config.xml")
-                    .Descendants()
-                    .First(x => x.Name.LocalName.Equals("output-path"))
-                    .Value + @"\";
-            //------------
-
+            var outputPath = Locator.Output;
             var xmlPath = args[0];
-            var screenshotsPath = args[1];
+            var screenshotsPath = Locator.Screenshots;
 
             Console.WriteLine("XML file: '{0}'", xmlPath);
             Console.WriteLine("Screenshots: '{0}'", screenshotsPath);

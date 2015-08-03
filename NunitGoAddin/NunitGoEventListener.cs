@@ -6,8 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using NUnit.Core;
-using NUnit.Framework;
+using Utils;
 
 namespace NunitGoAddin
 {
@@ -17,8 +18,8 @@ namespace NunitGoAddin
         private StringBuilder _error = new StringBuilder();
         private StringBuilder _out = new StringBuilder();
         private StringBuilder _trace = new StringBuilder();
-        private static readonly string OutputPath = ConfigBase.Location;
-        private List<ExtraTestInfo> _allTests = new List<ExtraTestInfo>();
+        private static readonly string OutputPath = Locator.Output;
+        private readonly List<ExtraTestInfo> _allTests = new List<ExtraTestInfo>();
         private ExtraTestInfo _currentTest;
 
         static NunitGoEventListener()
@@ -57,6 +58,9 @@ namespace NunitGoAddin
             try
             {
                 Log.Write("RunFinished :)");
+                var xs = new XmlSerializer(typeof(List<ExtraTestInfo>));
+                var sw = new StreamWriter(OutputPath + @"\" + "ExtraInfo.xml");
+                xs.Serialize(sw, _allTests);
             }
             catch (Exception e)
             {
@@ -90,6 +94,8 @@ namespace NunitGoAddin
                 _currentTest.Guid = guid;
                 _currentTest.TestName = testName.Name;
                 _currentTest.StartDate = DateTime.Now;
+                _currentTest.FullTestName = testName.FullName;
+                _currentTest.UniqueTestName = testName.UniqueName;
 
             }
             catch (Exception e)
@@ -240,7 +246,7 @@ namespace NunitGoAddin
             _error = new StringBuilder();
         }
 
-        public void TakeScreenshot()
+        private void TakeScreenshot()
         {
             var format = ImageFormat.Png;
             var now = DateTime.Now;

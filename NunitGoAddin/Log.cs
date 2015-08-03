@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Utils;
 
 namespace NunitGoAddin
 {
@@ -7,7 +8,7 @@ namespace NunitGoAddin
     {
         private static string GetFilePath()
         {
-            return ConfigBase.Location;
+            return Locator.Output;
         }
 
         public static void Clean()

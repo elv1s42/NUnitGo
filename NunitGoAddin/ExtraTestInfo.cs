@@ -11,22 +11,17 @@ namespace NunitGoAddin
         [XmlElement("test-name")]
         public string TestName { get; set; }
 
+        [XmlElement("full-test-name")]
+        public string FullTestName { get; set; }
+
+        [XmlElement("unique-test-name")]
+        public string UniqueTestName { get; set; }
+
         [XmlElement("start")]
         public DateTime StartDate { get; set; }
 
         [XmlElement("finish")]
         public DateTime FinishDate { get; set; }
 
-        [XmlElement("out")]
-        public string OutPath { get; set; }
-
-        [XmlElement("error")]
-        public string ErrorPath { get; set; }
-
-        [XmlElement("trace")]
-        public string TracePath { get; set; }
-
-        [XmlElement("log")]
-        public string LogPath { get; set; }
     }
 }

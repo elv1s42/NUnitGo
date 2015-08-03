@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using NUnit.Framework;
+using Utils;
 
 namespace NunitTestsExample
 {
@@ -22,6 +24,10 @@ namespace NunitTestsExample
         [Test]
         public void TestMethod3()
         {
+            ScreenshotHelper.TakeScreenshot();
+            Thread.Sleep(1000);
+            ScreenshotHelper.TakeScreenshot();
+            Thread.Sleep(1000);
             throw new Exception("Some error occured!");
         }
 
