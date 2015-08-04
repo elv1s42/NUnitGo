@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using ConsoleReportGenerator;
 using NUnit.Core;
 using Utils;
 
@@ -21,7 +22,6 @@ namespace NunitGoAddin
         private static readonly string OutputPath = Locator.Output;
         private readonly List<ExtraTestInfo> _allTests = new List<ExtraTestInfo>();
         private ExtraTestInfo _currentTest;
-        private string _workingDirectory = "";
 
         static NunitGoEventListener()
         {
@@ -59,6 +59,7 @@ namespace NunitGoAddin
             var xs = new XmlSerializer(typeof(List<ExtraTestInfo>));
             var sw = new StreamWriter(OutputPath + @"\" + "ExtraInfo.xml");
             xs.Serialize(sw, _allTests);
+            //Program.GenerateReport();
         }
 
         public override void RunFinished(TestResult result)
@@ -70,7 +71,7 @@ namespace NunitGoAddin
             }
             catch (Exception e)
             {
-                Log.Write(String.Format("Exception in RunStarted '{0}', {1}, {2}", result.Name, e.Message, e.StackTrace));
+                Log.Write(String.Format("Exception in RunFinished '{0}', {1}, {2}", result.Name, e.Message, e.StackTrace));
             }
         }
 
@@ -83,7 +84,7 @@ namespace NunitGoAddin
             }
             catch (Exception e)
             {
-                Log.Write(String.Format("Exception in RunStarted {0}, {1}, {2}", e, e.Message, e.StackTrace));
+                Log.Write(String.Format("Exception in RunFinished {0}, {1}, {2}", e, e.Message, e.StackTrace));
             }
         }
 

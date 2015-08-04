@@ -1,51 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
+using NunitGoAddin;
 using NunitResultAnalyzer.XmlClasses;
 using ScreenshotsAnalyzer;
+using Utils;
 
 namespace NunitResultAnalyzer
 {
     public class ResultsAnalyzer
     {
-        public ResultsAnalyzer(TestResults testResults, string screenshotsPath)
+        public ResultsAnalyzer(TestResults testResults, List<ExtraTestInfo> extraTestInfos)
         {
-            _screenshotsPath = screenshotsPath;
             _testResults = testResults;
-            _startDate = DateTime.ParseExact(testResults.Date + " " + testResults.Time,
-                "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture)
-                .AddSeconds(-Double.Parse(testResults.TestSuite.Time,
-                        CultureInfo.InvariantCulture));
-            _currentTestTemplateDate = _startDate;
+            _extraTestInfos = extraTestInfos;
         }
 
-        private readonly string _screenshotsPath;
         private readonly TestResults _testResults;
-        private readonly DateTime _startDate;
-        private DateTime _currentTestTemplateDate;
+        private readonly List<ExtraTestInfo> _extraTestInfos;
+
+        private DateTime GetStartDate(TestSuite testSuite)
+        {
+            var notEmptyTestSuite = testSuite;
+            while (!notEmptyTestSuite.Results.TestCases.Any())
+            {
+                notEmptyTestSuite = notEmptyTestSuite.Results.TestSuites.First();
+            }
+            return notEmptyTestSuite.Results.TestCases.First().StartDateTime;
+        }
+
+        private DateTime GetFinishDate(TestSuite testSuite)
+        {
+            var notEmptyTestSuite = testSuite;
+            while (!notEmptyTestSuite.Results.TestCases.Any())
+            {
+                notEmptyTestSuite = notEmptyTestSuite.Results.TestSuites.Last();
+            }
+            return notEmptyTestSuite.Results.TestCases.Last().EndDateTime;
+        }
 
         private List<TestSuite> AddDatesAndScreensToTestSuites(List<TestSuite> testSuites,
-            Dictionary<string, DateTime> screensDict)
+            Dictionary<string, DateTime> screensDict, List<ExtraTestInfo> extraTestInfo)
         {
             foreach (var suite in testSuites)
             {
-                suite.StartDateTime = _currentTestTemplateDate;
                 suite.Time = suite.Time ?? "0.0";
-                _currentTestTemplateDate = _currentTestTemplateDate.AddSeconds(Double.Parse(suite.Time,
-                        CultureInfo.InvariantCulture));
-                suite.EndDateTime = _currentTestTemplateDate;
 
-                var testCaseTemplateDate = suite.StartDateTime;
                 var testCases = suite.Results.TestCases;
                 foreach (var testCase in testCases)
                 {
-                    testCase.StartDateTime = testCaseTemplateDate;
                     testCase.Time = testCase.Time ?? "0.0";
-                    testCaseTemplateDate = testCaseTemplateDate.AddSeconds(Double.Parse(testCase.Time,
-                            CultureInfo.InvariantCulture));
-                    testCase.EndDateTime = testCaseTemplateDate;
                     testCase.Screenshots = new Dictionary<string, DateTime>();
+
+                    var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
+                    testCase.StartDateTime = extraInfo.StartDate;
+                    testCase.EndDateTime = extraInfo.FinishDate;
 
                     var start = testCase.StartDateTime;
                     var end = testCase.EndDateTime;
@@ -54,39 +63,28 @@ namespace NunitResultAnalyzer
                         testCase.Screenshots.Add(screen.Key, screen.Value);
                     }
                 }
-
+                
                 if (suite.Results.TestSuites.Any())
                 {
-                    _currentTestTemplateDate = suite.StartDateTime;
-                    AddDatesAndScreensToTestSuites(suite.Results.TestSuites, screensDict);
+                    AddDatesAndScreensToTestSuites(suite.Results.TestSuites, screensDict, extraTestInfo);
                 }
             }
             return testSuites;
         }
-        
-        private TestSuite AddDatesToSuites(TestSuite testSuite)
-        {
-            testSuite.StartDateTime = _currentTestTemplateDate;
-            testSuite.Time = testSuite.Time ?? "0.0";
-            testSuite.EndDateTime = _currentTestTemplateDate.AddSeconds(Double.Parse(testSuite.Time,
-                    CultureInfo.InvariantCulture));
 
-            var testSuites = testSuite.Results.TestSuites;
+        private List<TestSuite> AddDatesToTestSuites(List<TestSuite> testSuites)
+        {
             foreach (var suite in testSuites)
             {
-                suite.StartDateTime = new[]{_currentTestTemplateDate, testSuite.EndDateTime}.Min();
-                suite.Time = suite.Time ?? "0.0";
-                _currentTestTemplateDate = _currentTestTemplateDate.AddSeconds(Double.Parse(suite.Time,
-                        CultureInfo.InvariantCulture));
-                suite.EndDateTime = _currentTestTemplateDate;
+                suite.StartDateTime = GetStartDate(suite);
+                suite.EndDateTime = GetFinishDate(suite);
 
                 if (suite.Results.TestSuites.Any())
                 {
-                    _currentTestTemplateDate = suite.StartDateTime;
-                    AddDatesToSuites(suite);
+                    AddDatesToTestSuites(suite.Results.TestSuites);
                 }
             }
-            return testSuite;
+            return testSuites;
         }
         
         public TestResults GetFullSuite()
@@ -96,18 +94,23 @@ namespace NunitResultAnalyzer
             if (mainSuite == null) throw new Exception("Empty TestSuite in TestResults!");
             if (mainSuite.Results == null) throw new Exception("Empty Results in TestSuite!");
 
-            var screenshotsDictionary = ScreenshotsHelper.GetScreensots(_screenshotsPath);
+            var screenshotsDictionary = ScreenshotsHelper.GetScreenshots(Locator.Screenshots);
 
             if (!mainSuite.Results.TestSuites.Any()) return _testResults;
 
-            mainSuite.StartDateTime = _startDate;
             var suites = mainSuite.Results.TestSuites;
-            
-            //suites = AddDatesToSuites(suites);//, screenshotsDictionary);
-            mainSuite = AddDatesToSuites(mainSuite);
+
+            suites = AddDatesAndScreensToTestSuites(suites, screenshotsDictionary, _extraTestInfos);
+            suites = AddDatesToTestSuites(suites);
+
+            _testResults.TestSuite.Results.TestSuites = suites;
+
+            mainSuite = _testResults.TestSuite;
+
+            mainSuite.StartDateTime = GetStartDate(mainSuite);
+            mainSuite.EndDateTime = GetFinishDate(mainSuite);
 
             _testResults.TestSuite = mainSuite;
-            //_testResults.TestSuite.Results.TestSuites = suites;
             
             return _testResults;
         }

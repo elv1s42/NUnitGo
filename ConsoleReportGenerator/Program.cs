@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Xml.Serialization;
 using HtmlCustomElements;
+using NunitGoAddin;
 using NunitResultAnalyzer;
 using Utils;
 
@@ -32,7 +36,15 @@ namespace ConsoleReportGenerator
 
             var reader = new NunitXmlReader(xmlPath);
             var results = reader.Deserialize();
-            var resultAnalyzer = new ResultsAnalyzer(results, screenshotsPath);
+
+            List<ExtraTestInfo> extraInfo;
+            var xs = new XmlSerializer(typeof(List<ExtraTestInfo>));
+            using(var sr = new StreamReader(Locator.Output + @"\ExtraInfo.xml"))
+            {
+               extraInfo = (List<ExtraTestInfo>)xs.Deserialize(sr);
+            }
+            
+            var resultAnalyzer = new ResultsAnalyzer(results, extraInfo);
             var fullSuite = resultAnalyzer.GetFullSuite();
 
             PageGenerator.GenerateReport(fullSuite, outputPath);

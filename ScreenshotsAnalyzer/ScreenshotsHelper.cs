@@ -17,7 +17,7 @@ namespace ScreenshotsAnalyzer
             return filesFound.ToArray();
         }
 
-        public static Dictionary<string, DateTime> GetScreensots(string path)
+        public static Dictionary<string, DateTime> GetScreenshots(string path)
         {
             var result = new Dictionary<string, DateTime>();
             var filters = new[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp" };

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtraTestInfo.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="ScreenshotHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
