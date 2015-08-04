@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using NunitGoAddin;
 using NunitResultAnalyzer.XmlClasses;
 using ScreenshotsAnalyzer;
@@ -39,6 +41,22 @@ namespace NunitResultAnalyzer
             return notEmptyTestSuite.Results.TestCases.Last().EndDateTime;
         }
 
+        private string ReadFromFile(string path)
+        {
+            var res = "";
+            try
+            {
+                using (var streamReader = new StreamReader(path, Encoding.UTF8))
+                {
+                    res = streamReader.ReadToEnd();
+                }
+            }
+            catch (FileNotFoundException)
+            {
+            }
+            return res;
+        }
+        
         private List<TestSuite> AddDatesAndScreensToTestSuites(List<TestSuite> testSuites,
             Dictionary<string, DateTime> screensDict, List<ExtraTestInfo> extraTestInfo)
         {
@@ -55,6 +73,11 @@ namespace NunitResultAnalyzer
                     var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
                     testCase.StartDateTime = extraInfo.StartDate;
                     testCase.EndDateTime = extraInfo.FinishDate;
+                    testCase.Error = ReadFromFile(extraInfo.Error);
+                    testCase.Out = ReadFromFile(extraInfo.Out);
+                    testCase.Log = ReadFromFile(extraInfo.Log);
+                    testCase.Trace = ReadFromFile(extraInfo.Trace);
+                    testCase.Guid = extraInfo.Guid.ToString();
 
                     var start = testCase.StartDateTime;
                     var end = testCase.EndDateTime;

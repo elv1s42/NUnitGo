@@ -23,5 +23,16 @@ namespace NunitGoAddin
         [XmlElement("finish")]
         public DateTime FinishDate { get; set; }
 
+        [XmlElement("log")]
+        public string Log { get; set; }
+
+        [XmlElement("out")]
+        public string Out { get; set; }
+
+        [XmlElement("trace")]
+        public string Trace { get; set; }
+
+        [XmlElement("error")]
+        public string Error { get; set; }
     }
 }

@@ -7,9 +7,11 @@ namespace HtmlCustomElements.HtmlCustomElements
 {
     public class ModalWindow : HtmlBaseElement
     {
+        public string BackgroundId;
         private static string _zIndex = "1002";
         private static string _width;
         private static string _left;
+        private static string _idBackground;
         public string InnerHtml;
         public string ModalWindowHtml;
         public static string StyleString
@@ -24,9 +26,10 @@ namespace HtmlCustomElements.HtmlCustomElements
             _zIndex = zIndex;
             _width = width.ToString("D") + @"%";
             _left = (100 - width).ToString("D") + @"%";
-
+            _idBackground = "background-" + id;
+            BackgroundId = _idBackground;
             Style = GetStyle();
-            ModalWindowHtml = GetWindow();
+            ModalWindowHtml = GetWindow(id);
         }
 
         private static string GetStyle()
@@ -50,7 +53,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             return modalWindowCssSet.ToString();
         }
 
-        private string GetWindow()
+        private string GetWindow(string id)
         {
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
@@ -63,9 +66,13 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
+                var backgroundId = _idBackground;
+                var background = new ModalBackground(backgroundId);
+                writer.Write(background.ModalBackgroundHtml);
+
                 writer.AddStyleAttribute(HtmlTextWriterStyle.TextAlign, "right");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                var closeButton = new JsCloseButton(Id);
+                var closeButton = new JsCloseButton(Id, backgroundId);
                 writer.Write(closeButton.ButtonHtml);
                 writer.RenderEndTag();
 

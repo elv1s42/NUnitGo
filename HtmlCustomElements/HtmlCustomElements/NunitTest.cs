@@ -9,6 +9,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 {
     public class NunitTest : HtmlBaseElement
     {
+        public string ModalWindowsHtml;
+        
         public string BackgroundColor;
         public string HtmlCode;
         public static string StyleString
@@ -72,6 +74,13 @@ namespace HtmlCustomElements.HtmlCustomElements
         {
             Style = GetStyle();
             BackgroundColor = GetBackgroundColor(testCase);
+
+            var modalErrorId = "modal-error-" + testCase.Guid;
+            var modalError = new ModalWindow(modalErrorId, testCase.Error, "1003", 80);
+
+            var modalOutId = "modal-out-" + testCase.Guid;
+            var modalOut = new ModalWindow(modalOutId, testCase.Out, "1003", 80);
+
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
             {
@@ -107,10 +116,22 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.Write(testCase.Screenshots.Count);
                 writer.RenderEndTag(); //P
 
+                if (!testCase.Error.Equals(""))
+                {
+                    var openButton = new JsOpenButton("veiw error", modalErrorId, modalError.BackgroundId);
+                    writer.Write(openButton.ButtonHtml);
+                }
+                if (!testCase.Out.Equals(""))
+                {
+                    var openButton = new JsOpenButton("veiw output", modalOutId, modalOut.BackgroundId);
+                    writer.Write(openButton.ButtonHtml);
+                }
+
                 writer.RenderEndTag(); //DIV
             }
 
             HtmlCode = strWr.ToString();
+            ModalWindowsHtml = modalError.ModalWindowHtml + modalOut.ModalWindowHtml;
         }
     }
 }

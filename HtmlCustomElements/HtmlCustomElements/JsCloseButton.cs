@@ -12,8 +12,8 @@ namespace HtmlCustomElements.HtmlCustomElements
         private readonly string _href;
         public string ButtonHtml;
 
-        public JsCloseButton(string idToClose,
-            string href = "javascript:void(0)", string backgroundId = "modal-background")
+        public JsCloseButton(string idToClose, string backgroundId = "modal-background",
+            string href = "javascript:void(0)") 
             : base(ButtonText, href)
         {
             _idToClose = idToClose;

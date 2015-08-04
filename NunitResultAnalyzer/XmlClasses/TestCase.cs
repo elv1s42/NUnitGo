@@ -39,5 +39,20 @@ namespace NunitResultAnalyzer.XmlClasses
         [XmlIgnore]
         public Dictionary<string, DateTime> Screenshots;
 
+        [XmlIgnore]
+        public string Log;
+
+        [XmlIgnore]
+        public string Trace;
+
+        [XmlIgnore]
+        public string Out;
+
+        [XmlIgnore]
+        public string Error;
+
+        [XmlIgnore]
+        public string Guid;
+
     }
 }

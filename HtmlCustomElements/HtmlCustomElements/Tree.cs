@@ -173,7 +173,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     var openButton = new JsOpenButton(testCase.Name.Split('.').Last()
                         + " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
                         testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss")
-                        , modalId, test.BackgroundColor);
+                        , modalId, modalWindow.BackgroundId, test.BackgroundColor);
 
                     writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
                     writer.RenderBeginTag(HtmlTextWriterTag.Li);
@@ -181,8 +181,10 @@ namespace HtmlCustomElements.HtmlCustomElements
                     writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.Name);
                     writer.RenderBeginTag(HtmlTextWriterTag.A);
 
-                    //writer.Write(modalWindow.ModalWindowHtml);
                     HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
+                    if (!testCase.Error.Equals("") || !testCase.Out.Equals("") 
+                        || !testCase.Log.Equals("") || !testCase.Trace.Equals(""))
+                        HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
 
                     writer.Write(openButton.ButtonHtml);
 

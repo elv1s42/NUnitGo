@@ -19,8 +19,8 @@ namespace HtmlCustomElements.HtmlCustomElements
             get { return GetStyle(); }
         }
         
-        public JsOpenButton(string buttonText, string idToOpen, string bcgColor = "white",
-            string href = "javascript:void(0)", string backgroundId = "modal-background")
+        public JsOpenButton(string buttonText, string idToOpen, string backgroundId = "modal-background", string bcgColor = "white",
+            string href = "javascript:void(0)")
             : base(buttonText, href)
         {
             _idToOpen = idToOpen;

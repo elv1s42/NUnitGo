@@ -7,14 +7,16 @@ namespace HtmlCustomElements.HtmlCustomElements
 {
     public class ModalBackground : HtmlBaseElement
     {
+        private static string _id;
         public string ModalBackgroundHtml;
         public static string StyleString
         {
             get { return GetStyle(); }
         }
-        
-        public ModalBackground()
+
+        public ModalBackground(string id = "modal-background")
         {
+            _id = id;
             Style = GetStyle();
             ModalBackgroundHtml = GetHtml();
         }
@@ -47,7 +49,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
-                writer.AddAttribute(HtmlTextWriterAttribute.Id, "modal-background");
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, _id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "modal-background");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 writer.RenderEndTag();
