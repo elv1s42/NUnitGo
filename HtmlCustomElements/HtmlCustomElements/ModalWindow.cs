@@ -7,6 +7,9 @@ namespace HtmlCustomElements.HtmlCustomElements
 {
     public class ModalWindow : HtmlBaseElement
     {
+        private static string _zIndex = "1002";
+        private static string _width;
+        private static string _left;
         public string InnerHtml;
         public string ModalWindowHtml;
         public static string StyleString
@@ -14,10 +17,14 @@ namespace HtmlCustomElements.HtmlCustomElements
             get { return GetStyle(); }
         }
         
-        public ModalWindow(string id, string innerHtml)
+        public ModalWindow(string id, string innerHtml, string zIndex = "1002", int width = 90)
         {
             Id = id;
             InnerHtml = innerHtml;
+            _zIndex = zIndex;
+            _width = width.ToString("D") + @"%";
+            _left = (100 - width).ToString("D") + @"%";
+
             Style = GetStyle();
             ModalWindowHtml = GetWindow();
         }
@@ -29,13 +36,11 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.ZIndex, "1002"),
-					new StyleAttribute(HtmlTextWriterStyle.Overflow, "auto"),
+                    new StyleAttribute("box-sizing", "border-box"),
+                    new StyleAttribute(HtmlTextWriterStyle.Overflow, "auto"),
 					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"),
-					new StyleAttribute(HtmlTextWriterStyle.Top, "25%"),
-					new StyleAttribute(HtmlTextWriterStyle.Left, "25%"),
-					new StyleAttribute(HtmlTextWriterStyle.Width, "50%"),
-					new StyleAttribute(HtmlTextWriterStyle.Height, "50%"),
+					new StyleAttribute(HtmlTextWriterStyle.Top, "0%"),
+					new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "10px"),
 					new StyleAttribute("border", "10px solid " + Colors.ModalBorderColor),
 					new StyleAttribute(HtmlTextWriterStyle.Position, "fixed"),
@@ -50,6 +55,9 @@ namespace HtmlCustomElements.HtmlCustomElements
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Left, _left);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, _width);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.ZIndex, _zIndex);
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "modal-window");
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);

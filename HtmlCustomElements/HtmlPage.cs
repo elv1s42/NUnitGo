@@ -21,6 +21,7 @@ namespace HtmlCustomElements
                     StyleFields = new List<StyleAttribute>
                     {
                         new StyleAttribute("background", Colors.BodyBackground),
+                        new StyleAttribute(HtmlTextWriterStyle.Margin, "0px"),
                         new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
                         new StyleAttribute(HtmlTextWriterStyle.FontFamily, "Tahoma,Verdana,Segoe,sans-serif")
                         //new StyleAttribute(HtmlTextWriterStyle.FontFamily, "\"Segoe UI\",Frutiger,\"Frutiger Linotype\"," +

@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using ConsoleReportGenerator;
@@ -120,24 +121,24 @@ namespace NunitGoAddin
                 
                 if (result.IsError)
                 {
-                    TakeScreenshot();
+                    TakeScreenshot(_currentTest.FinishDate);
                     Log.Write("TestFinished: Error " + result.StackTrace + " " + result.Message);
                 }
                 else if (result.IsFailure)
                 {
-                    TakeScreenshot();
+                    TakeScreenshot(_currentTest.FinishDate);
                     Log.Write("TestFinished: Failure " + result.StackTrace + " " + result.Message);
                 }
                 else if (!result.Executed)
                 {
                     if (result.ResultState == ResultState.Cancelled)
                     {
-                        TakeScreenshot();
+                        TakeScreenshot(_currentTest.FinishDate);
                         Log.Write("TestFinished: Cancelled " + result.StackTrace + " " + result.Message);
                     }
                     else
                     {
-                        TakeScreenshot();
+                        TakeScreenshot(_currentTest.FinishDate);
                         Log.Write("TestFinished: Pending " + result.StackTrace + " " + result.Message);
                     }
                 }
@@ -254,14 +255,22 @@ namespace NunitGoAddin
             _error = new StringBuilder();
         }
 
-        private void TakeScreenshot()
+        private string GetScreenName(DateTime now, ImageFormat format = null)
+        {
+            format = format ?? ImageFormat.Png;
+            return String.Format("screenshot_{0}.{1}", now.ToString("yyyyMMddHHmmssfff"), format.ToString().ToLower());
+        }
+
+        private void TakeScreenshot(DateTime creationTime = default(DateTime))
         {
             var format = ImageFormat.Png;
             var now = DateTime.Now;
-            var screenPath = OutputPath + @"\Attachments\" + _currentTest.Guid + @"\";
+            var screenPath = Locator.Screenshots + @"\";
             Directory.CreateDirectory(screenPath);
-            var screenName = String.Format("screenshot_{0}.{1}",
-                now.ToString("yyyyMMddHHmmssfff"), format.ToString().ToLower());
+
+            creationTime = creationTime.Equals(default(DateTime)) ? now : creationTime;
+
+            var screenName = GetScreenName(creationTime, format);
 
             using (var bmpScreenCapture = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
                                             Screen.PrimaryScreen.Bounds.Height))
@@ -274,7 +283,15 @@ namespace NunitGoAddin
                                      bmpScreenCapture.Size,
                                      CopyPixelOperation.SourceCopy);
                     Log.Write("Saving... " + screenPath + screenName);
-                    bmpScreenCapture.Save(screenPath + screenName, format);
+
+                    var file = screenPath + screenName;
+
+                    bmpScreenCapture.Save(file, format);
+
+                    var fileInfo = new FileInfo(file);
+                    fileInfo.Refresh();
+                    fileInfo.CreationTime = creationTime;
+
                 }
             }
         }

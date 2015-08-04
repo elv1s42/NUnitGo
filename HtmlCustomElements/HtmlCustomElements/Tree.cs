@@ -5,12 +5,14 @@ using System.Web.UI;
 using HtmlCustomElements.CSSElements;
 using NunitResultAnalyzer;
 using NunitResultAnalyzer.XmlClasses;
+using Environment = System.Environment;
 
 namespace HtmlCustomElements.HtmlCustomElements
 {
     public class Tree : HtmlBaseElement
     {
         public string HtmlCode;
+        public string HtmlCodeModalWindows;
         public static string StyleString
         {
             get { return GetStyle(); }
@@ -132,7 +134,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             return "test-case-" + _idTestsCounter.ToString("D");
         }
 
-        private static void BuildTree(HtmlTextWriter writer, IEnumerable<TestSuite> testSuites)
+        private void BuildTree(HtmlTextWriter writer, IEnumerable<TestSuite> testSuites)
         {
             foreach (var suite in testSuites)
             {
@@ -140,7 +142,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                 var type = suite.Type;
                 var name = suite.Name;
                 var testCases = suite.Results.TestCases;
-                var passedCountString = suite.CountPassed();//testCases.Any() ? testCases.CountPassed() : "";
+                var passedCountString = suite.CountPassed();
 
                 writer.RenderBeginTag(HtmlTextWriterTag.Ul);
                 writer.RenderBeginTag(HtmlTextWriterTag.Li);
@@ -167,7 +169,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     var testId = GetTestId();
                     var test = new NunitTest(testCase);
                     var modalId = "modal-" + testId;
-                    var modalWindow = new ModalWindow("modal-" + testId, test.HtmlCode);
+                    var modalWindow = new ModalWindow(modalId, test.HtmlCode);
                     var openButton = new JsOpenButton(testCase.Name.Split('.').Last()
                         + " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
                         testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss")
@@ -179,7 +181,9 @@ namespace HtmlCustomElements.HtmlCustomElements
                     writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.Name);
                     writer.RenderBeginTag(HtmlTextWriterTag.A);
 
-                    writer.Write(modalWindow.ModalWindowHtml);
+                    //writer.Write(modalWindow.ModalWindowHtml);
+                    HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
+
                     writer.Write(openButton.ButtonHtml);
 
                     writer.RenderEndTag(); //A

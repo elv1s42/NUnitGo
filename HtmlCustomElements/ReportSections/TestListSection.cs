@@ -8,6 +8,7 @@ namespace HtmlCustomElements.ReportSections
     public class TestListSection
     {
         public string HtmlCode;
+        public string ModalsHtml;
 
         public TestListSection(TestResults testResults)
         {
@@ -18,6 +19,7 @@ namespace HtmlCustomElements.ReportSections
                 writer.Write(tree.HtmlCode);
             }
             HtmlCode = stringWriter.ToString();
+            ModalsHtml = tree.HtmlCodeModalWindows;
         }
     }
 }

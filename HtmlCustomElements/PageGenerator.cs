@@ -49,7 +49,8 @@ namespace HtmlCustomElements
 		    };
 		    var accordion = new Accordion("main-accordion", "Main Accordion", accElements);
             report.AddInsideTag("style", accordion.GetStyleString());
-		    report.AddToBody(accordion.AccordionHtml);
+            report.AddToBody(accordion.AccordionHtml);
+            report.AddToBody(testListSection.ModalsHtml);
 
 		    var footer = new ReportFooter();
             report.AddInsideTag("footer", footer.HtmlCode);

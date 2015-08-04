@@ -98,8 +98,13 @@ namespace HtmlCustomElements.HtmlCustomElements
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Time period: ");
-                writer.Write(testCase.StartDateTime.ToString("dd.MM.yy hh:mm:ss") + " - " + 
-                    testCase.EndDateTime.ToString("dd.MM.yy hh:mm:ss"));
+                writer.Write(testCase.StartDateTime.ToString("dd.MM.yy hh:mm:ss.fff") + " - " + 
+                    testCase.EndDateTime.ToString("dd.MM.yy hh:mm:ss.fff"));
+                writer.RenderEndTag(); //P
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Screenshots: ");
+                writer.Write(testCase.Screenshots.Count);
                 writer.RenderEndTag(); //P
 
                 writer.RenderEndTag(); //DIV
