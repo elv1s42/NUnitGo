@@ -70,16 +70,28 @@ namespace HtmlCustomElements.HtmlCustomElements
             return treeCssSet.ToString();
         }
 
+        private static string GenerateTxtView(string txt)
+        {
+            var sWr = new StringWriter();
+            using (var wr = new HtmlTextWriter(sWr))
+            {
+                wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
+                wr.RenderBeginTag(HtmlTextWriterTag.Div);
+                wr.Write(txt);
+                wr.RenderEndTag();
+            }
+            return sWr.ToString();
+        }
+
         public NunitTest(TestCase testCase)
         {
+            var hasOutput = !testCase.Out.Equals("");
+            var hasError = !testCase.Error.Equals("");
+            var hasLog = !testCase.Log.Equals("");
+            var hasTrace = !testCase.Trace.Equals("");
+
             Style = GetStyle();
             BackgroundColor = GetBackgroundColor(testCase);
-
-            var modalErrorId = "modal-error-" + testCase.Guid;
-            var modalError = new ModalWindow(modalErrorId, testCase.Error, "1003", 80);
-
-            var modalOutId = "modal-out-" + testCase.Guid;
-            var modalOut = new ModalWindow(modalOutId, testCase.Out, "1003", 80);
 
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
@@ -107,8 +119,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Time period: ");
-                writer.Write(testCase.StartDateTime.ToString("dd.MM.yy hh:mm:ss.fff") + " - " + 
-                    testCase.EndDateTime.ToString("dd.MM.yy hh:mm:ss.fff"));
+                writer.Write(testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss.fff") + " - " + 
+                    testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss.fff"));
                 writer.RenderEndTag(); //P
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
@@ -116,22 +128,69 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.Write(testCase.Screenshots.Count);
                 writer.RenderEndTag(); //P
 
-                if (!testCase.Error.Equals(""))
+                if (hasError)
                 {
-                    var openButton = new JsOpenButton("veiw error", modalErrorId, modalError.BackgroundId);
+                    var modalErrorId = "modal-error-" + testCase.Guid;
+                    var modalError = new ModalWindow(modalErrorId, GenerateTxtView(testCase.Error), "1004", 80, "1003");
+                    var openButton = new JsOpenButton("Veiw error", modalErrorId, modalError.BackgroundId,
+                        Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
+                    ModalWindowsHtml += modalError.ModalWindowHtml;
                 }
-                if (!testCase.Out.Equals(""))
+                if (hasOutput)
                 {
-                    var openButton = new JsOpenButton("veiw output", modalOutId, modalOut.BackgroundId);
+                    var modalOutId = "modal-out-" + testCase.Guid;
+                    var modalOut = new ModalWindow(modalOutId, GenerateTxtView(testCase.Out), "1004", 80, "1003");
+                    var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
+                        Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
+                    ModalWindowsHtml += modalOut.ModalWindowHtml;
+                }
+                if (hasTrace)
+                {
+                    var modalTraceId = "modal-trace-" + testCase.Guid;
+                    var modalTrace = new ModalWindow(modalTraceId, GenerateTxtView(testCase.Trace), "1004", 80, "1003");
+                    var openButton = new JsOpenButton("Veiw trace", modalTraceId, modalTrace.BackgroundId,
+                        Colors.OpenLogsButtonBackground);
+                    writer.Write(openButton.ButtonHtml);
+                    ModalWindowsHtml += modalTrace.ModalWindowHtml;
+                }
+                if (hasLog)
+                {
+                    var modalLogId = "modal-log-" + testCase.Guid;
+                    var modalLog = new ModalWindow(modalLogId, GenerateTxtView(testCase.Log), "1004", 80, "1003");
+                    var openButton = new JsOpenButton("Veiw log", modalLogId, modalLog.BackgroundId, 
+                        Colors.OpenLogsButtonBackground);
+                    writer.Write(openButton.ButtonHtml);
+                    ModalWindowsHtml += modalLog.ModalWindowHtml;
+                }
+
+                foreach (var screenshot in testCase.Screenshots)
+                {
+                    var sWr = new StringWriter();
+                    using (var wr = new HtmlTextWriter(sWr))
+                    {
+                        wr.AddAttribute(HtmlTextWriterAttribute.Src, @"./Screenshots/" + screenshot.Key);
+                        wr.AddAttribute(HtmlTextWriterAttribute.Alt, screenshot.Key);
+                        wr.RenderBeginTag(HtmlTextWriterTag.Img);
+                        wr.RenderEndTag(); //IMG
+                    }
+                    var screenCode = sWr.ToString();
+
+                    var modalScreenshotId = "modal-screenshot-" + screenshot.Key;
+                    var modalScreenshot = new ModalWindow(modalScreenshotId, screenCode, "1004", 100, "1003");
+                    var openButton = new JsOpenButton("Veiw screenshot " + screenshot.Value.ToString("dd.MM.yy HH:mm:ss"), 
+                        modalScreenshotId, modalScreenshot.BackgroundId,
+                        Colors.OpenLogsButtonBackground);
+                    writer.Write(openButton.ButtonHtml);
+                    ModalWindowsHtml += modalScreenshot.ModalWindowHtml;
+                    
                 }
 
                 writer.RenderEndTag(); //DIV
             }
 
             HtmlCode = strWr.ToString();
-            ModalWindowsHtml = modalError.ModalWindowHtml + modalOut.ModalWindowHtml;
         }
     }
 }

@@ -27,7 +27,8 @@ namespace ScreenshotsAnalyzer
             {
                 var fileInfo = new FileInfo(file);
                 fileInfo.Refresh();
-                result.Add(file, fileInfo.CreationTime);
+                
+                result.Add(fileInfo.Name, fileInfo.CreationTime);
             }
 
             return result;

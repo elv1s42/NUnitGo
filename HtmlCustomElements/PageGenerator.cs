@@ -24,10 +24,7 @@ namespace HtmlCustomElements
             report.AddInsideTag("style", Tree.StyleString);
             report.AddInsideTag("style", NunitTest.StyleString);
             report.AddInsideTag("style", JsOpenButton.StyleString);
-
-            //var modalBackground = new ModalBackground();
-            //report.AddToBody(modalBackground.ModalBackgroundHtml);
-
+            
 		    var mainTitle = new ReportTitle();
             report.AddToBody(mainTitle.HtmlCode);
 

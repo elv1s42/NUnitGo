@@ -8,15 +8,17 @@ namespace HtmlCustomElements.HtmlCustomElements
     public class ModalBackground : HtmlBaseElement
     {
         private static string _id;
+        private static string _zIndex;
         public string ModalBackgroundHtml;
         public static string StyleString
         {
             get { return GetStyle(); }
         }
 
-        public ModalBackground(string id = "modal-background")
+        public ModalBackground(string id = "modal-background", string zIndex = "1001")
         {
             _id = id;
+            _zIndex = zIndex;
             Style = GetStyle();
             ModalBackgroundHtml = GetHtml();
         }
@@ -28,10 +30,9 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute("filter", "alpha(opacity=70)"),
-					new StyleAttribute("-moz-opacity", "0.7"),
-					new StyleAttribute("opacity", ".70"),
-					new StyleAttribute(HtmlTextWriterStyle.ZIndex, "1001"),
+					new StyleAttribute("filter", "alpha(opacity=30)"),
+					new StyleAttribute("-moz-opacity", "0.3"),
+					new StyleAttribute("opacity", ".30"),
 					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "black"),
 					new StyleAttribute(HtmlTextWriterStyle.Top, "0%"),
 					new StyleAttribute(HtmlTextWriterStyle.Left, "0%"),
@@ -49,6 +50,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
+                writer.AddStyleAttribute(HtmlTextWriterStyle.ZIndex, _zIndex);
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, _id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "modal-background");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);

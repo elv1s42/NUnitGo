@@ -11,7 +11,10 @@ namespace NunitTestsExample
         [Test]
         public void TestMethod1()
         {
-            Console.WriteLine("Testing log writing");
+            Console.WriteLine("Testing log writing 1");
+            Console.WriteLine("Testing log writing 2");
+            Console.WriteLine("Testing log writing 3");
+            Console.WriteLine("Testing log writing 4");
             Assert.AreEqual(1, 2);
         }
 
@@ -24,6 +27,8 @@ namespace NunitTestsExample
         [Test]
         public void TestMethod3()
         {
+            Console.WriteLine("Testing log writing 1");
+            Console.WriteLine("Testing log writing 2");
             ScreenshotHelper.TakeScreenshot();
             Thread.Sleep(1000);
             ScreenshotHelper.TakeScreenshot();

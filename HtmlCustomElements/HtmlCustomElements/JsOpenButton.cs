@@ -65,7 +65,8 @@ namespace HtmlCustomElements.HtmlCustomElements
             using (var writer = new HtmlTextWriter(stringWriter))
             {
                 var onClickString = String.Format("document.getElementById('{0}').style.display='block';" +
-                                    "document.getElementById('{1}').style.display='block'",
+                                    "document.getElementById('{1}').style.display='block';" +
+                                    "document.getElementsByTagName('body')[0].className+=' stop-scrolling'",
                                     _idToOpen, _backgroundId);
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Href, _href);

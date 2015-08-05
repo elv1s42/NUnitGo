@@ -30,6 +30,14 @@ namespace HtmlCustomElements
                         //    "\"ITC Franklin Gothic\",Arial,sans-serif")
                     }
                 });
+                mainCssSet.AddElement(new CssElement(".stop-scrolling")
+                {
+                    StyleFields = new List<StyleAttribute>
+                    {
+                        new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
+                        new StyleAttribute(HtmlTextWriterStyle.Overflow, "hidden")
+                    }
+                });
                 mainCssSet.AddElement(new CssElement("div:hover")
                 {
                     StyleFields = new List<StyleAttribute>

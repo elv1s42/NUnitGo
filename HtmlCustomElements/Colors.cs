@@ -12,5 +12,6 @@
         public const string TestFailed = "#ef5350";  //"red"
         public const string TestIgnored = "#81d4fa"; //"blue"
         public const string TestUnknown = "#bdbdbd"; //"grey"
+        public const string OpenLogsButtonBackground = "#bdbdbd"; //"grey"
     }
 }
