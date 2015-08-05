@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
 using NunitResultAnalyzer.XmlClasses;
+using Environment = System.Environment;
 
 namespace HtmlCustomElements.HtmlCustomElements
 {
@@ -90,6 +92,8 @@ namespace HtmlCustomElements.HtmlCustomElements
             var hasLog = !testCase.Log.Equals("");
             var hasTrace = !testCase.Trace.Equals("");
 
+            ModalWindowsHtml = "";
+
             Style = GetStyle();
             BackgroundColor = GetBackgroundColor(testCase);
 
@@ -135,7 +139,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     var openButton = new JsOpenButton("Veiw error", modalErrorId, modalError.BackgroundId,
                         Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
-                    ModalWindowsHtml += modalError.ModalWindowHtml;
+                    ModalWindowsHtml += modalError.ModalWindowHtml + Environment.NewLine;
                 }
                 if (hasOutput)
                 {
@@ -144,7 +148,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
                         Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
-                    ModalWindowsHtml += modalOut.ModalWindowHtml;
+                    ModalWindowsHtml += modalOut.ModalWindowHtml + Environment.NewLine;
                 }
                 if (hasTrace)
                 {
@@ -153,7 +157,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     var openButton = new JsOpenButton("Veiw trace", modalTraceId, modalTrace.BackgroundId,
                         Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
-                    ModalWindowsHtml += modalTrace.ModalWindowHtml;
+                    ModalWindowsHtml += modalTrace.ModalWindowHtml + Environment.NewLine;
                 }
                 if (hasLog)
                 {
@@ -162,7 +166,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     var openButton = new JsOpenButton("Veiw log", modalLogId, modalLog.BackgroundId, 
                         Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
-                    ModalWindowsHtml += modalLog.ModalWindowHtml;
+                    ModalWindowsHtml += modalLog.ModalWindowHtml + Environment.NewLine;
                 }
 
                 foreach (var screenshot in testCase.Screenshots)
@@ -176,15 +180,15 @@ namespace HtmlCustomElements.HtmlCustomElements
                         wr.RenderEndTag(); //IMG
                     }
                     var screenCode = sWr.ToString();
-
                     var modalScreenshotId = "modal-screenshot-" + screenshot.Key;
                     var modalScreenshot = new ModalWindow(modalScreenshotId, screenCode, "1004", 100, "1003");
                     var openButton = new JsOpenButton("Veiw screenshot " + screenshot.Value.ToString("dd.MM.yy HH:mm:ss"), 
                         modalScreenshotId, modalScreenshot.BackgroundId,
                         Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
-                    ModalWindowsHtml += modalScreenshot.ModalWindowHtml;
-                    
+                    ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;
+
+                    Console.WriteLine("________________ " + ModalWindowsHtml);
                 }
 
                 writer.RenderEndTag(); //DIV

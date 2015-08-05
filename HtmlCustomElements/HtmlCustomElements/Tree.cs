@@ -182,9 +182,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     writer.RenderBeginTag(HtmlTextWriterTag.A);
 
                     HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
-                    if (!testCase.Error.Equals("") || !testCase.Out.Equals("") 
-                        || !testCase.Log.Equals("") || !testCase.Trace.Equals(""))
-                        HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
+                    HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
 
                     writer.Write(openButton.ButtonHtml);
 
