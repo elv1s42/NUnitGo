@@ -4,6 +4,12 @@ namespace NunitResultAnalyzer.XmlClasses
 {
     public class CultureInfoXml
     {
+        public CultureInfoXml()
+        {
+            CurrentCulture = "";
+            CurrentUiculture = "";
+        }
+
         [XmlAttribute("current-culture")]
         public string CurrentCulture { get; set; }
 

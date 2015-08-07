@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
 using HtmlCustomElements;
 using NunitGoAddin;
 using NunitResultAnalyzer;
@@ -19,9 +16,7 @@ namespace ConsoleReportGenerator
                 Console.WriteLine("No arguments needed");
                 return;
             }
-            
             GenerateReport();
-
         }
 
         public static void GenerateReport()
@@ -34,18 +29,13 @@ namespace ConsoleReportGenerator
             Console.WriteLine("Screenshots: '{0}'", screenshotsPath);
             Console.WriteLine("Output: '{0}'", outputPath);
 
-            var reader = new NunitXmlReader(xmlPath);
-            var results = reader.Deserialize();
+            var results = NunitXmlReader.Deserialize(xmlPath);
+            //NunitXmlReader.Save(results, Path.Combine(Locator.Output, "ExportTest.xml"));
+            //NunitXmlReader.Save(new TestResults(), Path.Combine(Locator.Output, "EmptyResults.xml"));
 
-            List<ExtraTestInfo> extraInfo;
-            var xs = new XmlSerializer(typeof(List<ExtraTestInfo>));
-            using(var sr = new StreamReader(Locator.Output + @"\ExtraInfo.xml"))
-            {
-               extraInfo = (List<ExtraTestInfo>)xs.Deserialize(sr);
-            }
-            
-            var resultAnalyzer = new ResultsAnalyzer(results, extraInfo);
-            var fullSuite = resultAnalyzer.GetFullSuite();
+            var extraInfo = ExtraTestInfo.Get(Locator.Output + @"\ExtraInfo.xml");
+
+            var fullSuite = ResultsAnalyzer.GetFullSuite(results, extraInfo);
 
             PageGenerator.GenerateReport(fullSuite, outputPath);
         }

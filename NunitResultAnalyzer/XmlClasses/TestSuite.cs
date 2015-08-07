@@ -5,6 +5,18 @@ namespace NunitResultAnalyzer.XmlClasses
 {
     public class TestSuite
     {
+        public TestSuite()
+        {
+            Results = new Results();
+            Type = "";
+            Name = "";
+            Executed = "";
+            Result = "";
+            Success = "";
+            Time = "";
+            Asserts = "";
+        }
+
         [XmlElement("results")]
         public Results Results { get; set; }
 

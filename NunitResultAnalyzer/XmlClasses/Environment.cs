@@ -4,6 +4,17 @@ namespace NunitResultAnalyzer.XmlClasses
 {
     public class Environment
     {
+        public Environment()
+        {
+            NunitVersion = "";
+            ClrVersion = "";
+            OsVersion = "";
+            Cwd = "";
+            MachineName = "";
+            User = "";
+            UserDomain = "";
+        }
+
         [XmlAttribute("nunit-version")]
         public string NunitVersion { get; set; }
 

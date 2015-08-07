@@ -4,6 +4,24 @@ namespace NunitResultAnalyzer.XmlClasses
 {
     public class TestResults
     {
+        public TestResults()
+        {
+            Name = "";
+            Total = "";
+            Errors = "";
+            Failures = "";
+            NotRun = "";
+            Inconclusive = "";
+            Ignored = "";
+            Skipped = "";
+            Invalid = "";
+            Date = "";
+            Time = "";
+            Environment = new Environment();
+            CultureInfoXml = new CultureInfoXml();
+            TestSuite = new TestSuite();
+        }
+
         [XmlAttribute("name")]
         public string Name { get; set; }
 

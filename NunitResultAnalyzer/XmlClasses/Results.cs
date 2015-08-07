@@ -5,6 +5,12 @@ namespace NunitResultAnalyzer.XmlClasses
 {
     public class Results
     {
+        public Results()
+        {
+            TestCases = new List<TestCase>();
+            TestSuites = new List<TestSuite>();
+        }
+
         [XmlElement("test-case")]
         public List<TestCase> TestCases { get; set; }
 

@@ -187,8 +187,6 @@ namespace HtmlCustomElements.HtmlCustomElements
                         Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
                     ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;
-
-                    Console.WriteLine("________________ " + ModalWindowsHtml);
                 }
 
                 writer.RenderEndTag(); //DIV

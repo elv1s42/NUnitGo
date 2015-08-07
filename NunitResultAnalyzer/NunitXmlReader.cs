@@ -1,33 +1,33 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Logger;
 using NunitResultAnalyzer.XmlClasses;
 
 namespace NunitResultAnalyzer
 {
-    public class NunitXmlReader
+    public static class NunitXmlReader
     {
-        public string XmlPath;
-
-        public NunitXmlReader(string xmlPath)
+        public static TestResults Deserialize(string xmlPath)
         {
-            XmlPath = xmlPath;
-        }
-
-        public TestResults Deserialize()
-        {
-            TestResults testResults;
-
-            var s = new XmlSerializer(typeof (TestResults), new XmlRootAttribute("test-results"));
-            using (var fs = new FileStream(XmlPath, FileMode.Open))
+            var testResults = new TestResults();
+            try
             {
-                testResults = (TestResults) s.Deserialize(fs);
+                var s = new XmlSerializer(typeof (TestResults), new XmlRootAttribute("test-results"));
+                using (var fs = new FileStream(xmlPath, FileMode.Open))
+                {
+                    testResults = (TestResults) s.Deserialize(fs);
+                }
             }
-
+            catch (Exception e)
+            {
+                Log.Write(String.Format("Exception in TestResult Deserialize: '{0}', '{1}'", e.Message, e.StackTrace));
+            }
             return testResults;
         }
 
-        public string Serialize(TestResults testResults)
+        public static string Serialize(TestResults testResults)
         {
             var s = new XmlSerializer(typeof(TestResults), new XmlRootAttribute("test-results"));
             var sw = new StringWriter();
@@ -37,7 +37,7 @@ namespace NunitResultAnalyzer
             return xml;
         }
 
-        public void Save(TestResults testResults, string path)
+        public static void Save(TestResults testResults, string path)
         {
             var s = Serialize(testResults);
             var xdoc = new XmlDocument();

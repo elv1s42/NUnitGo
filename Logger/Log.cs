@@ -2,7 +2,7 @@
 using System.IO;
 using Utils;
 
-namespace NunitGoAddin
+namespace Logger
 {
     public static class Log
     {
@@ -30,7 +30,6 @@ namespace NunitGoAddin
             {
                 var logLine = String.Format("{0:G}: {1}", DateTime.Now, msg);
                 sw.WriteLine(logLine);
-                //Console.WriteLine(logLine);
             }
             finally
             {

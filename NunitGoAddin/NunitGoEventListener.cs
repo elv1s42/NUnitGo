@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using Logger;
 using NUnit.Core;
 using Utils;
 
@@ -103,7 +104,8 @@ namespace NunitGoAddin
                 _currentTest.StartDate = DateTime.Now;
                 _currentTest.FullTestName = testName.FullName;
                 _currentTest.UniqueTestName = testName.UniqueName;
-
+                _currentTest.TestId = testName.TestID.ToString();
+                _currentTest.RunnerId = testName.RunnerID.ToString("D");
             }
             catch (Exception e)
             {
@@ -116,6 +118,15 @@ namespace NunitGoAddin
             try
             {
                 _currentTest.FinishDate = DateTime.Now;
+                try
+                {
+                    _currentTest.AssertCount = result.AssertCount;
+
+                }
+                catch (Exception)
+                {
+                    Log.Write("TestFinished: Error in _currentTest " + result.StackTrace + " " + result.Message);
+                }
                 
                 if (result.IsError)
                 {
