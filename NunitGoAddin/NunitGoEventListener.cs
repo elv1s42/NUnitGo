@@ -6,10 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml.Serialization;
-using Logger;
 using NUnit.Core;
 using Utils;
+using Utils.Extensions;
+using Utils.XmlTypes;
 
 namespace NunitGoAddin
 {
@@ -56,9 +56,7 @@ namespace NunitGoAddin
 
         private void AfterRunActions()
         {
-            var xs = new XmlSerializer(typeof(List<ExtraTestInfo>));
-            var sw = new StreamWriter(OutputPath + @"\" + "ExtraInfo.xml");
-            xs.Serialize(sw, _allTests);
+            _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
             //Program.GenerateReport();
         }
 
@@ -106,6 +104,8 @@ namespace NunitGoAddin
                 _currentTest.UniqueTestName = testName.UniqueName;
                 _currentTest.TestId = testName.TestID.ToString();
                 _currentTest.RunnerId = testName.RunnerID.ToString("D");
+                //var testDirectory = Locator.Output + @"\Attachments\" + testName.FullName.Replace(".", @"\");
+                //Directory.CreateDirectory(testDirectory);
             }
             catch (Exception e)
             {
@@ -118,6 +118,7 @@ namespace NunitGoAddin
             try
             {
                 _currentTest.FinishDate = DateTime.Now;
+
                 try
                 {
                     _currentTest.AssertCount = result.AssertCount;
@@ -153,7 +154,7 @@ namespace NunitGoAddin
                 }
                 _allTests.Add(_currentTest);
                 Log.Write("TestFinished! tests count: " + _allTests.Count);
-                WriteOutputToAttachment();
+                WriteOutputToAttachment(result);
             }
             catch (Exception e)
             {
@@ -166,6 +167,8 @@ namespace NunitGoAddin
             try
             {
                 Log.Write("SuiteStarted: " + testName);
+                //var testDirectory = Locator.Output + @"\Attachments\" + testName.FullName.Replace(".", @"\");
+                //Directory.CreateDirectory(testDirectory);
             }
             catch (Exception e)
             {
@@ -177,6 +180,8 @@ namespace NunitGoAddin
         {
             try
             {
+                var xmlResult = new TestResultXml(result);
+                xmlResult.Save(Locator.Output + @"\" + result.Name + ".xml");
                 Log.Write("SuiteFinished: " + result);
             }
             catch (Exception e)
@@ -204,7 +209,7 @@ namespace NunitGoAddin
             }
         }
 
-        private void WriteOutputToAttachment()
+        private void WriteOutputToAttachment(TestResult result)
         {
             var testAttachPath = OutputPath + @"\Attachments\" + _currentTest.Guid + @"\";
             _currentTest.Log = testAttachPath + "log.txt";
@@ -212,7 +217,12 @@ namespace NunitGoAddin
             _currentTest.Error = testAttachPath + "error.txt";
             _currentTest.Out = testAttachPath + "out.txt";
 
+
             Directory.CreateDirectory(testAttachPath);
+
+            var xmlResult = new TestResultXml(result);
+            xmlResult.Save(testAttachPath + "Result.xml");
+
             if(_out.Length > 0)
             {
                 var sw = File.AppendText(_currentTest.Out);

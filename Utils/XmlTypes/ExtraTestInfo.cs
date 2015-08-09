@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
-using Utils;
 
-namespace NunitGoAddin
+namespace Utils.XmlTypes
 {
     public class ExtraTestInfo
     {
-        public static List<ExtraTestInfo> Get(string path)
+        public static List<ExtraTestInfo> Load(string path)
         {
             List<ExtraTestInfo> extraInfo;
             var xs = new XmlSerializer(typeof(List<ExtraTestInfo>));
@@ -45,8 +44,6 @@ namespace NunitGoAddin
 
         [XmlElement("assert-count")]
         public int AssertCount { get; set; }
-
-
         
         [XmlElement("log")]
         public string Log { get; set; }

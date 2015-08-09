@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using HtmlCustomElements;
-using NunitGoAddin;
 using NunitResultAnalyzer;
 using Utils;
+using Utils.XmlTypes;
 
 namespace ConsoleReportGenerator
 {
@@ -16,10 +16,10 @@ namespace ConsoleReportGenerator
                 Console.WriteLine("No arguments needed");
                 return;
             }
-            GenerateReport();
+            GenerateReportFromResults();
         }
 
-        public static void GenerateReport()
+        public static void GenerateReportFromResults()
         {
             var outputPath = Locator.Output;
             var xmlPath = Locator.Results;
@@ -33,7 +33,7 @@ namespace ConsoleReportGenerator
             //NunitXmlReader.Save(results, Path.Combine(Locator.Output, "ExportTest.xml"));
             //NunitXmlReader.Save(new TestResults(), Path.Combine(Locator.Output, "EmptyResults.xml"));
 
-            var extraInfo = ExtraTestInfo.Get(Locator.Output + @"\ExtraInfo.xml");
+            var extraInfo = ExtraTestInfo.Load(Locator.Output + @"\ExtraInfo.xml");
 
             var fullSuite = ResultsAnalyzer.GetFullSuite(results, extraInfo);
 

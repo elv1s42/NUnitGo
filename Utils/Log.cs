@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
-using Utils;
 
-namespace Logger
+namespace Utils
 {
     public static class Log
     {

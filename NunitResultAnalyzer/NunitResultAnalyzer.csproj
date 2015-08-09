@@ -63,10 +63,6 @@
     <Compile Include="XmlClasses\TestSuite.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Logger\Logger.csproj">
-      <Project>{97F303DF-FA88-4829-8452-1035B01F4A12}</Project>
-      <Name>Logger</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ScreenshotsAnalyzer\ScreenshotsAnalyzer.csproj">
       <Project>{64d2d926-59a8-40a1-946a-b3ae5638c382}</Project>
       <Name>ScreenshotsAnalyzer</Name>

@@ -2,8 +2,8 @@
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using Logger;
 using NunitResultAnalyzer.XmlClasses;
+using Utils;
 
 namespace NunitResultAnalyzer
 {
