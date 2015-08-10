@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -6,17 +7,25 @@ using NUnit.Core;
 
 namespace Utils.XmlTypes
 {
+    [XmlRoot("test-result")]
     public class TestResultXml
     {
         public static TestResultXml Load(string path)
         {
-            TestResultXml result;
-            var xs = new XmlSerializer(typeof(TestResultXml));
-            using (var sr = new StreamReader(path))
+            var testResults = new TestResultXml();
+            try
             {
-                result = (TestResultXml)xs.Deserialize(sr);
+                var s = new XmlSerializer(typeof(TestResultXml), new XmlRootAttribute("test-results"));
+                using (var fs = new FileStream(path, FileMode.Open))
+                {
+                    testResults = (TestResultXml)s.Deserialize(fs);
+                }
             }
-            return result;
+            catch (Exception e)
+            {
+                Log.Write(String.Format("Exception in TestResult Deserialize: '{0}', '{1}'", e.Message, e.StackTrace));
+            }
+            return testResults;
         }
 
         public TestResultXml()
@@ -33,6 +42,10 @@ namespace Utils.XmlTypes
             Message = "";
             Name = "";
             ResultState = "";
+            StackTrace = "";
+            Results = new List<TestResultXml>();
+            Time = 0.0;
+            Test = new TestXml();
         }
 
         public TestResultXml(TestResult result)
@@ -49,16 +62,17 @@ namespace Utils.XmlTypes
             Message = result.Message;
             Name = result.Name;
             ResultState = result.ResultState.ToString();
+
+            StackTrace = result.StackTrace;
+
+            Test = new TestXml(result.Test);
+
+            Time = result.Time;
             var res = new List<TestResultXml>();
             if (result.Results != null)
-                res.AddRange(from TestResult nunitResult in result.Results 
+                res.AddRange(from TestResult nunitResult in result.Results
                              select new TestResultXml(nunitResult));
-
             Results = res;
-            StackTrace = result.StackTrace;
-            //TODO: Add list os tests
-            //result.Test;
-            Time = result.Time;
         }
 
         [XmlElement("assert-count")]
@@ -97,7 +111,7 @@ namespace Utils.XmlTypes
         [XmlElement("result-state")]
         public string ResultState { get; set; }
 
-        [XmlElement("results-list")]
+        [XmlArray("results-list")]
         public List<TestResultXml> Results { get; set; }
 
         [XmlElement("stack-trace")]
@@ -106,5 +120,7 @@ namespace Utils.XmlTypes
         [XmlElement("time")]
         public double Time { get; set; }
 
+        [XmlElement("test")]
+        public TestXml Test { get; set; }
     }
 }

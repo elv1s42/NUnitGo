@@ -4,11 +4,24 @@ namespace NunitResultAnalyzer.XmlClasses
 {
     public class Environment
     {
+        public Environment(string nunitVersion)
+        {
+            NunitVersion = nunitVersion;
+            ClrVersion = System.Environment.Version.ToString();
+            OsVersion = System.Environment.OSVersion.VersionString;
+            Platform = System.Environment.OSVersion.Platform.ToString();
+            Cwd = "";
+            MachineName = System.Environment.MachineName;
+            User = System.Environment.UserName;
+            UserDomain = System.Environment.UserDomainName;
+        }
+
         public Environment()
         {
             NunitVersion = "";
             ClrVersion = "";
             OsVersion = "";
+            Platform = "";
             Cwd = "";
             MachineName = "";
             User = "";

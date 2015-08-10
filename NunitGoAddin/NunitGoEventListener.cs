@@ -6,7 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using ConsoleReportGenerator;
+using HtmlCustomElements;
 using NUnit.Core;
+using NunitResultAnalyzer;
+using NunitResultAnalyzer.XmlClasses;
 using Utils;
 using Utils.Extensions;
 using Utils.XmlTypes;
@@ -54,18 +58,15 @@ namespace NunitGoAddin
             }
         }
 
-        private void AfterRunActions()
-        {
-            _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
-            //Program.GenerateReport();
-        }
-
         public override void RunFinished(TestResult result)
         {
             try
             {
-                Log.Write("RunFinished :)");
-                AfterRunActions();
+                Log.Write("RunFinished :)"); 
+                _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
+                var xmlResult = new TestResultXml(result);
+                var fullSuite = ResultsAnalyzer.GetFullSuite(xmlResult, _allTests);
+                PageGenerator.GenerateReport(fullSuite, Locator.Output);
             }
             catch (Exception e)
             {
@@ -77,8 +78,8 @@ namespace NunitGoAddin
         {
             try
             {
+                _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
                 Log.Write("RunFinished with exception: " + exception.Message + ", Trace = " + exception.StackTrace);
-                AfterRunActions();
             }
             catch (Exception e)
             {
@@ -180,9 +181,15 @@ namespace NunitGoAddin
         {
             try
             {
-                var xmlResult = new TestResultXml(result);
-                xmlResult.Save(Locator.Output + @"\" + result.Name + ".xml");
                 Log.Write("SuiteFinished: " + result);
+                var xmlResult = new TestResultXml(result);
+                var fullSuite = ResultsAnalyzer.GetFullSuite(xmlResult, _allTests);
+                xmlResult.Save(Locator.Output + @"\Result.xml");
+                _allTests.Save(OutputPath + @"\" + result.FullName + "_ExtraInfo.xml");
+                NunitXmlReader.Save(fullSuite, Locator.Output + @"\" + result.FullName + "_FullSuite.xml");
+                Log.Write("Generating report...");
+                PageGenerator.GenerateReport(fullSuite, Locator.Output);
+                Log.Write("Report generated.");
             }
             catch (Exception e)
             {

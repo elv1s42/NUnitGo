@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Globalization;
+using System.Xml.Serialization;
 
 namespace NunitResultAnalyzer.XmlClasses
 {
@@ -6,8 +7,8 @@ namespace NunitResultAnalyzer.XmlClasses
     {
         public CultureInfoXml()
         {
-            CurrentCulture = "";
-            CurrentUiculture = "";
+            CurrentCulture = CultureInfo.CurrentCulture.Name;
+            CurrentUiculture = CultureInfo.CurrentUICulture.Name;
         }
 
         [XmlAttribute("current-culture")]

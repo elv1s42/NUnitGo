@@ -1,11 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Utils.XmlTypes;
 
 namespace NunitResultAnalyzer.XmlClasses
 {
     public class TestCase
     {
+        public TestCase()
+        {
+            Failure = new Failure();
+            Reason = new Reason();
+            Name = "";
+            Executed = "";
+            Result = "";
+            Success = "";
+            Time = "";
+            Asserts = "";
+        }
+
+        public TestCase(TestResultXml result)
+        {
+            Name = result.FullName;
+            Executed = result.Executed.ToString();
+            Result = result.ResultState;
+            Success = result.IsSuccess.ToString();
+            Time = result.Time.ToString("##.#####");
+            Asserts = result.AssertCount.ToString("D");
+            if (result.IsSuccess) return;
+            Failure = new Failure(result);
+            Reason = new Reason(result);
+        }
+
         [XmlElement("failure")]
         public Failure Failure { get; set; }
 

@@ -1,4 +1,7 @@
-﻿using System.Xml.Serialization;
+﻿using System;
+using System.Xml.Serialization;
+using Utils.Extensions;
+using Utils.XmlTypes;
 
 namespace NunitResultAnalyzer.XmlClasses
 {
@@ -20,6 +23,24 @@ namespace NunitResultAnalyzer.XmlClasses
             Environment = new Environment();
             CultureInfoXml = new CultureInfoXml();
             TestSuite = new TestSuite();
+        }
+
+        public TestResults(TestResultXml result)
+        {
+            Name = result.Name;
+            Total = result.CountTests().ToString("D");
+            Errors = result.CountErrorTests().ToString("D");
+            Failures = result.CountFailureTests().ToString("D");
+            NotRun = "";
+            Inconclusive = "";
+            Ignored = "";
+            Skipped = "";
+            Invalid = "";
+            Date = DateTime.Now.ToString("yyyy-MM-dd");
+            Time = DateTime.Now.ToString("HH:mm:ss");
+            Environment = new Environment("2.6.4.14350");
+            CultureInfoXml = new CultureInfoXml();
+            TestSuite = new TestSuite(result);
         }
 
         [XmlAttribute("name")]

@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
 using NunitResultAnalyzer;
 using NunitResultAnalyzer.XmlClasses;
+using Utils;
 using Environment = System.Environment;
 
 namespace HtmlCustomElements.HtmlCustomElements
@@ -141,7 +144,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                 var id = GetSuiteId();
                 var type = suite.Type;
                 var name = suite.Name;
-                var testCases = suite.Results.TestCases;
+                var results = suite.Results;
+                var currentTestCases = results.TestCases;
                 var passedCountString = suite.CountPassed();
 
                 writer.RenderBeginTag(HtmlTextWriterTag.Ul);
@@ -164,16 +168,21 @@ namespace HtmlCustomElements.HtmlCustomElements
                         suite.EndDateTime.ToString("dd.MM.yy HH:mm:ss"));
                 writer.RenderEndTag(); //LABEL
                 writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-                foreach (var testCase in testCases)
+                Log.Write("TestCases count = " + currentTestCases.Count);
+                foreach (var currentTest in currentTestCases)
                 {
                     var testId = GetTestId();
+                    var testCase = currentTest;
+                    var testCases = currentTestCases;
+                    Log.Write("Generating tree: TestCase.Name = " + testCase.Name);
+                    Log.Write("Generating tree: TestCases.Count = " + testCases.Count);
                     var test = new NunitTest(testCase);
                     var modalId = "modal-" + testId;
                     var modalWindow = new ModalWindow(modalId, test.HtmlCode);
                     var openButton = new JsOpenButton(testCase.Name.Split('.').Last()
                         + " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
-                        testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss")
-                        , modalId, modalWindow.BackgroundId, test.BackgroundColor);
+                        testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss"), 
+                        modalId, modalWindow.BackgroundId, test.BackgroundColor);
 
                     writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
                     writer.RenderBeginTag(HtmlTextWriterTag.Li);
@@ -211,7 +220,9 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
+                Log.Write("Building tree...");
                 BuildTree(writer, new List<TestSuite>{results.TestSuite});
+                Log.Write("Building tree: done.");
                 
                 writer.RenderEndTag(); //DIV
             }

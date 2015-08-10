@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using Utils.XmlTypes;
 
 namespace NunitResultAnalyzer.XmlClasses
 {
@@ -15,6 +16,18 @@ namespace NunitResultAnalyzer.XmlClasses
             Success = "";
             Time = "";
             Asserts = "";
+        }
+
+        public TestSuite(TestResultXml result)
+        {
+            if (result.Results != null) Results = new Results(result.Results);
+            if (result.Test != null) Type = result.Test.TestType;
+            Name = result.Name;
+            Executed = result.Executed.ToString();
+            Result = result.ResultState;
+            Success = result.IsSuccess.ToString();
+            Time = result.Time.ToString("##.#####");
+            Asserts = result.AssertCount.ToString("D");
         }
 
         [XmlElement("results")]

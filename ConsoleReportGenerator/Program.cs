@@ -2,6 +2,7 @@
 using System.Linq;
 using HtmlCustomElements;
 using NunitResultAnalyzer;
+using NunitResultAnalyzer.XmlClasses;
 using Utils;
 using Utils.XmlTypes;
 
@@ -16,28 +17,18 @@ namespace ConsoleReportGenerator
                 Console.WriteLine("No arguments needed");
                 return;
             }
-            GenerateReportFromResults();
+            GenerateReport();
         }
 
-        public static void GenerateReportFromResults()
+        public static void GenerateReport()
         {
-            var outputPath = Locator.Output;
-            var xmlPath = Locator.Results;
-            var screenshotsPath = Locator.Screenshots;
+            var outPath = Locator.Output;
+            var extraInfo = ExtraTestInfo.Load(outPath + @"\ExtraInfo.xml");
+            var loadedXmlReults = TestResultXml.Load(outPath + @"\Result.xml");
+            var testResults = new TestResults(loadedXmlReults);
+            var fullSuite = ResultsAnalyzer.GetFullSuite(testResults, extraInfo);
 
-            Console.WriteLine("XML file: '{0}'", xmlPath);
-            Console.WriteLine("Screenshots: '{0}'", screenshotsPath);
-            Console.WriteLine("Output: '{0}'", outputPath);
-
-            var results = NunitXmlReader.Deserialize(xmlPath);
-            //NunitXmlReader.Save(results, Path.Combine(Locator.Output, "ExportTest.xml"));
-            //NunitXmlReader.Save(new TestResults(), Path.Combine(Locator.Output, "EmptyResults.xml"));
-
-            var extraInfo = ExtraTestInfo.Load(Locator.Output + @"\ExtraInfo.xml");
-
-            var fullSuite = ResultsAnalyzer.GetFullSuite(results, extraInfo);
-
-            PageGenerator.GenerateReport(fullSuite, outputPath);
+            PageGenerator.GenerateReport(fullSuite, outPath);
         }
     }
 }

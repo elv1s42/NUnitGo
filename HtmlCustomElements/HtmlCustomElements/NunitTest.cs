@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
 using NunitResultAnalyzer.XmlClasses;
+using Utils;
 using Environment = System.Environment;
 
 namespace HtmlCustomElements.HtmlCustomElements
@@ -87,10 +88,11 @@ namespace HtmlCustomElements.HtmlCustomElements
 
         public NunitTest(TestCase testCase)
         {
-            var hasOutput = !testCase.Out.Equals("");
-            var hasError = !testCase.Error.Equals("");
-            var hasLog = !testCase.Log.Equals("");
-            var hasTrace = !testCase.Trace.Equals("");
+            Log.Write("NunitTest constructor: testCase.Name = " + testCase.Name);
+            var hasOutput = testCase.Out != null && !testCase.Out.Equals("");
+            var hasError = testCase.Error != null && !testCase.Error.Equals("");
+            var hasLog = testCase.Log != null && !testCase.Log.Equals("");
+            var hasTrace = testCase.Trace != null && !testCase.Trace.Equals("");
 
             ModalWindowsHtml = "";
 

@@ -48,7 +48,7 @@ namespace NunitResultAnalyzer
             return res;
         }
         
-        private static List<TestSuite> AddDatesAndScreensToTestSuites(List<TestSuite> testSuites,
+        private static List<TestSuite> AddDatesAndScreensToTestCases(List<TestSuite> testSuites,
             Dictionary<string, DateTime> screensDict, List<ExtraTestInfo> extraTestInfo)
         {
             foreach (var suite in testSuites)
@@ -80,7 +80,7 @@ namespace NunitResultAnalyzer
                 
                 if (suite.Results.TestSuites.Any())
                 {
-                    AddDatesAndScreensToTestSuites(suite.Results.TestSuites, screensDict, extraTestInfo);
+                    AddDatesAndScreensToTestCases(suite.Results.TestSuites, screensDict, extraTestInfo);
                 }
             }
             return testSuites;
@@ -125,7 +125,7 @@ namespace NunitResultAnalyzer
 
             var suites = mainSuite.Results.TestSuites;
 
-            suites = AddDatesAndScreensToTestSuites(suites, screenshotsDictionary, extraTestInfos);
+            suites = AddDatesAndScreensToTestCases(suites, screenshotsDictionary, extraTestInfos);
             suites = AddDatesToTestSuites(suites);
 
             testResults.TestSuite.Results.TestSuites = suites;
@@ -138,6 +138,41 @@ namespace NunitResultAnalyzer
             testResults.TestSuite = mainSuite;
             
             return testResults;
+        }
+
+        public static TestResults GetFullSuite(TestResultXml resultsXml, List<ExtraTestInfo> extraTestInfos)
+        {
+            var results = new TestResults(resultsXml);
+            var mainSuite = results.TestSuite;
+            if (mainSuite == null)
+            {
+                Log.Write("Empty TestSuite in TestResults in GetFullSuite!");
+                mainSuite = new TestSuite();
+            }
+            if (mainSuite.Results == null)
+            {
+                Log.Write("Empty Results in TestSuite in GetFullSuite!");
+                mainSuite.Results = new Results();
+            }
+            var screenshotsDictionary = ScreenshotsHelper.GetScreenshots(Locator.Screenshots);
+
+            if (!mainSuite.Results.TestSuites.Any()) mainSuite.Results.TestSuites = new List<TestSuite>();
+
+            var suites = mainSuite.Results.TestSuites;
+
+            suites = AddDatesAndScreensToTestCases(suites, screenshotsDictionary, extraTestInfos);
+            suites = AddDatesToTestSuites(suites);
+
+            results.TestSuite.Results.TestSuites = suites;
+
+            mainSuite = results.TestSuite;
+
+            mainSuite.StartDateTime = GetStartDate(mainSuite);
+            mainSuite.EndDateTime = GetFinishDate(mainSuite);
+
+            results.TestSuite = mainSuite;
+
+            return results;
         }
     }
 }
