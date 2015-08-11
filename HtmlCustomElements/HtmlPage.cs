@@ -110,7 +110,7 @@ namespace HtmlCustomElements
             return AddInsideTag("body", stringToAdd);
         }
 
-        public void SavePage(string path, string name = "index")
+        public void SavePage(string path, string name)
         {
             File.WriteAllText(path + @"\" + name + ".html", _page);
         }

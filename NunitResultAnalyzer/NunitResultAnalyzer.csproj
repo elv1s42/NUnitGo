@@ -49,6 +49,7 @@
     <Compile Include="NunitXmlReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultsAnalyzer.cs" />
+    <Compile Include="ScreenshotsHelper.cs" />
     <Compile Include="TestCasesExtensions.cs" />
     <Compile Include="TestSuiteExtensions.cs" />
     <Compile Include="XmlClasses\CultureInfoXml.cs" />
@@ -57,16 +58,13 @@
     <Compile Include="XmlClasses\Message.cs" />
     <Compile Include="XmlClasses\Reason.cs" />
     <Compile Include="XmlClasses\Results.cs" />
+    <Compile Include="XmlClasses\Screenshot.cs" />
     <Compile Include="XmlClasses\StackTrace.cs" />
     <Compile Include="XmlClasses\TestCase.cs" />
     <Compile Include="XmlClasses\TestResults.cs" />
     <Compile Include="XmlClasses\TestSuite.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ScreenshotsAnalyzer\ScreenshotsAnalyzer.csproj">
-      <Project>{64d2d926-59a8-40a1-946a-b3ae5638c382}</Project>
-      <Name>ScreenshotsAnalyzer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{744E33D0-3A59-4B4A-9BC6-B698DACB606A}</Project>
       <Name>Utils</Name>

@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using NunitResultAnalyzer.XmlClasses;
-using ScreenshotsAnalyzer;
 using Utils;
 using Utils.XmlTypes;
 
@@ -48,18 +47,43 @@ namespace NunitResultAnalyzer
             return res;
         }
         
-        private static List<TestSuite> AddDatesAndScreensToTestCases(List<TestSuite> testSuites,
-            Dictionary<string, DateTime> screensDict, List<ExtraTestInfo> extraTestInfo)
+        private static Results AddDatesAndScreensToTestCases(Results results,
+            List<Screenshot> screens, List<ExtraTestInfo> extraTestInfo)
         {
+            var testSuites = results.TestSuites;
+            var testCases = results.TestCases;
+
+            foreach (var testCase in testCases)
+            {
+                testCase.Time = testCase.Time ?? "0.0";
+                testCase.Screenshots = new List<Screenshot>();
+
+                var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
+                testCase.StartDateTime = extraInfo.StartDate;
+                testCase.EndDateTime = extraInfo.FinishDate;
+                testCase.Error = ReadFromFile(extraInfo.Error);
+                testCase.Out = ReadFromFile(extraInfo.Out);
+                testCase.Log = ReadFromFile(extraInfo.Log);
+                testCase.Trace = ReadFromFile(extraInfo.Trace);
+                testCase.Guid = extraInfo.Guid.ToString();
+
+                var start = testCase.StartDateTime;
+                var end = testCase.EndDateTime;
+                foreach (var screen in screens.Where(screen => screen.Date >= start && screen.Date <= end))
+                {
+                    testCase.Screenshots.Add(screen);
+                }
+            }
+
             foreach (var suite in testSuites)
             {
                 suite.Time = suite.Time ?? "0.0";
 
-                var testCases = suite.Results.TestCases;
-                foreach (var testCase in testCases)
+                var innerTestCases = suite.Results.TestCases;
+                foreach (var testCase in innerTestCases)
                 {
                     testCase.Time = testCase.Time ?? "0.0";
-                    testCase.Screenshots = new Dictionary<string, DateTime>();
+                    testCase.Screenshots = new List<Screenshot>();
 
                     var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
                     testCase.StartDateTime = extraInfo.StartDate;
@@ -72,22 +96,23 @@ namespace NunitResultAnalyzer
 
                     var start = testCase.StartDateTime;
                     var end = testCase.EndDateTime;
-                    foreach (var screen in screensDict.Where(screen => screen.Value >= start && screen.Value <= end))
+                    foreach (var screen in screens.Where(screen => screen.Date >= start && screen.Date <= end))
                     {
-                        testCase.Screenshots.Add(screen.Key, screen.Value);
+                        testCase.Screenshots.Add(screen);
                     }
                 }
                 
                 if (suite.Results.TestSuites.Any())
                 {
-                    AddDatesAndScreensToTestCases(suite.Results.TestSuites, screensDict, extraTestInfo);
+                    AddDatesAndScreensToTestCases(suite.Results, screens, extraTestInfo);
                 }
             }
-            return testSuites;
+            return new Results{TestCases = testCases, TestSuites = testSuites};
         }
 
-        private static List<TestSuite> AddDatesToTestSuites(List<TestSuite> testSuites)
+        private static Results AddDatesToTestSuites(Results results)
         {
+            var testSuites = results.TestSuites;
             foreach (var suite in testSuites)
             {
                 suite.StartDateTime = GetStartDate(suite);
@@ -95,84 +120,40 @@ namespace NunitResultAnalyzer
 
                 if (suite.Results.TestSuites.Any())
                 {
-                    AddDatesToTestSuites(suite.Results.TestSuites);
+                    AddDatesToTestSuites(suite.Results);
                 }
             }
-            return testSuites;
-        }
-
-        public static TestResults GetFullSuite(TestResults testResults, List<ExtraTestInfo> extraTestInfos)
-        {
-            if (testResults == null)
-            {
-                Log.Write("Empty TestResults in GetFullSuite!");
-                testResults = new TestResults();
-            }
-            var mainSuite = testResults.TestSuite;
-            if (mainSuite == null)
-            {
-                Log.Write("Empty TestSuite in TestResults in GetFullSuite!");
-                mainSuite = new TestSuite();
-            }
-            if (mainSuite.Results == null)
-            {
-                Log.Write("Empty Results in TestSuite in GetFullSuite!");
-                mainSuite.Results = new Results();
-            }
-            var screenshotsDictionary = ScreenshotsHelper.GetScreenshots(Locator.Screenshots);
-
-            if (!mainSuite.Results.TestSuites.Any()) mainSuite.Results.TestSuites = new List<TestSuite>();
-
-            var suites = mainSuite.Results.TestSuites;
-
-            suites = AddDatesAndScreensToTestCases(suites, screenshotsDictionary, extraTestInfos);
-            suites = AddDatesToTestSuites(suites);
-
-            testResults.TestSuite.Results.TestSuites = suites;
-
-            mainSuite = testResults.TestSuite;
-
-            mainSuite.StartDateTime = GetStartDate(mainSuite);
-            mainSuite.EndDateTime = GetFinishDate(mainSuite);
-
-            testResults.TestSuite = mainSuite;
-            
-            return testResults;
-        }
-
-        public static TestResults GetFullSuite(TestResultXml resultsXml, List<ExtraTestInfo> extraTestInfos)
-        {
-            var results = new TestResults(resultsXml);
-            var mainSuite = results.TestSuite;
-            if (mainSuite == null)
-            {
-                Log.Write("Empty TestSuite in TestResults in GetFullSuite!");
-                mainSuite = new TestSuite();
-            }
-            if (mainSuite.Results == null)
-            {
-                Log.Write("Empty Results in TestSuite in GetFullSuite!");
-                mainSuite.Results = new Results();
-            }
-            var screenshotsDictionary = ScreenshotsHelper.GetScreenshots(Locator.Screenshots);
-
-            if (!mainSuite.Results.TestSuites.Any()) mainSuite.Results.TestSuites = new List<TestSuite>();
-
-            var suites = mainSuite.Results.TestSuites;
-
-            suites = AddDatesAndScreensToTestCases(suites, screenshotsDictionary, extraTestInfos);
-            suites = AddDatesToTestSuites(suites);
-
-            results.TestSuite.Results.TestSuites = suites;
-
-            mainSuite = results.TestSuite;
-
-            mainSuite.StartDateTime = GetStartDate(mainSuite);
-            mainSuite.EndDateTime = GetFinishDate(mainSuite);
-
-            results.TestSuite = mainSuite;
-
+            results.TestSuites = testSuites;
             return results;
+        }
+
+        public static TestResults GetFullSuite(TestResults results, List<ExtraTestInfo> extraTestInfos)
+        {
+            var testResults = results;
+            var mainSuite = testResults.TestSuite;
+            var suiteResults = mainSuite.Results;
+            var screenshotsList = ScreenshotsHelper.GetScreenshots(Helper.Screenshots);
+
+            if (!mainSuite.Results.TestSuites.Any()) mainSuite.Results.TestSuites = new List<TestSuite>();
+            
+            Log.Write("Adding dates and screenshots to test cases...");
+            var resultsWithModifiedTestCases = AddDatesAndScreensToTestCases(suiteResults, screenshotsList, extraTestInfos);
+            suiteResults = resultsWithModifiedTestCases;
+            testResults.TestSuite.Results = suiteResults;
+            Log.Write("Adding dates and screenshots to test cases: DONE.");
+
+            Log.Write("Adding dates to test suites...");
+            mainSuite = testResults.TestSuite;
+            suiteResults = mainSuite.Results;
+            var resultsWithModifiedTestSuites = AddDatesToTestSuites(suiteResults);
+            testResults.TestSuite.Results = resultsWithModifiedTestSuites;
+            mainSuite = testResults.TestSuite;
+            mainSuite.StartDateTime = GetStartDate(mainSuite);
+            mainSuite.EndDateTime = GetFinishDate(mainSuite);
+            testResults.TestSuite = mainSuite;
+            Log.Write("Adding dates to test suites: DONE.");
+
+            return testResults;
         }
     }
 }

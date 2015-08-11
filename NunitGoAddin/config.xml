@@ -3,4 +3,6 @@
   <output-path>C:\_NUnitGoResults</output-path>
   <screenshots-path>C:\_NUnitGoResults\Screenshots</screenshots-path>
   <results-path>C:\_NUnitGoResults\TestResults.xml</results-path>
+  <after-test-generation>False</after-test-generation>
+  <after-suite-generation>False</after-suite-generation>
 </config>

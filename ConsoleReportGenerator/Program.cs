@@ -22,7 +22,7 @@ namespace ConsoleReportGenerator
 
         public static void GenerateReport()
         {
-            var outPath = Locator.Output;
+            var outPath = Helper.Output;
             var extraInfo = ExtraTestInfo.Load(outPath + @"\ExtraInfo.xml");
             var loadedXmlReults = TestResultXml.Load(outPath + @"\Result.xml");
             var testResults = new TestResults(loadedXmlReults);

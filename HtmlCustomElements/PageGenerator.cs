@@ -7,7 +7,7 @@ namespace HtmlCustomElements
 {
 	public class PageGenerator
 	{
-		public static void GenerateReport(TestResults testResults, string pathToSave)
+        public static void GenerateReport(TestResults testResults, string pathToSave, string pageName = "index")
 		{
 			var report = new HtmlPage("NUnitGo Report");
 
@@ -52,7 +52,7 @@ namespace HtmlCustomElements
 			var footer = new ReportFooter();
 			report.AddInsideTag("footer", footer.HtmlCode);
 
-			report.SavePage(pathToSave);
+			report.SavePage(pathToSave, pageName);
 		}
 	}
 }

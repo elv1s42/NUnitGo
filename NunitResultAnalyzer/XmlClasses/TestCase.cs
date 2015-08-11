@@ -56,28 +56,28 @@ namespace NunitResultAnalyzer.XmlClasses
         [XmlAttribute("asserts")]
         public string Asserts { get; set; }
 
-        [XmlIgnore]
+        [XmlElement("start-date")]
         public DateTime StartDateTime;
 
-        [XmlIgnore]
+        [XmlElement("finish-date")]
         public DateTime EndDateTime;
 
-        [XmlIgnore]
-        public Dictionary<string, DateTime> Screenshots;
+        [XmlArray("screenshots")]
+        public List<Screenshot> Screenshots;
 
-        [XmlIgnore]
+        [XmlElement("test-log")]
         public string Log;
 
-        [XmlIgnore]
+        [XmlElement("test-trace")]
         public string Trace;
 
-        [XmlIgnore]
+        [XmlElement("test-output")]
         public string Out;
 
-        [XmlIgnore]
+        [XmlElement("test-error")]
         public string Error;
 
-        [XmlIgnore]
+        [XmlElement("test-guid")]
         public string Guid;
 
     }

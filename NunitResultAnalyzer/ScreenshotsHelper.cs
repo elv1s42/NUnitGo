@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using NunitResultAnalyzer.XmlClasses;
 
-namespace ScreenshotsAnalyzer
+namespace NunitResultAnalyzer
 {
     public static class ScreenshotsHelper
     {
@@ -17,18 +19,17 @@ namespace ScreenshotsAnalyzer
             return filesFound.ToArray();
         }
 
-        public static Dictionary<string, DateTime> GetScreenshots(string path)
+        public static List<Screenshot> GetScreenshots(string path)
         {
-            var result = new Dictionary<string, DateTime>();
+            var result = new List<Screenshot>();
             var filters = new[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp" };
             var files = GetFilesWithFilters(path, filters, false);
             
-            foreach (var file in files)
+            foreach (var fileInfo in files.Select(file => new FileInfo(file)))
             {
-                var fileInfo = new FileInfo(file);
                 fileInfo.Refresh();
                 
-                result.Add(fileInfo.Name, fileInfo.CreationTime);
+                result.Add(new Screenshot{Name = fileInfo.Name, Date = fileInfo.CreationTime});
             }
 
             return result;

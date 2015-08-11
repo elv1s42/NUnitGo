@@ -78,10 +78,6 @@
       <Project>{55695586-8898-4a6a-8d1a-fe495f6cdad8}</Project>
       <Name>NunitResultAnalyzer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ScreenshotsAnalyzer\ScreenshotsAnalyzer.csproj">
-      <Project>{64d2d926-59a8-40a1-946a-b3ae5638c382}</Project>
-      <Name>ScreenshotsAnalyzer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{744e33d0-3a59-4b4a-9bc6-b698dacb606a}</Project>
       <Name>Utils</Name>

@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ConsoleReportGenerator;
 using HtmlCustomElements;
 using NUnit.Core;
 using NunitResultAnalyzer;
@@ -23,9 +22,34 @@ namespace NunitGoAddin
         private StringBuilder _error = new StringBuilder();
         private StringBuilder _out = new StringBuilder();
         private StringBuilder _trace = new StringBuilder();
-        private static readonly string OutputPath = Locator.Output;
+        private static readonly string OutputPath = Helper.Output;
         private readonly List<ExtraTestInfo> _allTests = new List<ExtraTestInfo>();
         private ExtraTestInfo _currentTest;
+        private string _mainName;
+        private List<Guid> _guids;
+        private TestResult _fullTestListResult;
+        
+        private Guid GetGuid()
+        {
+            var guid = Guid.NewGuid();
+            while (_guids.Any(x => x.Equals(guid)))
+            {
+                guid = Guid.NewGuid();
+            }
+            _guids.Add(guid);
+            return guid;
+        }
+
+        private void GenerateReport(TestResult result)
+        {
+            Log.Write("Generating report...");
+            _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
+            var xmlResult = new TestResultXml(result);
+            var fullSuite = ResultsAnalyzer.GetFullSuite(new TestResults(xmlResult), _allTests);
+            NunitXmlReader.Save(fullSuite, Helper.Output + @"\" + "MainSuite.xml");
+            PageGenerator.GenerateReport(fullSuite, Helper.Output);
+            Log.Write("Generating report: DONE.");
+        }
 
         static NunitGoEventListener()
         {
@@ -38,7 +62,6 @@ namespace NunitGoAddin
                 Directory.CreateDirectory(OutputPath);
                 Directory.CreateDirectory(OutputPath + @"\Attachments");
                 Log.Clean();
-
             }
             catch (Exception e)
             {
@@ -50,7 +73,9 @@ namespace NunitGoAddin
         {
             try
             {
-                Log.Write("RunStarted: " + name + ", testCount = " + testCount);
+                _guids = new List<Guid>();
+                _mainName = name;
+                Log.Write("RunStarted: " + _mainName + ", testCount = " + testCount);
             }
             catch (Exception e)
             {
@@ -62,11 +87,8 @@ namespace NunitGoAddin
         {
             try
             {
-                Log.Write("RunFinished :)"); 
-                _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
-                var xmlResult = new TestResultXml(result);
-                var fullSuite = ResultsAnalyzer.GetFullSuite(xmlResult, _allTests);
-                PageGenerator.GenerateReport(fullSuite, Locator.Output);
+                Log.Write("RunFinished :)");
+                GenerateReport(result);
             }
             catch (Exception e)
             {
@@ -80,6 +102,7 @@ namespace NunitGoAddin
             {
                 _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
                 Log.Write("RunFinished with exception: " + exception.Message + ", Trace = " + exception.StackTrace);
+                GenerateReport(_fullTestListResult);
             }
             catch (Exception e)
             {
@@ -93,20 +116,13 @@ namespace NunitGoAddin
             {
                 _currentTest = new ExtraTestInfo();
                 Log.Write("TestStarted: " + testName.FullName);
-                var guid = Guid.NewGuid();
-                while (_allTests.Any() && _allTests.Any(x => x.Guid.Equals(guid)))
-                {
-                    guid = Guid.NewGuid();
-                }
-                _currentTest.Guid = guid;
+                _currentTest.Guid = GetGuid();
                 _currentTest.TestName = testName.Name;
                 _currentTest.StartDate = DateTime.Now;
                 _currentTest.FullTestName = testName.FullName;
                 _currentTest.UniqueTestName = testName.UniqueName;
                 _currentTest.TestId = testName.TestID.ToString();
                 _currentTest.RunnerId = testName.RunnerID.ToString("D");
-                //var testDirectory = Locator.Output + @"\Attachments\" + testName.FullName.Replace(".", @"\");
-                //Directory.CreateDirectory(testDirectory);
             }
             catch (Exception e)
             {
@@ -119,6 +135,17 @@ namespace NunitGoAddin
             try
             {
                 _currentTest.FinishDate = DateTime.Now;
+                if (_fullTestListResult == null)
+                {
+                    _fullTestListResult = result;
+                }
+                else
+                {
+                    _fullTestListResult.AddResult(result);
+                }
+
+                if (Helper.AfterTestGeneration)
+                    GenerateReport(_fullTestListResult);
 
                 try
                 {
@@ -127,34 +154,34 @@ namespace NunitGoAddin
                 }
                 catch (Exception)
                 {
-                    Log.Write("TestFinished: Error in _currentTest " + result.StackTrace + " " + result.Message);
+                    Log.Write("      TestFinished: Error in _currentTest " + result.StackTrace + " " + result.Message);
                 }
                 
                 if (result.IsError)
                 {
                     TakeScreenshot(_currentTest.FinishDate);
-                    Log.Write("TestFinished: Error " + result.StackTrace + " " + result.Message);
+                    Log.Write("      TestFinished: Error " + result.StackTrace + " " + result.Message);
                 }
                 else if (result.IsFailure)
                 {
                     TakeScreenshot(_currentTest.FinishDate);
-                    Log.Write("TestFinished: Failure " + result.StackTrace + " " + result.Message);
+                    Log.Write("      TestFinished: Failure " + result.StackTrace + " " + result.Message);
                 }
                 else if (!result.Executed)
                 {
                     if (result.ResultState == ResultState.Cancelled)
                     {
                         TakeScreenshot(_currentTest.FinishDate);
-                        Log.Write("TestFinished: Cancelled " + result.StackTrace + " " + result.Message);
+                        Log.Write("      TestFinished: Cancelled " + result.StackTrace + " " + result.Message);
                     }
                     else
                     {
                         TakeScreenshot(_currentTest.FinishDate);
-                        Log.Write("TestFinished: Pending " + result.StackTrace + " " + result.Message);
+                        Log.Write("      TestFinished: Pending " + result.StackTrace + " " + result.Message);
                     }
                 }
                 _allTests.Add(_currentTest);
-                Log.Write("TestFinished! tests count: " + _allTests.Count);
+                Log.Write("      TestFinished! Tests done: " + _allTests.Count);
                 WriteOutputToAttachment(result);
             }
             catch (Exception e)
@@ -167,9 +194,7 @@ namespace NunitGoAddin
         {
             try
             {
-                Log.Write("SuiteStarted: " + testName);
-                //var testDirectory = Locator.Output + @"\Attachments\" + testName.FullName.Replace(".", @"\");
-                //Directory.CreateDirectory(testDirectory);
+                Log.Write("   SuiteStarted: " + testName);
             }
             catch (Exception e)
             {
@@ -181,15 +206,9 @@ namespace NunitGoAddin
         {
             try
             {
-                Log.Write("SuiteFinished: " + result);
-                var xmlResult = new TestResultXml(result);
-                var fullSuite = ResultsAnalyzer.GetFullSuite(xmlResult, _allTests);
-                xmlResult.Save(Locator.Output + @"\Result.xml");
-                _allTests.Save(OutputPath + @"\" + result.FullName + "_ExtraInfo.xml");
-                NunitXmlReader.Save(fullSuite, Locator.Output + @"\" + result.FullName + "_FullSuite.xml");
-                Log.Write("Generating report...");
-                PageGenerator.GenerateReport(fullSuite, Locator.Output);
-                Log.Write("Report generated.");
+                Log.Write("   SuiteFinished: " + result.Test.TestType + ", " + result.FullName);
+                
+                if (Helper.AfterSuiteGeneration) GenerateReport(_fullTestListResult);
             }
             catch (Exception e)
             {
@@ -223,7 +242,6 @@ namespace NunitGoAddin
             _currentTest.Trace = testAttachPath + "trace.txt";
             _currentTest.Error = testAttachPath + "error.txt";
             _currentTest.Out = testAttachPath + "out.txt";
-
 
             Directory.CreateDirectory(testAttachPath);
 
@@ -285,7 +303,7 @@ namespace NunitGoAddin
             _error = new StringBuilder();
         }
 
-        private string GetScreenName(DateTime now, ImageFormat format = null)
+        private static string GetScreenName(DateTime now, ImageFormat format = null)
         {
             format = format ?? ImageFormat.Png;
             return String.Format("screenshot_{0}.{1}", now.ToString("yyyyMMddHHmmssfff"), format.ToString().ToLower());
@@ -295,7 +313,7 @@ namespace NunitGoAddin
         {
             var format = ImageFormat.Png;
             var now = DateTime.Now;
-            var screenPath = Locator.Screenshots + @"\";
+            var screenPath = Helper.Screenshots + @"\";
             Directory.CreateDirectory(screenPath);
 
             creationTime = creationTime.Equals(default(DateTime)) ? now : creationTime;

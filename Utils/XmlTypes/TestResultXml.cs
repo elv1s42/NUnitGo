@@ -43,6 +43,7 @@ namespace Utils.XmlTypes
             Name = "";
             ResultState = "";
             StackTrace = "";
+            IsSuite = false;
             Results = new List<TestResultXml>();
             Time = 0.0;
             Test = new TestXml();
@@ -66,6 +67,7 @@ namespace Utils.XmlTypes
             StackTrace = result.StackTrace;
 
             Test = new TestXml(result.Test);
+            IsSuite = Test.IsSuite;
 
             Time = result.Time;
             var res = new List<TestResultXml>();
@@ -101,6 +103,9 @@ namespace Utils.XmlTypes
 
         [XmlElement("is-success")]
         public bool IsSuccess { get; set; }
+
+        [XmlElement("is-suite")]
+        public bool IsSuite { get; set; }
 
         [XmlElement("message")]
         public string Message { get; set; }

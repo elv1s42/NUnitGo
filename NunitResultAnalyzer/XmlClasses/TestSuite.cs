@@ -16,6 +16,8 @@ namespace NunitResultAnalyzer.XmlClasses
             Success = "";
             Time = "";
             Asserts = "";
+            StartDateTime = new DateTime();
+            EndDateTime = new DateTime();
         }
 
         public TestSuite(TestResultXml result)
@@ -28,6 +30,8 @@ namespace NunitResultAnalyzer.XmlClasses
             Success = result.IsSuccess.ToString();
             Time = result.Time.ToString("##.#####");
             Asserts = result.AssertCount.ToString("D");
+            StartDateTime = new DateTime();
+            EndDateTime = new DateTime();
         }
 
         [XmlElement("results")]
@@ -54,10 +58,10 @@ namespace NunitResultAnalyzer.XmlClasses
         [XmlAttribute("asserts")]
         public string Asserts { get; set; }
 
-        [XmlIgnore]
+        [XmlAttribute("start-date")]
         public DateTime StartDateTime;
 
-        [XmlIgnore]
+        [XmlAttribute("finish-date")]
         public DateTime EndDateTime;
     }
 }

@@ -7,7 +7,7 @@ namespace Utils
     {
         private static string GetFilePath()
         {
-            return Locator.Output;
+            return Helper.Output;
         }
 
         public static void Clean()

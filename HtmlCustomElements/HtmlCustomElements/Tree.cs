@@ -152,7 +152,10 @@ namespace HtmlCustomElements.HtmlCustomElements
 				writer.RenderBeginTag(HtmlTextWriterTag.Li);
 				writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
 
-				if (type.Equals("Namespace") || type.Equals("Assembly") || type.Equals("Project"))
+				if (type.Equals("Namespace") 
+                    || type.Equals("Assembly") 
+                    || type.Equals("Project")
+                    || type.Equals("Unknown"))
 					writer.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
 
 				writer.AddAttribute(HtmlTextWriterAttribute.Id, id);

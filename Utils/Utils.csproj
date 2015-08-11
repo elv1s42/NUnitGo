@@ -48,7 +48,7 @@
     <Compile Include="Extensions\TestResultXmlExtension.cs" />
     <Compile Include="XmlTypes\ExtraTestInfo.cs" />
     <Compile Include="HelperSerializable.cs" />
-    <Compile Include="Locator.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="ScreenshotHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

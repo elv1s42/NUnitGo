@@ -186,15 +186,15 @@ namespace HtmlCustomElements.HtmlCustomElements
 					var sWr = new StringWriter();
 					using (var wr = new HtmlTextWriter(sWr))
 					{
-						wr.AddAttribute(HtmlTextWriterAttribute.Src, @"./Screenshots/" + screenshot.Key);
-						wr.AddAttribute(HtmlTextWriterAttribute.Alt, screenshot.Key);
+						wr.AddAttribute(HtmlTextWriterAttribute.Src, @"./Screenshots/" + screenshot.Name);
+						wr.AddAttribute(HtmlTextWriterAttribute.Alt, screenshot.Name);
 						wr.RenderBeginTag(HtmlTextWriterTag.Img);
 						wr.RenderEndTag(); //IMG
 					}
 					var screenCode = sWr.ToString();
-					var modalScreenshotId = "modal-screenshot-" + screenshot.Key;
+					var modalScreenshotId = "modal-screenshot-" + screenshot.Name;
 					var modalScreenshot = new ModalWindow(modalScreenshotId, screenCode, "1004", 100, "1003");
-					var openButton = new JsOpenButton("Veiw screenshot " + screenshot.Value.ToString("dd.MM.yy HH:mm:ss"), 
+					var openButton = new JsOpenButton("Veiw screenshot " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss"), 
 						modalScreenshotId, modalScreenshot.BackgroundId,
 						Colors.OpenLogsButtonBackground);
 					writer.Write(openButton.ButtonHtml);

@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8AD5AD
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenshotsAnalyzer", "ScreenshotsAnalyzer\ScreenshotsAnalyzer.csproj", "{64D2D926-59A8-40A1-946A-B3AE5638C382}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlCustomElements", "HtmlCustomElements\HtmlCustomElements.csproj", "{4BC2AB27-F2B2-42B1-8FAA-B46874DD0302}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitGoAddin", "NunitGoAddin\NunitGoAddin.csproj", "{B7617ECD-FEE5-4ACE-878F-FC11649EDAA1}"
@@ -34,10 +32,6 @@ Global
 		{618FC3A8-F975-4148-BDD4-4F6268A85EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{618FC3A8-F975-4148-BDD4-4F6268A85EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{618FC3A8-F975-4148-BDD4-4F6268A85EA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{64D2D926-59A8-40A1-946A-B3AE5638C382}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{64D2D926-59A8-40A1-946A-B3AE5638C382}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{64D2D926-59A8-40A1-946A-B3AE5638C382}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{64D2D926-59A8-40A1-946A-B3AE5638C382}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4BC2AB27-F2B2-42B1-8FAA-B46874DD0302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BC2AB27-F2B2-42B1-8FAA-B46874DD0302}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BC2AB27-F2B2-42B1-8FAA-B46874DD0302}.Release|Any CPU.ActiveCfg = Release|Any CPU
