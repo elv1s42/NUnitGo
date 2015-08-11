@@ -28,7 +28,22 @@ namespace NunitGoAddin
         private string _mainName;
         private List<Guid> _guids;
         private TestResult _fullTestListResult;
-        
+        private List<TestResult> _listOfResults;
+
+        private TestResult GenerateResultFromList(IEnumerable<TestResult> listOfResults)
+        {
+            var testName = new TestName
+            {
+                FullName = _mainName
+            };
+            var result = new TestResult(testName);
+            foreach (var testResult in listOfResults)
+            {
+                result.AddResult(testResult);
+            }
+            return result;
+        }
+
         private Guid GetGuid()
         {
             var guid = Guid.NewGuid();
@@ -44,9 +59,12 @@ namespace NunitGoAddin
         {
             Log.Write("Generating report...");
             _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
+            var xmlResultList = new TestResultXml(_fullTestListResult);
+            xmlResultList.Save(Helper.Output + @"\" + "ListResult.xml");
             var xmlResult = new TestResultXml(result);
+            xmlResult.Save(Helper.Output + @"\" + "Result.xml");
             var fullSuite = ResultsAnalyzer.GetFullSuite(new TestResults(xmlResult), _allTests);
-            NunitXmlReader.Save(fullSuite, Helper.Output + @"\" + "MainSuite.xml");
+            NunitXmlReader.Save(fullSuite, Helper.Output + @"\" + "FullSuite.xml");
             PageGenerator.GenerateReport(fullSuite, Helper.Output);
             Log.Write("Generating report: DONE.");
         }
@@ -74,6 +92,7 @@ namespace NunitGoAddin
             try
             {
                 _guids = new List<Guid>();
+                _listOfResults = new List<TestResult>();
                 _mainName = name;
                 Log.Write("RunStarted: " + _mainName + ", testCount = " + testCount);
             }
@@ -135,18 +154,8 @@ namespace NunitGoAddin
             try
             {
                 _currentTest.FinishDate = DateTime.Now;
-                if (_fullTestListResult == null)
-                {
-                    _fullTestListResult = result;
-                }
-                else
-                {
-                    _fullTestListResult.AddResult(result);
-                }
-
-                if (Helper.AfterTestGeneration)
-                    GenerateReport(_fullTestListResult);
-
+                _listOfResults.Add(result);
+                
                 try
                 {
                     _currentTest.AssertCount = result.AssertCount;
@@ -181,6 +190,9 @@ namespace NunitGoAddin
                     }
                 }
                 _allTests.Add(_currentTest);
+                _fullTestListResult = GenerateResultFromList(_listOfResults);
+                if (Helper.AfterTestGeneration)
+                    GenerateReport(_fullTestListResult);
                 Log.Write("      TestFinished! Tests done: " + _allTests.Count);
                 WriteOutputToAttachment(result);
             }

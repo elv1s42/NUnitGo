@@ -11,8 +11,10 @@ namespace Utils.Extensions
         {
             Log.Write("Saving ExtraTestInfo List, path = " + path);
             var xs = new XmlSerializer(typeof(List<ExtraTestInfo>));
-            var sw = new StreamWriter(path);
-            xs.Serialize(sw, list);
+            using (var sw = new StreamWriter(path))
+            {
+                xs.Serialize(sw, list);
+            }
         }
     }
 }

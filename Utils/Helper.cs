@@ -10,40 +10,31 @@ namespace Utils
     {
         public static string Output;
         public static string Screenshots;
-        public static string Results;
         public static bool AfterTestGeneration;
         public static bool AfterSuiteGeneration;
 
-        static Helper()
+        private static string GetPath()
         {
             var codeBase = Assembly.GetExecutingAssembly().CodeBase;
             var uri = new UriBuilder(codeBase);
             var path = Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path));
+            return path;
+        }
 
-            Output = XDocument.Load(path + "/config.xml")
+        private static string GetValue(string name)
+        {
+            return XDocument.Load(GetPath() + "/config.xml")
                 .Descendants()
-                .First(x => x.Name.LocalName.Equals("output-path"))
+                .First(x => x.Name.LocalName.Equals(name))
                 .Value;
+        }
 
-            Screenshots = XDocument.Load(path + "/config.xml")
-                .Descendants()
-                .First(x => x.Name.LocalName.Equals("screenshots-path"))
-                .Value;
-
-            Results = XDocument.Load(path + "/config.xml")
-                .Descendants()
-                .First(x => x.Name.LocalName.Equals("results-path"))
-                .Value;
-
-            AfterTestGeneration = bool.Parse(XDocument.Load(path + "/config.xml")
-                .Descendants()
-                .First(x => x.Name.LocalName.Equals("after-test-generation"))
-                .Value);
-
-            AfterSuiteGeneration = bool.Parse(XDocument.Load(path + "/config.xml")
-                .Descendants()
-                .First(x => x.Name.LocalName.Equals("after-suite-generation"))
-                .Value);
+        static Helper()
+        {
+            Output = GetValue("output-path");
+            Screenshots = Output + @"\Screenshots";
+            AfterTestGeneration = bool.Parse(GetValue("after-test-generation"));
+            AfterSuiteGeneration = bool.Parse(GetValue("after-suite-generation"));
         }
     }
 }

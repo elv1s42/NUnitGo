@@ -116,7 +116,7 @@ namespace Utils.XmlTypes
         [XmlElement("result-state")]
         public string ResultState { get; set; }
 
-        [XmlArray("results-list")]
+        [XmlElement("results-list")]
         public List<TestResultXml> Results { get; set; }
 
         [XmlElement("stack-trace")]

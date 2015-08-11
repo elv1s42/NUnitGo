@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
@@ -12,10 +11,13 @@ namespace Utils.Extensions
         public static string ToString(this TestResultXml result)
         {
             var s = new XmlSerializer(typeof(TestResultXml), new XmlRootAttribute("test-results"));
-            var sw = new StringWriter();
-            var writer = XmlWriter.Create(sw);
-            s.Serialize(writer, result);
-            var xml = sw.ToString();
+            string xml;
+            using (var sw = new StringWriter())
+            {
+                var writer = XmlWriter.Create(sw);
+                s.Serialize(writer, result);
+                xml = sw.ToString();
+            }
             return xml;
         }
 
@@ -36,21 +38,21 @@ namespace Utils.Extensions
         public static int CountTests(this TestResultXml result, int currentCount = 0)
         {
             var count = currentCount;
-            if (result.Test != null && !result.Test.IsSuite) count++;
+            if (result.Test != null && !result.IsSuite) count++;
             return result.Results.Aggregate(count, (current, testResult) => testResult.CountTests(current));
         }
 
         public static int CountErrorTests(this TestResultXml result, int currentCount = 0)
         {
             var count = currentCount;
-            if (result.Test != null && !result.Test.IsSuite && result.IsError) count++;
+            if (result.Test != null && !result.IsSuite && result.IsError) count++;
             return result.Results.Aggregate(count, (current, testResult) => testResult.CountErrorTests(current));
         }
 
         public static int CountFailureTests(this TestResultXml result, int currentCount = 0)
         {
             var count = currentCount;
-            if (result.Test != null && !result.Test.IsSuite && result.IsFailure) count++;
+            if (result.Test != null && !result.IsSuite && result.IsFailure) count++;
             return result.Results.Aggregate(count, (current, testResult) => testResult.CountFailureTests(current));
         }
     }
