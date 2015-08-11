@@ -309,7 +309,7 @@ namespace NunitGoAddin
             return String.Format("screenshot_{0}.{1}", now.ToString("yyyyMMddHHmmssfff"), format.ToString().ToLower());
         }
 
-        private void TakeScreenshot(DateTime creationTime = default(DateTime))
+        private static void TakeScreenshot(DateTime creationTime = default(DateTime))
         {
             var format = ImageFormat.Png;
             var now = DateTime.Now;
