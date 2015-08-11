@@ -189,12 +189,12 @@ namespace NunitGoAddin
                         Log.Write("      TestFinished: Pending " + result.StackTrace + " " + result.Message);
                     }
                 }
+                Log.Write("      TestFinished! Tests done: " + _allTests.Count);
+                WriteOutputToAttachment(result);
                 _allTests.Add(_currentTest);
                 _fullTestListResult = GenerateResultFromList(_listOfResults);
                 if (Helper.AfterTestGeneration)
                     GenerateReport(_fullTestListResult);
-                Log.Write("      TestFinished! Tests done: " + _allTests.Count);
-                WriteOutputToAttachment(result);
             }
             catch (Exception e)
             {
