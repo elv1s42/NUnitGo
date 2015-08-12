@@ -7,13 +7,21 @@ namespace NunitResultAnalyzer.XmlClasses
     {
         public Failure()
         {
+            Message = new Message();
+            StackTrace = new StackTrace();
         }
 
         public Failure(TestResultXml result)
         {
-            if (!result.IsFailure) return;
-            Message = new Message { Value = result.Message };
-            StackTrace = new StackTrace { Value = result.StackTrace };
+            if (!result.IsFailure)
+            {
+                Message = new Message();
+                StackTrace = new StackTrace();
+            }
+            var message = result.Message;
+            var stack = result.StackTrace;
+            Message = new Message { Value = message };
+            StackTrace = new StackTrace { Value = stack };
         }
 
         [XmlElement("message")]

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
@@ -120,12 +119,12 @@ namespace HtmlCustomElements.HtmlCustomElements
 				writer.Write(testCase.Result);
 				writer.RenderEndTag(); //P
 
-				writer.RenderBeginTag(HtmlTextWriterTag.P);
-				writer.AddTag(HtmlTextWriterTag.B, "Test duration: ");
-				writer.Write(testCase.Time);
-				writer.RenderEndTag(); //P
-
-				writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Test duration: ");
+                writer.Write(testCase.Time);
+                writer.RenderEndTag(); //P
+                
+			    writer.RenderBeginTag(HtmlTextWriterTag.P);
 				writer.AddTag(HtmlTextWriterTag.B, "Time period: ");
 			    var start = testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss.fff");
 			    var end = testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss.fff");
@@ -201,6 +200,18 @@ namespace HtmlCustomElements.HtmlCustomElements
 					ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;
                 }
                 Log.Write("Adding screenshots DONE.");
+                
+                if (!bool.Parse(testCase.Success))
+                {
+                    writer.RenderBeginTag(HtmlTextWriterTag.P);
+                    writer.AddTag(HtmlTextWriterTag.B, "Failure stack trace: ");
+                    writer.Write(testCase.Failure.StackTrace.Value);
+                    writer.RenderEndTag(); //P
+                    writer.RenderBeginTag(HtmlTextWriterTag.P);
+                    writer.AddTag(HtmlTextWriterTag.B, "Failure message: ");
+                    writer.Write(testCase.Failure.Message.Value);
+                    writer.RenderEndTag(); //P
+                }
 
 				writer.RenderEndTag(); //DIV
 			}

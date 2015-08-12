@@ -98,10 +98,10 @@ namespace NunitGoAddin
         {
             try
             {
-                CreateDirectories();
                 _guids = new List<Guid>();
                 _listOfResults = new List<TestResult>();
                 _mainName = name;
+                CreateDirectories();
                 Log.Write("RunStarted: " + _mainName + ", testCount = " + testCount);
             }
             catch (Exception e)

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <config>
   <output-path>C:\_NUnitGoResults</output-path>
-  <after-test-generation>False</after-test-generation>
+  <after-test-generation>True</after-test-generation>
   <after-suite-generation>False</after-suite-generation>
 </config>
