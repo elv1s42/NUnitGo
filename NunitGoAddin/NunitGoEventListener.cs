@@ -69,15 +69,19 @@ namespace NunitGoAddin
 
         private void GenerateReport(TestResult result)
         {
+            var saveOutput = Helper.SaveOutput;
+            var outputPath = Helper.Output;
             Log.Write("Generating report...");
-            _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
+            if(saveOutput) _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
             var xmlResultList = new TestResultXml(_fullTestListResult);
-            xmlResultList.Save(Helper.Output + @"\" + "ListResult.xml");
+            if (saveOutput) xmlResultList.Save(outputPath + @"\" + "_fullTestListResult.xml");
             var xmlResult = new TestResultXml(result);
-            xmlResult.Save(Helper.Output + @"\" + "Result.xml");
-            var fullSuite = ResultsAnalyzer.GetFullSuite(new TestResults(xmlResult), _allTests);
-            NunitXmlReader.Save(fullSuite, Helper.Output + @"\" + "FullSuite.xml");
-            PageGenerator.GenerateReport(fullSuite, Helper.Output);
+            if (saveOutput) xmlResult.Save(outputPath + @"\" + "xmlResult.xml");
+            var testResults = new TestResults(xmlResult);
+            if (saveOutput) NunitXmlReader.Save(testResults, outputPath + @"\" + "testResults.xml");
+            var fullSuite = ResultsAnalyzer.GetFullSuite(testResults, _allTests);
+            if (saveOutput) NunitXmlReader.Save(fullSuite, outputPath + @"\" + "FullSuite.xml");
+            PageGenerator.GenerateReport(fullSuite, outputPath);
             Log.Write("Generating report: DONE.");
         }
 

@@ -18,7 +18,8 @@ namespace NunitResultAnalyzer
             {
                 notEmptyTestSuite = notEmptyTestSuite.Results.TestSuites.First();
             }
-            return notEmptyTestSuite.Results.TestCases.First().StartDateTime;
+            return notEmptyTestSuite.Results.TestCases.Any() 
+                ? notEmptyTestSuite.Results.TestCases.First().StartDateTime : new DateTime();
         }
 
         private static DateTime GetFinishDate(TestSuite testSuite)
@@ -28,7 +29,8 @@ namespace NunitResultAnalyzer
             {
                 notEmptyTestSuite = notEmptyTestSuite.Results.TestSuites.Last();
             }
-            return notEmptyTestSuite.Results.TestCases.Last().EndDateTime;
+            return notEmptyTestSuite.Results.TestCases.Any()
+                ? notEmptyTestSuite.Results.TestCases.Last().EndDateTime : new DateTime();
         }
 
         private static string ReadFromFile(string path)

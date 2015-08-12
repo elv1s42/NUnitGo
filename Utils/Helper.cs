@@ -12,6 +12,7 @@ namespace Utils
         public static string Screenshots;
         public static bool AfterTestGeneration;
         public static bool AfterSuiteGeneration;
+        public static bool SaveOutput;
 
         private static string GetPath()
         {
@@ -35,6 +36,7 @@ namespace Utils
             Screenshots = Output + @"\Screenshots";
             AfterTestGeneration = bool.Parse(GetValue("after-test-generation"));
             AfterSuiteGeneration = bool.Parse(GetValue("after-suite-generation"));
+            SaveOutput = bool.Parse(GetValue("save-output"));
         }
     }
 }
