@@ -56,6 +56,17 @@ namespace NunitGoAddin
             return guid;
         }
 
+        private static void CreateDirectories()
+        {
+            if (Directory.Exists(OutputPath))
+            {
+                Directory.Delete(OutputPath, true);
+            }
+            Directory.CreateDirectory(OutputPath);
+            Directory.CreateDirectory(OutputPath + @"\Attachments");
+            Directory.CreateDirectory(OutputPath + @"\Screenshots");
+        }
+
         private void GenerateReport(TestResult result)
         {
             Log.Write("Generating report...");
@@ -74,12 +85,7 @@ namespace NunitGoAddin
         {
             try
             {
-                if (Directory.Exists(OutputPath))
-                {
-                    Directory.Delete(OutputPath, true);
-                }
-                Directory.CreateDirectory(OutputPath);
-                Directory.CreateDirectory(OutputPath + @"\Attachments");
+                CreateDirectories();
                 Log.Clean();
             }
             catch (Exception e)
@@ -92,6 +98,7 @@ namespace NunitGoAddin
         {
             try
             {
+                CreateDirectories();
                 _guids = new List<Guid>();
                 _listOfResults = new List<TestResult>();
                 _mainName = name;
