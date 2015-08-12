@@ -34,6 +34,7 @@ namespace NunitGoAddin
         {
             var testName = new TestName
             {
+                Name = _mainName,
                 FullName = _mainName
             };
             var result = new TestResult(testName);
