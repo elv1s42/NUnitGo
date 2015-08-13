@@ -205,11 +205,11 @@ namespace HtmlCustomElements.HtmlCustomElements
                 {
                     writer.RenderBeginTag(HtmlTextWriterTag.P);
                     writer.AddTag(HtmlTextWriterTag.B, "Failure stack trace: ");
-                    writer.Write(testCase.Failure.StackTrace.Value);
+                    writer.Write(GenerateTxtView(testCase.Failure.StackTrace.Value));
                     writer.RenderEndTag(); //P
                     writer.RenderBeginTag(HtmlTextWriterTag.P);
                     writer.AddTag(HtmlTextWriterTag.B, "Failure message: ");
-                    writer.Write(testCase.Failure.Message.Value);
+                    writer.Write(GenerateTxtView(testCase.Failure.Message.Value));
                     writer.RenderEndTag(); //P
                 }
 

@@ -136,7 +136,7 @@ namespace NunitResultAnalyzer
                 suite.StartDateTime = GetStartDate(suite);
                 suite.EndDateTime = GetFinishDate(suite);
 
-                if (suite.Results.TestSuites.Any())
+                if (suite.Results != null && suite.Results.TestSuites.Any())
                 {
                     AddDatesToTestSuites(suite.Results);
                 }
