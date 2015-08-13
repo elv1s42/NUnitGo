@@ -13,7 +13,9 @@ namespace Utils
             var format = ImageFormat.Png;
             var now = DateTime.Now;
             var screenPath = Helper.Screenshots;
+            
             Directory.CreateDirectory(screenPath);
+            
             var screenName = String.Format("screenshot_{0}.{1}",
                 now.ToString("yyyyMMddHHmmssfff"), format.ToString().ToLower());
 

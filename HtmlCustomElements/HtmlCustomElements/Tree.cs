@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
@@ -163,10 +164,10 @@ namespace HtmlCustomElements.HtmlCustomElements
 				writer.AddAttribute(HtmlTextWriterAttribute.Title, name);
 				writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
 				writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, "110%");
-				writer.RenderBeginTag(HtmlTextWriterTag.Label);
-				writer.Write(type + ": " + name + " " + passedCountString
-					+ " " + suite.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
-						suite.EndDateTime.ToString("dd.MM.yy HH:mm:ss"));
+                writer.RenderBeginTag(HtmlTextWriterTag.Label);
+                var start = suite.StartDateTime.Equals(new DateTime()) ? "" : suite.StartDateTime.ToString("dd.MM.yy HH:mm:ss");
+                var end = suite.EndDateTime.Equals(new DateTime()) ? "" : suite.EndDateTime.ToString("dd.MM.yy HH:mm:ss");
+				writer.Write(type + ": " + name + " " + passedCountString + " " + start + " - " + end);
 				writer.RenderEndTag(); //LABEL
 				writer.RenderBeginTag(HtmlTextWriterTag.Ul);
 				Log.Write("TestCases count = " + currentTestCases.Count);

@@ -13,24 +13,41 @@ namespace NunitResultAnalyzer
     {
         private static DateTime GetStartDate(TestSuite testSuite)
         {
-            var notEmptyTestSuite = testSuite;
-            while (!notEmptyTestSuite.Results.TestCases.Any())
+            try
             {
-                notEmptyTestSuite = notEmptyTestSuite.Results.TestSuites.First();
+                var notEmptyTestSuite = testSuite;
+                while (!notEmptyTestSuite.Results.TestCases.Any())
+                {
+                    notEmptyTestSuite = notEmptyTestSuite.Results.TestSuites.First();
+                }
+                return notEmptyTestSuite.Results.TestCases.Any()
+                    ? notEmptyTestSuite.Results.TestCases.First().StartDateTime : new DateTime();
             }
-            return notEmptyTestSuite.Results.TestCases.Any() 
-                ? notEmptyTestSuite.Results.TestCases.First().StartDateTime : new DateTime();
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return new DateTime();
+            }
         }
 
         private static DateTime GetFinishDate(TestSuite testSuite)
         {
-            var notEmptyTestSuite = testSuite;
-            while (!notEmptyTestSuite.Results.TestCases.Any())
+            try
             {
-                notEmptyTestSuite = notEmptyTestSuite.Results.TestSuites.Last();
+                var notEmptyTestSuite = testSuite;
+                while (!notEmptyTestSuite.Results.TestCases.Any())
+                {
+                    notEmptyTestSuite = notEmptyTestSuite.Results.TestSuites.Last();
+                }
+                return notEmptyTestSuite.Results.TestCases.Any()
+                    ? notEmptyTestSuite.Results.TestCases.Last().EndDateTime : new DateTime();
+
             }
-            return notEmptyTestSuite.Results.TestCases.Any()
-                ? notEmptyTestSuite.Results.TestCases.Last().EndDateTime : new DateTime();
+            catch (Exception e)
+            {
+                Log.Exception(e);
+                return new DateTime();
+            }
         }
 
         private static string ReadFromFile(string path)
@@ -103,7 +120,6 @@ namespace NunitResultAnalyzer
                         testCase.Screenshots.Add(screen);
                     }
                 }
-                
                 if (suite.Results.TestSuites.Any())
                 {
                     AddDatesAndScreensToTestCases(suite.Results, screens, extraTestInfo);

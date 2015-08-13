@@ -7,6 +7,23 @@ namespace Utils.XmlTypes
 {
     public class ExtraTestInfo
     {
+        public ExtraTestInfo()
+        {
+            Guid = new Guid();
+            TestId = "";
+            RunnerId = "";
+            TestName = "";
+            FullTestName = "";
+            UniqueTestName = "";
+            StartDate = new DateTime();
+            FinishDate = new DateTime();
+            AssertCount = 0;
+            Log = "";
+            Out = "";
+            Trace = "";
+            Error = "";
+        }
+
         public static List<ExtraTestInfo> Load(string path)
         {
             List<ExtraTestInfo> extraInfo;
@@ -17,7 +34,7 @@ namespace Utils.XmlTypes
             }
             return extraInfo;
         }
-
+        
         [XmlElement("guid")]
         public Guid Guid { get; set; }
 

@@ -22,13 +22,26 @@ namespace NunitGoAddin
         private StringBuilder _error = new StringBuilder();
         private StringBuilder _out = new StringBuilder();
         private StringBuilder _trace = new StringBuilder();
-        private static readonly string OutputPath = Helper.Output;
+        private static string _outputPath = Helper.Output;
         private readonly List<ExtraTestInfo> _allTests = new List<ExtraTestInfo>();
         private ExtraTestInfo _currentTest;
         private string _mainName;
         private List<Guid> _guids;
         private TestResult _fullTestListResult;
         private List<TestResult> _listOfResults;
+
+        static NunitGoEventListener()
+        {
+            try
+            {
+                Log.Clean();
+                CreateDirectories();
+            }
+            catch (Exception e)
+            {
+                Log.Write("Exception! " + e.Message + " " + e.StackTrace);
+            }
+        }
 
         private TestResult GenerateResultFromList(IEnumerable<TestResult> listOfResults)
         {
@@ -48,7 +61,7 @@ namespace NunitGoAddin
         private Guid GetGuid()
         {
             var guid = Guid.NewGuid();
-            while (_guids.Any(x => x.Equals(guid)))
+            while (_guids.Any() && _guids.Any(x => x.Equals(guid)))
             {
                 guid = Guid.NewGuid();
             }
@@ -58,13 +71,23 @@ namespace NunitGoAddin
 
         private static void CreateDirectories()
         {
-            if (Directory.Exists(OutputPath))
+            try
             {
-                Directory.Delete(OutputPath, true);
+                _outputPath = Helper.Output;
+                if (Directory.Exists(_outputPath))
+                {
+                    Log.Write("Directory " + _outputPath + " already exists, deleting it...");
+                    Directory.Delete(_outputPath, true);
+                }
+                Log.Write("Creating directory: " + _outputPath);
+                Directory.CreateDirectory(_outputPath);
+                Directory.CreateDirectory(_outputPath + @"\Attachments");
+                Directory.CreateDirectory(_outputPath + @"\Screenshots");
             }
-            Directory.CreateDirectory(OutputPath);
-            Directory.CreateDirectory(OutputPath + @"\Attachments");
-            Directory.CreateDirectory(OutputPath + @"\Screenshots");
+            catch (Exception ex)
+            {
+                Log.Write("Exception in CreateDirectories! " + ex.Message + ", " + ex.StackTrace);
+            }
         }
 
         private void GenerateReport(TestResult result)
@@ -72,7 +95,7 @@ namespace NunitGoAddin
             var saveOutput = Helper.SaveOutput;
             var outputPath = Helper.Output;
             Log.Write("Generating report...");
-            if(saveOutput) _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
+            if(saveOutput) _allTests.Save(_outputPath + @"\" + "ExtraInfo.xml");
             var xmlResultList = new TestResultXml(_fullTestListResult);
             if (saveOutput) xmlResultList.Save(outputPath + @"\" + "_fullTestListResult.xml");
             var xmlResult = new TestResultXml(result);
@@ -84,20 +107,7 @@ namespace NunitGoAddin
             PageGenerator.GenerateReport(fullSuite, outputPath);
             Log.Write("Generating report: DONE.");
         }
-
-        static NunitGoEventListener()
-        {
-            try
-            {
-                CreateDirectories();
-                Log.Clean();
-            }
-            catch (Exception e)
-            {
-                Log.Write("Exception! " + e.Message + " " + e.StackTrace);
-            }
-        }
-
+        
         public override void RunStarted(string name, int testCount)
         {
             try
@@ -105,8 +115,8 @@ namespace NunitGoAddin
                 _guids = new List<Guid>();
                 _listOfResults = new List<TestResult>();
                 _mainName = name;
-                CreateDirectories();
                 Log.Write("RunStarted: " + _mainName + ", testCount = " + testCount);
+                CreateDirectories();
             }
             catch (Exception e)
             {
@@ -131,7 +141,7 @@ namespace NunitGoAddin
         {
             try
             {
-                _allTests.Save(OutputPath + @"\" + "ExtraInfo.xml");
+                _allTests.Save(_outputPath + @"\" + "ExtraInfo.xml");
                 Log.Write("RunFinished with exception: " + exception.Message + ", Trace = " + exception.StackTrace);
                 GenerateReport(_fullTestListResult);
             }
@@ -261,7 +271,7 @@ namespace NunitGoAddin
 
         private void WriteOutputToAttachment(TestResult result)
         {
-            var testAttachPath = OutputPath + @"\Attachments\" + _currentTest.Guid + @"\";
+            var testAttachPath = _outputPath + @"\Attachments\" + _currentTest.Guid + @"\";
             _currentTest.Log = testAttachPath + "log.txt";
             _currentTest.Trace = testAttachPath + "trace.txt";
             _currentTest.Error = testAttachPath + "error.txt";

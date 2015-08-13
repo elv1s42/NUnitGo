@@ -24,7 +24,9 @@ namespace Utils
 
         public static void Write(string msg)
         {
-            var sw = File.AppendText(GetFilePath() + @"\NunitGoAddinLog.txt");
+            var path = GetFilePath();
+            Directory.CreateDirectory(path);
+            var sw = File.AppendText(path + @"\NunitGoAddinLog.txt");
             try
             {
                 var logLine = String.Format("{0:G}: {1}", DateTime.Now, msg);
@@ -34,6 +36,11 @@ namespace Utils
             {
                 sw.Close();
             }
+        }
+
+        public static void Exception(Exception exception)
+        {
+            Write("Exception! Message: " + exception.Message + " , StackTrace: " + exception.StackTrace);
         }
     }
 }
