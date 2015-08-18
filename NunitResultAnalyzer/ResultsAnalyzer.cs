@@ -80,10 +80,10 @@ namespace NunitResultAnalyzer
                 var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
                 testCase.StartDateTime = extraInfo.StartDate;
                 testCase.EndDateTime = extraInfo.FinishDate;
-                testCase.Error = ReadFromFile(extraInfo.Error);
-                testCase.Out = ReadFromFile(extraInfo.Out);
-                testCase.Log = ReadFromFile(extraInfo.Log);
-                testCase.Trace = ReadFromFile(extraInfo.Trace);
+                testCase.Error = ReadFromFile(extraInfo.ErrorPath);
+                testCase.Out = ReadFromFile(extraInfo.OutPath);
+                testCase.Log = ReadFromFile(extraInfo.LogPath);
+                testCase.Trace = ReadFromFile(extraInfo.TracePath);
                 testCase.Guid = extraInfo.Guid.ToString();
 
                 var start = testCase.StartDateTime;
@@ -107,10 +107,10 @@ namespace NunitResultAnalyzer
                     var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
                     testCase.StartDateTime = extraInfo.StartDate;
                     testCase.EndDateTime = extraInfo.FinishDate;
-                    testCase.Error = ReadFromFile(extraInfo.Error);
-                    testCase.Out = ReadFromFile(extraInfo.Out);
-                    testCase.Log = ReadFromFile(extraInfo.Log);
-                    testCase.Trace = ReadFromFile(extraInfo.Trace);
+                    testCase.Error = ReadFromFile(extraInfo.ErrorPath);
+                    testCase.Out = ReadFromFile(extraInfo.OutPath);
+                    testCase.Log = ReadFromFile(extraInfo.LogPath);
+                    testCase.Trace = ReadFromFile(extraInfo.TracePath);
                     testCase.Guid = extraInfo.Guid.ToString();
 
                     var start = testCase.StartDateTime;

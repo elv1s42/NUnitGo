@@ -18,10 +18,10 @@ namespace Utils.XmlTypes
             StartDate = new DateTime();
             FinishDate = new DateTime();
             AssertCount = 0;
-            Log = "";
-            Out = "";
-            Trace = "";
-            Error = "";
+            LogPath = "";
+            OutPath = "";
+            TracePath = "";
+            ErrorPath = "";
         }
 
         public static List<ExtraTestInfo> Load(string path)
@@ -63,15 +63,15 @@ namespace Utils.XmlTypes
         public int AssertCount { get; set; }
         
         [XmlElement("log")]
-        public string Log { get; set; }
+        public string LogPath { get; set; }
 
         [XmlElement("out")]
-        public string Out { get; set; }
+        public string OutPath { get; set; }
 
         [XmlElement("trace")]
-        public string Trace { get; set; }
+        public string TracePath { get; set; }
 
         [XmlElement("error")]
-        public string Error { get; set; }
+        public string ErrorPath { get; set; }
     }
 }

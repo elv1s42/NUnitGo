@@ -119,20 +119,20 @@ namespace HtmlCustomElements.HtmlCustomElements
 				writer.Write(testCase.Result);
 				writer.RenderEndTag(); //P
 
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.AddTag(HtmlTextWriterTag.B, "Test duration: ");
-                writer.Write(testCase.Time);
-                writer.RenderEndTag(); //P
-                
-			    writer.RenderBeginTag(HtmlTextWriterTag.P);
+				writer.RenderBeginTag(HtmlTextWriterTag.P);
+				writer.AddTag(HtmlTextWriterTag.B, "Test duration: ");
+				writer.Write(testCase.Time);
+				writer.RenderEndTag(); //P
+				
+				writer.RenderBeginTag(HtmlTextWriterTag.P);
 				writer.AddTag(HtmlTextWriterTag.B, "Time period: ");
-			    var start = testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss.fff");
-			    var end = testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss.fff");
-                Log.Write(start + " - " + end);
+				var start = testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss.fff");
+				var end = testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss.fff");
+				Log.Write(start + " - " + end);
 				writer.Write(start + " - " + end);
 				writer.RenderEndTag(); //P
 
-                Log.Write("Screenshots count: " + testCase.Screenshots.Count);
+				Log.Write("Screenshots count: " + testCase.Screenshots.Count);
 				writer.RenderBeginTag(HtmlTextWriterTag.P);
 				writer.AddTag(HtmlTextWriterTag.B, "Screenshots: ");
 				writer.Write(testCase.Screenshots.Count);
@@ -141,7 +141,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				if (hasError)
 				{
 					var modalErrorId = "modal-error-" + testCase.Guid;
-				    var error = testCase.Error;
+					var error = testCase.Error;
 					var modalError = new ModalWindow(modalErrorId, GenerateTxtView(error), "1004", 80, "1003");
 					var openButton = new JsOpenButton("Veiw error", modalErrorId, modalError.BackgroundId,
 						Colors.OpenLogsButtonBackground);
@@ -151,7 +151,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				if (hasOutput)
 				{
 					var modalOutId = "modal-out-" + testCase.Guid;
-				    var output = testCase.Out;
+					var output = testCase.Out;
 					var modalOut = new ModalWindow(modalOutId, GenerateTxtView(output), "1004", 80, "1003");
 					var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
 						Colors.OpenLogsButtonBackground);
@@ -161,7 +161,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				if (hasTrace)
 				{
 					var modalTraceId = "modal-trace-" + testCase.Guid;
-				    var trace = testCase.Trace;
+					var trace = testCase.Trace;
 					var modalTrace = new ModalWindow(modalTraceId, GenerateTxtView(trace), "1004", 80, "1003");
 					var openButton = new JsOpenButton("Veiw trace", modalTraceId, modalTrace.BackgroundId,
 						Colors.OpenLogsButtonBackground);
@@ -171,7 +171,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				if (hasLog)
 				{
 					var modalLogId = "modal-log-" + testCase.Guid;
-				    var log = testCase.Log;
+					var log = testCase.Log;
 					var modalLog = new ModalWindow(modalLogId, GenerateTxtView(log), "1004", 80, "1003");
 					var openButton = new JsOpenButton("Veiw log", modalLogId, modalLog.BackgroundId, 
 						Colors.OpenLogsButtonBackground);
@@ -179,7 +179,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 					ModalWindowsHtml += modalLog.ModalWindowHtml + Environment.NewLine;
 				}
 
-                Log.Write("Adding screenshots...");
+				Log.Write("Adding screenshots...");
 				foreach (var screenshot in testCase.Screenshots)
 				{
 					var sWr = new StringWriter();
@@ -198,20 +198,20 @@ namespace HtmlCustomElements.HtmlCustomElements
 						Colors.OpenLogsButtonBackground);
 					writer.Write(openButton.ButtonHtml);
 					ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;
-                }
-                Log.Write("Adding screenshots DONE.");
-                
-                if (!bool.Parse(testCase.Success))
-                {
-                    writer.RenderBeginTag(HtmlTextWriterTag.P);
-                    writer.AddTag(HtmlTextWriterTag.B, "Failure stack trace: ");
-                    writer.Write(GenerateTxtView(testCase.Failure.StackTrace.Value));
-                    writer.RenderEndTag(); //P
-                    writer.RenderBeginTag(HtmlTextWriterTag.P);
-                    writer.AddTag(HtmlTextWriterTag.B, "Failure message: ");
-                    writer.Write(GenerateTxtView(testCase.Failure.Message.Value));
-                    writer.RenderEndTag(); //P
-                }
+				}
+				Log.Write("Adding screenshots DONE.");
+				
+				if (!bool.Parse(testCase.Success))
+				{
+					writer.RenderBeginTag(HtmlTextWriterTag.P);
+					writer.AddTag(HtmlTextWriterTag.B, "Failure stack trace: ");
+					writer.Write(GenerateTxtView(testCase.Failure.StackTrace.Value));
+					writer.RenderEndTag(); //P
+					writer.RenderBeginTag(HtmlTextWriterTag.P);
+					writer.AddTag(HtmlTextWriterTag.B, "Failure message: ");
+					writer.Write(GenerateTxtView(testCase.Failure.Message.Value));
+					writer.RenderEndTag(); //P
+				}
 
 				writer.RenderEndTag(); //DIV
 			}

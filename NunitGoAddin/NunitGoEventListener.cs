@@ -274,10 +274,10 @@ namespace NunitGoAddin
         private void WriteOutputToAttachment(TestResult result)
         {
             var testAttachPath = _outputPath + @"\Attachments\" + _currentTest.Guid + @"\";
-            _currentTest.Log = testAttachPath + "log.txt";
-            _currentTest.Trace = testAttachPath + "trace.txt";
-            _currentTest.Error = testAttachPath + "error.txt";
-            _currentTest.Out = testAttachPath + "out.txt";
+            _currentTest.LogPath = testAttachPath + "log.txt";
+            _currentTest.TracePath = testAttachPath + "trace.txt";
+            _currentTest.ErrorPath = testAttachPath + "error.txt";
+            _currentTest.OutPath = testAttachPath + "out.txt";
 
             Directory.CreateDirectory(testAttachPath);
 
@@ -286,7 +286,7 @@ namespace NunitGoAddin
 
             if(_out.Length > 0)
             {
-                var sw = File.AppendText(_currentTest.Out);
+                var sw = File.AppendText(_currentTest.OutPath);
                 try
                 {
                     sw.WriteLine(_out.ToString());
@@ -298,7 +298,7 @@ namespace NunitGoAddin
             }
             if (_trace.Length > 0)
             {
-                var sw = File.AppendText(_currentTest.Trace);
+                var sw = File.AppendText(_currentTest.TracePath);
                 try
                 {
                     sw.WriteLine(_trace.ToString());
@@ -310,7 +310,7 @@ namespace NunitGoAddin
             }
             if (_log.Length > 0)
             {
-                var sw = File.AppendText(_currentTest.Log);
+                var sw = File.AppendText(_currentTest.LogPath);
                 try
                 {
                     sw.WriteLine(_log.ToString());
@@ -322,7 +322,7 @@ namespace NunitGoAddin
             }
             if (_error.Length > 0)
             {
-                var sw = File.AppendText(_currentTest.Error);
+                var sw = File.AppendText(_currentTest.ErrorPath);
                 try
                 {
                     sw.WriteLine(_error.ToString());
