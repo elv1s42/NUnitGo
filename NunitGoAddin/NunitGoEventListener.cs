@@ -177,6 +177,8 @@ namespace NunitGoAddin
             {
                 _currentTest.FinishDate = DateTime.Now;
                 _listOfResults.Add(result);
+                if (_currentTest.FullTestName.Equals("")) 
+                    _currentTest.FullTestName = result.FullName;
                 
                 try
                 {
