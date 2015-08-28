@@ -73,8 +73,9 @@ namespace HtmlCustomElements.HtmlCustomElements
 				writer.AddAttribute(HtmlTextWriterAttribute.Class, "modal-window");
 				writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
 				writer.RenderBeginTag(HtmlTextWriterTag.Div);
-				
-				writer.AddStyleAttribute(HtmlTextWriterStyle.TextAlign, "right");
+
+                writer.AddStyleAttribute(HtmlTextWriterStyle.TextAlign, "right");
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, Id + "-inner");
 				writer.RenderBeginTag(HtmlTextWriterTag.Div);
 				var closeButton = new JsCloseButton(Id, backgroundId);
 				writer.Write(closeButton.ButtonHtml);

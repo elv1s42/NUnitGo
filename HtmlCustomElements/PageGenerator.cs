@@ -24,7 +24,13 @@ namespace HtmlCustomElements
 			report.AddInsideTag("style", Tree.StyleString);
 			report.AddInsideTag("style", NunitTest.StyleString);
 			report.AddInsideTag("style", JsOpenButton.StyleString);
-			
+
+            var jsSection = new JsSection();
+            report.AddToBody(jsSection.Html);
+
+            var openModalWindowScript = new OpenModalWindowScript();
+            report.AddScripts(openModalWindowScript.Script);
+
 			var mainTitle = new ReportTitle();
 			report.AddToBody(mainTitle.HtmlCode);
 
@@ -33,7 +39,7 @@ namespace HtmlCustomElements
 
 			var reportMenuTitle = new ReportTitle("Report menu", "report-main-menu");
 			report.AddToBody(reportMenuTitle.HtmlCode);
-
+            
 			var statisticsSection = new StatisticsSection(testResults);
 			var testListSection = new TestListSection(testResults);
 

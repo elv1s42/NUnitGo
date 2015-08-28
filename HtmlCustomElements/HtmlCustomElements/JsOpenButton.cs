@@ -13,6 +13,7 @@ namespace HtmlCustomElements.HtmlCustomElements
         private readonly string _buttonText;
         private readonly string _href;
         private readonly string _backgroundColor;
+        private readonly string _onClickString;
         public string ButtonHtml;
         public new static string StyleString
         {
@@ -20,6 +21,7 @@ namespace HtmlCustomElements.HtmlCustomElements
         }
         
         public JsOpenButton(string buttonText, string idToOpen, string backgroundId = "modal-background", string bcgColor = "white",
+            string onClickString = "",
             string href = "javascript:void(0)")
             : base(buttonText, href)
         {
@@ -28,6 +30,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             _buttonText = buttonText;
             _href = href;
             _backgroundColor = bcgColor;
+            _onClickString = onClickString;
             ButtonHtml = GetHtml();
             Style = GetStyle();
         }
@@ -70,7 +73,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                                     _idToOpen, _backgroundId);
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Href, _href);
-                writer.AddAttribute(HtmlTextWriterAttribute.Onclick, onClickString);
+                writer.AddAttribute(HtmlTextWriterAttribute.Onclick, 
+                    _onClickString.Equals("") ? onClickString : _onClickString);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "href-open-button");
                 writer.AddStyleAttribute("background", _backgroundColor);
                 writer.RenderBeginTag(HtmlTextWriterTag.A);

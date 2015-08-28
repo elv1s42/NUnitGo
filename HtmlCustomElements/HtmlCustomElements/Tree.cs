@@ -13,8 +13,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 {
 	public class Tree : HtmlBaseElement
 	{
-		public string HtmlCode;
-		public string HtmlCodeModalWindows;
+        public string HtmlCode;
+        public string HtmlCodeModalWindows;
 		public static string StyleString
 		{
 			get { return GetStyle(); }
@@ -183,7 +183,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 						+ " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
 						testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss"), 
 						modalId, modalWindow.BackgroundId, test.BackgroundColor);
-
+                    
 					writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
 					writer.RenderBeginTag(HtmlTextWriterTag.Li);
 

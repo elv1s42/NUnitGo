@@ -10,8 +10,8 @@ using Environment = System.Environment;
 namespace HtmlCustomElements.HtmlCustomElements
 {
 	public class NunitTest : HtmlBaseElement
-	{
-		public string ModalWindowsHtml;
+    {
+        public string ModalWindowsHtml;
 		
 		public string BackgroundColor;
 		public string HtmlCode;
@@ -95,7 +95,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 			var hasTrace = testCase.Trace != null && !testCase.Trace.Equals("");
 			Log.Write("Test case output checked.");
 
-			ModalWindowsHtml = "";
+            ModalWindowsHtml = "";
 
 			Style = GetStyle();
 			BackgroundColor = GetBackgroundColor(testCase);
@@ -143,8 +143,12 @@ namespace HtmlCustomElements.HtmlCustomElements
 					var modalErrorId = "modal-error-" + testCase.Guid;
 					var error = testCase.Error;
 					var modalError = new ModalWindow(modalErrorId, GenerateTxtView(error), "1004", 80, "1003");
+
+				    //var openModalWindowScript = new OpenModalWindowScript(error, modalErrorId);
+
 					var openButton = new JsOpenButton("Veiw error", modalErrorId, modalError.BackgroundId,
 						Colors.OpenLogsButtonBackground);
+
 					writer.Write(openButton.ButtonHtml);
 					ModalWindowsHtml += modalError.ModalWindowHtml + Environment.NewLine;
 				}
@@ -152,10 +156,19 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalOutId = "modal-out-" + testCase.Guid;
 					var output = testCase.Out;
-					var modalOut = new ModalWindow(modalOutId, GenerateTxtView(output), "1004", 80, "1003");
-					var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
-						Colors.OpenLogsButtonBackground);
-					writer.Write(openButton.ButtonHtml);
+                    var modalOut = new ModalWindow(modalOutId, GenerateTxtView(output), "1004", 80, "1003");
+
+                    //var openModalWindowScript = new OpenModalWindowScript(output, modalOutId);
+                    var onClickString = "openModalWindow('"
+                        + output + "','"
+                        + modalOutId + "','"
+                        + modalOutId + "-inner" + "','" 
+                        + modalOut.BackgroundId + "')";
+					
+                    var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
+						Colors.OpenLogsButtonBackground, onClickString);
+
+                    writer.Write(openButton.ButtonHtml);
 					ModalWindowsHtml += modalOut.ModalWindowHtml + Environment.NewLine;
 				}
 				if (hasTrace)
