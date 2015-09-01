@@ -73,18 +73,43 @@ namespace HtmlCustomElements.HtmlCustomElements
 			return treeCssSet.ToString();
 		}
 
-		private static string GenerateTxtView(string txt)
-		{
-			var sWr = new StringWriter();
-			using (var wr = new HtmlTextWriter(sWr))
-			{
-				wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
-				wr.RenderBeginTag(HtmlTextWriterTag.Div);
-				wr.Write(txt);
-				wr.RenderEndTag();
-			}
-			return sWr.ToString();
-		}
+        private static string GenerateTxtView(string txt)
+        {
+            var sWr = new StringWriter();
+            using (var wr = new HtmlTextWriter(sWr))
+            {
+                wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
+                wr.RenderBeginTag(HtmlTextWriterTag.Div);
+                wr.Write(txt);
+                wr.RenderEndTag();//DIV
+            }
+            return sWr.ToString();
+        }
+
+        private static string GenerateTxtFileView(string txt)
+        {
+            var sWr = new StringWriter();
+            using (var wr = new HtmlTextWriter(sWr))
+            {
+                wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
+                wr.RenderBeginTag(HtmlTextWriterTag.Div);
+
+                wr.AddAttribute("data", txt);
+                wr.AddAttribute(HtmlTextWriterAttribute.Type, "text/plain");
+                wr.RenderBeginTag(HtmlTextWriterTag.Object);
+                wr.Write("alt : ");
+
+                wr.AddAttribute(HtmlTextWriterAttribute.Href, txt);
+                wr.RenderBeginTag(HtmlTextWriterTag.A);
+                wr.Write(txt);
+                wr.RenderEndTag();//A
+
+                wr.RenderEndTag();//OBJECT
+
+                wr.RenderEndTag();//DIV
+            }
+            return sWr.ToString();
+        }
 
 		public NunitTest(TestCase testCase)
 		{
@@ -156,14 +181,14 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalOutId = "modal-out-" + testCase.Guid;
 					var output = testCase.Out;
-                    var modalOut = new ModalWindow(modalOutId, GenerateTxtView(output), "1004", 80, "1003");
+                    var modalOut = new ModalWindow(modalOutId, GenerateTxtFileView(output), "1004", 80, "1003");
 
                     //var openModalWindowScript = new OpenModalWindowScript(output, modalOutId);
-                    var onClickString = "openModalWindow('"
-                        + output + "','"
-                        + modalOutId + "','"
-                        + modalOutId + "-inner" + "','" 
-                        + modalOut.BackgroundId + "')";
+                    var onClickString = "openModalWindow(\""
+                        + output + "\",\""
+                        + modalOutId + "\",\""
+                        + modalOutId + "-inner" + "\",\"" 
+                        + modalOut.BackgroundId + "\")";
 					
                     var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
 						Colors.OpenLogsButtonBackground, onClickString);

@@ -273,11 +273,7 @@ namespace NunitGoAddin
 
         private void WriteOutputToAttachment(TestResult result)
         {
-            var testAttachPath = _outputPath + @"\Attachments\" + _currentTest.Guid + @"\";
-            _currentTest.LogPath = testAttachPath + "log.txt";
-            _currentTest.TracePath = testAttachPath + "trace.txt";
-            _currentTest.ErrorPath = testAttachPath + "error.txt";
-            _currentTest.OutPath = testAttachPath + "out.txt";
+            var testAttachPath = _outputPath + @"\" + "Attachments" + @"\" + _currentTest.Guid + @"\";
 
             Directory.CreateDirectory(testAttachPath);
 
@@ -286,6 +282,7 @@ namespace NunitGoAddin
 
             if(_out.Length > 0)
             {
+                _currentTest.OutPath = testAttachPath + "out.txt";
                 var sw = File.AppendText(_currentTest.OutPath);
                 try
                 {
@@ -298,6 +295,7 @@ namespace NunitGoAddin
             }
             if (_trace.Length > 0)
             {
+                _currentTest.TracePath = testAttachPath + "trace.txt";
                 var sw = File.AppendText(_currentTest.TracePath);
                 try
                 {
@@ -310,6 +308,7 @@ namespace NunitGoAddin
             }
             if (_log.Length > 0)
             {
+                _currentTest.LogPath = testAttachPath + "log.txt";
                 var sw = File.AppendText(_currentTest.LogPath);
                 try
                 {
@@ -322,6 +321,7 @@ namespace NunitGoAddin
             }
             if (_error.Length > 0)
             {
+                _currentTest.ErrorPath = testAttachPath + "error.txt";
                 var sw = File.AppendText(_currentTest.ErrorPath);
                 try
                 {

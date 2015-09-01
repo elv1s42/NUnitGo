@@ -80,11 +80,14 @@ namespace NunitResultAnalyzer
                 var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
                 testCase.StartDateTime = extraInfo.StartDate;
                 testCase.EndDateTime = extraInfo.FinishDate;
-                testCase.Error = ReadFromFile(extraInfo.ErrorPath);
-                //testCase.Out = ReadFromFile(extraInfo.OutPath);
-                testCase.Out = extraInfo.OutPath;
-                testCase.Log = ReadFromFile(extraInfo.LogPath);
-                testCase.Trace = ReadFromFile(extraInfo.TracePath);
+                testCase.Error = extraInfo.ErrorPath.Equals("") ? 
+                    "" : "Attachments" + @"\" + extraInfo.Guid + @"\" + "error.txt";
+                testCase.Out = extraInfo.OutPath.Equals("") ? 
+                    "" : "Attachments" + @"\" + extraInfo.Guid + @"\" + "out.txt";
+                testCase.Log = extraInfo.LogPath.Equals("") ? 
+                    "" : "Attachments" + @"\" + extraInfo.Guid + @"\" + "log.txt";
+                testCase.Trace = extraInfo.TracePath.Equals("") ? 
+                    "" : "Attachments" + @"\" + extraInfo.Guid + @"\" + "trace.txt";
                 testCase.Guid = extraInfo.Guid.ToString();
 
                 var start = testCase.StartDateTime;
@@ -108,11 +111,14 @@ namespace NunitResultAnalyzer
                     var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
                     testCase.StartDateTime = extraInfo.StartDate;
                     testCase.EndDateTime = extraInfo.FinishDate;
-                    testCase.Error = ReadFromFile(extraInfo.ErrorPath);
-                    //testCase.Out = ReadFromFile(extraInfo.OutPath);
-                    testCase.Out = extraInfo.OutPath;
-                    testCase.Log = ReadFromFile(extraInfo.LogPath);
-                    testCase.Trace = ReadFromFile(extraInfo.TracePath);
+                    testCase.Error = extraInfo.ErrorPath.Equals("") ? 
+                        "" : "Attachments" + @"\" + extraInfo.Guid + @"\" + "error.txt";
+                    testCase.Out = extraInfo.OutPath.Equals("") ? 
+                        "" : "Attachments" + @"\" + extraInfo.Guid + @"\" + "out.txt";
+                    testCase.Log = extraInfo.LogPath.Equals("") ? 
+                        "" : "Attachments" + @"\" + extraInfo.Guid + @"\" + "log.txt";
+                    testCase.Trace = extraInfo.TracePath.Equals("") ? 
+                        "" : "Attachments" + @"\" + extraInfo.Guid + @"\" + "trace.txt";
                     testCase.Guid = extraInfo.Guid.ToString();
 
                     var start = testCase.StartDateTime;
