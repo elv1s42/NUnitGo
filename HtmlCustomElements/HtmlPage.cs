@@ -62,6 +62,7 @@ namespace HtmlCustomElements
             using (var writer = new HtmlTextWriter(strWr))
             {
                 writer.RenderBeginTag(HtmlTextWriterTag.Html);
+                //writer.Write("<!DOCTYPE html>");
 
                 writer.RenderBeginTag(HtmlTextWriterTag.Head);
 
@@ -80,10 +81,14 @@ namespace HtmlCustomElements
                 writer.RenderEndTag(); //HEAD
 
                 writer.AddTag(HtmlTextWriterTag.Body);
-                
-                writer.RenderEndTag(); //HTML
+
+                writer.Write(Environment.NewLine);
 
                 writer.AddTag("footer");
+
+                writer.RenderEndTag(); //HTML
+                //writer.Write("</html>");
+
             }
             _page = strWr.ToString();
         }

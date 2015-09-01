@@ -96,6 +96,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 
                 wr.AddAttribute("data", txt);
                 wr.AddAttribute(HtmlTextWriterAttribute.Type, "text/plain");
+                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
+                wr.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
                 wr.RenderBeginTag(HtmlTextWriterTag.Object);
                 wr.Write("alt : ");
 
