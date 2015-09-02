@@ -169,12 +169,14 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalErrorId = "modal-error-" + testCase.Guid;
 					var error = testCase.Error;
-					var modalError = new ModalWindow(modalErrorId, GenerateTxtView(error), "1004", 80, "1003");
-
-				    //var openModalWindowScript = new OpenModalWindowScript(error, modalErrorId);
-
+					var modalError = new ModalWindow(modalErrorId, GenerateTxtFileView(error), "1004", 80, "1003");
+                    var onClickString = "openModalWindow(\""
+                        + error + "\",\""
+                        + modalErrorId + "\",\""
+                        + modalErrorId + "-inner" + "\",\""
+                        + modalError.BackgroundId + "\")";
 					var openButton = new JsOpenButton("Veiw error", modalErrorId, modalError.BackgroundId,
-						Colors.OpenLogsButtonBackground);
+						Colors.OpenLogsButtonBackground, onClickString);
 
 					writer.Write(openButton.ButtonHtml);
 					ModalWindowsHtml += modalError.ModalWindowHtml + Environment.NewLine;
@@ -184,15 +186,12 @@ namespace HtmlCustomElements.HtmlCustomElements
 					var modalOutId = "modal-out-" + testCase.Guid;
 					var output = testCase.Out;
                     var modalOut = new ModalWindow(modalOutId, GenerateTxtFileView(output), "1004", 80, "1003");
-
-                    //var openModalWindowScript = new OpenModalWindowScript(output, modalOutId);
                     var onClickString = "openModalWindow(\""
                         + output + "\",\""
                         + modalOutId + "\",\""
                         + modalOutId + "-inner" + "\",\"" 
                         + modalOut.BackgroundId + "\")";
-					
-                    var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
+					var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
 						Colors.OpenLogsButtonBackground, onClickString);
 
                     writer.Write(openButton.ButtonHtml);
@@ -203,8 +202,13 @@ namespace HtmlCustomElements.HtmlCustomElements
 					var modalTraceId = "modal-trace-" + testCase.Guid;
 					var trace = testCase.Trace;
 					var modalTrace = new ModalWindow(modalTraceId, GenerateTxtView(trace), "1004", 80, "1003");
+                    var onClickString = "openModalWindow(\""
+                        + trace + "\",\""
+                        + modalTraceId + "\",\""
+                        + modalTraceId + "-inner" + "\",\""
+                        + modalTrace.BackgroundId + "\")";
 					var openButton = new JsOpenButton("Veiw trace", modalTraceId, modalTrace.BackgroundId,
-						Colors.OpenLogsButtonBackground);
+						Colors.OpenLogsButtonBackground, onClickString);
 					writer.Write(openButton.ButtonHtml);
 					ModalWindowsHtml += modalTrace.ModalWindowHtml + Environment.NewLine;
 				}
@@ -213,8 +217,13 @@ namespace HtmlCustomElements.HtmlCustomElements
 					var modalLogId = "modal-log-" + testCase.Guid;
 					var log = testCase.Log;
 					var modalLog = new ModalWindow(modalLogId, GenerateTxtView(log), "1004", 80, "1003");
+                    var onClickString = "openModalWindow(\""
+                        + log + "\",\""
+                        + modalLogId + "\",\""
+                        + modalLogId + "-inner" + "\",\""
+                        + modalLog.BackgroundId + "\")";
 					var openButton = new JsOpenButton("Veiw log", modalLogId, modalLog.BackgroundId, 
-						Colors.OpenLogsButtonBackground);
+						Colors.OpenLogsButtonBackground, onClickString);
 					writer.Write(openButton.ButtonHtml);
 					ModalWindowsHtml += modalLog.ModalWindowHtml + Environment.NewLine;
 				}

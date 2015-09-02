@@ -28,6 +28,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute(HtmlTextWriterStyle.Height, "100vh"),
 					new StyleAttribute(HtmlTextWriterStyle.MarginBottom, "10%")
 				}
             }); 

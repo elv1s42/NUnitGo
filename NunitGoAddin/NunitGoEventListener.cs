@@ -104,7 +104,7 @@ namespace NunitGoAddin
             if (saveOutput) NunitXmlReader.Save(testResults, outputPath + @"\" + "testResults.xml");
             var fullSuite = ResultsAnalyzer.GetFullSuite(testResults, _allTests);
             if (saveOutput) NunitXmlReader.Save(fullSuite, outputPath + @"\" + "FullSuite.xml");
-            PageGenerator.GenerateReport(fullSuite, outputPath);
+            PageGenerator.GenerateReport(fullSuite, _allTests, outputPath);
             Log.Write("Generating report: DONE.");
         }
         

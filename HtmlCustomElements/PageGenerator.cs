@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
 using HtmlCustomElements.HtmlCustomElements;
 using HtmlCustomElements.ReportSections;
+using NunitResultAnalyzer;
 using NunitResultAnalyzer.XmlClasses;
+using Utils.XmlTypes;
 
 namespace HtmlCustomElements
 {
 	public class PageGenerator
 	{
-        public static void GenerateReport(TestResults testResults, string pathToSave, string pageName = "index")
+        public static void GenerateReport(TestResults currentTestResults, List<ExtraTestInfo> allTests, 
+            string pathToSave, string pageName = "index")
 		{
-			var report = new HtmlPage("NUnitGo Report");
+            var testResults = ResultsAnalyzer.GetFullSuite(currentTestResults, allTests);
+            var report = new HtmlPage("NUnitGo Report");
 
 			report.AddInsideTag("style", ReportTitle.StyleString);
 			report.AddInsideTag("style", HtmlPage.PageStyle);

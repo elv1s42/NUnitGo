@@ -30,6 +30,13 @@ namespace HtmlCustomElements
                         //    "\"ITC Franklin Gothic\",Arial,sans-serif")
                     }
                 });
+                mainCssSet.AddElement(new CssElement("html")
+                {
+                    StyleFields = new List<StyleAttribute>
+                    {
+                        new StyleAttribute(HtmlTextWriterStyle.Height, "100%")
+                    }
+                });
                 mainCssSet.AddElement(new CssElement(".stop-scrolling")
                 {
                     StyleFields = new List<StyleAttribute>
@@ -61,15 +68,16 @@ namespace HtmlCustomElements
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
             {
-                writer.RenderBeginTag(HtmlTextWriterTag.Html);
-                //writer.Write("<!DOCTYPE html>");
+                //writer.RenderBeginTag(HtmlTextWriterTag.Html);
+                writer.Write("<!DOCTYPE html>");
+                writer.Write(Environment.NewLine);
 
                 writer.RenderBeginTag(HtmlTextWriterTag.Head);
 
                 writer.AddTag(HtmlTextWriterTag.Meta, new Dictionary<string, string>
                 {
-                    {"http-equiv", "Content-Type"},
-                    {"content", @"text/html"},
+                    {"http-equiv", "X-UA-Compatible"},
+                    {"content", @"IE=EmulateIE8"},
                     {"charset", "utf-8"}
                 });
                 writer.AddTag(HtmlTextWriterTag.Title, pageTitle);
@@ -86,8 +94,10 @@ namespace HtmlCustomElements
 
                 writer.AddTag("footer");
 
-                writer.RenderEndTag(); //HTML
-                //writer.Write("</html>");
+                //writer.RenderEndTag(); //HTML
+                writer.Write(Environment.NewLine);
+                writer.Write("</html>");
+                writer.Write(Environment.NewLine);
 
             }
             _page = strWr.ToString();
