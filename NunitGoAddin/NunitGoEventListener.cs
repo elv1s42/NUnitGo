@@ -282,8 +282,9 @@ namespace NunitGoAddin
 
             if(_out.Length > 0)
             {
-                _currentTest.OutPath = testAttachPath + "out.txt";
-                var sw = File.AppendText(_currentTest.OutPath);
+                _currentTest.OutPath = testAttachPath + Structs.Outputs.Out;
+                PageGenerator.GenerateOutputPage(_currentTest.OutPath, _out.ToString());
+                /*var sw = File.AppendText(_currentTest.OutPath);
                 try
                 {
                     sw.WriteLine(_out.ToString());
@@ -291,11 +292,11 @@ namespace NunitGoAddin
                 finally
                 {
                     sw.Close();
-                }
+                }*/
             }
             if (_trace.Length > 0)
             {
-                _currentTest.TracePath = testAttachPath + "trace.txt";
+                _currentTest.TracePath = testAttachPath + Structs.Outputs.Trace;
                 var sw = File.AppendText(_currentTest.TracePath);
                 try
                 {
@@ -308,7 +309,7 @@ namespace NunitGoAddin
             }
             if (_log.Length > 0)
             {
-                _currentTest.LogPath = testAttachPath + "log.txt";
+                _currentTest.LogPath = testAttachPath + Structs.Outputs.Log;
                 var sw = File.AppendText(_currentTest.LogPath);
                 try
                 {
@@ -321,7 +322,7 @@ namespace NunitGoAddin
             }
             if (_error.Length > 0)
             {
-                _currentTest.ErrorPath = testAttachPath + "error.txt";
+                _currentTest.ErrorPath = testAttachPath + Structs.Outputs.Error;
                 var sw = File.AppendText(_currentTest.ErrorPath);
                 try
                 {

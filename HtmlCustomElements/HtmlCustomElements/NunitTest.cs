@@ -86,16 +86,34 @@ namespace HtmlCustomElements.HtmlCustomElements
             return sWr.ToString();
         }
 
+        private static string GenerateHtmlView(string txt)
+        {
+            var sWr = new StringWriter();
+            using (var wr = new HtmlTextWriter(sWr))
+            {
+                wr.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
+                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, "90%");
+                wr.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
+                wr.AddStyleAttribute("border", "0");
+                wr.AddAttribute(HtmlTextWriterAttribute.Src, txt);
+                wr.RenderBeginTag(HtmlTextWriterTag.Iframe);
+                wr.RenderEndTag();//IFRAME
+            }
+            return sWr.ToString();
+        }
+
         private static string GenerateTxtFileView(string txt)
         {
             var sWr = new StringWriter();
             using (var wr = new HtmlTextWriter(sWr))
             {
+                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
+                wr.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
                 wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
                 wr.RenderBeginTag(HtmlTextWriterTag.Div);
 
                 wr.AddAttribute("data", txt);
-                wr.AddAttribute(HtmlTextWriterAttribute.Type, "text/plain");
+                wr.AddAttribute(HtmlTextWriterAttribute.Type, "text/html");
                 wr.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
                 wr.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
                 wr.RenderBeginTag(HtmlTextWriterTag.Object);
@@ -185,7 +203,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalOutId = "modal-out-" + testCase.Guid;
 					var output = testCase.Out;
-                    var modalOut = new ModalWindow(modalOutId, GenerateTxtFileView(output), "1004", 80, "1003");
+                    var modalOut = new ModalWindow(modalOutId, GenerateHtmlView(output), "1004", 80, "1003");
                     var onClickString = "openModalWindow(\""
                         + output + "\",\""
                         + modalOutId + "\",\""

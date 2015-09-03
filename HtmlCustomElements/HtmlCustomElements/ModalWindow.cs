@@ -79,11 +79,10 @@ namespace HtmlCustomElements.HtmlCustomElements
 				writer.RenderBeginTag(HtmlTextWriterTag.Div);
 				var closeButton = new JsCloseButton(Id, backgroundId);
 				writer.Write(closeButton.ButtonHtml);
-				writer.RenderEndTag();
-
-				writer.Write(InnerHtml);
-				
-				writer.RenderEndTag();
+                writer.RenderEndTag();
+                
+                writer.Write(InnerHtml);
+                writer.RenderEndTag();
 			}
 			return stringWriter.ToString();
 		}

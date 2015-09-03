@@ -28,7 +28,6 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.Height, "100vh"),
 					new StyleAttribute(HtmlTextWriterStyle.MarginBottom, "10%")
 				}
             }); 
@@ -94,7 +93,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                 StyleFields = new List<StyleAttribute>
 				{
                     new StyleAttribute(HtmlTextWriterStyle.Overflow, "scroll"),
-                    new StyleAttribute(HtmlTextWriterStyle.Height, "90%"),
+					new StyleAttribute(HtmlTextWriterStyle.Height, "300px"),
+					new StyleAttribute("min-height", "90vh"),
                     new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"),
                     new StyleAttribute(HtmlTextWriterStyle.Display, "none")
 				}

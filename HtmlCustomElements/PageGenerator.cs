@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.IO;
+using System.Web.UI;
 using HtmlCustomElements.HtmlCustomElements;
 using HtmlCustomElements.ReportSections;
 using NunitResultAnalyzer;
@@ -9,7 +11,22 @@ namespace HtmlCustomElements
 {
 	public class PageGenerator
 	{
-        public static void GenerateReport(TestResults currentTestResults, List<ExtraTestInfo> allTests, 
+        public static void GenerateOutputPage(string fullPath, string outputText)
+	    {
+            var page = new HtmlPage("Output page");
+            var sWr = new StringWriter();
+            using (var wr = new HtmlTextWriter(sWr))
+            {
+                wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
+                wr.RenderBeginTag(HtmlTextWriterTag.Div);
+                wr.Write(outputText);
+                wr.RenderEndTag();//DIV
+            }
+            page.AddToBody(sWr.ToString());
+            page.SavePage(fullPath);
+	    }
+
+	    public static void GenerateReport(TestResults currentTestResults, List<ExtraTestInfo> allTests, 
             string pathToSave, string pageName = "index")
 		{
             var testResults = ResultsAnalyzer.GetFullSuite(currentTestResults, allTests);

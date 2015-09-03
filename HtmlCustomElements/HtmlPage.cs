@@ -77,7 +77,7 @@ namespace HtmlCustomElements
                 writer.AddTag(HtmlTextWriterTag.Meta, new Dictionary<string, string>
                 {
                     {"http-equiv", "X-UA-Compatible"},
-                    {"content", @"IE=EmulateIE8"},
+                    {"content", @"IE=edge"},
                     {"charset", "utf-8"}
                 });
                 writer.AddTag(HtmlTextWriterTag.Title, pageTitle);
@@ -133,6 +133,11 @@ namespace HtmlCustomElements
         public void SavePage(string path, string name)
         {
             File.WriteAllText(path + @"\" + name + ".html", _page);
+        }
+
+        public void SavePage(string fullpath)
+        {
+            File.WriteAllText(fullpath, _page);
         }
     }
 }

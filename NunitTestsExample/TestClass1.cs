@@ -15,6 +15,7 @@ namespace NunitTestsExample
             Console.WriteLine("Testing log writing 2");
             Console.WriteLine("Testing log writing 3");
             Console.WriteLine("Testing log writing 4");
+            Console.WriteLine("Testing log writing 5");
             Assert.AreEqual(1, 2);
         }
 
