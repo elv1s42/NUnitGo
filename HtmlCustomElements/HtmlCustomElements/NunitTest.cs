@@ -187,7 +187,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalErrorId = "modal-error-" + testCase.Guid;
 					var error = testCase.Error;
-					var modalError = new ModalWindow(modalErrorId, GenerateTxtFileView(error), "1004", 80, "1003");
+					var modalError = new ModalWindow(modalErrorId, GenerateHtmlView(error), "1004", 80, "1003");
                     var onClickString = "openModalWindow(\""
                         + error + "\",\""
                         + modalErrorId + "\",\""
@@ -219,7 +219,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalTraceId = "modal-trace-" + testCase.Guid;
 					var trace = testCase.Trace;
-					var modalTrace = new ModalWindow(modalTraceId, GenerateTxtView(trace), "1004", 80, "1003");
+					var modalTrace = new ModalWindow(modalTraceId, GenerateHtmlView(trace), "1004", 80, "1003");
                     var onClickString = "openModalWindow(\""
                         + trace + "\",\""
                         + modalTraceId + "\",\""
@@ -234,7 +234,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalLogId = "modal-log-" + testCase.Guid;
 					var log = testCase.Log;
-					var modalLog = new ModalWindow(modalLogId, GenerateTxtView(log), "1004", 80, "1003");
+					var modalLog = new ModalWindow(modalLogId, GenerateHtmlView(log), "1004", 80, "1003");
                     var onClickString = "openModalWindow(\""
                         + log + "\",\""
                         + modalLogId + "\",\""

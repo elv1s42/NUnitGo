@@ -284,54 +284,21 @@ namespace NunitGoAddin
             {
                 _currentTest.OutPath = testAttachPath + Structs.Outputs.Out;
                 PageGenerator.GenerateOutputPage(_currentTest.OutPath, _out.ToString());
-                /*var sw = File.AppendText(_currentTest.OutPath);
-                try
-                {
-                    sw.WriteLine(_out.ToString());
-                }
-                finally
-                {
-                    sw.Close();
-                }*/
             }
             if (_trace.Length > 0)
             {
                 _currentTest.TracePath = testAttachPath + Structs.Outputs.Trace;
-                var sw = File.AppendText(_currentTest.TracePath);
-                try
-                {
-                    sw.WriteLine(_trace.ToString());
-                }
-                finally
-                {
-                    sw.Close();
-                }
+                PageGenerator.GenerateOutputPage(_currentTest.TracePath, _trace.ToString());
             }
             if (_log.Length > 0)
             {
                 _currentTest.LogPath = testAttachPath + Structs.Outputs.Log;
-                var sw = File.AppendText(_currentTest.LogPath);
-                try
-                {
-                    sw.WriteLine(_log.ToString());
-                }
-                finally
-                {
-                    sw.Close();
-                }
+                PageGenerator.GenerateOutputPage(_currentTest.LogPath, _log.ToString());
             }
             if (_error.Length > 0)
             {
                 _currentTest.ErrorPath = testAttachPath + Structs.Outputs.Error;
-                var sw = File.AppendText(_currentTest.ErrorPath);
-                try
-                {
-                    sw.WriteLine(_error.ToString());
-                }
-                finally
-                {
-                    sw.Close();
-                }
+                PageGenerator.GenerateOutputPage(_currentTest.ErrorPath, _error.ToString());
             }
 
             _out = new StringBuilder();
