@@ -136,7 +136,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 			return "test-case-" + _idTestsCounter.ToString("D");
 		}
 
-		private void BuildTree(HtmlTextWriter writer, IEnumerable<TestSuite> testSuites)
+		private void BuildTreeHierarchical(HtmlTextWriter writer, IEnumerable<TestSuite> testSuites)
 		{
 			foreach (var suite in testSuites)
 			{
@@ -200,7 +200,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				}
 				if (suite.Results.TestSuites.Any())
 				{
-					BuildTree(writer, suite.Results.TestSuites);
+					BuildTreeHierarchical(writer, suite.Results.TestSuites);
 				}
 				writer.RenderEndTag(); //UL
 				writer.RenderEndTag(); //LI
@@ -208,7 +208,61 @@ namespace HtmlCustomElements.HtmlCustomElements
 			}
 		}
 
-		public Tree(TestResults results)
+        private void BuildTreeNonHierarchical(HtmlTextWriter writer, TestSuite suite)
+        {
+            var id = GetSuiteId();
+            var type = suite.Type;
+            var name = suite.Name;
+            var results = suite.Results;
+            var currentTestCases = results.TestCases;
+            var passedCountString = suite.CountPassed();
+            writer.RenderBeginTag(HtmlTextWriterTag.Ul);
+            writer.RenderBeginTag(HtmlTextWriterTag.Li);
+            writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
+            writer.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
+            writer.AddAttribute(HtmlTextWriterAttribute.Id, id);
+            writer.RenderBeginTag(HtmlTextWriterTag.Input);
+            writer.RenderEndTag(); //INPUT
+            writer.AddAttribute(HtmlTextWriterAttribute.For, id);
+            writer.AddAttribute(HtmlTextWriterAttribute.Title, name);
+            writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
+            writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, "110%");
+            writer.RenderBeginTag(HtmlTextWriterTag.Label);
+            var start = suite.StartDateTime.Equals(new DateTime()) ? "" : suite.StartDateTime.ToString("dd.MM.yy HH:mm:ss");
+            var end = suite.EndDateTime.Equals(new DateTime()) ? "" : suite.EndDateTime.ToString("dd.MM.yy HH:mm:ss");
+            writer.Write(type + ": " + name + " " + passedCountString + " " + start + " - " + end);
+            writer.RenderEndTag(); //LABEL
+            writer.RenderBeginTag(HtmlTextWriterTag.Ul);
+            Log.Write("TestCases count = " + currentTestCases.Count);
+            foreach (var currentTest in currentTestCases)
+            {
+                var testId = GetTestId();
+                var testCase = currentTest;
+                Log.Write("Generating tree: TestCase.Name = " + testCase.Name);
+                var test = new NunitTest(testCase);
+                var modalId = "modal-" + testId;
+                var modalWindow = new ModalWindow(modalId, test.HtmlCode);
+                var openButton = new JsOpenButton(testCase.Name.Split('.').Last()
+                    + " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                    testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss"),
+                    modalId, modalWindow.BackgroundId, test.BackgroundColor);
+
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
+                writer.RenderBeginTag(HtmlTextWriterTag.Li);
+                writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.Name);
+                writer.RenderBeginTag(HtmlTextWriterTag.A);
+                HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
+                HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
+                writer.Write(openButton.ButtonHtml);
+                writer.RenderEndTag(); //A
+                writer.RenderEndTag(); //LI
+            }
+            writer.RenderEndTag(); //UL
+            writer.RenderEndTag(); //LI
+            writer.RenderEndTag(); //UL
+        }
+
+		public Tree(TestResults results, bool hierarchical = true)
 		{
 			_idSuiteCounter = 0;
 			_idTestsCounter = 0;
@@ -223,7 +277,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 				Log.Write("Building tree...");
 				var list = new List<TestSuite> {results.TestSuite};
 				Log.Write("List tree count = " + list.Count);
-				BuildTree(writer, list);
+				if (hierarchical) BuildTreeHierarchical(writer, list);
+                else BuildTreeNonHierarchical(writer, results.TestSuite);
 				Log.Write("Building tree: done.");
 				
 				writer.RenderEndTag(); //DIV

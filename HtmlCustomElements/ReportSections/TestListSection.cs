@@ -10,9 +10,9 @@ namespace HtmlCustomElements.ReportSections
         public string HtmlCode;
         public string ModalsHtml;
 
-        public TestListSection(TestResults testResults)
+        public TestListSection(TestResults testResults, bool hierarchical = true)
         {
-            var tree = new Tree(testResults);
+            var tree = new Tree(testResults, hierarchical);
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {

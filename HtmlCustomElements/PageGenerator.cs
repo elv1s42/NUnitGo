@@ -26,10 +26,11 @@ namespace HtmlCustomElements
             page.SavePage(fullPath);
 	    }
 
-	    public static void GenerateReport(TestResults currentTestResults, List<ExtraTestInfo> allTests, 
+        public static void GenerateReport(TestResults fullTestResults, TestResults currentTestResults, List<ExtraTestInfo> allTests, 
             string pathToSave, string pageName = "index")
-		{
-            var testResults = ResultsAnalyzer.GetFullSuite(currentTestResults, allTests);
+        {
+            var fullTestsResults = ResultsAnalyzer.GetFullSuite(fullTestResults, allTests);
+            var currentTestsResults = ResultsAnalyzer.GetFullSuite(currentTestResults, allTests);
             var report = new HtmlPage("NUnitGo Report");
 
 			report.AddInsideTag("style", ReportTitle.StyleString);
@@ -55,26 +56,28 @@ namespace HtmlCustomElements
 			var mainTitle = new ReportTitle();
 			report.AddToBody(mainTitle.HtmlCode);
 
-			var mainInformation = new MainInformation(testResults);
+			var mainInformation = new MainInformation(fullTestsResults);
 			report.AddToBody(mainInformation.HtmlCode);
 
 			var reportMenuTitle = new ReportTitle("Report menu", "report-main-menu");
 			report.AddToBody(reportMenuTitle.HtmlCode);
-            
-			var statisticsSection = new StatisticsSection(testResults);
-			var testListSection = new TestListSection(testResults);
+
+            var statisticsSection = new StatisticsSection(fullTestsResults);
+            var testListHierarchicalSection = new TestListSection(fullTestsResults);
+            var testListNonHierarchicalSection = new TestListSection(currentTestsResults, false);
 
 			var accElements = new List<AccordionElement>
 			{
 				new AccordionElement(statisticsSection.HtmlCode, "Main statistics", "tab1"),
-				new AccordionElement(testListSection.HtmlCode, "Test list", "tab2"),
-				new AccordionElement("timeline goes here", "Timeline", "tab3"),
-				new AccordionElement("top defects list goes here", "Top Defects", "tab4")
+				new AccordionElement(testListHierarchicalSection.HtmlCode, "Hierarchical test list", "tab2"),
+				new AccordionElement(testListNonHierarchicalSection.HtmlCode, "Non-hierarchical test list", "tab3"),
+				new AccordionElement("timeline goes here", "Timeline", "tab4"),
+				new AccordionElement("top defects list goes here", "Top Defects", "tab5")
 			};
 			var accordion = new Accordion("main-accordion", "Main Accordion", accElements);
 			report.AddInsideTag("style", accordion.GetStyleString());
 			report.AddToBody(accordion.AccordionHtml);
-			report.AddToBody(testListSection.ModalsHtml);
+			report.AddToBody(testListHierarchicalSection.ModalsHtml);
 
 			var footer = new ReportFooter();
 			report.AddInsideTag("footer", footer.HtmlCode);

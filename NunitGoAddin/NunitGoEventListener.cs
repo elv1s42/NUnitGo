@@ -99,12 +99,15 @@ namespace NunitGoAddin
             var xmlResultList = new TestResultXml(_fullTestListResult);
             if (saveOutput) xmlResultList.Save(outputPath + @"\" + "_fullTestListResult.xml");
             var xmlResult = new TestResultXml(result);
+            var currentXmlResult = new TestResultXml(_fullTestListResult);
             if (saveOutput) xmlResult.Save(outputPath + @"\" + "xmlResult.xml");
             var testResults = new TestResults(xmlResult);
+            var currentTestResults = new TestResults(currentXmlResult);
             if (saveOutput) NunitXmlReader.Save(testResults, outputPath + @"\" + "testResults.xml");
-            var fullSuite = ResultsAnalyzer.GetFullSuite(testResults, _allTests);
-            if (saveOutput) NunitXmlReader.Save(fullSuite, outputPath + @"\" + "FullSuite.xml");
-            PageGenerator.GenerateReport(fullSuite, _allTests, outputPath);
+            var fullResults = ResultsAnalyzer.GetFullSuite(testResults, _allTests);
+            var currentResults = ResultsAnalyzer.GetFullSuite(currentTestResults, _allTests);
+            if (saveOutput) NunitXmlReader.Save(fullResults, outputPath + @"\" + "FullSuite.xml");
+            PageGenerator.GenerateReport(fullResults, currentResults, _allTests, outputPath);
             Log.Write("Generating report: DONE.");
         }
         

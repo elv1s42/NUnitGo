@@ -42,7 +42,7 @@ namespace NunitResultAnalyzer.XmlClasses
             CultureInfoXml = new CultureInfoXml();
             TestSuite = new TestSuite(result);
         }
-
+        
         [XmlAttribute("name")]
         public string Name { get; set; }
 
