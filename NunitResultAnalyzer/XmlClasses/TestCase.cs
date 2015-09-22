@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Utils;
 using Utils.XmlTypes;
 
 namespace NunitResultAnalyzer.XmlClasses
@@ -30,6 +31,23 @@ namespace NunitResultAnalyzer.XmlClasses
             if (result.IsSuccess) return;
             Failure = new Failure(result);
             Reason = new Reason(result);
+        }
+
+        public string GetBackgroundColor()
+        {
+            switch (Result)
+            {
+                case "Ignored":
+                    return Colors.TestIgnored;
+                case "Success":
+                    return Colors.TestPassed;
+                case "Error":
+                    return Colors.TestBroken;
+                case "Failure":
+                    return Colors.TestFailed;
+                default:
+                    return Colors.TestUnknown;
+            }
         }
 
         [XmlElement("failure")]

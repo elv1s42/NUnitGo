@@ -65,13 +65,14 @@ namespace HtmlCustomElements
             var statisticsSection = new StatisticsSection(fullTestsResults);
             var testListHierarchicalSection = new TestListSection(fullTestsResults);
             var testListNonHierarchicalSection = new TestListSection(currentTestsResults, false);
+            var timeline = new Timeline(currentTestResults);
 
 			var accElements = new List<AccordionElement>
 			{
 				new AccordionElement(statisticsSection.HtmlCode, "Main statistics", "tab1"),
 				new AccordionElement(testListHierarchicalSection.HtmlCode, "Hierarchical test list", "tab2"),
 				new AccordionElement(testListNonHierarchicalSection.HtmlCode, "Non-hierarchical test list", "tab3"),
-				new AccordionElement("timeline goes here", "Timeline", "tab4"),
+				new AccordionElement(timeline.HtmlCode, "Timeline", "tab4"),
 				new AccordionElement("top defects list goes here", "Top Defects", "tab5")
 			};
 			var accordion = new Accordion("main-accordion", "Main Accordion", accElements);

@@ -16,10 +16,13 @@ namespace HtmlCustomElements.HtmlCustomElements
             get { return GetStyle(); }
         }
 
-        
-        public HorizontalBar(string id, string title, List<HorizontalBarElement> elements)
+        private bool _orderByDescending;
+
+
+        public HorizontalBar(string id, string title, List<HorizontalBarElement> elements, bool orderByDescending = true)
         {
             Id = id;
+            _orderByDescending = orderByDescending;
             Style = GetStyle();
             Title = title;
             Elements = elements;
@@ -77,7 +80,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 
                 var sum = Elements.Sum(x => x.Value);
 
-                var sortedItems = Elements.Where(x => x.Value >= 0.0000001).OrderByDescending(x => x.Value);
+                var sortedItems = Elements.Where(x => x.Value >= 0.0000001);
+                if(_orderByDescending) sortedItems = sortedItems.OrderByDescending(x => x.Value);
                 foreach (var tooltip in
                     from item in sortedItems
                     let value = item.Value

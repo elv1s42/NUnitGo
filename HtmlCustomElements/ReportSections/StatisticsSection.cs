@@ -4,6 +4,7 @@ using System.Web.UI;
 using HtmlCustomElements.HtmlCustomElements;
 using NunitResultAnalyzer;
 using NunitResultAnalyzer.XmlClasses;
+using Utils;
 
 namespace HtmlCustomElements.ReportSections
 {

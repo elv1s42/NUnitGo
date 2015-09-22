@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Colors.cs" />
     <Compile Include="Extensions\ExtraTestInfoExtension.cs" />
     <Compile Include="Extensions\TestResultXmlExtension.cs" />
     <Compile Include="Structs.cs" />

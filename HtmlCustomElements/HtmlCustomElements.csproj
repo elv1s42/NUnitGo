@@ -42,7 +42,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colors.cs" />
     <Compile Include="CSSElements\CssElement.cs" />
     <Compile Include="CSSElements\CssSet.cs" />
     <Compile Include="CSSElements\StyleAttribute.cs" />
@@ -63,6 +62,7 @@
     <Compile Include="HtmlCustomElements\OpenModalWindowScript.cs" />
     <Compile Include="HtmlCustomElements\ReportFooter.cs" />
     <Compile Include="HtmlCustomElements\ReportTitle.cs" />
+    <Compile Include="HtmlCustomElements\Timeline.cs" />
     <Compile Include="HtmlCustomElements\Tooltip.cs" />
     <Compile Include="HtmlCustomElements\Tree.cs" />
     <Compile Include="HtmlElements.cs" />

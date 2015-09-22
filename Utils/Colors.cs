@@ -1,4 +1,4 @@
-﻿namespace HtmlCustomElements
+﻿namespace Utils
 {
     public struct Colors
     {
