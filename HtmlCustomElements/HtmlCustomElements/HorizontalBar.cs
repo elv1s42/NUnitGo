@@ -16,7 +16,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             get { return GetStyle(); }
         }
 
-        private bool _orderByDescending;
+        private readonly bool _orderByDescending;
 
 
         public HorizontalBar(string id, string title, List<HorizontalBarElement> elements, bool orderByDescending = true)
@@ -75,19 +75,19 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "horizontal-bar");
-                writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
+                if (!Title.Equals("")) 
+                    writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
-
                 var sum = Elements.Sum(x => x.Value);
 
                 var sortedItems = Elements.Where(x => x.Value >= 0.0000001);
                 if(_orderByDescending) sortedItems = sortedItems.OrderByDescending(x => x.Value);
-                foreach (var tooltip in
-                    from item in sortedItems
-                    let value = item.Value
-                    let width = Math.Max((value / sum) * 100, 1.0)
-                    select new Tooltip(item.TooltipText, item.InnerText, item.BackgroundColor, "horizontal-bar-item", width))
+                foreach (var item in sortedItems)
                 {
+                    var value = item.Value;
+                    var width = Math.Max((value / sum) * 100, 0.01);
+                    var tooltip = new Tooltip(item.TooltipText, item.InnerText, item.BackgroundColor, "horizontal-bar-item",
+                        width);
                     writer.Write(tooltip.HtmlCode);
                 }
                 writer.RenderEndTag();

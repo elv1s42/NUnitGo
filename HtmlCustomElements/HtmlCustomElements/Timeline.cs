@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web.UI;
 using NunitResultAnalyzer.XmlClasses;
+using Environment = System.Environment;
 
 namespace HtmlCustomElements.HtmlCustomElements
 {
@@ -15,15 +16,17 @@ namespace HtmlCustomElements.HtmlCustomElements
             var allTests = currentTestResults.TestSuite.Results.TestCases;
             foreach (var test in allTests)
             {
-                var toolitipText = "Test: " + test.Name + ", time: "
-                    + test.StartDateTime.ToString("HH:mm:ss") + " - " 
-                    + test.EndDateTime.ToString("HH:mm:ss");
+                var start = test.StartDateTime.ToString("HH:mm:ss");
+                var finish = test.EndDateTime.ToString("HH:mm:ss");
+                var toolitipText = "Test: " + test.Name + ", "
+                    + "Time: " + start + " - " + finish + ", " + Environment.NewLine
+                    + "Result: " + test.Result;
                 var bcgColor = test.GetBackgroundColor();
                 var horizontalTestElement = new HorizontalBarElement("", toolitipText, bcgColor, 
                     (test.EndDateTime - test.StartDateTime).TotalSeconds);
                 testResultsList.Add(horizontalTestElement);
             }
-            var timelineBar = new HorizontalBar("timeline-bar", "Timeline bar", testResultsList, false);
+            var timelineBar = new HorizontalBar("timeline-bar", "", testResultsList, false);
 
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
