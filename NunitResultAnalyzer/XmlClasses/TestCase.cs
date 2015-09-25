@@ -43,6 +43,8 @@ namespace NunitResultAnalyzer.XmlClasses
                     return Colors.TestPassed;
                 case "Error":
                     return Colors.TestBroken;
+                case "Inconclusive":
+                    return Colors.TestInconclusive;
                 case "Failure":
                     return Colors.TestFailed;
                 default:

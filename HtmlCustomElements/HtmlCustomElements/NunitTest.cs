@@ -21,33 +21,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 		}
 		
 		private new const string Id = "testcase-element";
-
-		private static string GetBackgroundColor(TestCase testCase)
-		{
-			var res = Colors.TestUnknown;
-			if (testCase.Result == null) return res;
-			switch (testCase.Result)
-			{
-				case "Failure":
-					res = Colors.TestFailed;
-					break;
-				case "Success":
-					res = Colors.TestPassed;
-					break;
-				case "Error":
-					res = Colors.TestBroken;
-					break;
-				case "Ignored":
-					res = Colors.TestIgnored;
-					break;
-				default:
-					res = Colors.TestUnknown;
-					break;
-			}
-			return res;
-		}
-
-		public static string GetStyle()
+        
+        public static string GetStyle()
 		{
 			var treeCssSet = new CssSet("testcase-element");
 			treeCssSet.AddElement(new CssElement("#" + Id)
@@ -143,7 +118,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             ModalWindowsHtml = "";
 
 			Style = GetStyle();
-			BackgroundColor = GetBackgroundColor(testCase);
+			BackgroundColor = testCase.GetBackgroundColor();
 
 			var strWr = new StringWriter();
 			using (var writer = new HtmlTextWriter(strWr))
@@ -156,7 +131,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				writer.Write(testCase.Name.Split('.').Last());
 				writer.RenderEndTag(); //P
 
-				writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, GetBackgroundColor(testCase));
+				writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, testCase.GetBackgroundColor());
 				writer.RenderBeginTag(HtmlTextWriterTag.P);
 				writer.RenderBeginTag(HtmlTextWriterTag.B);
 				writer.Write("Test result: ");

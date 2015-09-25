@@ -9,6 +9,7 @@ namespace NunitResultAnalyzer
         public int TotalBroken;
         public int TotalFailed;
         public int TotalIgnored;
+        public int TotalInconclusive;
         public int TotalUnknown;
 
         public int TotalSuccessTrue;
@@ -21,9 +22,10 @@ namespace NunitResultAnalyzer
             TotalAll = suite.CountAll();
             TotalIgnored = suite.CountByResult("Ignored");
             TotalPassed = suite.CountByResult("Success");
+            TotalInconclusive = suite.CountByResult("Inconclusive");
             TotalBroken = suite.CountByResult("Error");
             TotalFailed = suite.CountByResult("Failure");
-            TotalUnknown = TotalAll - TotalBroken - TotalFailed - TotalIgnored - TotalPassed;
+            TotalUnknown = TotalAll - TotalBroken - TotalFailed - TotalIgnored - TotalPassed - TotalInconclusive;
 
             TotalSuccessTrue = suite.CountBySuccess(true);
             TotalSuccessFalse = suite.CountBySuccess(false);

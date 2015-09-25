@@ -56,7 +56,7 @@ namespace HtmlCustomElements
 			var mainTitle = new ReportTitle();
 			report.AddToBody(mainTitle.HtmlCode);
 
-			var mainInformation = new MainInformation(fullTestsResults);
+			var mainInformation = new MainInformation(fullTestsResults, currentTestResults);
 			report.AddToBody(mainInformation.HtmlCode);
 
 			var reportMenuTitle = new ReportTitle("Report menu", "report-main-menu");

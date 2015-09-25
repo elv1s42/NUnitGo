@@ -30,6 +30,9 @@ namespace HtmlCustomElements.ReportSections
                 new HorizontalBarElement("Ignored", "Ignored (" + mainStats.TotalIgnored + @"/" + mainStats.TotalAll + ")", 
                     Colors.TestIgnored, 
                     mainStats.TotalIgnored/(double)mainStats.TotalAll),
+                new HorizontalBarElement("Inconclusive", "Iconclusive (" + mainStats.TotalInconclusive + @"/" + mainStats.TotalAll + ")", 
+                    Colors.TestInconclusive, 
+                    mainStats.TotalInconclusive/(double)mainStats.TotalAll),
                 new HorizontalBarElement("Unknown", "Unknown (" + mainStats.TotalUnknown + @"/" + mainStats.TotalAll + ")", 
                     Colors.TestUnknown, 
                     mainStats.TotalUnknown/(double)mainStats.TotalAll)
