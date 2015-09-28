@@ -179,7 +179,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 					var test = new NunitTest(testCase);
 					var modalId = "modal-" + testId;
 					var modalWindow = new ModalWindow(modalId, test.HtmlCode);
-					var openButton = new JsOpenButton(testCase.Name.Split('.').Last()
+					var openButton = new JsOpenButton(testCase.Name
 						+ " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
 						testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss"), 
 						modalId, modalWindow.BackgroundId, test.BackgroundColor);
@@ -242,7 +242,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                 var test = new NunitTest(testCase);
                 var modalId = "modal-" + testId;
                 var modalWindow = new ModalWindow(modalId, test.HtmlCode);
-                var openButton = new JsOpenButton(testCase.Name.Split('.').Last()
+                var openButton = new JsOpenButton(testCase.Name
                     + " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
                     testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss"),
                     modalId, modalWindow.BackgroundId, test.BackgroundColor);

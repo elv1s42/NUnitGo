@@ -21,7 +21,8 @@ namespace NunitTestsExample
 
         [TestCase("0", 1)]
         [TestCase("1", 1)]
-        [TestCase("2", 1)]
+        [TestCase("2", 1, TestName = "Тест")]
+        [TestCase("2", 1, TestName = "Тест.")]
         public void ParamTestName(string input, int expected)
         {
             Assert.AreEqual(input, expected.ToString("D"));

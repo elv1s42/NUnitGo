@@ -63,10 +63,11 @@ namespace Utils.XmlTypes
             Message = result.Message;
             Name = result.Name;
             ResultState = result.ResultState.ToString();
-
+            
             StackTrace = result.StackTrace;
-
+            
             Test = new TestXml(result.Test);
+            UniqueTestName = Test.UniqueName;
             IsSuite = Test.IsSuite;
 
             Time = result.Time;
@@ -112,6 +113,9 @@ namespace Utils.XmlTypes
 
         [XmlElement("name")]
         public string Name { get; set; }
+
+        [XmlElement("unique-name")]
+        public string UniqueTestName { get; set; }
 
         [XmlElement("result-state")]
         public string ResultState { get; set; }

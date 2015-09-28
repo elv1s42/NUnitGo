@@ -22,6 +22,7 @@ namespace Utils.XmlTypes
             RunState = test.RunState.ToString();
             Name = test.TestName.Name;
             FullName = test.TestName.FullName;
+            UniqueName = test.TestName.UniqueName;
             if (test.Parent != null) Parent = new TestXml(test.Parent);
         }
 
@@ -57,5 +58,8 @@ namespace Utils.XmlTypes
 
         [XmlElement("full-name")]
         public string FullName { get; set; }
+
+        [XmlElement("unique-name")]
+        public string UniqueName { get; set; }
     }
 }

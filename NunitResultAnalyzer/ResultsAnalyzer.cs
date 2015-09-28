@@ -77,7 +77,7 @@ namespace NunitResultAnalyzer
                 testCase.Time = testCase.Time ?? "0.0";
                 testCase.Screenshots = new List<Screenshot>();
 
-                var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
+                var extraInfo = extraTestInfo.First(x => x.UniqueTestName.Equals(testCase.UniqueName));
                 testCase.StartDateTime = extraInfo.StartDate;
                 testCase.EndDateTime = extraInfo.FinishDate;
                 testCase.Error = extraInfo.ErrorPath.Equals("") ?
@@ -108,7 +108,7 @@ namespace NunitResultAnalyzer
                     testCase.Time = testCase.Time ?? "0.0";
                     testCase.Screenshots = new List<Screenshot>();
 
-                    var extraInfo = extraTestInfo.First(x => x.FullTestName.Equals(testCase.Name));
+                    var extraInfo = extraTestInfo.First(x => x.UniqueTestName.Equals(testCase.UniqueName));
                     testCase.StartDateTime = extraInfo.StartDate;
                     testCase.EndDateTime = extraInfo.FinishDate;
                     testCase.Error = extraInfo.ErrorPath.Equals("") ?

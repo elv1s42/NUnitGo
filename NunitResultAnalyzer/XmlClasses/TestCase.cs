@@ -13,6 +13,8 @@ namespace NunitResultAnalyzer.XmlClasses
             Failure = new Failure();
             Reason = new Reason();
             Name = "";
+            FullName = "";
+            UniqueName = "";
             Executed = "";
             Result = "";
             Success = "";
@@ -22,7 +24,9 @@ namespace NunitResultAnalyzer.XmlClasses
 
         public TestCase(TestResultXml result)
         {
-            Name = result.FullName;
+            Name = result.Name;
+            FullName = result.FullName;
+            UniqueName = result.UniqueTestName;
             Executed = result.Executed.ToString();
             Result = result.ResultState;
             Success = result.IsSuccess.ToString();
@@ -60,6 +64,12 @@ namespace NunitResultAnalyzer.XmlClasses
 
         [XmlAttribute("name")]
         public string Name { get; set; }
+
+        [XmlAttribute("full-name")]
+        public string FullName { get; set; }
+
+        [XmlAttribute("unique-name")]
+        public string UniqueName { get; set; }
 
         [XmlAttribute("executed")]
         public string Executed { get; set; }
