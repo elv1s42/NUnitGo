@@ -65,7 +65,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             return tooltipCssSet.ToString();
         }
 
-        public Tooltip(string tooltipText, string innerText, string backgroundColor, string id,  double width)
+        public Tooltip(string tooltipText, string innerText, string backgroundColor, string id,  double width, string idToShow = "")
         {
             Style = GetStyle();
 
