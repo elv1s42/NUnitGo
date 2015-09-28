@@ -173,7 +173,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				Log.Write("TestCases count = " + currentTestCases.Count);
 				foreach (var currentTest in currentTestCases)
 				{
-					var testId = GetTestId();
+				    var testId = "test-" + currentTest.Guid;//GetTestId();
 					var testCase = currentTest;
 					Log.Write("Generating tree: TestCase.Name = " + testCase.Name);
 					var test = new NunitTest(testCase);
@@ -236,7 +236,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             Log.Write("TestCases count = " + currentTestCases.Count);
             foreach (var currentTest in currentTestCases)
             {
-                var testId = GetTestId();
+                var testId = "test-" + currentTest.Guid;//GetTestId();
                 var testCase = currentTest;
                 Log.Write("Generating tree: TestCase.Name = " + testCase.Name);
                 var test = new NunitTest(testCase);
@@ -251,8 +251,8 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.RenderBeginTag(HtmlTextWriterTag.Li);
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.Name);
                 writer.RenderBeginTag(HtmlTextWriterTag.A);
-                HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
-                HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
+                //HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
+                //HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
                 writer.Write(openButton.ButtonHtml);
                 writer.RenderEndTag(); //A
                 writer.RenderEndTag(); //LI

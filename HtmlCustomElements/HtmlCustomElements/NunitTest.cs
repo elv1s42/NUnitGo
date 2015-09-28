@@ -128,7 +128,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 
 				writer.RenderBeginTag(HtmlTextWriterTag.P);
 				writer.AddTag(HtmlTextWriterTag.B, "Test name: ");
-				writer.Write(testCase.Name.Split('.').Last());
+				writer.Write(testCase.Name);
 				writer.RenderEndTag(); //P
 
 				writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, testCase.GetBackgroundColor());
