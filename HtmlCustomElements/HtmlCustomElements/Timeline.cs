@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web.UI;
 using NunitResultAnalyzer.XmlClasses;
+using Utils;
 using Environment = System.Environment;
 
 namespace HtmlCustomElements.HtmlCustomElements
@@ -23,7 +24,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     + "Result: " + test.Result;
                 var bcgColor = test.GetBackgroundColor();
                 var horizontalTestElement = new HorizontalBarElement("", toolitipText, bcgColor, 
-                    (test.EndDateTime - test.StartDateTime).TotalSeconds);
+                    (test.EndDateTime - test.StartDateTime).TotalSeconds, Ids.GetTestModalId(test.Guid));
                 testResultsList.Add(horizontalTestElement);
             }
             var timelineBar = new HorizontalBar("timeline-bar", "", testResultsList, false);

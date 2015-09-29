@@ -130,12 +130,6 @@ namespace HtmlCustomElements.HtmlCustomElements
 			return "test-suite-" + _idSuiteCounter.ToString("D");
 		}
 
-		private static string GetTestId()
-		{
-			_idTestsCounter++;
-			return "test-case-" + _idTestsCounter.ToString("D");
-		}
-
 		private void BuildTreeHierarchical(HtmlTextWriter writer, IEnumerable<TestSuite> testSuites)
 		{
 			foreach (var suite in testSuites)
@@ -173,12 +167,12 @@ namespace HtmlCustomElements.HtmlCustomElements
 				Log.Write("TestCases count = " + currentTestCases.Count);
 				foreach (var currentTest in currentTestCases)
 				{
-				    var testId = "test-" + currentTest.Guid;//GetTestId();
+				    var testId = Ids.GetTestId(currentTest.Guid);
 					var testCase = currentTest;
 					Log.Write("Generating tree: TestCase.Name = " + testCase.Name);
 					var test = new NunitTest(testCase);
-					var modalId = "modal-" + testId;
-					var modalWindow = new ModalWindow(modalId, test.HtmlCode);
+					var modalId = Ids.GetTestModalId(currentTest.Guid);
+					var modalWindow = new ModalWindow(modalId, test.HtmlCode, 1002, 90);
 					var openButton = new JsOpenButton(testCase.Name
 						+ " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
 						testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss"), 
@@ -236,12 +230,12 @@ namespace HtmlCustomElements.HtmlCustomElements
             Log.Write("TestCases count = " + currentTestCases.Count);
             foreach (var currentTest in currentTestCases)
             {
-                var testId = "test-" + currentTest.Guid;//GetTestId();
+                var testId =Ids.GetTestId(currentTest.Guid);
                 var testCase = currentTest;
                 Log.Write("Generating tree: TestCase.Name = " + testCase.Name);
                 var test = new NunitTest(testCase);
-                var modalId = "modal-" + testId;
-                var modalWindow = new ModalWindow(modalId, test.HtmlCode);
+                var modalId = Ids.GetTestModalId(currentTest.Guid);
+                var modalWindow = new ModalWindow(modalId, test.HtmlCode, 1004, 90);
                 var openButton = new JsOpenButton(testCase.Name
                     + " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
                     testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss"),

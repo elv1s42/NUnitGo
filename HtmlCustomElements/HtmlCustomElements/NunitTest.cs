@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
 using NunitResultAnalyzer.XmlClasses;
@@ -77,35 +76,6 @@ namespace HtmlCustomElements.HtmlCustomElements
             return sWr.ToString();
         }
 
-        private static string GenerateTxtFileView(string txt)
-        {
-            var sWr = new StringWriter();
-            using (var wr = new HtmlTextWriter(sWr))
-            {
-                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
-                wr.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
-                wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
-                wr.RenderBeginTag(HtmlTextWriterTag.Div);
-
-                wr.AddAttribute("data", txt);
-                wr.AddAttribute(HtmlTextWriterAttribute.Type, "text/html");
-                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
-                wr.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
-                wr.RenderBeginTag(HtmlTextWriterTag.Object);
-                wr.Write("alt : ");
-
-                wr.AddAttribute(HtmlTextWriterAttribute.Href, txt);
-                wr.RenderBeginTag(HtmlTextWriterTag.A);
-                wr.Write(txt);
-                wr.RenderEndTag();//A
-
-                wr.RenderEndTag();//OBJECT
-
-                wr.RenderEndTag();//DIV
-            }
-            return sWr.ToString();
-        }
-
 		public NunitTest(TestCase testCase)
 		{
 			Log.Write("NunitTest constructor: testCase.Name = " + testCase.Name);
@@ -162,7 +132,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalErrorId = "modal-error-" + testCase.Guid;
 					var error = testCase.Error;
-					var modalError = new ModalWindow(modalErrorId, GenerateHtmlView(error), "1004", 80, "1003");
+					var modalError = new ModalWindow(modalErrorId, GenerateHtmlView(error));
                     var onClickString = "openModalWindow(\""
                         + error + "\",\""
                         + modalErrorId + "\",\""
@@ -178,7 +148,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalOutId = "modal-out-" + testCase.Guid;
 					var output = testCase.Out;
-                    var modalOut = new ModalWindow(modalOutId, GenerateHtmlView(output), "1004", 80, "1003");
+                    var modalOut = new ModalWindow(modalOutId, GenerateHtmlView(output));
                     var onClickString = "openModalWindow(\""
                         + output + "\",\""
                         + modalOutId + "\",\""
@@ -194,7 +164,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalTraceId = "modal-trace-" + testCase.Guid;
 					var trace = testCase.Trace;
-					var modalTrace = new ModalWindow(modalTraceId, GenerateHtmlView(trace), "1004", 80, "1003");
+					var modalTrace = new ModalWindow(modalTraceId, GenerateHtmlView(trace));
                     var onClickString = "openModalWindow(\""
                         + trace + "\",\""
                         + modalTraceId + "\",\""
@@ -209,7 +179,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 				{
 					var modalLogId = "modal-log-" + testCase.Guid;
 					var log = testCase.Log;
-					var modalLog = new ModalWindow(modalLogId, GenerateHtmlView(log), "1004", 80, "1003");
+					var modalLog = new ModalWindow(modalLogId, GenerateHtmlView(log));
                     var onClickString = "openModalWindow(\""
                         + log + "\",\""
                         + modalLogId + "\",\""
@@ -234,7 +204,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 					}
 					var screenCode = sWr.ToString();
 					var modalScreenshotId = "modal-screenshot-" + screenshot.Name;
-					var modalScreenshot = new ModalWindow(modalScreenshotId, screenCode, "1004", 100, "1003");
+					var modalScreenshot = new ModalWindow(modalScreenshotId, screenCode, 1004, 100);
 					var openButton = new JsOpenButton("Veiw screenshot " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss"), 
 						modalScreenshotId, modalScreenshot.BackgroundId,
 						Colors.OpenLogsButtonBackground);

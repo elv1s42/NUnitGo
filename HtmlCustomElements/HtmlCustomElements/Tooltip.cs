@@ -65,7 +65,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             return tooltipCssSet.ToString();
         }
 
-        public Tooltip(string tooltipText, string innerText, string backgroundColor, string id,  double width, string idToShow = "")
+        public Tooltip(string tooltipText, string innerText, string backgroundColor, string id,  double width, string modalIdToShow = "")
         {
             Style = GetStyle();
 
@@ -78,6 +78,12 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, backgroundColor);
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Width, width.ToString("00.000", CultureInfo.InvariantCulture) + @"%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
+                if (!modalIdToShow.Equals(""))
+                {
+                    var button = new JsOpenButton("", modalIdToShow, Ids.GetBackgroundId(modalIdToShow));
+                    writer.Write(button.ButtonHtml);
+                }
 
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "inline-block");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "hidden");

@@ -20,4 +20,22 @@
             public static string Trace = "trace" + OutputType.Type.Default;
         }
     }
+
+    public static class Ids
+    {
+        public static string GetTestId(string guid)
+        {
+            return "test-" + guid;
+        }
+
+        public static string GetTestModalId(string guid)
+        {
+            return "modal-test-" + guid;
+        }
+
+        public static string GetBackgroundId(string modalId)
+        {
+            return "background-" + modalId;
+        }
+    }
 }
