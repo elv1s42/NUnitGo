@@ -12,4 +12,10 @@ Real-time genereted HTML reports with screenshots for NUnit 2.6.4
  6. Run your tests with **NUnit GUI** or **nunit-console** using .NET 4.0 (e.g. nunit-console YourAssembly.dll /framework=net-4.0).
  7. After all tests finish you'll see new folder that you specified on step 5 with generated **HTML** report.
 
+## Demo report
 
+Click [here](elv1s42.github.io/NUnitGo/reportexample/) to view demo report (without screenshots).
+
+## Project site
+
+Click [here](http://elv1s42.github.io/NUnitGo/) to visit site.
