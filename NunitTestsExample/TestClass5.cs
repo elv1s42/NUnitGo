@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Threading;
+using NUnit.Framework;
 
 namespace NunitTestsExample
 {
@@ -8,20 +9,23 @@ namespace NunitTestsExample
         [Test]
         public void TestMethod1()
         {
+            Thread.Sleep(2000);
             Assert.AreEqual(1, 2);
         }
 
         [Test]
         public void TestMethod2()
         {
+            Thread.Sleep(2000);
             Assert.AreEqual(1, 1);
         }
         
         [TestCase("0", 1)]
         [TestCase("1", 1)]
-        [TestCase("2", 1, TestName = "Testing name")]
+        [TestCase("2", 1, TestName = "Testing name attribute")]
         public void ParamTestName(string input, int expected)
         {
+            Thread.Sleep(2000);
             Assert.AreEqual(input, expected.ToString("D"));
         }
     }

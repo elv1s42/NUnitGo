@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Threading;
+using NUnit.Framework;
 
 namespace NunitTestsExample
 {
@@ -15,6 +16,7 @@ namespace NunitTestsExample
         [TestCase("7", 7)]
         public void ParamTestName(string input, int expected)
         {
+            Thread.Sleep(1000);
             Assert.AreEqual(input, expected.ToString("D"));
         }
     }
