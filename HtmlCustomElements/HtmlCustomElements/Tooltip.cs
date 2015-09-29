@@ -81,7 +81,7 @@ namespace HtmlCustomElements.HtmlCustomElements
 
                 if (!modalIdToShow.Equals(""))
                 {
-                    var button = new JsOpenButton("", modalIdToShow, Ids.GetBackgroundId(modalIdToShow));
+                    var button = new JsOpenButton("", modalIdToShow, Ids.GetBackgroundId(modalIdToShow), backgroundColor);
                     writer.Write(button.ButtonHtml);
                 }
 

@@ -42,6 +42,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
+                    new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
                     new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
                     new StyleAttribute(HtmlTextWriterStyle.Display, "block"),
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none"),
