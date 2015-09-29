@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8" /><title>
+		NUnitGo Report
+	</title><style type="text/css">
+
+.report-title {
+    width : 90%; 
+    display : inline-block; 
+    font-size : 30px; 
+    padding-top : 30px; 
+    padding-bottom : 30px; 
+}
+
+body {
+    background : #D6FAF7; 
+    margin : 0px; 
+    height : 100%; 
+    font-family : Tahoma,Verdana,Segoe,sans-serif; 
+}
+html {
+    height : 100%; 
+}
+.stop-scrolling {
+    height : 100%; 
+    overflow : hidden; 
+}
+div:hover {
+    text-decoration : none; 
+}
+a:hover {
+    text-decoration : none; 
+}
+
+.tooltip {
+    width : 100%; 
+}
+#tooltip-item-inner-text {
+    text-align : center; 
+    width : 100%; 
+}
+.tooltip:after {
+    background : #BFBFBF; 
+    -webkit-box-shadow : 3px 3px 5px 0px rgba(166,166,166,0.75); 
+    -moz-box-shadow : 3px 3px 5px 0px rgba(166,166,166,0.75); 
+    box-shadow : 3px 3px 5px 0px rgba(166,166,166,0.75); 
+    color : white; 
+    content : attr(data-tooltip); 
+    margin-top : 50px; 
+    left : -9999px; 
+    opacity : 0; 
+    padding : 10px 15px; 
+    position : absolute; 
+    visibility : hidden; 
+    transition : all 0.5s ease-out; 
+}
+.tooltip:hover:after {
+    opacity : 1; 
+    left : 20%; 
+    visibility : visible; 
+}
+
+.horizontal-bar {
+    background-color : white; 
+    width : 94%; 
+    padding : 1% 3% 1% 3%; 
+    display : table; 
+    table-layout : fixed; 
+}
+#horizontal-bar-item {
+    -webkit-box-shadow : 0px 5px 5px 0px rgba(166,166,166,0.75); 
+    -moz-box-shadow : 0px 5px 5px 0px rgba(166,166,166,0.75); 
+    box-shadow : 0px 5px 5px 0px rgba(166,166,166,0.75); 
+    display : table-cell; 
+    height : 35px; 
+}
+#horizontal-bar-item:hover {
+    -webkit-box-shadow : 0px 10px 10px 0px rgba(166,166,166,0.75); 
+    -moz-box-shadow : 0px 10px 10px 0px rgba(166,166,166,0.75); 
+    box-shadow : 0px 10px 10px 0px rgba(166,166,166,0.75); 
+    margin-bottom : 10px; 
+}
+
+.report-footer {
+    position : relative; 
+    bottom : 0; 
+    font-size : 15px; 
+}
+
+#main-information  {
+    margin : 1% 0% 0% 0%; 
+    padding : 1% 2% 2% 2%; 
+    background-color : white; 
+    width : 80%; 
+    height : 20%; 
+    margin-left : 10%; 
+    text-decoration : none; 
+}
+#main-information h1 {
+    font : 22px/36px Arial, sans-serif; 
+}
+#main-information p {
+    margin : 10px 0; 
+    font : 15px/19px Arial, sans-serif; 
+}
+#main-information span {
+    color : #4f4f4f; 
+    font : italic 11px/12px Georgia, Arial, sans-serif; 
+}
+
+em.bullet {
+    border-radius : 3px; 
+    width : 7px; 
+    height : 7px; 
+    margin : 0 5px; 
+    background : #F5A519; 
+    display : inline-block; 
+}
+
+.modal-background {
+    filter : alpha(opacity=30); 
+    -moz-opacity : 0.3; 
+    opacity : .30; 
+    background-color : black; 
+    top : 0%; 
+    left : 0%; 
+    width : 100%; 
+    height : 100%; 
+    position : fixed; 
+    display : none; 
+}
+
+.modal-window {
+    box-sizing : border-box; 
+    overflow : auto; 
+    background-color : white; 
+    top : 0%; 
+    height : 100%; 
+    padding : 10px; 
+    border : 10px solid #CCEBE8; 
+    position : fixed; 
+    display : none; 
+}
+
+.href-button {
+    color : black; 
+    display : block; 
+    text-decoration : none; 
+}
+.href-button:hover {
+    color : red; 
+    text-decoration : none !important; 
+}
+
+#tests-tree ul, #tests-tree li {
+    margin : 0; 
+    padding : 0; 
+    list-style : none; 
+}
+#tests-tree input {
+    position : absolute; 
+    opacity : 0; 
+}
+#tests-tree a {
+    text-decoration : none; 
+}
+#tests-tree a:hover {
+    text-decoration : underline; 
+}
+#tests-tree input + label + ul {
+    margin : 0 0 0 22px; 
+    display : none; 
+}
+#tests-tree label, #tests-tree label::before {
+    cursor : pointer; 
+}
+#tests-tree input:disabled + label {
+    cursor : default; 
+    opacity : .6; 
+}
+#tests-tree input:checked:not(:disabled) + label + ul {
+    display : block; 
+}
+#tests-tree label, #tests-tree a, #tests-tree label::before {
+    display : block; 
+}
+#tests-tree label {
+    background-position : 18px 0; 
+}
+#tests-tree label::before {
+    content : ""; 
+    width : 16px; 
+    margin : 0 22px 0 0; 
+    vertical-align : middle; 
+    background-position : 0 -32px; 
+}
+#tests-tree input:checked + label::before {
+    background-position : 0 -16px; 
+}
+
+#testcase-element {
+    width : 100%; 
+    margin : 0; 
+    padding : 0; 
+    font-size : 16px; 
+}
+#testcase-element b {
+    width : 100%; 
+    margin : 0; 
+    padding : 0; 
+    font-size : 18px; 
+}
+
+.href-open-button {
+    height : 100%; 
+    color : black; 
+    display : block; 
+    text-decoration : none; 
+    padding : 2px; 
+}
+.href-open-button:hover {
+    filter : alpha(opacity=85); 
+    -moz-opacity : 0.85; 
+    opacity : .85; 
+    color : black; 
+    text-decoration : none !important; 
+}
+
+#main-accordion .accordion {
+    margin-bottom : 10%; 
+}
+#main-accordion .accordion .tab {
+    font-size : 25px; 
+    padding-top : 0.25em; 
+    padding-left : 10.25em; 
+    color : black; 
+    display : block; 
+    height : 35px; 
+    text-decoration : none; 
+}
+#main-accordion .accordion .tab-close {
+    color : black; 
+    margin : 1% 2% 3% 97%; 
+    padding-bottom : 1%; 
+    display : block; 
+    height : 35px; 
+    text-decoration : none; 
+}
+#main-accordion .accordion .accordion-tab {
+    display : block; 
+    height : 35px; 
+    text-decoration : none; 
+}
+#main-accordion .accordion .tab:hover,.accordion div:target .tab {
+    -o-transition : 0.5s ease-out, background 0.5s ease-in; 
+    -ms-transition : 0.5s ease-out, background 0.5s ease-in; 
+    -moz-transition:color : 0.5s ease-out, background 0.5s ease-in; 
+    -webkit-transition : 0.5s ease-out, background 0.5s ease-in; 
+    transition : 0.5s ease-out, background 0.5s ease-in; 
+    background : #CCEBE8; 
+    padding-top : 0.25em; 
+    padding-left : 10.75em; 
+    text-decoration : none; 
+}
+#main-accordion .accordion .tab-close:hover,.accordion div:target .tab-close {
+    color : red; 
+    text-decoration : none; 
+}
+#main-accordion .accordion div .content {
+    overflow : scroll; 
+    height : 300px; 
+    min-height : 90vh; 
+    background-color : white; 
+    display : none; 
+}
+#main-accordion .accordion div:target .content {
+    display : block; 
+}
+#main-accordion .accordion > div {
+    height : 40px; 
+    overflow : hidden; 
+}
+#main-accordion .accordion > div:target {
+    width : 100%; 
+    height : 100%; 
+}
+
+	</style>
+</head><body>
+	
+
+<script type="text/javascript">
+
+function openModalWindow(file, idToOpen, idToFill, bcgId) {
+document.getElementById(idToOpen).style.display='block';
+document.getElementById(bcgId).style.display='block';
+document.getElementsByTagName('body')[0].className+=' stop-scrolling';
+}
+</script>
+<div style="text-align:center;">
+	<div id="main-title" class="report-title" title="Test Run Report">
+		Test Run Report
+	</div>
+</div>
+<div id="main-information" style="display:table;">
+	<div class="column-1" style="display:table-cell;">
+		<h1>
+			Main information:
+		</h1><p><em class="bullet" id="bullet-item"></em>Date: 2015-09-29</p><p><em class="bullet" id="bullet-item"></em>Time: 12:05:01</p><p><em class="bullet" id="bullet-item"></em>File Name: NunitTestsExample.nunit</p><p><em class="bullet" id="bullet-item"></em>File location: C:\_NUnit264\bin\addins</p><p><em class="bullet" id="bullet-item"></em>File type: Project</p>
+	</div><div class="column-2" style="display:table-cell;">
+		<h1>
+			Main results:
+		</h1><p><em class="bullet" id="bullet-item"></em>Total: 23</p><p><em class="bullet" id="bullet-item"></em>Success: 8</p><p><em class="bullet" id="bullet-item"></em>Errors: 1</p><p><em class="bullet" id="bullet-item"></em>Failures: 10</p><p><em class="bullet" id="bullet-item"></em>Not run: 3</p><p><em class="bullet" id="bullet-item"></em>Inconclusive: 1</p><p><em class="bullet" id="bullet-item"></em>Ignored: 3</p><p><em class="bullet" id="bullet-item"></em>Skipped: 3</p><p><em class="bullet" id="bullet-item"></em>Invalid: 0</p>
+	</div><div class="column-3" style="display:table-cell;">
+		<h1>
+			Environment:
+		</h1><p><em class="bullet" id="bullet-item"></em>NUnit version: 2.6.4.14350</p><p><em class="bullet" id="bullet-item"></em>CLR version: 4.0.30319.0</p><p><em class="bullet" id="bullet-item"></em>OS version: Microsoft Windows NT 6.1.7601 Service Pack 1</p><p><em class="bullet" id="bullet-item"></em>Platform: Win32NT</p><p><em class="bullet" id="bullet-item"></em>Machine name: PROG42</p><p><em class="bullet" id="bullet-item"></em>User domain: FIRST</p><p><em class="bullet" id="bullet-item"></em>User: username</p>
+	</div>
+</div>
+<div style="text-align:center;">
+	<div id="report-main-menu" class="report-title" title="Report menu">
+		Report menu
+	</div>
+</div>
+<div id="main-accordion">
+	<div class="accordion">
+		<div id="tab1" class="accordion-tab">
+			<a href="#tab1" class="tab">Main statistics</a><div class="content">
+				<h3 style="padding-left:30px;">
+	Test cases results:
+</h3><div id="test-results-bar" class="horizontal-bar" title="Test results bar">
+	<div data-tooltip="Failed (10/23)" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:43.478%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Failed</a>
+</div><div data-tooltip="Passed (8/23)" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:34.783%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Passed</a>
+</div><div data-tooltip="Ignored (3/23)" class="tooltip" id="horizontal-bar-item" style="background-color:#81d4fa;width:13.043%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Ignored</a>
+</div><div data-tooltip="Broken (1/23)" class="tooltip" id="horizontal-bar-item" style="background-color:#ffc107;width:04.348%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Broken</a>
+</div><div data-tooltip="Iconclusive (1/23)" class="tooltip" id="horizontal-bar-item" style="background-color:white;width:04.348%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Inconclusive</a>
+</div>
+</div><h3 style="padding-left:30px;">
+	Test cases success:
+</h3><div id="test-success-bar" class="horizontal-bar" title="Test success bar">
+	<div data-tooltip="False (12/20)" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:60.000%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">False</a>
+</div><div data-tooltip="True (8/20)" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:40.000%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">True</a>
+</div>
+</div><h3 style="padding-left:30px;">
+	Executed test cases:
+</h3><div id="test-success-bar" class="horizontal-bar" title="Test success bar">
+	<div data-tooltip="Executed (20/23)" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:86.957%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Executed</a>
+</div><div data-tooltip="Not executed (3/23)" class="tooltip" id="horizontal-bar-item" style="background-color:#81d4fa;width:13.043%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Not executed</a>
+</div>
+</div>
+			</div><a href="#" class="tab-close">Close</a>
+		</div><div id="tab2" class="accordion-tab">
+			<a href="#tab2" class="tab">Hierarchical test list</a><div class="content">
+				<div id="tests-tree">
+	<ul>
+		<li><input type="checkbox" checked="checked" id="test-suite-1" /><label for="test-suite-1" title="C:\_NUnit264\bin\addins\NunitTestsExample.nunit" style="font-weight:bold;font-size:110%;">Project: C:\_NUnit264\bin\addins\NunitTestsExample.nunit (8/23) 29.09.15 12:03:58 - 29.09.15 12:05:00</label><ul>
+			<ul>
+				<li><input type="checkbox" checked="checked" id="test-suite-2" /><label for="test-suite-2" title="C:\_NUnit264\bin\addins\NunitTestsExample.dll" style="font-weight:bold;font-size:110%;">Assembly: C:\_NUnit264\bin\addins\NunitTestsExample.dll (8/23) 29.09.15 12:03:58 - 29.09.15 12:05:00</label><ul>
+					<ul>
+						<li><input type="checkbox" checked="checked" id="test-suite-3" /><label for="test-suite-3" title="NunitTestsExample" style="font-weight:bold;font-size:110%;">Namespace: NunitTestsExample (8/23) 29.09.15 12:03:58 - 29.09.15 12:05:00</label><ul>
+							<ul>
+								<li><input type="checkbox" id="test-suite-4" /><label for="test-suite-4" title="TestClass1" style="font-weight:bold;font-size:110%;">TestFixture: TestClass1 (1/5) 29.09.15 12:03:58 - 29.09.15 12:04:14</label><ul>
+									<li id="test-3913dfce-aff6-43fd-9ffc-c6804a4e8562"><a title="TestMethod1"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">TestMethod1 29.09.15 12:03:58 - 29.09.15 12:04:04</a></a></li><li id="test-aaefd596-5c45-4ba0-b15f-da990767f1ca"><a title="TestMethod2"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">TestMethod2 29.09.15 12:04:04 - 29.09.15 12:04:06</a></a></li><li id="test-20afaf30-a625-434e-8551-87b3a21941e1"><a title="TestMethod3"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ffc107;">TestMethod3 29.09.15 12:04:07 - 29.09.15 12:04:09</a></a></li><li id="test-1d677ead-79f8-44b5-874d-f4ab190fa809"><a title="TestMethod4"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:white;">TestMethod4 29.09.15 12:04:10 - 29.09.15 12:04:12</a></a></li><li id="test-455bd1ed-6411-4f38-b768-f580589f0e64"><a title="TestMethod5"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-455bd1ed-6411-4f38-b768-f580589f0e64&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-455bd1ed-6411-4f38-b768-f580589f0e64&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#81d4fa;">TestMethod5 29.09.15 12:04:12 - 29.09.15 12:04:14</a></a></li>
+								</ul></li>
+							</ul><ul>
+								<li><input type="checkbox" id="test-suite-5" /><label for="test-suite-5" title="TestClass2" style="font-weight:bold;font-size:110%;">TestFixture: TestClass2 (2/3) 29.09.15 12:04:15 - 29.09.15 12:04:22</label><ul>
+									<li id="test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663"><a title="TestMethod1"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">TestMethod1 29.09.15 12:04:15 - 29.09.15 12:04:17</a></a></li><li id="test-85f302e3-8481-4b58-8ef6-12f1801e4ecc"><a title="TestMethod2"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">TestMethod2 29.09.15 12:04:18 - 29.09.15 12:04:20</a></a></li><li id="test-6fc500bc-9e9e-48ca-995b-c0c0411ef226"><a title="TestMethod3"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">TestMethod3 29.09.15 12:04:20 - 29.09.15 12:04:22</a></a></li>
+								</ul></li>
+							</ul><ul>
+								<li><input type="checkbox" id="test-suite-6" /><label for="test-suite-6" title="TestClass3" style="font-weight:bold;font-size:110%;">TestFixture: TestClass3 (0/2) 29.09.15 12:04:23 - 29.09.15 12:04:24</label><ul>
+									<li id="test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643"><a title="TestMethod1"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#81d4fa;">TestMethod1 29.09.15 12:04:23 - 29.09.15 12:04:23</a></a></li><li id="test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd"><a title="TestMethod2"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#81d4fa;">TestMethod2 29.09.15 12:04:24 - 29.09.15 12:04:24</a></a></li>
+								</ul></li>
+							</ul><ul>
+								<li><input type="checkbox" id="test-suite-7" /><label for="test-suite-7" title="TestClass4" style="font-weight:bold;font-size:110%;">TestFixture: TestClass4 (3/8) 29.09.15 12:04:25 - 29.09.15 12:04:42</label><ul>
+									<ul>
+										<li><input type="checkbox" id="test-suite-8" /><label for="test-suite-8" title="ParamTestName" style="font-weight:bold;font-size:110%;">ParameterizedTest: ParamTestName (3/8) 29.09.15 12:04:25 - 29.09.15 12:04:42</label><ul>
+											<li id="test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669"><a title="ParamTestName(&quot;6&quot;,3)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("6",3) 29.09.15 12:04:25 - 29.09.15 12:04:26</a></a></li><li id="test-2989c531-ed8c-4080-a673-aa86e1bfa2c1"><a title="ParamTestName(&quot;3&quot;,4)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("3",4) 29.09.15 12:04:27 - 29.09.15 12:04:28</a></a></li><li id="test-2487e707-0b7d-4236-8495-b72a983604f9"><a title="ParamTestName(&quot;5&quot;,4)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-2487e707-0b7d-4236-8495-b72a983604f9&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-2487e707-0b7d-4236-8495-b72a983604f9&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("5",4) 29.09.15 12:04:29 - 29.09.15 12:04:30</a></a></li><li id="test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367"><a title="ParamTestName(&quot;0&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("0",1) 29.09.15 12:04:32 - 29.09.15 12:04:33</a></a></li><li id="test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b"><a title="ParamTestName(&quot;7&quot;,7)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">ParamTestName("7",7) 29.09.15 12:04:34 - 29.09.15 12:04:35</a></a></li><li id="test-d92faee5-032b-4484-b024-3dae64963912"><a title="ParamTestName(&quot;1&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d92faee5-032b-4484-b024-3dae64963912&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-d92faee5-032b-4484-b024-3dae64963912&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">ParamTestName("1",1) 29.09.15 12:04:36 - 29.09.15 12:04:37</a></a></li><li id="test-fae4606f-5808-40a4-9ec8-c187c5cfed0e"><a title="ParamTestName(&quot;4&quot;,4)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">ParamTestName("4",4) 29.09.15 12:04:38 - 29.09.15 12:04:39</a></a></li><li id="test-b758dd2c-d94b-468c-9540-2471c8ae3351"><a title="ParamTestName(&quot;2&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("2",1) 29.09.15 12:04:41 - 29.09.15 12:04:42</a></a></li>
+										</ul></li>
+									</ul>
+								</ul></li>
+							</ul><ul>
+								<li><input type="checkbox" id="test-suite-9" /><label for="test-suite-9" title="TestClass5" style="font-weight:bold;font-size:110%;">TestFixture: TestClass5 (2/5) 29.09.15 12:04:54 - 29.09.15 12:05:00</label><ul>
+									<li id="test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c"><a title="TestMethod1"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">TestMethod1 29.09.15 12:04:54 - 29.09.15 12:04:56</a></a></li><li id="test-ed1ce943-7747-4ae2-acd4-418a2c718c4c"><a title="TestMethod2"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">TestMethod2 29.09.15 12:04:58 - 29.09.15 12:05:00</a></a></li><ul>
+										<li><input type="checkbox" id="test-suite-10" /><label for="test-suite-10" title="ParamTestName" style="font-weight:bold;font-size:110%;">ParameterizedTest: ParamTestName (1/3) 29.09.15 12:04:43 - 29.09.15 12:04:52</label><ul>
+											<li id="test-b0c3493d-b1d8-44f8-a0a3-328112d23782"><a title="ParamTestName(&quot;1&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">ParamTestName("1",1) 29.09.15 12:04:43 - 29.09.15 12:04:45</a></a></li><li id="test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9"><a title="Testing name attribute"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">Testing name attribute 29.09.15 12:04:47 - 29.09.15 12:04:49</a></a></li><li id="test-0e23b93b-e034-4265-add2-84b9f9c102e2"><a title="ParamTestName(&quot;0&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("0",1) 29.09.15 12:04:50 - 29.09.15 12:04:52</a></a></li>
+										</ul></li>
+									</ul>
+								</ul></li>
+							</ul>
+						</ul></li>
+					</ul>
+				</ul></li>
+			</ul>
+		</ul></li>
+	</ul>
+</div>
+			</div><a href="#" class="tab-close">Close</a>
+		</div><div id="tab3" class="accordion-tab">
+			<a href="#tab3" class="tab">Non-hierarchical test list</a><div class="content">
+				<div id="tests-tree">
+	<ul>
+		<li><input type="checkbox" checked="checked" id="test-suite-1" /><label for="test-suite-1" title="C:\_NUnit264\bin\addins\NunitTestsExample.nunit" style="font-weight:bold;font-size:110%;">Test Project: C:\_NUnit264\bin\addins\NunitTestsExample.nunit (8/23) 29.09.15 12:03:58 - 29.09.15 12:05:00</label><ul>
+			<li id="test-3913dfce-aff6-43fd-9ffc-c6804a4e8562"><a title="TestMethod1"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">TestMethod1 29.09.15 12:03:58 - 29.09.15 12:04:04</a></a></li><li id="test-aaefd596-5c45-4ba0-b15f-da990767f1ca"><a title="TestMethod2"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">TestMethod2 29.09.15 12:04:04 - 29.09.15 12:04:06</a></a></li><li id="test-20afaf30-a625-434e-8551-87b3a21941e1"><a title="TestMethod3"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ffc107;">TestMethod3 29.09.15 12:04:07 - 29.09.15 12:04:09</a></a></li><li id="test-1d677ead-79f8-44b5-874d-f4ab190fa809"><a title="TestMethod4"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:white;">TestMethod4 29.09.15 12:04:10 - 29.09.15 12:04:12</a></a></li><li id="test-455bd1ed-6411-4f38-b768-f580589f0e64"><a title="TestMethod5"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-455bd1ed-6411-4f38-b768-f580589f0e64&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-455bd1ed-6411-4f38-b768-f580589f0e64&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#81d4fa;">TestMethod5 29.09.15 12:04:12 - 29.09.15 12:04:14</a></a></li><li id="test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663"><a title="TestMethod1"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">TestMethod1 29.09.15 12:04:15 - 29.09.15 12:04:17</a></a></li><li id="test-85f302e3-8481-4b58-8ef6-12f1801e4ecc"><a title="TestMethod2"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">TestMethod2 29.09.15 12:04:18 - 29.09.15 12:04:20</a></a></li><li id="test-6fc500bc-9e9e-48ca-995b-c0c0411ef226"><a title="TestMethod3"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">TestMethod3 29.09.15 12:04:20 - 29.09.15 12:04:22</a></a></li><li id="test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643"><a title="TestMethod1"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#81d4fa;">TestMethod1 29.09.15 12:04:23 - 29.09.15 12:04:23</a></a></li><li id="test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd"><a title="TestMethod2"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#81d4fa;">TestMethod2 29.09.15 12:04:24 - 29.09.15 12:04:24</a></a></li><li id="test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669"><a title="ParamTestName(&quot;6&quot;,3)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("6",3) 29.09.15 12:04:25 - 29.09.15 12:04:26</a></a></li><li id="test-2989c531-ed8c-4080-a673-aa86e1bfa2c1"><a title="ParamTestName(&quot;3&quot;,4)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("3",4) 29.09.15 12:04:27 - 29.09.15 12:04:28</a></a></li><li id="test-2487e707-0b7d-4236-8495-b72a983604f9"><a title="ParamTestName(&quot;5&quot;,4)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-2487e707-0b7d-4236-8495-b72a983604f9&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-2487e707-0b7d-4236-8495-b72a983604f9&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("5",4) 29.09.15 12:04:29 - 29.09.15 12:04:30</a></a></li><li id="test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367"><a title="ParamTestName(&quot;0&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("0",1) 29.09.15 12:04:32 - 29.09.15 12:04:33</a></a></li><li id="test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b"><a title="ParamTestName(&quot;7&quot;,7)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">ParamTestName("7",7) 29.09.15 12:04:34 - 29.09.15 12:04:35</a></a></li><li id="test-d92faee5-032b-4484-b024-3dae64963912"><a title="ParamTestName(&quot;1&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d92faee5-032b-4484-b024-3dae64963912&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-d92faee5-032b-4484-b024-3dae64963912&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">ParamTestName("1",1) 29.09.15 12:04:36 - 29.09.15 12:04:37</a></a></li><li id="test-fae4606f-5808-40a4-9ec8-c187c5cfed0e"><a title="ParamTestName(&quot;4&quot;,4)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">ParamTestName("4",4) 29.09.15 12:04:38 - 29.09.15 12:04:39</a></a></li><li id="test-b758dd2c-d94b-468c-9540-2471c8ae3351"><a title="ParamTestName(&quot;2&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("2",1) 29.09.15 12:04:41 - 29.09.15 12:04:42</a></a></li><li id="test-b0c3493d-b1d8-44f8-a0a3-328112d23782"><a title="ParamTestName(&quot;1&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">ParamTestName("1",1) 29.09.15 12:04:43 - 29.09.15 12:04:45</a></a></li><li id="test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9"><a title="Testing name attribute"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">Testing name attribute 29.09.15 12:04:47 - 29.09.15 12:04:49</a></a></li><li id="test-0e23b93b-e034-4265-add2-84b9f9c102e2"><a title="ParamTestName(&quot;0&quot;,1)"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">ParamTestName("0",1) 29.09.15 12:04:50 - 29.09.15 12:04:52</a></a></li><li id="test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c"><a title="TestMethod1"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;">TestMethod1 29.09.15 12:04:54 - 29.09.15 12:04:56</a></a></li><li id="test-ed1ce943-7747-4ae2-acd4-418a2c718c4c"><a title="TestMethod2"><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;">TestMethod2 29.09.15 12:04:58 - 29.09.15 12:05:00</a></a></li>
+		</ul></li>
+	</ul>
+</div>
+			</div><a href="#" class="tab-close">Close</a>
+		</div><div id="tab4" class="accordion-tab">
+			<a href="#tab4" class="tab">Timeline</a><div class="content">
+				<h3 style="padding-left:30px;">
+	Timeline (29.09.2015 12:03:58-29.09.2015 12:05:00):
+</h3><div id="timeline-bar" class="horizontal-bar">
+	<div data-tooltip="Test: TestMethod1, Time: 12:03:58 - 12:04:04, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:15.760%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod2, Time: 12:04:04 - 12:04:06, 
+Result: Success" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:05.198%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod3, Time: 12:04:07 - 12:04:09, 
+Result: Error" class="tooltip" id="horizontal-bar-item" style="background-color:#ffc107;width:06.162%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ffc107;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod4, Time: 12:04:10 - 12:04:12, 
+Result: Inconclusive" class="tooltip" id="horizontal-bar-item" style="background-color:white;width:05.203%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:white;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod5, Time: 12:04:12 - 12:04:14, 
+Result: Ignored" class="tooltip" id="horizontal-bar-item" style="background-color:#81d4fa;width:05.203%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-455bd1ed-6411-4f38-b768-f580589f0e64&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-455bd1ed-6411-4f38-b768-f580589f0e64&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#81d4fa;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod1, Time: 12:04:15 - 12:04:17, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:05.203%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod2, Time: 12:04:18 - 12:04:20, 
+Result: Success" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:05.201%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod3, Time: 12:04:20 - 12:04:22, 
+Result: Success" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:05.198%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod1, Time: 12:04:23 - 12:04:23, 
+Result: Ignored" class="tooltip" id="horizontal-bar-item" style="background-color:#81d4fa;width:00.010%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#81d4fa;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;6&quot;,3), Time: 12:04:25 - 12:04:26, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:02.616%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;3&quot;,4), Time: 12:04:27 - 12:04:28, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:02.608%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;5&quot;,4), Time: 12:04:29 - 12:04:30, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:02.629%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-2487e707-0b7d-4236-8495-b72a983604f9&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-2487e707-0b7d-4236-8495-b72a983604f9&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;0&quot;,1), Time: 12:04:32 - 12:04:33, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:02.600%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;7&quot;,7), Time: 12:04:34 - 12:04:35, 
+Result: Success" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.603%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;1&quot;,1), Time: 12:04:36 - 12:04:37, 
+Result: Success" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.600%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d92faee5-032b-4484-b024-3dae64963912&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-d92faee5-032b-4484-b024-3dae64963912&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;4&quot;,4), Time: 12:04:38 - 12:04:39, 
+Result: Success" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.600%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;2&quot;,1), Time: 12:04:41 - 12:04:42, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:02.603%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;1&quot;,1), Time: 12:04:43 - 12:04:45, 
+Result: Success" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:05.198%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: Testing name attribute, Time: 12:04:47 - 12:04:49, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:05.203%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: ParamTestName(&quot;0&quot;,1), Time: 12:04:50 - 12:04:52, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:05.206%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod1, Time: 12:04:54 - 12:04:56, 
+Result: Failure" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:05.206%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: TestMethod2, Time: 12:04:58 - 12:05:00, 
+Result: Success" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:05.198%;">
+	<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div>
+</div>
+			</div><a href="#" class="tab-close">Close</a>
+		</div><div id="tab5" class="accordion-tab">
+			<a href="#tab5" class="tab">Top Defects</a><div class="content">
+				top defects list goes here
+			</div><a href="#" class="tab-close">Close</a>
+		</div>
+	</div>
+</div>
+
+<div>
+	<div id="background-modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod1</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>6,05907</p><p><b>Time period: </b>29.09.15 12:03:58.023 - 29.09.15 12:04:04.091</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="openModalWindow(&quot;Attachments/3913dfce-aff6-43fd-9ffc-c6804a4e8562/out.html&quot;,&quot;modal-out-3913dfce-aff6-43fd-9ffc-c6804a4e8562&quot;,&quot;modal-out-3913dfce-aff6-43fd-9ffc-c6804a4e8562-inner&quot;,&quot;background-modal-out-3913dfce-aff6-43fd-9ffc-c6804a4e8562&quot;)" class="href-open-button" style="background:#bdbdbd;">Veiw output</a><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120404091.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120404091.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:04</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Int32 expected, Int32 actual)
+   at NunitTestsExample.TestClass1.TestMethod1() in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass1.cs:line 23
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  Expected: 1
+  But was:  2
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-out-3913dfce-aff6-43fd-9ffc-c6804a4e8562" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-out-3913dfce-aff6-43fd-9ffc-c6804a4e8562" class="modal-window" title style="left:20%;width:80%;z-index:1004;">
+	<div id="modal-out-3913dfce-aff6-43fd-9ffc-c6804a4e8562-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-out-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-out-3913dfce-aff6-43fd-9ffc-c6804a4e8562&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><iframe src="Attachments/3913dfce-aff6-43fd-9ffc-c6804a4e8562/out.html" style="overflow:scroll;height:90%;width:100%;border:0;">
+
+</iframe>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120404091.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120404091.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120404091.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120404091.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120404091.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120404091.png" alt="screenshot_20150929120404091.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-aaefd596-5c45-4ba0-b15f-da990767f1ca&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod2</p><p style="background-color:#8bc34a;"><b>Test result: </b>Success</p><p><b>Test duration: </b>2,0002</p><p><b>Time period: </b>29.09.15 12:04:04.944 - 29.09.15 12:04:06.945</p><p><b>Screenshots: </b>0</p>
+</div>
+</div>
+
+<div>
+	<div id="background-modal-test-20afaf30-a625-434e-8551-87b3a21941e1" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-20afaf30-a625-434e-8551-87b3a21941e1" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-20afaf30-a625-434e-8551-87b3a21941e1-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod3</p><p style="background-color:#ffc107;"><b>Test result: </b>Error</p><p><b>Test duration: </b>2,37088</p><p><b>Time period: </b>29.09.15 12:04:07.248 - 29.09.15 12:04:09.620</p><p><b>Screenshots: </b>3</p><a id href="javascript:void(0)" onclick="openModalWindow(&quot;Attachments/20afaf30-a625-434e-8551-87b3a21941e1/out.html&quot;,&quot;modal-out-20afaf30-a625-434e-8551-87b3a21941e1&quot;,&quot;modal-out-20afaf30-a625-434e-8551-87b3a21941e1-inner&quot;,&quot;background-modal-out-20afaf30-a625-434e-8551-87b3a21941e1&quot;)" class="href-open-button" style="background:#bdbdbd;">Veiw output</a><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120407250.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120407250.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:07</a><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120408424.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120408424.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:08</a><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120409620.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120409620.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:09</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NunitTestsExample.TestClass1.TestMethod3() in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass1.cs:line 42
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	System.Exception : Some error occured!
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-out-20afaf30-a625-434e-8551-87b3a21941e1" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-out-20afaf30-a625-434e-8551-87b3a21941e1" class="modal-window" title style="left:20%;width:80%;z-index:1004;">
+	<div id="modal-out-20afaf30-a625-434e-8551-87b3a21941e1-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-out-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-out-20afaf30-a625-434e-8551-87b3a21941e1&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><iframe src="Attachments/20afaf30-a625-434e-8551-87b3a21941e1/out.html" style="overflow:scroll;height:90%;width:100%;border:0;">
+
+</iframe>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120407250.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120407250.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120407250.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120407250.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120407250.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120407250.png" alt="screenshot_20150929120407250.png" />
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120408424.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120408424.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120408424.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120408424.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120408424.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120408424.png" alt="screenshot_20150929120408424.png" />
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120409620.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120409620.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120409620.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120409620.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120409620.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120409620.png" alt="screenshot_20150929120409620.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-1d677ead-79f8-44b5-874d-f4ab190fa809&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod4</p><p style="background-color:white;"><b>Test result: </b>Inconclusive</p><p><b>Test duration: </b>2,00211</p><p><b>Time period: </b>29.09.15 12:04:10.185 - 29.09.15 12:04:12.188</p><p><b>Screenshots: </b>0</p><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.Inconclusive(String message, Object[] args)
+   at NunitTestsExample.TestClass1.TestMethod4() in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass1.cs:line 49
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	Inconc. test :)
+</div></p>
+</div>
+</div>
+
+<div>
+	<div id="background-modal-test-455bd1ed-6411-4f38-b768-f580589f0e64" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-455bd1ed-6411-4f38-b768-f580589f0e64" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-455bd1ed-6411-4f38-b768-f580589f0e64-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-455bd1ed-6411-4f38-b768-f580589f0e64&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-455bd1ed-6411-4f38-b768-f580589f0e64&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod5</p><p style="background-color:#81d4fa;"><b>Test result: </b>Ignored</p><p><b>Test duration: </b>2,00215</p><p><b>Time period: </b>29.09.15 12:04:12.611 - 29.09.15 12:04:14.615</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120414615.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120414615.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:14</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.Ignore(String message, Object[] args)
+   at NunitTestsExample.TestClass1.TestMethod5() in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass1.cs:line 56
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	Test was ignored!
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120414615.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120414615.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120414615.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120414615.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120414615.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120414615.png" alt="screenshot_20150929120414615.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-b786f7e0-6f4b-460a-91e1-1d5efc9d1663&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod1</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>2,00157</p><p><b>Time period: </b>29.09.15 12:04:15.299 - 29.09.15 12:04:17.302</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120417302.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120417302.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:17</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Int32 expected, Int32 actual)
+   at NunitTestsExample.TestClass2.TestMethod1() in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass2.cs:line 13
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  Expected: 1
+  But was:  2
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120417302.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120417302.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120417302.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120417302.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120417302.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120417302.png" alt="screenshot_20150929120417302.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-85f302e3-8481-4b58-8ef6-12f1801e4ecc&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod2</p><p style="background-color:#8bc34a;"><b>Test result: </b>Success</p><p><b>Test duration: </b>2,00037</p><p><b>Time period: </b>29.09.15 12:04:18.014 - 29.09.15 12:04:20.016</p><p><b>Screenshots: </b>0</p>
+</div>
+</div>
+
+<div>
+	<div id="background-modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-6fc500bc-9e9e-48ca-995b-c0c0411ef226&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod3</p><p style="background-color:#8bc34a;"><b>Test result: </b>Success</p><p><b>Test duration: </b>1,99999</p><p><b>Time period: </b>29.09.15 12:04:20.668 - 29.09.15 12:04:22.669</p><p><b>Screenshots: </b>0</p>
+</div>
+</div>
+
+<div>
+	<div id="background-modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-8b44e6b6-9c82-452e-8bb5-d7e63f4b5643&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod1</p><p style="background-color:#81d4fa;"><b>Test result: </b>Ignored</p><p><b>Test duration: </b></p><p><b>Time period: </b>29.09.15 12:04:23.334 - 29.09.15 12:04:23.335</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120423335.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120423335.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:23</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	Ignored test fixture
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120423335.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120423335.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120423335.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120423335.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120423335.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120423335.png" alt="screenshot_20150929120423335.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-d58f19e3-0bc4-4fa5-adf4-06f6a2d002bd&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod2</p><p style="background-color:#81d4fa;"><b>Test result: </b>Ignored</p><p><b>Test duration: </b></p><p><b>Time period: </b>29.09.15 12:04:24.236 - 29.09.15 12:04:24.236</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120424236.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120424236.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:24</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	Ignored test fixture
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120424236.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120424236.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120424236.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120424236.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120424236.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120424236.png" alt="screenshot_20150929120424236.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-1f63628b-2e29-4ba1-a6b2-041fe3d7a669&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("6",3)</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>1,00567</p><p><b>Time period: </b>29.09.15 12:04:25.295 - 29.09.15 12:04:26.302</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120426302.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120426302.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:26</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NunitTestsExample.TestClass4.ParamTestName(String input, Int32 expected) in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass4.cs:line 19
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  String lengths are both 1. Strings differ at index 0.
+  Expected: "6"
+  But was:  "3"
+  -----------^
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120426302.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120426302.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120426302.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120426302.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120426302.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120426302.png" alt="screenshot_20150929120426302.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-2989c531-ed8c-4080-a673-aa86e1bfa2c1&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("3",4)</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>1,00227</p><p><b>Time period: </b>29.09.15 12:04:27.426 - 29.09.15 12:04:28.430</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120428430.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120428430.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:28</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NunitTestsExample.TestClass4.ParamTestName(String input, Int32 expected) in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass4.cs:line 19
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  String lengths are both 1. Strings differ at index 0.
+  Expected: "3"
+  But was:  "4"
+  -----------^
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120428430.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120428430.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120428430.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120428430.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120428430.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120428430.png" alt="screenshot_20150929120428430.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-2487e707-0b7d-4236-8495-b72a983604f9" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-2487e707-0b7d-4236-8495-b72a983604f9" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-2487e707-0b7d-4236-8495-b72a983604f9-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-2487e707-0b7d-4236-8495-b72a983604f9&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-2487e707-0b7d-4236-8495-b72a983604f9&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("5",4)</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>1,01149</p><p><b>Time period: </b>29.09.15 12:04:29.613 - 29.09.15 12:04:30.625</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120430625.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120430625.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:30</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NunitTestsExample.TestClass4.ParamTestName(String input, Int32 expected) in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass4.cs:line 19
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  String lengths are both 1. Strings differ at index 0.
+  Expected: "5"
+  But was:  "4"
+  -----------^
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120430625.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120430625.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120430625.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120430625.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120430625.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120430625.png" alt="screenshot_20150929120430625.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-1453fef4-4c0c-4349-a7c4-8bf60c0c2367&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("0",1)</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>1,00063</p><p><b>Time period: </b>29.09.15 12:04:32.052 - 29.09.15 12:04:33.053</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120433053.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120433053.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:33</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NunitTestsExample.TestClass4.ParamTestName(String input, Int32 expected) in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass4.cs:line 19
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  String lengths are both 1. Strings differ at index 0.
+  Expected: "0"
+  But was:  "1"
+  -----------^
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120433053.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120433053.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120433053.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120433053.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120433053.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120433053.png" alt="screenshot_20150929120433053.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-d3cf34d2-d13c-4150-a99e-54ebfc756c1b&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("7",7)</p><p style="background-color:#8bc34a;"><b>Test result: </b>Success</p><p><b>Test duration: </b>1,00024</p><p><b>Time period: </b>29.09.15 12:04:34.530 - 29.09.15 12:04:35.532</p><p><b>Screenshots: </b>0</p>
+</div>
+</div>
+
+<div>
+	<div id="background-modal-test-d92faee5-032b-4484-b024-3dae64963912" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-d92faee5-032b-4484-b024-3dae64963912" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-d92faee5-032b-4484-b024-3dae64963912-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-d92faee5-032b-4484-b024-3dae64963912&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-d92faee5-032b-4484-b024-3dae64963912&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("1",1)</p><p style="background-color:#8bc34a;"><b>Test result: </b>Success</p><p><b>Test duration: </b>,99961</p><p><b>Time period: </b>29.09.15 12:04:36.708 - 29.09.15 12:04:37.709</p><p><b>Screenshots: </b>0</p>
+</div>
+</div>
+
+<div>
+	<div id="background-modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-fae4606f-5808-40a4-9ec8-c187c5cfed0e&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("4",4)</p><p style="background-color:#8bc34a;"><b>Test result: </b>Success</p><p><b>Test duration: </b>,99973</p><p><b>Time period: </b>29.09.15 12:04:38.941 - 29.09.15 12:04:39.942</p><p><b>Screenshots: </b>0</p>
+</div>
+</div>
+
+<div>
+	<div id="background-modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-b758dd2c-d94b-468c-9540-2471c8ae3351&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("2",1)</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>1,00125</p><p><b>Time period: </b>29.09.15 12:04:41.182 - 29.09.15 12:04:42.184</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120442184.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120442184.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:42</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NunitTestsExample.TestClass4.ParamTestName(String input, Int32 expected) in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass4.cs:line 19
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  String lengths are both 1. Strings differ at index 0.
+  Expected: "2"
+  But was:  "1"
+  -----------^
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120442184.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120442184.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120442184.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120442184.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120442184.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120442184.png" alt="screenshot_20150929120442184.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-0c8a3a62-be5e-4f00-a892-ab3a138f5d1c&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod1</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>2,00188</p><p><b>Time period: </b>29.09.15 12:04:54.370 - 29.09.15 12:04:56.374</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120456374.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120456374.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:56</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Int32 expected, Int32 actual)
+   at NunitTestsExample.TestClass5.TestMethod1() in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass5.cs:line 13
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  Expected: 1
+  But was:  2
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120456374.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120456374.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120456374.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120456374.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120456374.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120456374.png" alt="screenshot_20150929120456374.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-ed1ce943-7747-4ae2-acd4-418a2c718c4c&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>TestMethod2</p><p style="background-color:#8bc34a;"><b>Test result: </b>Success</p><p><b>Test duration: </b>2,00003</p><p><b>Time period: </b>29.09.15 12:04:58.047 - 29.09.15 12:05:00.048</p><p><b>Screenshots: </b>0</p>
+</div>
+</div>
+
+<div>
+	<div id="background-modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-b0c3493d-b1d8-44f8-a0a3-328112d23782&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("1",1)</p><p style="background-color:#8bc34a;"><b>Test result: </b>Success</p><p><b>Test duration: </b>1,99983</p><p><b>Time period: </b>29.09.15 12:04:43.724 - 29.09.15 12:04:45.726</p><p><b>Screenshots: </b>0</p>
+</div>
+</div>
+
+<div>
+	<div id="background-modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-10c53a12-f0f3-4e5a-b6c7-b68c1fee2fe9&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>Testing name attribute</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>2,00134</p><p><b>Time period: </b>29.09.15 12:04:47.220 - 29.09.15 12:04:49.223</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120449223.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120449223.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:49</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NunitTestsExample.TestClass5.ParamTestName(String input, Int32 expected) in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass5.cs:line 28
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  String lengths are both 1. Strings differ at index 0.
+  Expected: "2"
+  But was:  "1"
+  -----------^
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120449223.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120449223.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120449223.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120449223.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120449223.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120449223.png" alt="screenshot_20150929120449223.png" />
+</div>
+
+<div>
+	<div id="background-modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2" class="modal-background" style="z-index:1001;">
+
+</div>
+</div><div id="modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2" class="modal-window" title style="left:10%;width:90%;z-index:1002;">
+	<div id="modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-test-0e23b93b-e034-4265-add2-84b9f9c102e2&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><div id="testcase-element">
+	<p><b>Test name: </b>ParamTestName("0",1)</p><p style="background-color:#ef5350;"><b>Test result: </b>Failure</p><p><b>Test duration: </b>2,00249</p><p><b>Time period: </b>29.09.15 12:04:50.768 - 29.09.15 12:04:52.772</p><p><b>Screenshots: </b>1</p><a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120452772.png&#39;).style.display=&#39;block&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120452772.png&#39;).style.display=&#39;block&#39;;document.getElementsByTagName(&#39;body&#39;)[0].className+=&#39; stop-scrolling&#39;" class="href-open-button" style="background:#bdbdbd;">Veiw screenshot 29.09.15 12:04:52</a><p><b>Failure stack trace: </b><div style="white-space:pre-line;">
+	   at NUnit.Framework.Assert.That(Object actual, IResolveConstraint expression, String message, Object[] args)
+   at NUnit.Framework.Assert.AreEqual(Object expected, Object actual)
+   at NunitTestsExample.TestClass5.ParamTestName(String input, Int32 expected) in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass5.cs:line 28
+</div></p><p><b>Failure message: </b><div style="white-space:pre-line;">
+	  String lengths are both 1. Strings differ at index 0.
+  Expected: "0"
+  But was:  "1"
+  -----------^
+
+</div></p>
+</div>
+</div>
+<div>
+	<div id="background-modal-screenshot-screenshot_20150929120452772.png" class="modal-background" style="z-index:1003;">
+
+</div>
+</div><div id="modal-screenshot-screenshot_20150929120452772.png" class="modal-window" title style="left:0%;width:100%;z-index:1004;">
+	<div id="modal-screenshot-screenshot_20150929120452772.png-inner" style="text-align:right;">
+		<a id href="javascript:void(0)" onclick="document.getElementById(&#39;modal-screenshot-screenshot_20150929120452772.png&#39;).style.display=&#39;none&#39;;document.getElementById(&#39;background-modal-screenshot-screenshot_20150929120452772.png&#39;).style.display=&#39;none&#39;;document.getElementsByTagName(&#39;body&#39;)[0].classList.remove(&quot;stop-scrolling&quot;)" class="href-button">Close</a>
+	</div><img src="./Screenshots/screenshot_20150929120452772.png" alt="screenshot_20150929120452772.png" />
+</div>
+
+</body>
+<footer>
+	
+
+<div style="text-align:center;">
+	<div id="main-title" class="report-footer" title="NUnitGo Test Run Report">
+		Copyright 2015 © NUnitGo
+	</div>
+</div>
+</footer>
+</html>
