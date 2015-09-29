@@ -14,7 +14,7 @@ Real-time genereted HTML reports with screenshots for NUnit 2.6.4
 
 ## Demo report
 
-Click [here](elv1s42.github.io/NUnitGo/reportexample/) to view demo report (without screenshots).
+Click [here](http://elv1s42.github.io/NUnitGo/reportexample/) to view demo report (without screenshots).
 
 ## Project site
 
