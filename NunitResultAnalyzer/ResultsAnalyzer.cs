@@ -50,22 +50,6 @@ namespace NunitResultAnalyzer
             }
         }
 
-        private static string ReadFromFile(string path)
-        {
-            var res = "";
-            try
-            {
-                using (var streamReader = new StreamReader(path, Encoding.UTF8))
-                {
-                    res = streamReader.ReadToEnd();
-                }
-            }
-            catch (FileNotFoundException)
-            {
-            }
-            return res;
-        }
-        
         private static Results AddDatesAndScreensToTestCases(Results results,
             List<Screenshot> screens, List<ExtraTestInfo> extraTestInfo)
         {
