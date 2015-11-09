@@ -23,7 +23,7 @@ namespace NunitGoAddin
         private StringBuilder _out = new StringBuilder();
         private StringBuilder _trace = new StringBuilder();
         private static string _outputPath = Helper.Output;
-        private readonly List<ExtraTestInfo> _allTests = new List<ExtraTestInfo>();
+        private readonly List<ExtraTestInfo> _allExtraTestInfos = new List<ExtraTestInfo>();
         private ExtraTestInfo _currentTest;
         private string _mainName;
         private List<Guid> _guids;
@@ -92,22 +92,15 @@ namespace NunitGoAddin
 
         private void GenerateReport(TestResult result)
         {
-            var saveOutput = Helper.SaveOutput;
             var outputPath = Helper.Output;
             Log.Write("Generating report...");
-            if(saveOutput) _allTests.Save(_outputPath + @"\" + "ExtraInfo.xml");
-            var xmlResultList = new TestResultXml(_fullTestListResult);
-            if (saveOutput) xmlResultList.Save(outputPath + @"\" + "_fullTestListResult.xml");
             var xmlResult = new TestResultXml(result);
             var currentXmlResult = new TestResultXml(_fullTestListResult);
-            if (saveOutput) xmlResult.Save(outputPath + @"\" + "xmlResult.xml");
             var testResults = new TestResults(xmlResult);
             var currentTestResults = new TestResults(currentXmlResult);
-            if (saveOutput) NunitXmlReader.Save(testResults, outputPath + @"\" + "testResults.xml");
-            var fullResults = ResultsAnalyzer.GetFullSuite(testResults, _allTests);
-            var currentResults = ResultsAnalyzer.GetFullSuite(currentTestResults, _allTests);
-            if (saveOutput) NunitXmlReader.Save(fullResults, outputPath + @"\" + "FullSuite.xml");
-            PageGenerator.GenerateReport(fullResults, currentResults, _allTests, outputPath);
+            var fullResults = ResultsAnalyzer.GetFullSuite(testResults, _allExtraTestInfos);
+            var currentResults = ResultsAnalyzer.GetFullSuite(currentTestResults, _allExtraTestInfos);
+            PageGenerator.GenerateReport(fullResults, currentResults, _allExtraTestInfos, outputPath);
             Log.Write("Generating report: DONE.");
         }
         
@@ -144,7 +137,6 @@ namespace NunitGoAddin
         {
             try
             {
-                _allTests.Save(_outputPath + @"\" + "ExtraInfo.xml");
                 Log.Write("RunFinished with exception: " + exception.Message + ", Trace = " + exception.StackTrace);
                 GenerateReport(_fullTestListResult);
             }
@@ -158,15 +150,16 @@ namespace NunitGoAddin
         {
             try
             {
-                _currentTest = new ExtraTestInfo();
-                Log.Write("TestStarted: " + testName.FullName);
-                _currentTest.Guid = GetGuid();
-                _currentTest.TestName = testName.Name;
-                _currentTest.StartDate = DateTime.Now;
-                _currentTest.FullTestName = testName.FullName;
-                _currentTest.UniqueTestName = testName.UniqueName;
-                _currentTest.TestId = testName.TestID.ToString();
-                _currentTest.RunnerId = testName.RunnerID.ToString("D");
+                _currentTest = new ExtraTestInfo
+                {
+                    Guid = GetGuid(),
+                    TestName = testName.Name,
+                    StartDate = DateTime.Now,
+                    FullTestName = testName.FullName,
+                    UniqueTestName = testName.UniqueName,
+                    TestId = testName.TestID.ToString(),
+                    RunnerId = testName.RunnerID.ToString("D")
+                };
             }
             catch (Exception e)
             {
@@ -186,39 +179,18 @@ namespace NunitGoAddin
                 try
                 {
                     _currentTest.AssertCount = result.AssertCount;
-
                 }
                 catch (Exception)
                 {
-                    Log.Write("      TestFinished: Error in _currentTest " + result.StackTrace + " " + result.Message);
+                    Log.Write("TestFinished: Error in _currentTest " + result.StackTrace + " " + result.Message);
                 }
                 
-                if (result.IsError)
+                if (result.IsError || result.IsFailure || !result.Executed)
                 {
                     TakeScreenshot(_currentTest.FinishDate);
-                    Log.Write("      TestFinished: Error " + result.StackTrace + " " + result.Message);
                 }
-                else if (result.IsFailure)
-                {
-                    TakeScreenshot(_currentTest.FinishDate);
-                    Log.Write("      TestFinished: Failure " + result.StackTrace + " " + result.Message);
-                }
-                else if (!result.Executed)
-                {
-                    if (result.ResultState == ResultState.Cancelled)
-                    {
-                        TakeScreenshot(_currentTest.FinishDate);
-                        Log.Write("      TestFinished: Cancelled " + result.StackTrace + " " + result.Message);
-                    }
-                    else
-                    {
-                        TakeScreenshot(_currentTest.FinishDate);
-                        Log.Write("      TestFinished: Pending " + result.StackTrace + " " + result.Message);
-                    }
-                }
-                Log.Write("      TestFinished! Tests done: " + _allTests.Count);
                 WriteOutputToAttachment(result);
-                _allTests.Add(_currentTest);
+                _allExtraTestInfos.Add(_currentTest);
                 _fullTestListResult = GenerateResultFromList(_listOfResults);
                 if (Helper.AfterTestGeneration)
                     GenerateReport(_fullTestListResult);
@@ -233,7 +205,7 @@ namespace NunitGoAddin
         {
             try
             {
-                Log.Write("   SuiteStarted: " + testName);
+                Log.Write("SuiteStarted: " + testName);
             }
             catch (Exception e)
             {
@@ -245,8 +217,7 @@ namespace NunitGoAddin
         {
             try
             {
-                Log.Write("   SuiteFinished: " + result.Test.TestType + ", " + result.FullName);
-                
+                Log.Write("SuiteFinished: " + result.Test.TestType + ", " + result.FullName);
                 if (Helper.AfterSuiteGeneration) GenerateReport(_fullTestListResult);
             }
             catch (Exception e)

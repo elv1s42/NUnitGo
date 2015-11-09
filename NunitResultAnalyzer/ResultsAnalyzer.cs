@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using NunitResultAnalyzer.XmlClasses;
 using Utils;
 using Utils.XmlTypes;
@@ -41,7 +39,6 @@ namespace NunitResultAnalyzer
                 }
                 return notEmptyTestSuite.Results.TestCases.Any()
                     ? notEmptyTestSuite.Results.TestCases.Last().EndDateTime : new DateTime();
-
             }
             catch (Exception e)
             {

@@ -23,7 +23,6 @@ namespace HtmlCustomElements.HtmlCustomElements
 		private new const string Id = "tests-tree";
 		private const string IdString = "#" + Id + " ";
 		private static int _idSuiteCounter;
-		private static int _idTestsCounter;
 
 		public static string GetStyle()
 		{
@@ -259,7 +258,6 @@ namespace HtmlCustomElements.HtmlCustomElements
 		public Tree(TestResults results, bool hierarchical = true)
 		{
 			_idSuiteCounter = 0;
-			_idTestsCounter = 0;
 			Style = GetStyle();
 
 			var strWr = new StringWriter();
