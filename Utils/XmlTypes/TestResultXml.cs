@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 using NUnit.Core;
@@ -10,24 +8,6 @@ namespace Utils.XmlTypes
     [XmlRoot("test-result")]
     public class TestResultXml
     {
-        public static TestResultXml Load(string path)
-        {
-            var testResults = new TestResultXml();
-            try
-            {
-                var s = new XmlSerializer(typeof(TestResultXml), new XmlRootAttribute("test-results"));
-                using (var fs = new FileStream(path, FileMode.Open))
-                {
-                    testResults = (TestResultXml)s.Deserialize(fs);
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Write(String.Format("Exception in TestResult Deserialize: '{0}', '{1}'", e.Message, e.StackTrace));
-            }
-            return testResults;
-        }
-
         public TestResultXml()
         {
             AssertCount = 0;

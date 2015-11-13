@@ -11,7 +11,6 @@ using NUnit.Core;
 using NunitResultAnalyzer;
 using NunitResultAnalyzer.XmlClasses;
 using Utils;
-using Utils.Extensions;
 using Utils.XmlTypes;
 
 namespace NunitGoAddin
@@ -189,7 +188,7 @@ namespace NunitGoAddin
                 {
                     TakeScreenshot(_currentTest.FinishDate);
                 }
-                WriteOutputToAttachment(result);
+                WriteOutputToAttachment();
                 _allExtraTestInfos.Add(_currentTest);
                 _fullTestListResult = GenerateResultFromList(_listOfResults);
                 if (Helper.AfterTestGeneration)
@@ -245,15 +244,12 @@ namespace NunitGoAddin
             }
         }
 
-        private void WriteOutputToAttachment(TestResult result)
+        private void WriteOutputToAttachment()
         {
             var testAttachPath = _outputPath + @"\" + "Attachments" + @"\" + _currentTest.Guid + @"\";
 
             Directory.CreateDirectory(testAttachPath);
-
-            var xmlResult = new TestResultXml(result);
-            xmlResult.Save(testAttachPath + "Result.xml");
-
+            
             if(_out.Length > 0)
             {
                 _currentTest.OutPath = testAttachPath + Structs.Outputs.Out;

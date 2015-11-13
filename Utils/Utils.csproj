@@ -45,11 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Colors.cs" />
-    <Compile Include="Extensions\ExtraTestInfoExtension.cs" />
     <Compile Include="Extensions\TestResultXmlExtension.cs" />
     <Compile Include="Structs.cs" />
     <Compile Include="XmlTypes\ExtraTestInfo.cs" />
-    <Compile Include="HelperSerializable.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="ScreenshotHelper.cs" />
