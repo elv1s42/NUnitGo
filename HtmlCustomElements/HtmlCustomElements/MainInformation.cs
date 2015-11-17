@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
-using NunitResultAnalyzer.XmlClasses;
+using NunitResultAnalyzer.TestResultClasses;
 
 namespace HtmlCustomElements.HtmlCustomElements
 {

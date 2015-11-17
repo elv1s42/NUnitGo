@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
-using NunitResultAnalyzer.XmlClasses;
+using NunitResultAnalyzer.TestResultClasses;
 using Utils;
 using Environment = System.Environment;
 

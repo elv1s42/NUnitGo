@@ -47,17 +47,17 @@
     <Compile Include="ResultsAnalyzer.cs" />
     <Compile Include="ScreenshotsHelper.cs" />
     <Compile Include="TestSuiteExtensions.cs" />
-    <Compile Include="XmlClasses\CultureInfoXml.cs" />
-    <Compile Include="XmlClasses\Environment.cs" />
-    <Compile Include="XmlClasses\Failure.cs" />
-    <Compile Include="XmlClasses\Message.cs" />
-    <Compile Include="XmlClasses\Reason.cs" />
-    <Compile Include="XmlClasses\Results.cs" />
-    <Compile Include="XmlClasses\Screenshot.cs" />
-    <Compile Include="XmlClasses\StackTrace.cs" />
-    <Compile Include="XmlClasses\TestCase.cs" />
-    <Compile Include="XmlClasses\TestResults.cs" />
-    <Compile Include="XmlClasses\TestSuite.cs" />
+    <Compile Include="TestResultClasses\CurrentCultureInfo.cs" />
+    <Compile Include="TestResultClasses\Environment.cs" />
+    <Compile Include="TestResultClasses\Failure.cs" />
+    <Compile Include="TestResultClasses\Message.cs" />
+    <Compile Include="TestResultClasses\Reason.cs" />
+    <Compile Include="TestResultClasses\Results.cs" />
+    <Compile Include="TestResultClasses\Screenshot.cs" />
+    <Compile Include="TestResultClasses\StackTrace.cs" />
+    <Compile Include="TestResultClasses\TestCase.cs" />
+    <Compile Include="TestResultClasses\TestResults.cs" />
+    <Compile Include="TestResultClasses\TestSuite.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.csproj">

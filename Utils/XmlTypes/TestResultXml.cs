@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 using NUnit.Core;
 
 namespace Utils.XmlTypes
 {
-    [XmlRoot("test-result")]
     public class TestResultXml
     {
         public TestResultXml()
@@ -43,13 +41,10 @@ namespace Utils.XmlTypes
             Message = result.Message;
             Name = result.Name;
             ResultState = result.ResultState.ToString();
-            
             StackTrace = result.StackTrace;
-            
             Test = new TestXml(result.Test);
             UniqueTestName = Test.UniqueName;
             IsSuite = Test.IsSuite;
-
             Time = result.Time;
             var res = new List<TestResultXml>();
             if (result.Results != null)
@@ -58,58 +53,23 @@ namespace Utils.XmlTypes
             Results = res;
         }
 
-        [XmlElement("assert-count")]
         public int AssertCount { get; set; }
-
-        [XmlElement("failure-site")]
         public string FailureSite { get; set; }
-
-        [XmlElement("executed")]
         public bool Executed { get; set; }
-
-        [XmlElement("has-results")]
         public bool HasResults { get; set; }
-
-        [XmlElement("description")]
         public string Description { get; set; }
-
-        [XmlElement("full-name")]
         public string FullName { get; set; }
-        
-        [XmlElement("is-error")]
         public bool IsError { get; set; }
-
-        [XmlElement("is-failure")]
         public bool IsFailure { get; set; }
-
-        [XmlElement("is-success")]
         public bool IsSuccess { get; set; }
-
-        [XmlElement("is-suite")]
         public bool IsSuite { get; set; }
-
-        [XmlElement("message")]
         public string Message { get; set; }
-
-        [XmlElement("name")]
         public string Name { get; set; }
-
-        [XmlElement("unique-name")]
         public string UniqueTestName { get; set; }
-
-        [XmlElement("result-state")]
         public string ResultState { get; set; }
-
-        [XmlElement("results-list")]
         public List<TestResultXml> Results { get; set; }
-
-        [XmlElement("stack-trace")]
         public string StackTrace { get; set; }
-
-        [XmlElement("time")]
         public double Time { get; set; }
-
-        [XmlElement("test")]
         public TestXml Test { get; set; }
     }
 }

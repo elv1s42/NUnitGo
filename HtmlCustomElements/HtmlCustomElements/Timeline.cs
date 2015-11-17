@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitResultAnalyzer.XmlClasses;
+using NunitResultAnalyzer.TestResultClasses;
 using Utils;
 using Environment = System.Environment;
 

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Web.UI;
 using HtmlCustomElements.HtmlCustomElements;
-using NunitResultAnalyzer.XmlClasses;
+using NunitResultAnalyzer.TestResultClasses;
 
 namespace HtmlCustomElements.ReportSections
 {

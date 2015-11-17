@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using HtmlCustomElements;
 using NUnit.Core;
 using NunitResultAnalyzer;
-using NunitResultAnalyzer.XmlClasses;
+using NunitResultAnalyzer.TestResultClasses;
 using Utils;
 using Utils.XmlTypes;
 

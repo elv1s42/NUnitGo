@@ -3,7 +3,7 @@ using System.IO;
 using System.Web.UI;
 using HtmlCustomElements.HtmlCustomElements;
 using NunitResultAnalyzer;
-using NunitResultAnalyzer.XmlClasses;
+using NunitResultAnalyzer.TestResultClasses;
 using Utils;
 
 namespace HtmlCustomElements.ReportSections

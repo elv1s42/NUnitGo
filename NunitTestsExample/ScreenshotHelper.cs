@@ -3,8 +3,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using Utils;
 
-namespace Utils
+namespace NunitTestsExample
 {
     public static class ScreenshotHelper
     {

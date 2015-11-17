@@ -1,4 +1,4 @@
-﻿using NunitResultAnalyzer.XmlClasses;
+﻿using NunitResultAnalyzer.TestResultClasses;
 
 namespace NunitResultAnalyzer
 {
