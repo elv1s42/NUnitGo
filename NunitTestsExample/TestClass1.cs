@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Threading;
 using NUnit.Framework;
-using Utils;
+using NunitGo;
 
 namespace NunitTestsExample
 {
     [TestFixture]
+    [NunitGoAction]
     public class TestClass1
     {
         [Test]
+        //[ConsoleActionAttribute("Test")]
         public void TestMethod1()
         {
             Console.WriteLine("Testing log writing 1");
@@ -45,14 +47,14 @@ namespace NunitTestsExample
         [Test]
         public void TestMethod4()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Assert.Inconclusive("Inconc. test :)");
         }
 
         [Test]
         public void TestMethod5()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Assert.Ignore("Test was ignored!");
         }
     }

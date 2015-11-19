@@ -1,9 +1,11 @@
 ﻿using System.Threading;
 using NUnit.Framework;
+using NunitGo;
 
 namespace NunitTestsExample
 {
     [TestFixture]
+    [NunitGoAction]
     public class TestClass4
     {
         [TestCase("0", 1)]
@@ -16,7 +18,7 @@ namespace NunitTestsExample
         [TestCase("7", 7)]
         public void ParamTestName(string input, int expected)
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(300);
             Assert.AreEqual(input, expected.ToString("D"));
         }
     }
