@@ -11,7 +11,7 @@ namespace NunitGo
     {
         public NunitGoActionAttribute()
         {
-            //Log.Write("NunitGoActionAttr. Constructor");
+            Log.Write("NunitGoActionAttr. Constructor");
         }
 
         public void BeforeTest(ITest test)
