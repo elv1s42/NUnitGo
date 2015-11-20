@@ -69,10 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleActionAttribute.cs" />
-    <Compile Include="ExtensionPointTest.cs" />
+    <Compile Include="Sandbox\ConsoleActionAttribute.cs" />
+    <Compile Include="Sandbox\ExtensionPointTest.cs" />
     <Compile Include="NunitGoActionAttribute.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

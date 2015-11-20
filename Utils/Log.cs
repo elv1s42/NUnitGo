@@ -26,15 +26,17 @@ namespace Utils
         {
             var path = GetFilePath();
             Directory.CreateDirectory(path);
-            var sw = File.AppendText(path + @"\NunitGoAddinLog.txt");
-            try
+            using (var sw = File.AppendText(path + @"\NunitGoAddinLog.txt"))
             {
-                var logLine = String.Format("{0:G}: {1}", DateTime.Now, msg);
-                sw.WriteLine(logLine);
-            }
-            finally
-            {
-                sw.Close();
+                try
+                {
+                    var logLine = String.Format("{0:G}: {1}", DateTime.Now, msg);
+                    sw.WriteLine(logLine);
+                }
+                finally
+                {
+                    sw.Close();
+                }
             }
         }
 

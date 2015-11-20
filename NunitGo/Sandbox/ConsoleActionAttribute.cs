@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 
-namespace NunitGo
+namespace NunitGo.Sandbox
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class /*|
             AttributeTargets.Interface | AttributeTargets.Assembly*/,

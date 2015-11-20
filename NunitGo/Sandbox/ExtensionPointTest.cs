@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.IO;
-using System.Reflection;
 using System.Xml;
-using NUnit.Engine;
 using NUnit.Engine.Extensibility;
-using NUnit.Framework.Api;
-using NUnit.Framework.Interfaces;
-using NUnit.Framework.Internal;
 using Utils;
 
-namespace NunitGo
+namespace NunitGo.Sandbox
 {
     /*[Extension(Description = "Ololo", Path = @"C:\NUnit3\nunit-console\addins\NunitGo.dll")]
     public class ExtensionPointTest : ITestListener

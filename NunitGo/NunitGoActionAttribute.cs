@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using NUnit.Framework.Internal;
 using Utils;
 
 namespace NunitGo
@@ -13,14 +11,18 @@ namespace NunitGo
     {
         public NunitGoActionAttribute()
         {
-            Log.Write("NunitGoActionAttr. Constructor");
-            
+            //Log.Write("NunitGoActionAttr. Constructor");
         }
 
         public void BeforeTest(ITest test)
         {
             LogDetails("Before", test);
-            var parent = test.Parent;
+        }
+
+        public void AfterTest(ITest test)
+        {
+            LogDetails("After", test);
+            var parent = test;
             var count = 0;
             while (parent != null)
             {
@@ -34,15 +36,14 @@ namespace NunitGo
                 currentTest.IsSuite ? "Suite" : "Case",
                 currentTest.Fixture != null ? currentTest.Fixture.GetType().Name : "{no fixture}",
                 currentTest.Method != null ? currentTest.Method.Name : "{no method}"));
-                
+
                 parent = currentTest.Parent;
             }
-            
-        }
-
-        public void AfterTest(ITest test)
-        {
-            LogDetails("After", test);
+            Log.Write("   A: " + TestContext.CurrentContext.Result.Outcome.Status);
+            Log.Write("   B: " + TestContext.CurrentContext.Test.FullName);
+            Log.Write("   Out: " + TestContext.Out);
+            Log.Write("   C: " + TestContext.CurrentContext.TestDirectory);
+            Log.Write("   C: " + TestContext.CurrentContext.Result.Outcome.Site);
         }
 
         public ActionTargets Targets

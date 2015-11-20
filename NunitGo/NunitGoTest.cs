@@ -1,0 +1,6 @@
+﻿namespace NunitGo
+{
+    class NunitGoTest
+    {
+    }
+}
