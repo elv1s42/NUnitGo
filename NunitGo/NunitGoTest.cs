@@ -33,6 +33,9 @@ namespace NunitGo
         {
             FullName = test.FullName;
             Id = test.Id;
+            FailureStackTrace = context.Result.StackTrace ?? "";
+            FailureMessage = context.Result.Message ?? "";
+            Result = context.Result.Outcome != null ? context.Result.Outcome.Status.ToString() : "Unknown";
         }
     }
 }

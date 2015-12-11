@@ -9,11 +9,14 @@ namespace NunitGo
         | AttributeTargets.Interface | AttributeTargets.Assembly, AllowMultiple = false)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
     {
-        private readonly NunitGoTest _test;
+        private NunitGoTest _test;
 
         public void BeforeTest(ITest test)
         {
-            _test.FullName = test.FullName;
+            _test = new NunitGoTest
+            {
+                DateTimeStart = DateTime.Now
+            };
         }
 
         public void AfterTest(ITest test)
