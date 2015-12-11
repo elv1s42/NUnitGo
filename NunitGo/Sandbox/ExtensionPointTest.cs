@@ -2,16 +2,17 @@
 using System.IO;
 using System.Xml;
 using NUnit.Engine.Extensibility;
+using NUnit.Framework.Interfaces;
 using Utils;
 
 namespace NunitGo.Sandbox
 {
     /*[Extension(Description = "Ololo", Path = @"C:\NUnit3\nunit-console\addins\NunitGo.dll")]
-    public class ExtensionPointTest : ITestListener
+    public class ExtensionPointTest1 : NUnit.Framework.Interfaces.
     {
         public void TestStarted(ITest test)
         {
-            Console.WriteLine("STARTED!!!!!!!!!!!");
+            Console.WriteLine("STARTED!!!!!!!!!!");
         }
 
         public void TestFinished(ITestResult result)

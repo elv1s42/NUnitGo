@@ -9,14 +9,11 @@ namespace NunitGo
         | AttributeTargets.Interface | AttributeTargets.Assembly, AllowMultiple = false)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
     {
-        public NunitGoActionAttribute()
-        {
-            Log.Write("NunitGoActionAttr. Constructor");
-        }
+        private readonly NunitGoTest _test;
 
         public void BeforeTest(ITest test)
         {
-            LogDetails("Before", test);
+            _test.FullName = test.FullName;
         }
 
         public void AfterTest(ITest test)
@@ -48,7 +45,7 @@ namespace NunitGo
 
         public ActionTargets Targets
         {
-            get { return ActionTargets.Test | ActionTargets.Suite; }
+            get { return ActionTargets.Test; }// | ActionTargets.Suite; }
         }
 
         private static void LogDetails(string eventMessage, ITest details)
