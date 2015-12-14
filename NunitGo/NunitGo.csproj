@@ -69,8 +69,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NunitGoTest.cs" />
-    <Compile Include="NunitGoTestHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Sandbox\ConsoleActionAttribute.cs" />
     <Compile Include="Sandbox\ExtensionPointTest.cs" />

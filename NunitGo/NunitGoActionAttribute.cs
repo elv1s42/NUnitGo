@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using HtmlCustomElements;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -18,7 +19,8 @@ namespace NunitGo
             Helper.CreateDirectories();
             _test = new NunitGoTest
             {
-                DateTimeStart = DateTime.Now
+                DateTimeStart = DateTime.Now,
+                Guid = Guid.NewGuid()
             };
         }
 
@@ -32,21 +34,25 @@ namespace NunitGo
             _test.Id = test.Id;
             _test.FailureStackTrace = context.Result.StackTrace ?? "";
             _test.FailureMessage = context.Result.Message ?? "";
-            _test.Result = context.Result.Outcome != null ? context.Result.Outcome.Status.ToString() : "Unknown";
-            _test.Guid = Guid.NewGuid();
-            
-            if(!_test.Result.Equals("Passed")) Helper.TakeScreenshot(DateTime.Now);
+            _test.Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown";
 
-            var testPath = Helper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
-            Directory.CreateDirectory(testPath);
+            //Log.Write("Name: " + _test.FullName + ", Res: " + context.Result.Outcome);
+
+            if(!_test.IsSuccess()) Helper.TakeScreenshot(DateTime.Now);
+
+            _test.OutputPath = Helper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
+            Directory.CreateDirectory(_test.OutputPath);
             var output = TestContext.Out.ToString();
             if (!output.Equals(String.Empty))
             {
-                var outputPath = testPath + Structs.Outputs.Out;
+                var outputPath = _test.OutputPath + Structs.Outputs.Out;
                 PageGenerator.GenerateOutputPage(outputPath, output);
             }
 
-            _test.Save(testPath + "test.xml");
+            var screens = NunitGoTestScreenshotHelper.GetScreenshots(Helper.Screenshots);
+            _test.AddScreenshots(screens);
+
+            if(_test.Screenshots.Any()) _test.Save(_test.OutputPath + "test.xml");
             
         }
 

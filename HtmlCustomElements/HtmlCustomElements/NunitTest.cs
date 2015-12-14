@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
@@ -74,6 +75,106 @@ namespace HtmlCustomElements.HtmlCustomElements
                 wr.RenderEndTag();//IFRAME
             }
             return sWr.ToString();
+        }
+
+        public NunitTest(NunitGoTest testCase)
+        {
+            ModalWindowsHtml = "";
+
+            Style = GetStyle();
+            BackgroundColor = testCase.GetBackgroundColor();
+
+            var strWr = new StringWriter();
+            using (var writer = new HtmlTextWriter(strWr))
+            {
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Test name: ");
+                writer.Write(testCase.FullName);
+                writer.RenderEndTag(); //P
+
+                writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, testCase.GetBackgroundColor());
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.RenderBeginTag(HtmlTextWriterTag.B);
+                writer.Write("Test result: ");
+                writer.RenderEndTag(); //B
+                writer.Write(testCase.Result);
+                writer.RenderEndTag(); //P
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Test duration: ");
+                writer.Write(testCase.TestDuration);
+                writer.RenderEndTag(); //P
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Time period: ");
+                var start = testCase.DateTimeStart.ToString("dd.MM.yy HH:mm:ss.fff");
+                var end = testCase.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss.fff");
+                writer.Write(start + " - " + end);
+                writer.RenderEndTag(); //P
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Screenshots: ");
+                writer.Write(testCase.ScreenshotsCount);
+                writer.RenderEndTag(); //P
+
+                if (!testCase.FailureMessage.Equals(String.Empty))
+                {
+                    var modalOutId = "modal-out-" + testCase.Guid;
+                    var output = testCase.OutputPath;
+                    var modalOut = new ModalWindow(modalOutId, GenerateHtmlView(output));
+                    var onClickString = "openModalWindow(\""
+                        + output + "\",\""
+                        + modalOutId + "\",\""
+                        + modalOutId + "-inner" + "\",\""
+                        + modalOut.BackgroundId + "\")";
+                    var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
+                        Colors.OpenLogsButtonBackground, onClickString);
+
+                    writer.Write(openButton.ButtonHtml);
+                    ModalWindowsHtml += modalOut.ModalWindowHtml + Environment.NewLine;
+                }
+
+                Log.Write("Adding screenshots...");
+                foreach (var screenshot in testCase.Screenshots)
+                {
+                    var sWr = new StringWriter();
+                    using (var wr = new HtmlTextWriter(sWr))
+                    {
+                        wr.AddAttribute(HtmlTextWriterAttribute.Src, @"./Screenshots/" + screenshot.Name);
+                        wr.AddAttribute(HtmlTextWriterAttribute.Alt, screenshot.Name);
+                        wr.RenderBeginTag(HtmlTextWriterTag.Img);
+                        wr.RenderEndTag(); //IMG
+                    }
+                    var screenCode = sWr.ToString();
+                    var modalScreenshotId = "modal-screenshot-" + screenshot.Name;
+                    var modalScreenshot = new ModalWindow(modalScreenshotId, screenCode, 1004, 100);
+                    var openButton = new JsOpenButton("Veiw screenshot " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss"),
+                        modalScreenshotId, modalScreenshot.BackgroundId,
+                        Colors.OpenLogsButtonBackground);
+                    writer.Write(openButton.ButtonHtml);
+                    ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;
+                }
+                Log.Write("Adding screenshots DONE.");
+
+                if (testCase.IsSuccess())
+                {
+                    writer.RenderBeginTag(HtmlTextWriterTag.P);
+                    writer.AddTag(HtmlTextWriterTag.B, "Failure stack trace: ");
+                    writer.Write(GenerateTxtView(testCase.FailureStackTrace));
+                    writer.RenderEndTag(); //P
+                    writer.RenderBeginTag(HtmlTextWriterTag.P);
+                    writer.AddTag(HtmlTextWriterTag.B, "Failure message: ");
+                    writer.Write(GenerateTxtView(testCase.FailureMessage));
+                    writer.RenderEndTag(); //P
+                }
+
+                writer.RenderEndTag(); //DIV
+            }
+
+            HtmlCode = strWr.ToString();
         }
 
 		public NunitTest(TestCase testCase)
