@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NunitGoTest.cs" />
+    <Compile Include="NunitGoTestHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Sandbox\ConsoleActionAttribute.cs" />
     <Compile Include="Sandbox\ExtensionPointTest.cs" />
@@ -80,10 +81,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HtmlCustomElements\HtmlCustomElements.csproj">
+      <Project>{4bc2ab27-f2b2-42b1-8faa-b46874dd0302}</Project>
+      <Name>HtmlCustomElements</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{744e33d0-3a59-4b4a-9bc6-b698dacb606a}</Project>
       <Name>Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="config.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

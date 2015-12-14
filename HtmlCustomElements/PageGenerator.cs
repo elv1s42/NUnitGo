@@ -10,9 +10,9 @@ using Utils.XmlTypes;
 namespace HtmlCustomElements
 {
 	public class PageGenerator
-	{
+    {
         public static void GenerateOutputPage(string fullPath, string outputText)
-	    {
+        {
             var page = new HtmlPage("Output page");
             var sWr = new StringWriter();
             using (var wr = new HtmlTextWriter(sWr))
@@ -24,7 +24,22 @@ namespace HtmlCustomElements
             }
             page.AddToBody(sWr.ToString());
             page.SavePage(fullPath);
-	    }
+        }
+
+        public static void GenerateTestPage(string fullPath, string outputText)
+        {
+            var page = new HtmlPage("Output page");
+            var sWr = new StringWriter();
+            using (var wr = new HtmlTextWriter(sWr))
+            {
+                wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
+                wr.RenderBeginTag(HtmlTextWriterTag.Div);
+                wr.Write(outputText);
+                wr.RenderEndTag();//DIV
+            }
+            page.AddToBody(sWr.ToString());
+            page.SavePage(fullPath);
+        }
 
         public static void GenerateReport(TestResults fullTestResults, TestResults currentTestResults, List<ExtraTestInfo> allTests, 
             string pathToSave, string pageName = "index")

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using HtmlCustomElements;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using Utils;
@@ -13,6 +15,7 @@ namespace NunitGo
 
         public void BeforeTest(ITest test)
         {
+            Helper.CreateDirectories();
             _test = new NunitGoTest
             {
                 DateTimeStart = DateTime.Now
@@ -21,56 +24,35 @@ namespace NunitGo
 
         public void AfterTest(ITest test)
         {
-            LogDetails("After", test);
-            var parent = test;
-            var count = 0;
-            while (parent != null)
+            var context = TestContext.CurrentContext;
+
+            _test.DateTimeFinish = DateTime.Now;
+            _test.TestDuration = (_test.DateTimeFinish - _test.DateTimeStart).TotalSeconds;
+            _test.FullName = test.FullName;
+            _test.Id = test.Id;
+            _test.FailureStackTrace = context.Result.StackTrace ?? "";
+            _test.FailureMessage = context.Result.Message ?? "";
+            _test.Result = context.Result.Outcome != null ? context.Result.Outcome.Status.ToString() : "Unknown";
+            _test.Guid = Guid.NewGuid();
+            
+            if(!_test.Result.Equals("Passed")) Helper.TakeScreenshot(DateTime.Now);
+
+            var testPath = Helper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
+            Directory.CreateDirectory(testPath);
+            var output = TestContext.Out.ToString();
+            if (!output.Equals(String.Empty))
             {
-                var currentTest = parent;
-
-                count++;
-
-                Log.Write(String.Format(count + " Item: {0}, {1}, {2}, {3}, {4}",
-                currentTest.FullName,
-                currentTest.TypeInfo != null ? currentTest.TypeInfo.Name : "{no type info}",
-                currentTest.IsSuite ? "Suite" : "Case",
-                currentTest.Fixture != null ? currentTest.Fixture.GetType().Name : "{no fixture}",
-                currentTest.Method != null ? currentTest.Method.Name : "{no method}"));
-
-                parent = currentTest.Parent;
+                var outputPath = testPath + Structs.Outputs.Out;
+                PageGenerator.GenerateOutputPage(outputPath, output);
             }
-            Log.Write("   A: " + TestContext.CurrentContext.Result.Outcome.Status);
-            Log.Write("   B: " + TestContext.CurrentContext.Test.FullName);
-            Log.Write("   Out: " + TestContext.Out);
-            Log.Write("   C: " + TestContext.CurrentContext.TestDirectory);
-            Log.Write("   C: " + TestContext.CurrentContext.Result.Outcome.Site);
+
+            _test.Save(testPath + "test.xml");
+            
         }
 
         public ActionTargets Targets
         {
             get { return ActionTargets.Test; }// | ActionTargets.Suite; }
-        }
-
-        private static void LogDetails(string eventMessage, ITest details)
-        {
-            Log.Write(String.Format("{0} {1}: {2}, from {3}.{4}.",
-                eventMessage,
-                details.IsSuite ? "Suite" : "Case",
-                "--------",
-                details.Fixture != null ? details.Fixture.GetType().Name : "{no fixture}",
-                details.Method != null ? details.Method.Name : "{no method}"));
-            
-            /*foreach (var key in details.Properties.Keys)
-            {
-                Log.Write("Key: " + key + ", " + details.Properties.Get(key));
-            }
-            Log.Write("MESSAGE: " + TestContext.CurrentContext.Result.Message);
-            Log.Write(String.Format("{0}: {1}, from {2}. {3}.",
-                details.Fixture,
-                details.FullName,
-                details.TestCaseCount,
-                details.Tests.Count));*/
-
         }
     }
 }
