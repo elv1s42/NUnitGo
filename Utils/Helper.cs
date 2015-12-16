@@ -45,7 +45,7 @@ namespace Utils
 
         public static void CreateDirectories()
         {
-            if (Directory.Exists(Output)) return;
+            //if (Directory.Exists(Output)) return;
             Directory.CreateDirectory(Output);
             Directory.CreateDirectory(Output + @"\Attachments");
             Directory.CreateDirectory(Output + @"\Screenshots");

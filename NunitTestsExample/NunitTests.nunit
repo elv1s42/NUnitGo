@@ -1,6 +1,6 @@
 ﻿<NUnitProject>
   <Settings activeconfig="Default"/>
-  <Config name="Default" binpathtype="Auto" processModel="Single">
+  <Config name="Default" binpathtype="Auto">
     <assembly path="NunitTestsExample.dll" />
     <assembly path="NunitTestsExample2.dll" />
   </Config>

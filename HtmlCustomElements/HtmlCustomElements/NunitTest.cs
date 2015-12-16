@@ -77,12 +77,12 @@ namespace HtmlCustomElements.HtmlCustomElements
             return sWr.ToString();
         }
 
-        public NunitTest(NunitGoTest testCase)
+        public NunitTest(NunitGoTest nunitGoTest)
         {
             ModalWindowsHtml = "";
 
             Style = GetStyle();
-            BackgroundColor = testCase.GetBackgroundColor();
+            BackgroundColor = nunitGoTest.GetBackgroundColor();
 
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
@@ -92,38 +92,38 @@ namespace HtmlCustomElements.HtmlCustomElements
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Test name: ");
-                writer.Write(testCase.FullName);
+                writer.Write(nunitGoTest.FullName);
                 writer.RenderEndTag(); //P
 
-                writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, testCase.GetBackgroundColor());
+                writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, nunitGoTest.GetBackgroundColor());
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.RenderBeginTag(HtmlTextWriterTag.B);
                 writer.Write("Test result: ");
                 writer.RenderEndTag(); //B
-                writer.Write(testCase.Result);
+                writer.Write(nunitGoTest.Result);
                 writer.RenderEndTag(); //P
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Test duration: ");
-                writer.Write(testCase.TestDuration);
+                writer.Write(nunitGoTest.TestDuration);
                 writer.RenderEndTag(); //P
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Time period: ");
-                var start = testCase.DateTimeStart.ToString("dd.MM.yy HH:mm:ss.fff");
-                var end = testCase.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss.fff");
+                var start = nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss.fff");
+                var end = nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss.fff");
                 writer.Write(start + " - " + end);
                 writer.RenderEndTag(); //P
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Screenshots: ");
-                writer.Write(testCase.ScreenshotsCount);
+                writer.Write(nunitGoTest.ScreenshotsCount);
                 writer.RenderEndTag(); //P
 
-                if (!testCase.FailureMessage.Equals(String.Empty))
+                if (!nunitGoTest.FailureMessage.Equals(String.Empty))
                 {
-                    var modalOutId = "modal-out-" + testCase.Guid;
-                    var output = testCase.OutputPath;
+                    var modalOutId = "modal-out-" + nunitGoTest.Guid;
+                    var output = nunitGoTest.OutputPath;
                     var modalOut = new ModalWindow(modalOutId, GenerateHtmlView(output));
                     var onClickString = "openModalWindow(\""
                         + output + "\",\""
@@ -138,7 +138,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                 }
 
                 Log.Write("Adding screenshots...");
-                foreach (var screenshot in testCase.Screenshots)
+                foreach (var screenshot in nunitGoTest.Screenshots)
                 {
                     var sWr = new StringWriter();
                     using (var wr = new HtmlTextWriter(sWr))
@@ -159,15 +159,15 @@ namespace HtmlCustomElements.HtmlCustomElements
                 }
                 Log.Write("Adding screenshots DONE.");
 
-                if (testCase.IsSuccess())
+                if (nunitGoTest.IsSuccess())
                 {
                     writer.RenderBeginTag(HtmlTextWriterTag.P);
                     writer.AddTag(HtmlTextWriterTag.B, "Failure stack trace: ");
-                    writer.Write(GenerateTxtView(testCase.FailureStackTrace));
+                    writer.Write(GenerateTxtView(nunitGoTest.FailureStackTrace));
                     writer.RenderEndTag(); //P
                     writer.RenderBeginTag(HtmlTextWriterTag.P);
                     writer.AddTag(HtmlTextWriterTag.B, "Failure message: ");
-                    writer.Write(GenerateTxtView(testCase.FailureMessage));
+                    writer.Write(GenerateTxtView(nunitGoTest.FailureMessage));
                     writer.RenderEndTag(); //P
                 }
 

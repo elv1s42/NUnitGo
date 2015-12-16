@@ -63,7 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="NunitTestsExample.nunit">
+    <None Include="NunitTests.nunit">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

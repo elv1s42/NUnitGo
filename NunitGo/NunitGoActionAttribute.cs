@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using HtmlCustomElements;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -52,8 +53,21 @@ namespace NunitGo
             var screens = NunitGoTestScreenshotHelper.GetScreenshots(Helper.Screenshots);
             _test.AddScreenshots(screens);
 
-            if(_test.Screenshots.Any()) _test.Save(_test.OutputPath + "test.xml");
-            
+            _test.Save(_test.OutputPath + "test.xml");
+
+            var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();
+            Log.Write("   -------------   Tests: " + tests.Count + 
+                ", Good = " + tests.Count(x => x.IsSuccess()) + 
+                ", Bad = " + tests.Count(x => !x.IsSuccess()) +
+                "   -------------   ");
+            foreach (var nunitGoTest in tests)
+            {
+                Log.Write(nunitGoTest.DateTimeStart.ToString("HH:mm:ss.fff") + " - " + 
+                    nunitGoTest.DateTimeFinish.ToString("HH:mm:ss.fff") + " " +
+                nunitGoTest.FullName + ": Result " + nunitGoTest.Result);
+            }
+
+
         }
 
         public ActionTargets Targets

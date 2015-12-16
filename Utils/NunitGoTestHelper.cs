@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
-using Utils.XmlTypes;
 
 namespace Utils
 {
@@ -26,6 +26,24 @@ namespace Utils
                 test = (NunitGoTest) ser.Deserialize(fs);
             }
             return test;
+        }
+
+        public static List<NunitGoTest> GetTests()
+        {
+            var tests = new List<NunitGoTest>();
+            var filesFound = new List<String>();
+            filesFound.AddRange(Directory.GetFiles(Helper.Output, "*.xml", SearchOption.AllDirectories));
+            foreach (var file in filesFound)
+            {
+                try
+                {
+                    tests.Add(Load(file));
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return tests;
         }
 
         public static void AddScreenshots(this NunitGoTest test,
