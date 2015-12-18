@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
-using NunitResultAnalyzer.TestResultClasses;
+using Utils;
 
 namespace HtmlCustomElements.HtmlCustomElements
 {
@@ -61,7 +59,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             return mainInfoCssSet.ToString();
         }
 
-        public MainInformation(TestResults fullResults, TestResults currentResults)
+        public MainInformation(List<NunitGoTest> tests, MainStatistics stats)
         {
             Style = GetStyle();
 
@@ -79,25 +77,16 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.Write("Main information:");
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Date: " + fullResults.Date);
+                writer.Write(Bullet.HtmlCode + "Start Date: " + tests.GetStartDate().ToString("dd.MM.yyyy HH:mm:ss.ff"));
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Time: " + fullResults.Time);
-                writer.RenderEndTag();
-                var splitedName = fullResults.Name.Split('\\');
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "File Name: " + splitedName.Last());
+                writer.Write(Bullet.HtmlCode + "Finish Date: " + tests.GetFinishDate().ToString("dd.MM.yyyy HH:mm:ss.ff"));
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "File location: " + String.Join(@"\", splitedName.Take(splitedName.Count() - 1)));
+                writer.Write(Bullet.HtmlCode + "Time: " + tests.Duration().ToString("F"));
                 writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "File type: " + fullResults.TestSuite.Type);
-                writer.RenderEndTag();
-                writer.RenderEndTag();
-
-                var currentTestCases = currentResults.TestSuite.Results.TestCases;
-
+                writer.RenderEndTag();//DIV
+                
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "table-cell");
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "column-2");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
@@ -105,31 +94,22 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.Write("Main results:");
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Total: " + currentTestCases.Count);
+                writer.Write(Bullet.HtmlCode + "Total: " + stats.TotalAll);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Success: " + currentTestCases.Count(x => x.Result.Equals("Success")));
+                writer.Write(Bullet.HtmlCode + "Success: " + stats.TotalPassed);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Errors: " + currentTestCases.Count(x => x.Result.Equals("Error")));
+                writer.Write(Bullet.HtmlCode + "Errors: " + stats.TotalBroken);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Failures: " + currentTestCases.Count(x => x.Result.Equals("Failure")));
+                writer.Write(Bullet.HtmlCode + "Failures: " + stats.TotalFailed);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Not run: " + currentTestCases.Count(x => x.Executed.Equals("False")));
+                writer.Write(Bullet.HtmlCode + "Inconclusive: " + stats.TotalInconclusive);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Inconclusive: " + currentTestCases.Count(x => x.Result.Equals("Inconclusive")));
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Ignored: " + currentTestCases.Count(x => x.Result.Equals("Ignored")));
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Skipped: " + currentTestCases.Count(x => x.Result.Equals("Ignored")));
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Invalid: " + currentTestCases.Count(x => x.Result.Equals("Unknown")));
+                writer.Write(Bullet.HtmlCode + "Ignored: " + stats.TotalIgnored);
                 writer.RenderEndTag();
                 writer.RenderEndTag();
 
@@ -140,27 +120,24 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.Write("Environment:");
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "NUnit version: " + fullResults.Environment.NunitVersion);
+                writer.Write(Bullet.HtmlCode + "CLR version: " + System.Environment.Version);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "CLR version: " + fullResults.Environment.ClrVersion);
+                writer.Write(Bullet.HtmlCode + "OS version: " + System.Environment.OSVersion.VersionString);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "OS version: " + fullResults.Environment.OsVersion);
+                writer.Write(Bullet.HtmlCode + "Platform: " + System.Environment.OSVersion.Platform);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Platform: " + fullResults.Environment.Platform);
+                writer.Write(Bullet.HtmlCode + "Machine name: " + System.Environment.MachineName);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Machine name: " + fullResults.Environment.MachineName);
+                writer.Write(Bullet.HtmlCode + "User domain: " + System.Environment.UserName);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "User domain: " + fullResults.Environment.UserDomain);
+                writer.Write(Bullet.HtmlCode + "User: " + System.Environment.UserDomainName);
                 writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "User: " + fullResults.Environment.User);
-                writer.RenderEndTag();
-                writer.RenderEndTag();
+                writer.RenderEndTag();//DIV
                 
                 writer.RenderEndTag();//DIV
             }

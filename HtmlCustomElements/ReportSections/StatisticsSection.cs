@@ -2,8 +2,6 @@
 using System.IO;
 using System.Web.UI;
 using HtmlCustomElements.HtmlCustomElements;
-using NunitResultAnalyzer;
-using NunitResultAnalyzer.TestResultClasses;
 using Utils;
 
 namespace HtmlCustomElements.ReportSections
@@ -12,10 +10,8 @@ namespace HtmlCustomElements.ReportSections
     {
         public string HtmlCode;
 
-        public StatisticsSection(TestResults testResults)
+        public StatisticsSection(MainStatistics mainStats)
         {
-            var mainStats = new MainStatistics(testResults.TestSuite);
-
             var testResultsList = new List<HorizontalBarElement>
 		    {
                 new HorizontalBarElement("Passed", "Passed (" + mainStats.TotalPassed + @"/" + mainStats.TotalAll + ")", 

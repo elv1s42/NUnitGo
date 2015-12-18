@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using HtmlCustomElements;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -50,9 +49,7 @@ namespace NunitGo
                 PageGenerator.GenerateOutputPage(outputPath, output);
             }
 
-            var screens = NunitGoTestScreenshotHelper.GetScreenshots(Helper.Screenshots);
-            _test.AddScreenshots(screens);
-
+            _test.AddScreenshots(NunitGoTestScreenshotHelper.GetScreenshots());
             _test.Save(_test.OutputPath + "test.xml");
 
             var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();
@@ -67,6 +64,7 @@ namespace NunitGo
                 nunitGoTest.FullName + ": Result " + nunitGoTest.Result);
             }
 
+            PageGenerator.GenerateReport(tests, Helper.Output);
 
         }
 

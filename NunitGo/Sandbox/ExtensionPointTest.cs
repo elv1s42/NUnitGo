@@ -2,7 +2,6 @@
 using System.IO;
 using System.Xml;
 using NUnit.Engine.Extensibility;
-using NUnit.Framework.Interfaces;
 using Utils;
 
 namespace NunitGo.Sandbox

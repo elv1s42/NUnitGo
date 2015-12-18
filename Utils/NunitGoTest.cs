@@ -38,6 +38,26 @@ namespace Utils
             return Result.Equals("Success") || Result.Equals("Passed");
         }
 
+        public bool IsFailed()
+        {
+            return Result.Equals("Failure") || Result.Equals("Failed");
+        }
+
+        public bool IsBroken()
+        {
+            return Result.Equals("Failed:Error") || Result.Equals("Error");
+        }
+
+        public bool IsIgnored()
+        {
+            return Result.Equals("Ignored") || Result.Equals("Skipped:Ignored");
+        }
+
+        public bool IsInconclusive()
+        {
+            return Result.Equals("Inconclusive");
+        }
+
         public string GetBackgroundColor()
         {
             switch (Result)

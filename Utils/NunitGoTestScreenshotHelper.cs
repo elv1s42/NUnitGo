@@ -18,8 +18,9 @@ namespace Utils
             return filesFound.ToArray();
         }
 
-        public static List<NunitGoTestScreenshot> GetScreenshots(string path)
+        public static List<NunitGoTestScreenshot> GetScreenshots(string path = "")
         {
+            if (path.Equals("")) path = Helper.Screenshots;
             var result = new List<NunitGoTestScreenshot>();
             var filters = new[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp" };
             var files = GetFilesWithFilters(path, filters, false);

@@ -79,10 +79,6 @@
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NunitResultAnalyzer\NunitResultAnalyzer.csproj">
-      <Project>{55695586-8898-4a6a-8d1a-fe495f6cdad8}</Project>
-      <Name>NunitResultAnalyzer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{744E33D0-3A59-4B4A-9BC6-B698DACB606A}</Project>
       <Name>Utils</Name>

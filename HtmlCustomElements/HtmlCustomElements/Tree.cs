@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
 using HtmlCustomElements.CSSElements;
-using NunitResultAnalyzer;
-using NunitResultAnalyzer.TestResultClasses;
 using Utils;
-using Environment = System.Environment;
 
 namespace HtmlCustomElements.HtmlCustomElements
 {
@@ -129,86 +125,11 @@ namespace HtmlCustomElements.HtmlCustomElements
 			return "test-suite-" + _idSuiteCounter.ToString("D");
 		}
 
-		private void BuildTreeHierarchical(HtmlTextWriter writer, IEnumerable<TestSuite> testSuites)
-		{
-			foreach (var suite in testSuites)
-			{
-				var id = GetSuiteId();
-				var type = suite.Type;
-				var name = suite.Name;
-				var results = suite.Results;
-				var currentTestCases = results.TestCases;
-				var passedCountString = suite.CountPassed();
-
-				writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-				writer.RenderBeginTag(HtmlTextWriterTag.Li);
-				writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
-
-				if (type.Equals("Namespace") 
-                    || type.Equals("Assembly") 
-                    || type.Equals("Project")
-                    || type.Equals("Unknown"))
-					writer.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
-
-				writer.AddAttribute(HtmlTextWriterAttribute.Id, id);
-				writer.RenderBeginTag(HtmlTextWriterTag.Input);
-				writer.RenderEndTag(); //INPUT
-				writer.AddAttribute(HtmlTextWriterAttribute.For, id);
-				writer.AddAttribute(HtmlTextWriterAttribute.Title, name);
-				writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
-				writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, "110%");
-                writer.RenderBeginTag(HtmlTextWriterTag.Label);
-                var start = suite.StartDateTime.Equals(new DateTime()) ? "" : suite.StartDateTime.ToString("dd.MM.yy HH:mm:ss");
-                var end = suite.EndDateTime.Equals(new DateTime()) ? "" : suite.EndDateTime.ToString("dd.MM.yy HH:mm:ss");
-				writer.Write(type + ": " + name + " " + passedCountString + " " + start + " - " + end);
-				writer.RenderEndTag(); //LABEL
-				writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-				Log.Write("TestCases count = " + currentTestCases.Count);
-				foreach (var currentTest in currentTestCases)
-				{
-				    var testId = Ids.GetTestId(currentTest.Guid);
-					var testCase = currentTest;
-					Log.Write("Generating tree: TestCase.Name = " + testCase.Name);
-					var test = new NunitTest(testCase);
-					var modalId = Ids.GetTestModalId(currentTest.Guid);
-					var modalWindow = new ModalWindow(modalId, test.HtmlCode, 1002, 90);
-					var openButton = new JsOpenButton(testCase.Name
-						+ " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
-						testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss"), 
-						modalId, modalWindow.BackgroundId, test.BackgroundColor);
-                    
-					writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
-					writer.RenderBeginTag(HtmlTextWriterTag.Li);
-
-					writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.Name);
-					writer.RenderBeginTag(HtmlTextWriterTag.A);
-
-					HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
-					HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
-
-					writer.Write(openButton.ButtonHtml);
-
-					writer.RenderEndTag(); //A
-					writer.RenderEndTag(); //LI
-				}
-				if (suite.Results.TestSuites.Any())
-				{
-					BuildTreeHierarchical(writer, suite.Results.TestSuites);
-				}
-				writer.RenderEndTag(); //UL
-				writer.RenderEndTag(); //LI
-				writer.RenderEndTag(); //UL
-			}
-		}
-
-        private void BuildTreeNonHierarchical(HtmlTextWriter writer, TestSuite suite)
+        private void BuildTree(HtmlTextWriter writer, List<NunitGoTest> tests)
         {
             var id = GetSuiteId();
-            var type = suite.Type;
-            var name = suite.Name;
-            var results = suite.Results;
-            var currentTestCases = results.TestCases;
-            var passedCountString = suite.CountPassed();
+            var count = tests.Count(x => x.IsSuccess());
+            var passedCount = tests.Count(x => x.IsSuccess());
             writer.RenderBeginTag(HtmlTextWriterTag.Ul);
             writer.RenderBeginTag(HtmlTextWriterTag.Li);
             writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
@@ -217,35 +138,31 @@ namespace HtmlCustomElements.HtmlCustomElements
             writer.RenderBeginTag(HtmlTextWriterTag.Input);
             writer.RenderEndTag(); //INPUT
             writer.AddAttribute(HtmlTextWriterAttribute.For, id);
-            writer.AddAttribute(HtmlTextWriterAttribute.Title, name);
+            writer.AddAttribute(HtmlTextWriterAttribute.Title, "Full test list:");
             writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
             writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, "110%");
             writer.RenderBeginTag(HtmlTextWriterTag.Label);
-            var start = suite.StartDateTime.Equals(new DateTime()) ? "" : suite.StartDateTime.ToString("dd.MM.yy HH:mm:ss");
-            var end = suite.EndDateTime.Equals(new DateTime()) ? "" : suite.EndDateTime.ToString("dd.MM.yy HH:mm:ss");
-            writer.Write(type + ": " + name + " " + passedCountString + " " + start + " - " + end);
+            var start = tests.First().DateTimeStart.ToString("dd.MM.yy HH:mm:ss");
+            var end = tests.Last().DateTimeFinish.ToString("dd.MM.yy HH:mm:ss");
+            writer.Write("All tests: " + passedCount + @"/" + count + " " + start + " - " + end);
             writer.RenderEndTag(); //LABEL
             writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-            Log.Write("TestCases count = " + currentTestCases.Count);
-            foreach (var currentTest in currentTestCases)
+            foreach (var currentTest in tests)
             {
-                var testId =Ids.GetTestId(currentTest.Guid);
+                var testId = Ids.GetTestId(currentTest.Guid.ToString());
                 var testCase = currentTest;
-                Log.Write("Generating tree: TestCase.Name = " + testCase.Name);
                 var test = new NunitTest(testCase);
-                var modalId = Ids.GetTestModalId(currentTest.Guid);
+                var modalId = Ids.GetTestModalId(currentTest.Guid.ToString());
                 var modalWindow = new ModalWindow(modalId, test.HtmlCode, 1004, 90);
-                var openButton = new JsOpenButton(testCase.Name
-                    + " " + testCase.StartDateTime.ToString("dd.MM.yy HH:mm:ss") + " - " +
-                    testCase.EndDateTime.ToString("dd.MM.yy HH:mm:ss"),
+                var openButton = new JsOpenButton(testCase.FullName
+                    + " " + testCase.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                    testCase.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss"),
                     modalId, modalWindow.BackgroundId, test.BackgroundColor);
 
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
                 writer.RenderBeginTag(HtmlTextWriterTag.Li);
-                writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.Name);
+                writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.FullName);
                 writer.RenderBeginTag(HtmlTextWriterTag.A);
-                //HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
-                //HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
                 writer.Write(openButton.ButtonHtml);
                 writer.RenderEndTag(); //A
                 writer.RenderEndTag(); //LI
@@ -255,7 +172,7 @@ namespace HtmlCustomElements.HtmlCustomElements
             writer.RenderEndTag(); //UL
         }
 
-		public Tree(TestResults results, bool hierarchical = true)
+        public Tree(List<NunitGoTest> tests)
 		{
 			_idSuiteCounter = 0;
 			Style = GetStyle();
@@ -265,15 +182,8 @@ namespace HtmlCustomElements.HtmlCustomElements
 			{
 				writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
 				writer.RenderBeginTag(HtmlTextWriterTag.Div);
-
-				Log.Write("Building tree...");
-				var list = new List<TestSuite> {results.TestSuite};
-				Log.Write("List tree count = " + list.Count);
-				if (hierarchical) BuildTreeHierarchical(writer, list);
-                else BuildTreeNonHierarchical(writer, results.TestSuite);
-				Log.Write("Building tree: done.");
-				
-				writer.RenderEndTag(); //DIV
+                BuildTree(writer, tests);
+                writer.RenderEndTag(); //DIV
 			}
 
 			HtmlCode = strWr.ToString();

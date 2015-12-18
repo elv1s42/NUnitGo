@@ -1,7 +1,8 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Web.UI;
 using HtmlCustomElements.HtmlCustomElements;
-using NunitResultAnalyzer.TestResultClasses;
+using Utils;
 
 namespace HtmlCustomElements.ReportSections
 {
@@ -10,9 +11,9 @@ namespace HtmlCustomElements.ReportSections
         public string HtmlCode;
         public string ModalsHtml;
 
-        public TestListSection(TestResults testResults, bool hierarchical = true)
+        public TestListSection(List<NunitGoTest> tests)
         {
-            var tree = new Tree(testResults, hierarchical);
+            var tree = new Tree(tests);
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {

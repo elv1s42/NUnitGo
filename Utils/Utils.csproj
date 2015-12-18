@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Colors.cs" />
     <Compile Include="Extensions\TestResultXmlExtension.cs" />
+    <Compile Include="MainStatistics.cs" />
     <Compile Include="NunitGoTest.cs" />
     <Compile Include="NunitGoTestHelper.cs" />
     <Compile Include="NunitGoTestScreenshot.cs" />

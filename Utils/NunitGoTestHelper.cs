@@ -67,5 +67,20 @@ namespace Utils
                 test.AddScreenshots(screens);
             }
         }
+
+        public static DateTime GetStartDate(this List<NunitGoTest> tests)
+        {
+            return tests.OrderBy(x => x.DateTimeStart).First().DateTimeStart;
+        }
+
+        public static DateTime GetFinishDate(this List<NunitGoTest> tests)
+        {
+            return tests.OrderBy(x => x.DateTimeFinish).Last().DateTimeFinish;
+        }
+
+        public static double Duration(this List<NunitGoTest> tests)
+        {
+            return (GetFinishDate(tests) - GetStartDate(tests)).TotalSeconds;
+        }
     }
 }
