@@ -47,6 +47,7 @@ namespace NunitGo
             {
                 var outputPath = _test.OutputPath + Structs.Outputs.Out;
                 PageGenerator.GenerateOutputPage(outputPath, output);
+                _test.HasOutput = true;
             }
 
             _test.AddScreenshots(NunitGoTestScreenshotHelper.GetScreenshots());

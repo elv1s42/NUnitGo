@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
@@ -163,6 +164,10 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.RenderBeginTag(HtmlTextWriterTag.Li);
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, testCase.FullName);
                 writer.RenderBeginTag(HtmlTextWriterTag.A);
+
+                HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
+                HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
+
                 writer.Write(openButton.ButtonHtml);
                 writer.RenderEndTag(); //A
                 writer.RenderEndTag(); //LI

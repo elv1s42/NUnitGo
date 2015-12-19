@@ -119,7 +119,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                 writer.Write(nunitGoTest.ScreenshotsCount);
                 writer.RenderEndTag(); //P
 
-                if (!nunitGoTest.FailureMessage.Equals(String.Empty))
+                if (nunitGoTest.HasOutput)
                 {
                     var modalOutId = "modal-out-" + nunitGoTest.Guid;
                     var output = nunitGoTest.OutputPath;
@@ -158,7 +158,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                 }
                 Log.Write("Adding screenshots DONE.");
 
-                if (nunitGoTest.IsSuccess())
+                if (nunitGoTest.IsFailed() || nunitGoTest.IsBroken())
                 {
                     writer.RenderBeginTag(HtmlTextWriterTag.P);
                     writer.AddTag(HtmlTextWriterTag.B, "Failure stack trace: ");

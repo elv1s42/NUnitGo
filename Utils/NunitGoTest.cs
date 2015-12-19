@@ -16,21 +16,23 @@ namespace Utils
         public string Result;
         public Guid Guid;
         public string OutputPath;
+        public bool HasOutput;
         public List<NunitGoTestScreenshot> Screenshots;
 
         public NunitGoTest()
         {
-            FullName = "";
-            Id = "";
+            FullName = String.Empty;
+            Id = String.Empty;
             TestDuration = 0.0;
             DateTimeStart = new DateTime();
             DateTimeFinish = new DateTime();
             ScreenshotsCount = 0;
-            FailureStackTrace = "";
-            FailureMessage = "";
+            FailureStackTrace = String.Empty;
+            FailureMessage = String.Empty;
             Result = "Unknown";
             Guid = Guid.NewGuid();
-            OutputPath = "";
+            OutputPath = String.Empty;
+            HasOutput = false;
         }
 
         public bool IsSuccess()
