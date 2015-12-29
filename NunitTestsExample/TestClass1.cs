@@ -9,7 +9,7 @@ namespace NunitTestsExample
     [NunitGoAction]
     public class TestClass1
     {
-        [Test]
+        [Test, NunitGoAction]
         //[ConsoleActionAttribute("Test")]
         public void TestMethod1()
         {
@@ -25,7 +25,7 @@ namespace NunitTestsExample
             Assert.AreEqual(1, 2);
         }
 
-        [Test]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111112222")]
         public void TestMethod2()
         {
             Thread.Sleep(2000);

@@ -12,7 +12,13 @@ namespace NunitGo
         | AttributeTargets.Interface | AttributeTargets.Assembly, AllowMultiple = false)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
     {
+        private readonly string _guid;
         private NunitGoTest _test;
+
+        public NunitGoActionAttribute(string guid = "")
+        {
+            _guid = guid;
+        }
 
         public void BeforeTest(ITest test)
         {
@@ -20,7 +26,7 @@ namespace NunitGo
             _test = new NunitGoTest
             {
                 DateTimeStart = DateTime.Now,
-                Guid = Guid.NewGuid()
+                Guid = _guid.Equals("") ? Guid.NewGuid() : new Guid(_guid)
             };
         }
 
@@ -58,6 +64,7 @@ namespace NunitGo
                 ", Good = " + tests.Count(x => x.IsSuccess()) + 
                 ", Bad = " + tests.Count(x => !x.IsSuccess()) +
                 "   -------------   ");
+            Log.Write("AAAAA: " + test.Properties.Get(""));
             foreach (var nunitGoTest in tests)
             {
                 Log.Write(nunitGoTest.DateTimeStart.ToString("HH:mm:ss.fff") + " - " + 
