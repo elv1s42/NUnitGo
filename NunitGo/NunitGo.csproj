@@ -62,6 +62,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,22 +72,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HtmlCustomElements\CSSElements\CssElement.cs" />
+    <Compile Include="HtmlCustomElements\CSSElements\CssSet.cs" />
+    <Compile Include="HtmlCustomElements\CSSElements\StyleAttribute.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\Accordion.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\AccordionElement.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\Bullet.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\HorizontalBar.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\HorizontalBarElement.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\HrefButton.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\HtmlBaseElement.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\JsCloseButton.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\JsOpenButton.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\JsSection.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\MainInformation.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\ModalBackground.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\ModalWindow.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\NunitTest.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\OpenModalWindowScript.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\ReportFooter.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\ReportTitle.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\Timeline.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\Tooltip.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\Tree.cs" />
+    <Compile Include="HtmlCustomElements\HtmlPage.cs" />
+    <Compile Include="HtmlCustomElements\HtmlTextWriterExtensions.cs" />
+    <Compile Include="HtmlCustomElements\PageGenerator.cs" />
+    <Compile Include="HtmlCustomElements\ReportSections\StatisticsSection.cs" />
+    <Compile Include="HtmlCustomElements\ReportSections\TestListSection.cs" />
+    <Compile Include="HtmlCustomElements\StringExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="NunitGoActionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Colors.cs" />
+    <Compile Include="Utils\Helper.cs" />
+    <Compile Include="Utils\Log.cs" />
+    <Compile Include="Utils\MainStatistics.cs" />
+    <Compile Include="Utils\NunitGoTest.cs" />
+    <Compile Include="Utils\NunitGoTestHelper.cs" />
+    <Compile Include="Utils\NunitGoTestScreenshot.cs" />
+    <Compile Include="Utils\NunitGoTestScreenshotHelper.cs" />
+    <Compile Include="Utils\Structs.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HtmlCustomElements\HtmlCustomElements.csproj">
-      <Project>{4bc2ab27-f2b2-42b1-8faa-b46874dd0302}</Project>
-      <Name>HtmlCustomElements</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{744e33d0-3a59-4b4a-9bc6-b698dacb606a}</Project>
-      <Name>Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.xml">
@@ -92,6 +123,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

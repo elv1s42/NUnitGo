@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using NUnit.Framework;
-using NunitGo;
 
 namespace NunitTestsExample
 {

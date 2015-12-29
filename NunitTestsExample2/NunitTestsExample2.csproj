@@ -57,10 +57,6 @@
       <Project>{9F012544-A421-4807-8FF8-C3339395D39F}</Project>
       <Name>NunitGo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Utils\Utils.csproj">
-      <Project>{744E33D0-3A59-4B4A-9BC6-B698DACB606A}</Project>
-      <Name>Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

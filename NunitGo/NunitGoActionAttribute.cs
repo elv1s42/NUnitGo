@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using HtmlCustomElements;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using Utils;
+using NunitGo.HtmlCustomElements;
+using NunitGo.Utils;
 
 namespace NunitGo
 {

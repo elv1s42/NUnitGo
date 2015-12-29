@@ -48,15 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colors.cs" />
-    <Compile Include="MainStatistics.cs" />
-    <Compile Include="NunitGoTest.cs" />
-    <Compile Include="NunitGoTestHelper.cs" />
-    <Compile Include="NunitGoTestScreenshot.cs" />
-    <Compile Include="NunitGoTestScreenshotHelper.cs" />
-    <Compile Include="Structs.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
