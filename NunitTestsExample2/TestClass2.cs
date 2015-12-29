@@ -4,7 +4,6 @@ using NunitGo;
 namespace NunitTestsExample2
 {
     [TestFixture, Ignore("Ignored test fixture")]
-    [NunitGoAction]
     public class TestClass2
     {
         [Test]

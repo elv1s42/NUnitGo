@@ -8,12 +8,15 @@ using Utils;
 
 namespace NunitGo
 {
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class 
-        | AttributeTargets.Interface | AttributeTargets.Assembly, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method/* | AttributeTargets.Class 
+        | AttributeTargets.Interface | AttributeTargets.Assembly*/, AllowMultiple = false)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
     {
         private readonly string _guid;
         private NunitGoTest _test;
+        private DateTime _start;
+        private DateTime _finish;
+        public static Guid TestGuid = Guid.Empty;
 
         public NunitGoActionAttribute(string guid = "")
         {
@@ -23,27 +26,33 @@ namespace NunitGo
         public void BeforeTest(ITest test)
         {
             Helper.CreateDirectories();
-            _test = new NunitGoTest
-            {
-                DateTimeStart = DateTime.Now,
-                Guid = _guid.Equals("") ? Guid.NewGuid() : new Guid(_guid)
-            };
+            _start = DateTime.Now;
+            Log.Write("START");
         }
 
         public void AfterTest(ITest test)
         {
+            _finish = DateTime.Now;
             var context = TestContext.CurrentContext;
 
-            _test.DateTimeFinish = DateTime.Now;
-            _test.TestDuration = (_test.DateTimeFinish - _test.DateTimeStart).TotalSeconds;
-            _test.FullName = test.FullName;
-            _test.Id = test.Id;
-            _test.FailureStackTrace = context.Result.StackTrace ?? "";
-            _test.FailureMessage = context.Result.Message ?? "";
-            _test.Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown";
+            _test = new NunitGoTest
+            {
+                DateTimeStart = _start,
+                DateTimeFinish = DateTime.Now,
+                TestDuration = (_finish - _start).TotalSeconds,
+                FullName = test.FullName,
+                Name = test.Name,
+                Id = test.Id,
+                FailureStackTrace = context.Result.StackTrace ?? "",
+                FailureMessage = context.Result.Message ?? "",
+                Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
+                Guid = !_guid.Equals("")
+                    ? new Guid(_guid)
+                    : (!TestGuid.Equals(Guid.Empty) ? TestGuid : Guid.NewGuid())
+            };
 
-            //Log.Write("Name: " + _test.FullName + ", Res: " + context.Result.Outcome);
-
+            Log.Write("FINISH: " + test.FullName + ", " + _test.Guid);
+            
             if(!_test.IsSuccess()) Helper.TakeScreenshot(DateTime.Now);
 
             _test.OutputPath = Helper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
@@ -58,20 +67,7 @@ namespace NunitGo
 
             _test.AddScreenshots(NunitGoTestScreenshotHelper.GetScreenshots());
             _test.Save(_test.OutputPath + "test.xml");
-
             var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();
-            Log.Write("   -------------   Tests: " + tests.Count + 
-                ", Good = " + tests.Count(x => x.IsSuccess()) + 
-                ", Bad = " + tests.Count(x => !x.IsSuccess()) +
-                "   -------------   ");
-            Log.Write("AAAAA: " + test.Properties.Get(""));
-            foreach (var nunitGoTest in tests)
-            {
-                Log.Write(nunitGoTest.DateTimeStart.ToString("HH:mm:ss.fff") + " - " + 
-                    nunitGoTest.DateTimeFinish.ToString("HH:mm:ss.fff") + " " +
-                nunitGoTest.FullName + ": Result " + nunitGoTest.Result);
-            }
-
             PageGenerator.GenerateReport(tests, Helper.Output);
 
         }
@@ -80,5 +76,6 @@ namespace NunitGo
         {
             get { return ActionTargets.Test; }// | ActionTargets.Suite; }
         }
+
     }
 }

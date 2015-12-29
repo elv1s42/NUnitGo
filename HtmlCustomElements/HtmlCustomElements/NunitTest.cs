@@ -136,7 +136,6 @@ namespace HtmlCustomElements.HtmlCustomElements
                     ModalWindowsHtml += modalOut.ModalWindowHtml + Environment.NewLine;
                 }
 
-                Log.Write("Adding screenshots...");
                 foreach (var screenshot in nunitGoTest.Screenshots)
                 {
                     var sWr = new StringWriter();
@@ -156,8 +155,7 @@ namespace HtmlCustomElements.HtmlCustomElements
                     writer.Write(openButton.ButtonHtml);
                     ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;
                 }
-                Log.Write("Adding screenshots DONE.");
-
+                
                 if (nunitGoTest.IsFailed() || nunitGoTest.IsBroken())
                 {
                     writer.RenderBeginTag(HtmlTextWriterTag.P);

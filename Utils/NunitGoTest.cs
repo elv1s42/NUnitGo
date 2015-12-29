@@ -5,6 +5,7 @@ namespace Utils
 {
     public class NunitGoTest
     {
+        public string Name;
         public string FullName;
         public string Id;
         public double TestDuration;
@@ -21,6 +22,7 @@ namespace Utils
 
         public NunitGoTest()
         {
+            Name = String.Empty;
             FullName = String.Empty;
             Id = String.Empty;
             TestDuration = 0.0;

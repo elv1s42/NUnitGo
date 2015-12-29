@@ -139,7 +139,6 @@ namespace HtmlCustomElements.HtmlCustomElements
             writer.RenderBeginTag(HtmlTextWriterTag.Input);
             writer.RenderEndTag(); //INPUT
             writer.AddAttribute(HtmlTextWriterAttribute.For, id);
-            writer.AddAttribute(HtmlTextWriterAttribute.Title, "Full test list:");
             writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
             writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, "110%");
             writer.RenderBeginTag(HtmlTextWriterTag.Label);

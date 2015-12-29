@@ -5,7 +5,6 @@ using NunitGo;
 namespace NunitTestsExample
 {
     [TestFixture]
-    [NunitGoAction]
     public class TestClass2
     {
         [Test]
