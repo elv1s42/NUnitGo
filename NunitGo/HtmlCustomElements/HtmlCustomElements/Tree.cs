@@ -131,38 +131,26 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             var id = GetSuiteId();
             var count = tests.Count(x => x.IsSuccess());
             var passedCount = tests.Count(x => x.IsSuccess());
-            writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-            writer.RenderBeginTag(HtmlTextWriterTag.Li);
-            writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
-            writer.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
-            writer.AddAttribute(HtmlTextWriterAttribute.Id, id);
-            writer.RenderBeginTag(HtmlTextWriterTag.Input);
-            writer.RenderEndTag(); //INPUT
-            writer.AddAttribute(HtmlTextWriterAttribute.For, id);
-            writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
-            writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, "110%");
-            writer.RenderBeginTag(HtmlTextWriterTag.Label);
             var start = tests.First().DateTimeStart.ToString("dd.MM.yy HH:mm:ss");
             var end = tests.Last().DateTimeFinish.ToString("dd.MM.yy HH:mm:ss");
-            writer.Write("All tests: " + passedCount + @"/" + count + " " + start + " - " + end);
-            writer.RenderEndTag(); //LABEL
+            var labelName = "All tests: " + passedCount + @"/" + count + " " + start + " - " + end;
+            writer.OpenTreeItem(labelName, id, "110%");
             writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-            var previousTestProjectName = String.Empty;
-            var previousTestClassName = String.Empty;
+            //var previousTestProjectName = String.Empty;
+            //var previousTestClassName = String.Empty;
             foreach (var nunitGoTest in tests)
             {
-                var currentTestProjectName = nunitGoTest.FullName.Split(new []{'.'}).First();
-                var currentTestClassName = nunitGoTest.FullName.Split(new[] { '.' }).Skip(1).First();
+                //var currentTestProjectName = nunitGoTest.FullName.Split(new []{'.'}).First();
+                //var currentTestClassName = nunitGoTest.FullName.Split(new[] { '.' }).Skip(1).First();
 
-                if (previousTestProjectName.Equals(String.Empty))
+                /*if (previousTestProjectName.Equals(String.Empty))
                 {
                     writer.OpenTreeItem(currentTestProjectName, Ids.GetProjectId(), "110%");
                 }
                 if (previousTestClassName.Equals(String.Empty))
                 {
                     writer.OpenTreeItem(currentTestClassName, Ids.GetClassId());
-                }
-
+                }*/
 
                 var testId = Ids.GetTestId(nunitGoTest.Guid.ToString());
                 var test = new NunitTest(nunitGoTest);
@@ -185,8 +173,8 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                 writer.RenderEndTag(); //A
                 writer.RenderEndTag(); //LI
 
-                previousTestProjectName = currentTestProjectName;
-                previousTestClassName = currentTestClassName;
+                //previousTestProjectName = currentTestProjectName;
+                //previousTestClassName = currentTestClassName;
             }
             writer.RenderEndTag(); //UL
             writer.RenderEndTag(); //LI
