@@ -91,9 +91,9 @@ namespace NunitGo.Utils
             return tests.OrderBy(x => x.DateTimeFinish).Last().DateTimeFinish;
         }
 
-        public static double Duration(this List<NunitGoTest> tests)
+        public static TimeSpan Duration(this List<NunitGoTest> tests)
         {
-            return (GetFinishDate(tests) - GetStartDate(tests)).TotalSeconds;
+            return (GetFinishDate(tests) - GetStartDate(tests));
         }
     }
 }

@@ -83,7 +83,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                 writer.Write(Bullet.HtmlCode + "Finish Date: " + tests.GetFinishDate().ToString("dd.MM.yyyy HH:mm:ss.ff"));
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Time: " + tests.Duration().ToString("F"));
+                writer.Write(Bullet.HtmlCode + "Time: " + tests.Duration().ToString(@"hh\:mm\:ss\:fff"));
                 writer.RenderEndTag();
                 writer.RenderEndTag();//DIV
                 
