@@ -73,12 +73,15 @@ namespace NunitGo.HtmlCustomElements
             writer.RenderEndTag();
         }
 
-        public static void OpenTreeItem(this HtmlTextWriter writer, string name, string id, string fontSize = "100%")
+        public static void OpenTreeItem(this HtmlTextWriter writer, string name, string id, string fontSize = "100%", bool isChecked = true)
         {
             writer.RenderBeginTag(HtmlTextWriterTag.Ul);
             writer.RenderBeginTag(HtmlTextWriterTag.Li);
             writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
-            writer.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
+            if (isChecked)
+            {
+                writer.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
+            }
             writer.AddAttribute(HtmlTextWriterAttribute.Id, id);
             writer.RenderBeginTag(HtmlTextWriterTag.Input);
             writer.RenderEndTag(); //INPUT

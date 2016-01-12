@@ -129,7 +129,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
         private void BuildTree(HtmlTextWriter writer, List<NunitGoTest> tests)
         {
             var id = GetSuiteId();
-            var count = tests.Count(x => x.IsSuccess());
+            var count = tests.Count();
             var passedCount = tests.Count(x => x.IsSuccess());
             var start = tests.First().DateTimeStart.ToString("dd.MM.yy HH:mm:ss");
             var end = tests.Last().DateTimeFinish.ToString("dd.MM.yy HH:mm:ss");
@@ -140,7 +140,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             foreach (var nunitGoTest in tests)
             {
                 var testId = Ids.GetTestId(nunitGoTest.Guid.ToString());
-                var test = new NunitTest(nunitGoTest);
+                var test = new NunitTestHtml(nunitGoTest);
                 var modalId = Ids.GetTestModalId(nunitGoTest.Guid.ToString());
                 var modalWindow = new ModalWindow(modalId, test.HtmlCode, 1004, 90);
                 var openButton = new JsOpenButton(nunitGoTest.FullName
@@ -166,46 +166,55 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             writer.RenderEndTag(); //UL
         }
 
-        private void BuildTreeFromSuite(HtmlTextWriter writer, List<NunitGoTest> tests)
+        private void BuildTreeFromSuites(HtmlTextWriter writer, List<NunitGoSuite> suites)
         {
-            var id = GetSuiteId();
-            var count = tests.Count(x => x.IsSuccess());
-            var passedCount = tests.Count(x => x.IsSuccess());
-            var start = tests.First().DateTimeStart.ToString("dd.MM.yy HH:mm:ss");
-            var end = tests.Last().DateTimeFinish.ToString("dd.MM.yy HH:mm:ss");
-            var labelName = "All tests: " + passedCount + @"/" + count + " " + start + " - " + end;
-            writer.OpenTreeItem(labelName, id, "110%");
-            writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-
-            var suite = tests.GetSuite("All tests");
-
-            foreach (var nunitGoTest in tests)
+            foreach (var suite in suites)
             {
-                var testId = Ids.GetTestId(nunitGoTest.Guid.ToString());
-                var test = new NunitTest(nunitGoTest);
-                var modalId = Ids.GetTestModalId(nunitGoTest.Guid.ToString());
-                var modalWindow = new ModalWindow(modalId, test.HtmlCode, 1004, 90);
-                var openButton = new JsOpenButton(nunitGoTest.FullName
-                    + " " + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
-                    nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss"),
-                    modalId, modalWindow.BackgroundId, test.BackgroundColor);
+                Log.Write("A T: " + suite.Tests.Count + ", S: " + suites.Count + ", " + suite.Name);
+                var tests = suite.Tests;
+                var id = GetSuiteId();
+                Log.Write("B T: " + suite.Tests.Count + ", S: " + suites.Count + ", " + suite.Name);
+                var allSuiteTests = suite.GetTests();
+                Log.Write("C T: " + suite.Tests.Count + ", S: " + suites.Count + ", " + suite.Name);
+                var count = allSuiteTests.Count();
+                var passedCount = allSuiteTests.Count(x => x.IsSuccess());
+                var labelName = suite.Name + " (Tests: " + passedCount + @"/" + count + ")";
+                writer.OpenTreeItem(labelName, id, "110%", suite.Tests.Count.Equals(0));
+                writer.RenderBeginTag(HtmlTextWriterTag.Ul);
+                Log.Write("D T: " + suite.Tests.Count + ", S: " + suites.Count + ", " + suite.Name);
 
-                writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
-                writer.RenderBeginTag(HtmlTextWriterTag.Li);
-                writer.AddAttribute(HtmlTextWriterAttribute.Title, nunitGoTest.FullName);
-                writer.RenderBeginTag(HtmlTextWriterTag.A);
+                foreach (var nunitGoTest in tests)
+                {
+                    var testId = Ids.GetTestId(nunitGoTest.Guid.ToString());
+                    var testHtml = new NunitTestHtml(nunitGoTest);
+                    var modalId = Ids.GetTestModalId(nunitGoTest.Guid.ToString());
+                    var modalWindow = new ModalWindow(modalId, testHtml.HtmlCode, 1004, 90);
+                    var openButton = new JsOpenButton(nunitGoTest.FullName
+                        + " " + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                        nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss"),
+                        modalId, modalWindow.BackgroundId, testHtml.BackgroundColor);
 
-                HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
-                HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
+                    writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
+                    writer.RenderBeginTag(HtmlTextWriterTag.Li);
+                    writer.AddAttribute(HtmlTextWriterAttribute.Title, nunitGoTest.FullName);
+                    writer.RenderBeginTag(HtmlTextWriterTag.A);
 
-                writer.Write(openButton.ButtonHtml);
-                writer.RenderEndTag(); //A
+                    HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
+                    HtmlCodeModalWindows += Environment.NewLine + testHtml.ModalWindowsHtml;
+
+                    writer.Write(openButton.ButtonHtml);
+                    writer.RenderEndTag(); //A
+                    writer.RenderEndTag(); //LI
+
+                }
+                if (suite.Suites.Any())
+                {
+                    BuildTreeFromSuites(writer, suite.Suites);
+                }
+                writer.RenderEndTag(); //UL
                 writer.RenderEndTag(); //LI
-
+                writer.RenderEndTag(); //UL
             }
-            writer.RenderEndTag(); //UL
-            writer.RenderEndTag(); //LI
-            writer.RenderEndTag(); //UL
         }
 
         public Tree(List<NunitGoTest> tests)
@@ -218,7 +227,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 			{
 				writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
 				writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                BuildTree(writer, tests);
+                BuildTreeFromSuites(writer, new List<NunitGoSuite> {tests.GetSuite("All tests")});
                 writer.RenderEndTag(); //DIV
 			}
 

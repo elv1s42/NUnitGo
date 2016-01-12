@@ -8,8 +8,7 @@ using NunitGo.Utils;
 
 namespace NunitGo
 {
-    [AttributeUsage(AttributeTargets.Method/* | AttributeTargets.Class 
-        | AttributeTargets.Interface | AttributeTargets.Assembly*/, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
     {
         private readonly string _guid;
@@ -79,7 +78,7 @@ namespace NunitGo
 
         public ActionTargets Targets
         {
-            get { return ActionTargets.Test; }// | ActionTargets.Suite; }
+            get { return ActionTargets.Test; }
         }
 
     }

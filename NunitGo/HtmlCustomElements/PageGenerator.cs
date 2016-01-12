@@ -32,7 +32,7 @@ namespace NunitGo.HtmlCustomElements
             {
                 wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
                 wr.RenderBeginTag(HtmlTextWriterTag.Div);
-                var test = new NunitTest(nunitGoTest);
+                var test = new NunitTestHtml(nunitGoTest);
                 wr.Write(test.HtmlCode);
                 wr.RenderEndTag();//DIV
             }
@@ -56,7 +56,7 @@ namespace NunitGo.HtmlCustomElements
 			report.AddInsideTag("style", ModalWindow.StyleString);
 			report.AddInsideTag("style", HrefButton.StyleString);
 			report.AddInsideTag("style", Tree.StyleString);
-			report.AddInsideTag("style", NunitTest.StyleString);
+			report.AddInsideTag("style", NunitTestHtml.StyleString);
 			report.AddInsideTag("style", JsOpenButton.StyleString);
 
             var jsSection = new JsSection();

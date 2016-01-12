@@ -18,7 +18,6 @@ namespace NunitGo.Utils
             {
                 var projectName = project;
                 var projectSuite = new NunitGoSuite(projectName);
-                suite.Suites.Add(projectSuite);
                 var classes = new HashSet<string>();
                 var projectTests = tests.Where(x => x.ProjectName.Equals(projectName)).ToList();
                 foreach (var test in projectTests)
@@ -31,15 +30,36 @@ namespace NunitGo.Utils
                     var currentClassName = className;
                     var classSuite = new NunitGoSuite(className);
                     var classTests = projectTests.Where(x => x.ClassName.Equals(currentClassName));
+
                     foreach (var test in classTests)
                     {
                         classSuite.Tests.Add(test);
                     }
+                    projectSuite.Suites.Add(classSuite);
                 }
+                suite.Suites.Add(projectSuite);
 
             }
 
             return suite;
         }
+        
+        public static List<NunitGoTest> GetTests(this NunitGoSuite mainSuite)
+        {
+            var tests = new List<NunitGoTest>();
+            tests.AddRange(mainSuite.Tests);
+            var suites = mainSuite.Suites;
+            foreach (var suite in suites)
+            {
+                tests.AddRange(suite.Tests);
+                var innerSuites = suite.Suites;
+                foreach (var innerSuite in innerSuites)
+                {
+                    tests.AddRange(innerSuite.Tests);
+                }
+            }
+            return tests;
+        }
+
     }
 }
