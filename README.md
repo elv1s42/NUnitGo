@@ -1,5 +1,5 @@
 # NUnitGo
-HTML report with screenshots for NUnit 3
+NUnit 3.0 HTML reports
 
 [![Build Status](https://travis-ci.org/elv1s42/NUnitGo.svg?branch=master)](https://travis-ci.org/elv1s42/NUnitGo)
 
