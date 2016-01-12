@@ -46,10 +46,23 @@ namespace NunitGo.Utils
             return tests;
         }
 
+        public static void TakeScreenshot(this NunitGoTest test)
+        {
+            var now = DateTime.Now;
+            Helper.TakeScreenshot(now);
+            test.Screenshots.Add(new NunitGoTestScreenshot(now));
+        }
+
+        public static void TakeScreenshot(this NunitGoTest test, DateTime date)
+        {
+            Helper.TakeScreenshot(date);
+            test.Screenshots.Add(new NunitGoTestScreenshot(date));
+        }
+
         public static void AddScreenshots(this NunitGoTest test,
             List<NunitGoTestScreenshot> screens)
         {
-            test.Screenshots = new List<NunitGoTestScreenshot>();
+            if(!test.Screenshots.Any()) test.Screenshots = new List<NunitGoTestScreenshot>();
             var start = test.DateTimeStart;
             var end = test.DateTimeFinish;
 

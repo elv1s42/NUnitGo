@@ -51,13 +51,13 @@ namespace NunitGo.Utils
             Directory.CreateDirectory(Output + @"\Screenshots");
         }
 
-        private static string GetScreenName(DateTime now, ImageFormat format = null)
+        public static string GetScreenName(DateTime now, ImageFormat format = null)
         {
             format = format ?? ImageFormat.Png;
             return String.Format("screenshot_{0}.{1}", now.ToString("yyyyMMddHHmmssfff"), format.ToString().ToLower());
         }
 
-        public static void TakeScreenshot(DateTime creationTime = default(DateTime))
+        public static string TakeScreenshot(DateTime creationTime = default(DateTime))
         {
             var format = ImageFormat.Png;
             var now = DateTime.Now;
@@ -84,6 +84,7 @@ namespace NunitGo.Utils
 
                 }
             }
+            return screenName;
         }
     }
 }

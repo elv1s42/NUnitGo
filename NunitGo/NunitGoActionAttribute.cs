@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NUnit.Framework;
@@ -52,12 +53,13 @@ namespace NunitGo
                 Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
                 Guid = !_guid.Equals("")
                     ? new Guid(_guid)
-                    : (!TestGuid.Equals(Guid.Empty) ? TestGuid : Guid.NewGuid())
+                    : (!TestGuid.Equals(Guid.Empty) ? TestGuid : Guid.NewGuid()),
+                Screenshots = new List<NunitGoTestScreenshot>()
             };
             
             Log.Write("FINISH: " + test.FullName + ", " + _test.Guid);
             
-            if(!_test.IsSuccess()) Helper.TakeScreenshot(DateTime.Now);
+            if(!_test.IsSuccess()) _test.TakeScreenshot();
 
             _test.OutputPath = Helper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
             Directory.CreateDirectory(_test.OutputPath);

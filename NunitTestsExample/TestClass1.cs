@@ -2,6 +2,7 @@
 using System.Threading;
 using NUnit.Framework;
 using NunitGo;
+using NunitGo.Utils;
 
 namespace NunitTestsExample
 {
@@ -35,9 +36,9 @@ namespace NunitTestsExample
         {
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
-            ScreenshotHelper.TakeScreenshot();
+            Helper.TakeScreenshot();
             Thread.Sleep(1000);
-            ScreenshotHelper.TakeScreenshot();
+            Helper.TakeScreenshot();
             Thread.Sleep(1000);
             throw new Exception("Some error occured!");
         }

@@ -148,7 +148,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     var screenCode = sWr.ToString();
                     var modalScreenshotId = "modal-screenshot-" + screenshot.Name;
                     var modalScreenshot = new ModalWindow(modalScreenshotId, screenCode, 1004, 100);
-                    var openButton = new JsOpenButton("Veiw screenshot " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss"),
+                    var openButton = new JsOpenButton("Veiw screenshot " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss.fff"),
                         modalScreenshotId, modalScreenshot.BackgroundId,
                         Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
