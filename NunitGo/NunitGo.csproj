@@ -32,32 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Engine.3.0.0\lib\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit-agent, Version=3.0.5797.27553, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Engine.3.0.0\lib\nunit-agent.exe</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit-agent-x86, Version=3.0.5797.27553, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\NUnit.Engine.3.0.0\lib\nunit-agent-x86.exe</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.engine, Version=3.0.5797.27553, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Engine.3.0.0\lib\nunit.engine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.engine.api, Version=3.0.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Engine.3.0.0\lib\nunit.engine.api.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="nunit.framework, Version=3.0.5813.39031, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.0.1\lib\net45\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunitlite, Version=3.0.5813.39032, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnitLite.3.0.1\lib\net45\nunitlite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -66,9 +42,6 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -101,13 +74,14 @@
     <Compile Include="HtmlCustomElements\ReportSections\StatisticsSection.cs" />
     <Compile Include="HtmlCustomElements\ReportSections\TestListSection.cs" />
     <Compile Include="HtmlCustomElements\StringExtensions.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="NunitGoActionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Colors.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Utils\MainStatistics.cs" />
+    <Compile Include="Utils\NunitGoSuite.cs" />
+    <Compile Include="Utils\NunitGoSuiteHelper.cs" />
     <Compile Include="Utils\NunitGoTest.cs" />
     <Compile Include="Utils\NunitGoTestHelper.cs" />
     <Compile Include="Utils\NunitGoTestScreenshot.cs" />

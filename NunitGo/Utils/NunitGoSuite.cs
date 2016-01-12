@@ -15,16 +15,5 @@ namespace NunitGo.Utils
             Tests = new List<NunitGoTest>();
             Suites = new List<NunitGoSuite>();
         }
-
-        public static NunitGoSuite GetSuite(string suiteName, List<NunitGoTest> tests)
-        {
-            var suite = new NunitGoSuite(suiteName);
-            var projects = new HashSet<string>();
-            foreach (var test in tests)
-            {
-                projects.Add(test.ProjectName);
-            }
-            return suite;
-        }
     }
 }

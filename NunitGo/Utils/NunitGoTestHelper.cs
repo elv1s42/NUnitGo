@@ -27,7 +27,7 @@ namespace NunitGo.Utils
             }
             return test;
         }
-
+        
         public static List<NunitGoTest> GetTests()
         {
             var tests = new List<NunitGoTest>();

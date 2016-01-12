@@ -13,14 +13,18 @@ namespace NunitGo
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
     {
         private readonly string _guid;
+        private readonly string _projectName;
+        private readonly string _className;
         private NunitGoTest _test;
         private DateTime _start;
         private DateTime _finish;
         public static Guid TestGuid = Guid.Empty;
-
-        public NunitGoActionAttribute(string guid = "")
+        
+        public NunitGoActionAttribute(string guid = "", string projectName = "", string className = "")
         {
             _guid = guid;
+            _projectName = projectName;
+            _className = className;
         }
 
         public void BeforeTest(ITest test)
@@ -34,15 +38,16 @@ namespace NunitGo
         {
             _finish = DateTime.Now;
             var context = TestContext.CurrentContext;
-
+            
             _test = new NunitGoTest
             {
                 DateTimeStart = _start,
                 DateTimeFinish = DateTime.Now,
                 TestDuration = (_finish - _start).TotalSeconds,
                 FullName = test.FullName,
+                ProjectName = (_projectName.Equals("")) ? test.FullName.Split(new []{'.'}).First() : _projectName,
+                ClassName = (_className.Equals("")) ? test.FullName.Split(new[] { '.' }).Skip(1).First() : _className,
                 Name = test.Name,
-                Id = test.Id,
                 FailureStackTrace = context.Result.StackTrace ?? "",
                 FailureMessage = context.Result.Message ?? "",
                 Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
@@ -50,7 +55,7 @@ namespace NunitGo
                     ? new Guid(_guid)
                     : (!TestGuid.Equals(Guid.Empty) ? TestGuid : Guid.NewGuid())
             };
-
+            
             Log.Write("FINISH: " + test.FullName + ", " + _test.Guid);
             
             if(!_test.IsSuccess()) Helper.TakeScreenshot(DateTime.Now);

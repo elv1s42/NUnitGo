@@ -136,22 +136,9 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             var labelName = "All tests: " + passedCount + @"/" + count + " " + start + " - " + end;
             writer.OpenTreeItem(labelName, id, "110%");
             writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-            //var previousTestProjectName = String.Empty;
-            //var previousTestClassName = String.Empty;
+            
             foreach (var nunitGoTest in tests)
             {
-                //var currentTestProjectName = nunitGoTest.FullName.Split(new []{'.'}).First();
-                //var currentTestClassName = nunitGoTest.FullName.Split(new[] { '.' }).Skip(1).First();
-
-                /*if (previousTestProjectName.Equals(String.Empty))
-                {
-                    writer.OpenTreeItem(currentTestProjectName, Ids.GetProjectId(), "110%");
-                }
-                if (previousTestClassName.Equals(String.Empty))
-                {
-                    writer.OpenTreeItem(currentTestClassName, Ids.GetClassId());
-                }*/
-
                 var testId = Ids.GetTestId(nunitGoTest.Guid.ToString());
                 var test = new NunitTest(nunitGoTest);
                 var modalId = Ids.GetTestModalId(nunitGoTest.Guid.ToString());
@@ -173,8 +160,48 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                 writer.RenderEndTag(); //A
                 writer.RenderEndTag(); //LI
 
-                //previousTestProjectName = currentTestProjectName;
-                //previousTestClassName = currentTestClassName;
+            }
+            writer.RenderEndTag(); //UL
+            writer.RenderEndTag(); //LI
+            writer.RenderEndTag(); //UL
+        }
+
+        private void BuildTreeFromSuite(HtmlTextWriter writer, List<NunitGoTest> tests)
+        {
+            var id = GetSuiteId();
+            var count = tests.Count(x => x.IsSuccess());
+            var passedCount = tests.Count(x => x.IsSuccess());
+            var start = tests.First().DateTimeStart.ToString("dd.MM.yy HH:mm:ss");
+            var end = tests.Last().DateTimeFinish.ToString("dd.MM.yy HH:mm:ss");
+            var labelName = "All tests: " + passedCount + @"/" + count + " " + start + " - " + end;
+            writer.OpenTreeItem(labelName, id, "110%");
+            writer.RenderBeginTag(HtmlTextWriterTag.Ul);
+
+            var suite = tests.GetSuite("All tests");
+
+            foreach (var nunitGoTest in tests)
+            {
+                var testId = Ids.GetTestId(nunitGoTest.Guid.ToString());
+                var test = new NunitTest(nunitGoTest);
+                var modalId = Ids.GetTestModalId(nunitGoTest.Guid.ToString());
+                var modalWindow = new ModalWindow(modalId, test.HtmlCode, 1004, 90);
+                var openButton = new JsOpenButton(nunitGoTest.FullName
+                    + " " + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                    nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss"),
+                    modalId, modalWindow.BackgroundId, test.BackgroundColor);
+
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
+                writer.RenderBeginTag(HtmlTextWriterTag.Li);
+                writer.AddAttribute(HtmlTextWriterAttribute.Title, nunitGoTest.FullName);
+                writer.RenderBeginTag(HtmlTextWriterTag.A);
+
+                HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
+                HtmlCodeModalWindows += Environment.NewLine + test.ModalWindowsHtml;
+
+                writer.Write(openButton.ButtonHtml);
+                writer.RenderEndTag(); //A
+                writer.RenderEndTag(); //LI
+
             }
             writer.RenderEndTag(); //UL
             writer.RenderEndTag(); //LI

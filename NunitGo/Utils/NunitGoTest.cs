@@ -9,7 +9,6 @@ namespace NunitGo.Utils
         public string FullName;
         public string ClassName;
         public string ProjectName;
-        public string Id;
         public double TestDuration;
         public DateTime DateTimeStart;
         public DateTime DateTimeFinish;
@@ -28,7 +27,6 @@ namespace NunitGo.Utils
             FullName = String.Empty;
             ClassName = String.Empty;
             ProjectName = String.Empty;
-            Id = String.Empty;
             TestDuration = 0.0;
             DateTimeStart = new DateTime();
             DateTimeFinish = new DateTime();
