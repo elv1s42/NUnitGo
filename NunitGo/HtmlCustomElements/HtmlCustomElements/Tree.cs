@@ -170,18 +170,14 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
         {
             foreach (var suite in suites)
             {
-                Log.Write("A T: " + suite.Tests.Count + ", S: " + suites.Count + ", " + suite.Name);
                 var tests = suite.Tests;
                 var id = GetSuiteId();
-                Log.Write("B T: " + suite.Tests.Count + ", S: " + suites.Count + ", " + suite.Name);
                 var allSuiteTests = suite.GetTests();
-                Log.Write("C T: " + suite.Tests.Count + ", S: " + suites.Count + ", " + suite.Name);
                 var count = allSuiteTests.Count();
                 var passedCount = allSuiteTests.Count(x => x.IsSuccess());
                 var labelName = suite.Name + " (Tests: " + passedCount + @"/" + count + ")";
                 writer.OpenTreeItem(labelName, id, "110%", suite.Tests.Count.Equals(0));
                 writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-                Log.Write("D T: " + suite.Tests.Count + ", S: " + suites.Count + ", " + suite.Name);
 
                 foreach (var nunitGoTest in tests)
                 {
