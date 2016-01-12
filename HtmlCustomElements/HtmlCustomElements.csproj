@@ -37,48 +37,18 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.0.5813.39031, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.0.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CSSElements\CssElement.cs" />
-    <Compile Include="CSSElements\CssSet.cs" />
-    <Compile Include="CSSElements\StyleAttribute.cs" />
-    <Compile Include="HtmlCustomElements\Accordion.cs" />
-    <Compile Include="HtmlCustomElements\AccordionElement.cs" />
-    <Compile Include="HtmlCustomElements\Bullet.cs" />
-    <Compile Include="HtmlCustomElements\HrefButton.cs" />
-    <Compile Include="HtmlCustomElements\JsCloseButton.cs" />
-    <Compile Include="HtmlCustomElements\JsOpenButton.cs" />
-    <Compile Include="HtmlCustomElements\JsSection.cs" />
-    <Compile Include="HtmlCustomElements\ModalBackground.cs" />
-    <Compile Include="HtmlCustomElements\HorizontalBar.cs" />
-    <Compile Include="HtmlCustomElements\HorizontalBarElement.cs" />
-    <Compile Include="HtmlCustomElements\HtmlBaseElement.cs" />
-    <Compile Include="HtmlCustomElements\MainInformation.cs" />
-    <Compile Include="HtmlCustomElements\ModalWindow.cs" />
-    <Compile Include="HtmlCustomElements\NunitTest.cs" />
-    <Compile Include="HtmlCustomElements\OpenModalWindowScript.cs" />
-    <Compile Include="HtmlCustomElements\ReportFooter.cs" />
-    <Compile Include="HtmlCustomElements\ReportTitle.cs" />
-    <Compile Include="HtmlCustomElements\Timeline.cs" />
-    <Compile Include="HtmlCustomElements\Tooltip.cs" />
-    <Compile Include="HtmlCustomElements\Tree.cs" />
-    <Compile Include="HtmlElements.cs" />
-    <Compile Include="HtmlPage.cs" />
-    <Compile Include="HtmlTextWriterExtensions.cs" />
-    <Compile Include="PageGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReportSections\StatisticsSection.cs" />
-    <Compile Include="ReportSections\TestListSection.cs" />
-    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NunitResultAnalyzer\NunitResultAnalyzer.csproj">
-      <Project>{55695586-8898-4a6a-8d1a-fe495f6cdad8}</Project>
-      <Name>NunitResultAnalyzer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{744E33D0-3A59-4B4A-9BC6-B698DACB606A}</Project>
       <Name>Utils</Name>

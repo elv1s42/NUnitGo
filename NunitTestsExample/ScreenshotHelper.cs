@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
-using Utils;
+using NunitGo.Utils;
 
 namespace NunitTestsExample
 {

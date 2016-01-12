@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading;
 using NUnit.Framework;
-using Utils;
+using NunitGo;
 
 namespace NunitTestsExample
 {
     [TestFixture]
     public class TestClass1
     {
-        [Test]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111111")]
         public void TestMethod1()
         {
             Console.WriteLine("Testing log writing 1");
@@ -23,14 +23,14 @@ namespace NunitTestsExample
             Assert.AreEqual(1, 2);
         }
 
-        [Test]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111112")]
         public void TestMethod2()
         {
             Thread.Sleep(2000);
             Assert.AreEqual(1, 1);
         }
 
-        [Test]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111113")]
         public void TestMethod3()
         {
             Console.WriteLine("Testing log writing 1");
@@ -42,17 +42,17 @@ namespace NunitTestsExample
             throw new Exception("Some error occured!");
         }
 
-        [Test]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111114")]
         public void TestMethod4()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Assert.Inconclusive("Inconc. test :)");
         }
 
-        [Test]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111115")]
         public void TestMethod5()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             Assert.Ignore("Test was ignored!");
         }
     }

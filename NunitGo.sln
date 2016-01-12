@@ -1,20 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitResultAnalyzer", "NunitResultAnalyzer\NunitResultAnalyzer.csproj", "{55695586-8898-4A6A-8D1A-FE495F6CDAD8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8AD5ADE1-CC9F-4C88-9248-7FF7B76F07CB}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlCustomElements", "HtmlCustomElements\HtmlCustomElements.csproj", "{4BC2AB27-F2B2-42B1-8FAA-B46874DD0302}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitGoAddin", "NunitGoAddin\NunitGoAddin.csproj", "{B7617ECD-FEE5-4ACE-878F-FC11649EDAA1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitTestsExample", "NunitTestsExample\NunitTestsExample.csproj", "{6AD67FD6-5CAE-46ED-81D8-6B2B7F7889AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{744E33D0-3A59-4B4A-9BC6-B698DACB606A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitGo", "NunitGo\NunitGo.csproj", "{9F012544-A421-4807-8FF8-C3339395D39F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitTestsExample2", "NunitTestsExample2\NunitTestsExample2.csproj", "{691481A7-DC73-4D34-B97B-21C0307F88E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,26 +18,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{55695586-8898-4A6A-8D1A-FE495F6CDAD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55695586-8898-4A6A-8D1A-FE495F6CDAD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55695586-8898-4A6A-8D1A-FE495F6CDAD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55695586-8898-4A6A-8D1A-FE495F6CDAD8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BC2AB27-F2B2-42B1-8FAA-B46874DD0302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BC2AB27-F2B2-42B1-8FAA-B46874DD0302}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BC2AB27-F2B2-42B1-8FAA-B46874DD0302}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BC2AB27-F2B2-42B1-8FAA-B46874DD0302}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7617ECD-FEE5-4ACE-878F-FC11649EDAA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7617ECD-FEE5-4ACE-878F-FC11649EDAA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7617ECD-FEE5-4ACE-878F-FC11649EDAA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7617ECD-FEE5-4ACE-878F-FC11649EDAA1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6AD67FD6-5CAE-46ED-81D8-6B2B7F7889AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6AD67FD6-5CAE-46ED-81D8-6B2B7F7889AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AD67FD6-5CAE-46ED-81D8-6B2B7F7889AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AD67FD6-5CAE-46ED-81D8-6B2B7F7889AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{744E33D0-3A59-4B4A-9BC6-B698DACB606A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{744E33D0-3A59-4B4A-9BC6-B698DACB606A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{744E33D0-3A59-4B4A-9BC6-B698DACB606A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{744E33D0-3A59-4B4A-9BC6-B698DACB606A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F012544-A421-4807-8FF8-C3339395D39F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F012544-A421-4807-8FF8-C3339395D39F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F012544-A421-4807-8FF8-C3339395D39F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F012544-A421-4807-8FF8-C3339395D39F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691481A7-DC73-4D34-B97B-21C0307F88E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691481A7-DC73-4D34-B97B-21C0307F88E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691481A7-DC73-4D34-B97B-21C0307F88E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691481A7-DC73-4D34-B97B-21C0307F88E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
