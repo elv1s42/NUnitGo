@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using NUnit.Framework;
+using NunitGo;
 
 namespace NunitTestsExample
 {
@@ -13,14 +14,14 @@ namespace NunitTestsExample
             Assert.AreEqual(1, 2);
         }
 
-        [Test]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111122", "Project1", "Subsystem1")]
         public void TestMethod2()
         {
             Thread.Sleep(500);
             Assert.AreEqual(1, 1);
         }
 
-        [Test]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111123", "Project1", "Subsystem2")]
         public void TestMethod3()
         {
             Thread.Sleep(500);

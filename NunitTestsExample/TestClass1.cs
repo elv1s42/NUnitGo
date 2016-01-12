@@ -8,7 +8,7 @@ namespace NunitTestsExample
     [TestFixture]
     public class TestClass1
     {
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111111")]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111111", "Project1", "Subsystem1")]
         public void TestMethod1()
         {
             Console.WriteLine("Testing log writing 1");
@@ -23,14 +23,14 @@ namespace NunitTestsExample
             Assert.AreEqual(1, 2);
         }
 
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111112")]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1")]
         public void TestMethod2()
         {
             Thread.Sleep(2000);
             Assert.AreEqual(1, 1);
         }
 
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111113")]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111113", "Project1", "Subsystem2")]
         public void TestMethod3()
         {
             Console.WriteLine("Testing log writing 1");
@@ -42,7 +42,7 @@ namespace NunitTestsExample
             throw new Exception("Some error occured!");
         }
 
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111114")]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111114", "Project1", "Subsystem2")]
         public void TestMethod4()
         {
             Thread.Sleep(1000);
