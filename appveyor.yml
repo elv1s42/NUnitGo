@@ -8,3 +8,8 @@
 
   build_script: 
     - msbuild NunitGo.sln /p:Configuration=Release /t:Rebuild
+  
+  test:
+    categories:
+      only:
+        - SuccessCategory
