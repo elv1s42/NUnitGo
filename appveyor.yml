@@ -10,6 +10,9 @@
     - msbuild NunitGo.sln /p:Configuration=Release /t:Rebuild
   
   test:
+    assemblies:
+      - '*Tests*'
     categories:
       only:
         - SuccessCategory
+        
