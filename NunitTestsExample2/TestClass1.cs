@@ -9,7 +9,7 @@ namespace NunitTestsExample2
     public class TestClass1
     {
         [TestCase("0", 1, "11111111-1111-1111-1111-111111111211")]
-        [TestCase("1", 1, "11111111-1111-1111-1111-111111111212")]
+        [TestCase("1", 1, "11111111-1111-1111-1111-111111111212"), Category("SuccessCategory")]
         [TestCase("2", 1, "11111111-1111-1111-1111-111111111213", TestName = "Testing name attribute")]
         [NunitGoAction]
         public void ParamTestName1(string input, int expected, string guid)
@@ -20,7 +20,7 @@ namespace NunitTestsExample2
         }
 
         [TestCase("0", 1)]
-        [TestCase("1", 1)]
+        [TestCase("1", 1), Category("SuccessCategory")]
         [TestCase("2", 1, TestName = "Some test name")]
         public void ParamTestName2(string input, int expected)
         {

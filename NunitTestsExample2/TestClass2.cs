@@ -11,7 +11,7 @@ namespace NunitTestsExample2
             Assert.AreEqual(1, 2);
         }
 
-        [Test]
+        [Test, Category("SuccessCategory")]
         public void TestMethod2()
         {
             Assert.AreEqual(1, 1);

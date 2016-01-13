@@ -24,7 +24,7 @@ namespace NunitTestsExample
             Assert.AreEqual(1, 2);
         }
 
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1")]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1"), Category("SuccessCategory")]
         public void TestMethod2()
         {
             Thread.Sleep(2000);

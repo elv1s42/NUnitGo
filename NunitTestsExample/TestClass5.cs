@@ -13,15 +13,15 @@ namespace NunitTestsExample
             Assert.AreEqual(1, 2);
         }
 
-        [Test]
+        [Test, Category("SuccessCategory")]
         public void TestMethod2()
         {
-            Thread.Sleep(700);
+            Thread.Sleep(100);
             Assert.AreEqual(1, 1);
         }
         
         [TestCase("0", 1)]
-        [TestCase("1", 1)]
+        [TestCase("1", 1), Category("SuccessCategory")]
         [TestCase("2", 1, TestName = "Testing name attribute")]
         public void ParamTestName(string input, int expected)
         {
