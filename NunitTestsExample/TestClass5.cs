@@ -20,9 +20,10 @@ namespace NunitTestsExample
             Assert.AreEqual(1, 1);
         }
         
-        [TestCase("0", 1)]
-        [TestCase("1", 1), Category("SuccessCategory")]
-        [TestCase("2", 1, TestName = "Testing name attribute")]
+        [TestCase("0", 0)]
+        [TestCase("1", 1)]
+        [TestCase("2", 2, TestName = "Testing name attribute")]
+        [Category("SuccessCategory")]
         public void ParamTestName(string input, int expected)
         {
             Thread.Sleep(500);

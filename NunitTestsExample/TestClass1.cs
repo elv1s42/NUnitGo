@@ -13,13 +13,13 @@ namespace NunitTestsExample
         public void TestMethod1()
         {
             Console.WriteLine("Testing log writing 1");
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             Console.WriteLine("Testing log writing 2");
-            Thread.Sleep(2000);
+            Thread.Sleep(200);
             Console.WriteLine("Testing log writing 3");
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             Console.WriteLine("Testing log writing 4");
-            Thread.Sleep(2000);
+            Thread.Sleep(200);
             Console.WriteLine("Testing log writing 5");
             Assert.AreEqual(1, 2);
         }
@@ -27,7 +27,7 @@ namespace NunitTestsExample
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1"), Category("SuccessCategory")]
         public void TestMethod2()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(200);
             Assert.AreEqual(1, 1);
         }
 
@@ -37,9 +37,9 @@ namespace NunitTestsExample
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
             Helper.TakeScreenshot();
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             Helper.TakeScreenshot();
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
             throw new Exception("Some error occured!");
         }
 
