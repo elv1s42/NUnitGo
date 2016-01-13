@@ -22,8 +22,8 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
         
         public static string GetStyle()
 		{
-			var treeCssSet = new CssSet("testcase-element");
-			treeCssSet.AddElement(new CssElement("#" + Id)
+			var testCssSet = new CssSet("testcase-element");
+			testCssSet.AddElement(new CssElement("#" + Id)
 			{
 				StyleFields = new List<StyleAttribute>
 				{
@@ -33,7 +33,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.FontSize, "16px")
 				}
 			});
-			treeCssSet.AddElement(new CssElement("#" + Id + " b")
+			testCssSet.AddElement(new CssElement("#" + Id + " b")
 			{
 				StyleFields = new List<StyleAttribute>
 				{
@@ -42,8 +42,22 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "0"),
 					new StyleAttribute(HtmlTextWriterStyle.FontSize, "18px")
 				}
-			});
-			return treeCssSet.ToString();
+            }); 
+            testCssSet.AddElement(new CssElement(".test-window")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute("box-sizing", "border-box"),
+					new StyleAttribute(HtmlTextWriterStyle.Overflow, "auto"),
+					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"),
+					new StyleAttribute(HtmlTextWriterStyle.Top, "0%"),
+					new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
+					new StyleAttribute(HtmlTextWriterStyle.Padding, "10px"),
+					new StyleAttribute("border", "10px solid " + Colors.ModalBorderColor),
+					new StyleAttribute(HtmlTextWriterStyle.Position, "fixed")
+				}
+            });
+			return testCssSet.ToString();
 		}
 
         private static string GenerateTxtView(string txt)
@@ -85,12 +99,18 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
             {
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Left, "0%");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
+                writer.AddAttribute(HtmlTextWriterAttribute.Class, "test-window");
+                writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Test name: ");
-                writer.Write(nunitGoTest.FullName);
+                writer.Write(nunitGoTest.Name);
                 writer.RenderEndTag(); //P
 
                 writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, nunitGoTest.GetBackgroundColor());
@@ -155,19 +175,21 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;
                 }
                 
-                if (nunitGoTest.IsFailed() || nunitGoTest.IsBroken())
+                if (!nunitGoTest.IsSuccess())
                 {
                     writer.RenderBeginTag(HtmlTextWriterTag.P);
-                    writer.AddTag(HtmlTextWriterTag.B, "Failure stack trace: ");
-                    writer.Write(GenerateTxtView(nunitGoTest.FailureStackTrace));
+                    writer.AddTag(HtmlTextWriterTag.B, "Stack trace: ");
+                    writer.Write(GenerateTxtView(nunitGoTest.TestStackTrace));
                     writer.RenderEndTag(); //P
                     writer.RenderBeginTag(HtmlTextWriterTag.P);
-                    writer.AddTag(HtmlTextWriterTag.B, "Failure message: ");
-                    writer.Write(GenerateTxtView(nunitGoTest.FailureMessage));
+                    writer.AddTag(HtmlTextWriterTag.B, "Message: ");
+                    writer.Write(GenerateTxtView(nunitGoTest.TestMessage));
                     writer.RenderEndTag(); //P
                 }
 
                 writer.RenderEndTag(); //DIV
+                writer.RenderEndTag(); //DIV
+
             }
 
             HtmlCode = strWr.ToString();
