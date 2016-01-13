@@ -11,7 +11,8 @@
   
   test:
     assemblies:
-      - '*Tests*'
+      - '**\*TestsExample.dll'
+      - '**\*TestsExample2.dll'
     categories:
       only:
         - SuccessCategory
