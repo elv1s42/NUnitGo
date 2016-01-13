@@ -1,0 +1,10 @@
+-
+  branches:
+    only:
+    - master
+
+  before_build:
+    - nuget restore NunitGo.sln
+
+  build_script: 
+    - msbuild NunitGo.sln /p:Configuration=Release /t:Rebuild
