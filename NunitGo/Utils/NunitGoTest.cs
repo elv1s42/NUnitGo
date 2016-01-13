@@ -13,8 +13,8 @@ namespace NunitGo.Utils
         public DateTime DateTimeStart;
         public DateTime DateTimeFinish;
         public int ScreenshotsCount;
-        public string FailureStackTrace;
-        public string FailureMessage;
+        public string TestStackTrace;
+        public string TestMessage;
         public string Result;
         public Guid Guid;
         public string OutputPath;
@@ -31,8 +31,8 @@ namespace NunitGo.Utils
             DateTimeStart = new DateTime();
             DateTimeFinish = new DateTime();
             ScreenshotsCount = 0;
-            FailureStackTrace = String.Empty;
-            FailureMessage = String.Empty;
+            TestStackTrace = String.Empty;
+            TestMessage = String.Empty;
             Result = "Unknown";
             Guid = Guid.NewGuid();
             OutputPath = String.Empty;

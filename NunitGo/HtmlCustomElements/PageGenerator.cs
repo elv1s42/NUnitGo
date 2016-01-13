@@ -7,7 +7,7 @@ using NunitGo.Utils;
 
 namespace NunitGo.HtmlCustomElements
 {
-	public class PageGenerator
+	public static class PageGenerator
     {
         public static void GenerateOutputPage(string fullPath, string outputText)
         {
@@ -24,19 +24,25 @@ namespace NunitGo.HtmlCustomElements
             page.SavePage(fullPath);
         }
 
-        public static void GenerateTestPage(string fullPath, NunitGoTest nunitGoTest)
+        public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
         {
             var page = new HtmlPage("Test page");
-            var sWr = new StringWriter();
-            using (var wr = new HtmlTextWriter(sWr))
-            {
-                wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
-                wr.RenderBeginTag(HtmlTextWriterTag.Div);
-                var test = new NunitTestHtml(nunitGoTest);
-                wr.Write(test.HtmlCode);
-                wr.RenderEndTag();//DIV
-            }
-            page.AddToBody(sWr.ToString());
+            
+            var htmlTest = new NunitTestHtml(nunitGoTest);
+            page.AddToBody(htmlTest.HtmlCode);
+
+            var jsSection = new JsSection();
+            page.AddToBody(jsSection.Html);
+
+            page.AddInsideTag("style", ReportTitle.StyleString);
+            page.AddInsideTag("style", HtmlPage.PageStyle);
+            page.AddInsideTag("style", NunitTestHtml.StyleString);
+            page.AddInsideTag("style", ReportFooter.StyleString);
+            page.AddInsideTag("style", ModalBackground.StyleString);
+            page.AddInsideTag("style", ModalWindow.StyleString);
+            page.AddInsideTag("style", HrefButton.StyleString);
+            page.AddInsideTag("style", JsOpenButton.StyleString);
+
             page.SavePage(fullPath);
         }
 

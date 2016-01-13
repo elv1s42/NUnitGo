@@ -15,16 +15,18 @@ namespace NunitGo
         private readonly string _guid;
         private readonly string _projectName;
         private readonly string _className;
+        private readonly string _testName;
         private NunitGoTest _test;
         private DateTime _start;
         private DateTime _finish;
         public static Guid TestGuid = Guid.Empty;
         
-        public NunitGoActionAttribute(string guid = "", string projectName = "", string className = "")
+        public NunitGoActionAttribute(string guid = "", string projectName = "", string className = "", string testName = "")
         {
             _guid = guid;
             _projectName = projectName;
             _className = className;
+            _testName = testName;
         }
 
         public void BeforeTest(ITest test)
@@ -47,9 +49,9 @@ namespace NunitGo
                 FullName = test.FullName,
                 ProjectName = (_projectName.Equals("")) ? test.FullName.Split(new []{'.'}).First() : _projectName,
                 ClassName = (_className.Equals("")) ? test.FullName.Split(new[] { '.' }).Skip(1).First() : _className,
-                Name = test.Name,
-                FailureStackTrace = context.Result.StackTrace ?? "",
-                FailureMessage = context.Result.Message ?? "",
+                Name = (_testName.Equals("")) ? test.Name : _testName,
+                TestStackTrace = context.Result.StackTrace ?? "",
+                TestMessage = context.Result.Message ?? "",
                 Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
                 Guid = !_guid.Equals("")
                     ? new Guid(_guid)
@@ -72,7 +74,10 @@ namespace NunitGo
             }
 
             _test.AddScreenshots(NunitGoTestScreenshotHelper.GetScreenshots());
+            var testPath = _test.OutputPath + Structs.Outputs.Test;
+            _test.GenerateTestPage(testPath);
             _test.Save(_test.OutputPath + "test.xml");
+            
             var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();
             PageGenerator.GenerateReport(tests, Helper.Output);
 

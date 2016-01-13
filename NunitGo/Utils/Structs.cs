@@ -20,6 +20,7 @@ namespace NunitGo.Utils
             public static string Log = "log" + OutputType.Type.Default;
             public static string Error = "error" + OutputType.Type.Default;
             public static string Trace = "trace" + OutputType.Type.Default;
+            public static string Test = "test" + OutputType.Type.Default;
         }
     }
 
