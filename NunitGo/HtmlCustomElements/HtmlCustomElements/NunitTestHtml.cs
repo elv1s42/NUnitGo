@@ -140,7 +140,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 
                 if (nunitGoTest.HasOutput)
                 {
-
+                    writer.Write(GenerateHtmlView(nunitGoTest.OutputPath));
                     /*var modalOutId = "modal-out-" + nunitGoTest.Guid;
                     var output = nunitGoTest.OutputPath;
                     var modalOut = new ModalWindow(modalOutId, GenerateHtmlView(output));

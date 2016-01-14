@@ -6,15 +6,15 @@
         public string TooltipText;
         public string BackgroundColor;
         public double Value;
-        public string IdToShow;
+        public string Href;
 
-        public HorizontalBarElement(string innerText, string tooltipText, string backgroundColor, double value, string idToShow = "")
+        public HorizontalBarElement(string innerText, string tooltipText, string backgroundColor, double value, string href = "")
         {
             Value = value;
             InnerText = innerText;
             TooltipText = tooltipText;
             BackgroundColor = backgroundColor;
-            IdToShow = idToShow;
+            Href = href;
         }
     }
 }

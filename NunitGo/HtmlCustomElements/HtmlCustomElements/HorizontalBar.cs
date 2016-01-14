@@ -87,7 +87,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     var value = item.Value;
                     var width = Math.Max((value / sum) * 100, 0.01);
                     var tooltip = new Tooltip(item.TooltipText, item.InnerText, item.BackgroundColor, "horizontal-bar-item",
-                        width, item.IdToShow);
+                        width, item.Href);
                     writer.Write(tooltip.HtmlCode);
                 }
                 writer.RenderEndTag();

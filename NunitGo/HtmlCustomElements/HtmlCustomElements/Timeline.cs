@@ -21,7 +21,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                                                        Environment.NewLine + "Result: " + test.Result 
                                    let bcgColor = test.GetBackgroundColor() 
                                    select new HorizontalBarElement("", toolitipText, bcgColor, test.TestDuration, 
-                                       Ids.GetTestModalId(test.Guid.ToString()))).ToList();
+                                       test.TestHref)).ToList();
             var timelineBar = new HorizontalBar("timeline-bar", "", testResultsList, false);
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
