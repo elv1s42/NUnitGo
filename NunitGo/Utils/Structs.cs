@@ -16,7 +16,7 @@ namespace NunitGo.Utils
     {
         public struct Outputs
         {
-            public static string Out = "out" + OutputType.Type.Default;
+            public static string Out = "out" + OutputType.Type.Txt;
             public static string Log = "log" + OutputType.Type.Default;
             public static string Error = "error" + OutputType.Type.Default;
             public static string Trace = "trace" + OutputType.Type.Default;

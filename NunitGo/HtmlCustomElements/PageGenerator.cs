@@ -30,10 +30,7 @@ namespace NunitGo.HtmlCustomElements
             
             var htmlTest = new NunitTestHtml(nunitGoTest);
             page.AddToBody(htmlTest.HtmlCode);
-
-            var jsSection = new JsSection();
-            page.AddToBody(jsSection.Html);
-
+            
             page.AddInsideTag("style", ReportTitle.StyleString);
             page.AddInsideTag("style", HtmlPage.PageStyle);
             page.AddInsideTag("style", NunitTestHtml.StyleString);
@@ -64,10 +61,7 @@ namespace NunitGo.HtmlCustomElements
 			report.AddInsideTag("style", Tree.StyleString);
 			report.AddInsideTag("style", NunitTestHtml.StyleString);
 			report.AddInsideTag("style", OpenButton.StyleString);
-
-            var jsSection = new JsSection();
-            report.AddToBody(jsSection.Html);
-
+            
             var openModalWindowScript = new OpenModalWindowScript();
             report.AddScripts(openModalWindowScript.Script);
 

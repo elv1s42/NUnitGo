@@ -61,7 +61,6 @@
     <Compile Include="HtmlCustomElements\HtmlCustomElements\HtmlBaseElement.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\CloseButton.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\OpenButton.cs" />
-    <Compile Include="HtmlCustomElements\HtmlCustomElements\JsSection.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\MainInformation.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\ModalBackground.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\ModalWindow.cs" />
