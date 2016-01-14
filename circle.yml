@@ -1,0 +1,19 @@
+machine:
+  environment:
+    USE_SYSTEM_NUNIT_CONSOLE: 1
+
+dependencies:
+  pre:
+    - sudo apt-get update
+    - sudo apt-get install  mono-devel
+    - sudo apt-get install  mono-complete
+    - sudo apt-get install  referenceassemblies-pcl
+    - mozroots --import --sync
+    - mono .nuget/NuGet.exe restore NunitGo.sln
+
+
+test:
+  override:
+    - mono .nuget/NuGet.exe install NUnit.Runners
+    - mono .nuget/NuGet.exe restore NunitGo.sln
+    - xbuild /t:Rebuild NunitGo.sln
