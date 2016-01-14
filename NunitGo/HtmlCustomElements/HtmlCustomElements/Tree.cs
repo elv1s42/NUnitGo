@@ -145,10 +145,10 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     var htmlTest = new NunitTestHtml(nunitGoTest);
                     var modalId = Ids.GetTestModalId(nunitGoTest.Guid.ToString());
                     var modalWindow = new ModalWindow(modalId, htmlTest.HtmlCode, 1004, 90);
-                    var openButton = new JsOpenButton(nunitGoTest.FullName
+                    var openButton = new OpenButton(nunitGoTest.FullName
                         + " " + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
                         nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss"),
-                        modalId, modalWindow.BackgroundId, htmlTest.BackgroundColor);
+                        nunitGoTest.TestHref,  htmlTest.BackgroundColor);
 
                     writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
                     writer.RenderBeginTag(HtmlTextWriterTag.Li);

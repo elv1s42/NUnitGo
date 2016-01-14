@@ -1,23 +1,18 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Web.UI;
 
 namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 {
-    public class JsCloseButton : HrefButton
+    public class CloseButton : HrefButtonBase
     {
-        private readonly string _idToClose;
-        private readonly string _backgroundId;
         private const string ButtonText = "Close";
         private readonly string _href;
         public string ButtonHtml;
 
-        public JsCloseButton(string idToClose, string backgroundId = "modal-background",
-            string href = "javascript:void(0)") 
-            : base(ButtonText, href)
+        public CloseButton(string buttonText, string href) 
+            : base(buttonText, href)
         {
-            _idToClose = idToClose;
-            _backgroundId = backgroundId;
+            Id = "";
             _href = href;
             ButtonHtml = GetHtml();
         }
@@ -27,13 +22,8 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
-                var onClickString = String.Format("document.getElementById('{0}').style.display='none';" +
-                                    "document.getElementById('{1}').style.display='none';" + 
-                                    "document.getElementsByTagName('body')[0].classList.remove(\"stop-scrolling\")",
-                                    _idToClose, _backgroundId);
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Href, _href);
-                writer.AddAttribute(HtmlTextWriterAttribute.Onclick, onClickString);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "href-button");
                 writer.RenderBeginTag(HtmlTextWriterTag.A);
                 writer.Write(ButtonText);

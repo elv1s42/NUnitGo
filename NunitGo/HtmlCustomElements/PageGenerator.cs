@@ -40,8 +40,8 @@ namespace NunitGo.HtmlCustomElements
             page.AddInsideTag("style", ReportFooter.StyleString);
             page.AddInsideTag("style", ModalBackground.StyleString);
             page.AddInsideTag("style", ModalWindow.StyleString);
-            page.AddInsideTag("style", HrefButton.StyleString);
-            page.AddInsideTag("style", JsOpenButton.StyleString);
+            page.AddInsideTag("style", HrefButtonBase.StyleString);
+            page.AddInsideTag("style", OpenButton.StyleString);
 
             page.SavePage(fullPath);
         }
@@ -60,10 +60,10 @@ namespace NunitGo.HtmlCustomElements
 			report.AddInsideTag("style", Bullet.StyleString);
 			report.AddInsideTag("style", ModalBackground.StyleString);
 			report.AddInsideTag("style", ModalWindow.StyleString);
-			report.AddInsideTag("style", HrefButton.StyleString);
+			report.AddInsideTag("style", HrefButtonBase.StyleString);
 			report.AddInsideTag("style", Tree.StyleString);
 			report.AddInsideTag("style", NunitTestHtml.StyleString);
-			report.AddInsideTag("style", JsOpenButton.StyleString);
+			report.AddInsideTag("style", OpenButton.StyleString);
 
             var jsSection = new JsSection();
             report.AddToBody(jsSection.Html);

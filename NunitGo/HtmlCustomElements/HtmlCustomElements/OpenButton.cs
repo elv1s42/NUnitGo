@@ -1,36 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
 using NunitGo.HtmlCustomElements.CSSElements;
 
 namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 {
-    public class JsOpenButton : HrefButton
+    public class OpenButton : HrefButtonBase
     {
-        private readonly string _idToOpen;
-        private readonly string _backgroundId;
         private readonly string _buttonText;
         private readonly string _href;
-        private readonly string _backgroundColor;
-        private readonly string _onClickString;
+        private readonly string _backgroundColor = "white";
         public string ButtonHtml;
         public new static string StyleString
         {
             get { return GetStyle(); }
         }
         
-        public JsOpenButton(string buttonText, string idToOpen, string backgroundId = "modal-background", string bcgColor = "white",
-            string onClickString = "",
-            string href = "javascript:void(0)")
+        public OpenButton(string buttonText, string href, string bcgColor = "white")
             : base(buttonText, href)
         {
-            _idToOpen = idToOpen;
-            _backgroundId = backgroundId;
+            Id = "";
             _buttonText = buttonText;
             _href = href;
             _backgroundColor = bcgColor;
-            _onClickString = onClickString;
             ButtonHtml = GetHtml();
             Style = GetStyle();
         }
@@ -68,14 +60,8 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
-                var onClickString = String.Format("document.getElementById('{0}').style.display='block';" +
-                                    "document.getElementById('{1}').style.display='block';" +
-                                    "document.getElementsByTagName('body')[0].className+=' stop-scrolling'",
-                                    _idToOpen, _backgroundId);
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.AddAttribute(HtmlTextWriterAttribute.Href, _href);
-                writer.AddAttribute(HtmlTextWriterAttribute.Onclick, 
-                    _onClickString.Equals("") ? onClickString : _onClickString);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "href-open-button");
                 writer.AddStyleAttribute("background", _backgroundColor);
                 writer.RenderBeginTag(HtmlTextWriterTag.A);

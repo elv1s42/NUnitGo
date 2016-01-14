@@ -78,7 +78,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                 writer.AddStyleAttribute(HtmlTextWriterStyle.TextAlign, "right");
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id + "-inner");
 				writer.RenderBeginTag(HtmlTextWriterTag.Div);
-				var closeButton = new JsCloseButton(Id, backgroundId);
+				var closeButton = new CloseButton(Id, backgroundId);
 				writer.Write(closeButton.ButtonHtml);
                 writer.RenderEndTag();
                 

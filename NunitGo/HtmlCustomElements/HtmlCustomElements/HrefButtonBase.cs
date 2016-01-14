@@ -5,7 +5,7 @@ using NunitGo.HtmlCustomElements.CSSElements;
 
 namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 {
-    public class HrefButton : HtmlBaseElement
+    public class HrefButtonBase : HtmlBaseElement
     {
         private readonly string _buttonText;
         private readonly string _href;
@@ -15,7 +15,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             get { return GetStyle(); }
         }
 
-        public HrefButton(string id, string buttonText, string href)
+        public HrefButtonBase(string id, string buttonText, string href)
         {
             Id = id;
             _buttonText = buttonText;
@@ -24,7 +24,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             HrefButtonHtml = GetHtml();
         }
 
-        public HrefButton(string buttonText, string href)
+        public HrefButtonBase(string buttonText, string href)
         {
             _buttonText = buttonText;
             _href = href;

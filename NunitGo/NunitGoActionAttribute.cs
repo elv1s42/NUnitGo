@@ -72,7 +72,7 @@ namespace NunitGo
                 PageGenerator.GenerateOutputPage(outputPath, output);
                 _test.HasOutput = true;
             }
-
+            _test.TestHref = "Attachments" + @"\" + _test.Guid + @"\" + Structs.Outputs.Test;
             _test.AddScreenshots(NunitGoTestScreenshotHelper.GetScreenshots());
             var testPath = _test.OutputPath + Structs.Outputs.Test;
             _test.GenerateTestPage(testPath);

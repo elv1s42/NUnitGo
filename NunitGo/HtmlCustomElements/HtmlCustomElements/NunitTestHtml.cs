@@ -140,7 +140,8 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 
                 if (nunitGoTest.HasOutput)
                 {
-                    var modalOutId = "modal-out-" + nunitGoTest.Guid;
+
+                    /*var modalOutId = "modal-out-" + nunitGoTest.Guid;
                     var output = nunitGoTest.OutputPath;
                     var modalOut = new ModalWindow(modalOutId, GenerateHtmlView(output));
                     var onClickString = "openModalWindow(\""
@@ -148,11 +149,10 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                         + modalOutId + "\",\""
                         + modalOutId + "-inner" + "\",\""
                         + modalOut.BackgroundId + "\")";
-                    var openButton = new JsOpenButton("Veiw output", modalOutId, modalOut.BackgroundId,
-                        Colors.OpenLogsButtonBackground, onClickString);
+                    var openButton = new OpenButton("Veiw output", modalOutId, Colors.OpenLogsButtonBackground);
 
                     writer.Write(openButton.ButtonHtml);
-                    ModalWindowsHtml += modalOut.ModalWindowHtml + Environment.NewLine;
+                    ModalWindowsHtml += modalOut.ModalWindowHtml + Environment.NewLine;*/
                 }
 
                 foreach (var screenshot in nunitGoTest.Screenshots)
@@ -168,9 +168,8 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     var screenCode = sWr.ToString();
                     var modalScreenshotId = "modal-screenshot-" + screenshot.Name;
                     var modalScreenshot = new ModalWindow(modalScreenshotId, screenCode, 1004, 100);
-                    var openButton = new JsOpenButton("Veiw screenshot " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss.fff"),
-                        modalScreenshotId, modalScreenshot.BackgroundId,
-                        Colors.OpenLogsButtonBackground);
+                    var openButton = new OpenButton("Veiw screenshot " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss.fff"),
+                        modalScreenshotId, Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
                     ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;
                 }

@@ -53,10 +53,10 @@
     <Compile Include="HtmlCustomElements\HtmlCustomElements\Bullet.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\HorizontalBar.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\HorizontalBarElement.cs" />
-    <Compile Include="HtmlCustomElements\HtmlCustomElements\HrefButton.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\HrefButtonBase.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\HtmlBaseElement.cs" />
-    <Compile Include="HtmlCustomElements\HtmlCustomElements\JsCloseButton.cs" />
-    <Compile Include="HtmlCustomElements\HtmlCustomElements\JsOpenButton.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\CloseButton.cs" />
+    <Compile Include="HtmlCustomElements\HtmlCustomElements\OpenButton.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\JsSection.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\MainInformation.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\ModalBackground.cs" />

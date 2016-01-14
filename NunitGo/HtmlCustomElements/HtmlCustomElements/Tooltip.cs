@@ -65,7 +65,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             return tooltipCssSet.ToString();
         }
 
-        public Tooltip(string tooltipText, string innerText, string backgroundColor, string id,  double width, string modalIdToShow = "")
+        public Tooltip(string tooltipText, string innerText, string backgroundColor, string id,  double width, string href = "")
         {
             Style = GetStyle();
 
@@ -79,9 +79,9 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Width, width.ToString("00.000", CultureInfo.InvariantCulture) + @"%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
-                if (!modalIdToShow.Equals(""))
+                if (!href.Equals(""))
                 {
-                    var button = new JsOpenButton("", modalIdToShow, Ids.GetBackgroundId(modalIdToShow), backgroundColor);
+                    var button = new OpenButton("", href, backgroundColor);
                     writer.Write(button.ButtonHtml);
                 }
 

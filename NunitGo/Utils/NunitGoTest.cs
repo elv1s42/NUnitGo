@@ -18,6 +18,7 @@ namespace NunitGo.Utils
         public string Result;
         public Guid Guid;
         public string OutputPath;
+        public string TestHref;
         public bool HasOutput;
         public List<NunitGoTestScreenshot> Screenshots;
 
@@ -35,6 +36,7 @@ namespace NunitGo.Utils
             TestMessage = String.Empty;
             Result = "Unknown";
             Guid = Guid.NewGuid();
+            TestHref = String.Empty;
             OutputPath = String.Empty;
             HasOutput = false;
         }
