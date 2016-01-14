@@ -157,7 +157,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 
                 foreach (var screenshot in nunitGoTest.Screenshots)
                 {
-                    var sWr = new StringWriter();
+                    /*var sWr = new StringWriter();
                     using (var wr = new HtmlTextWriter(sWr))
                     {
                         wr.AddAttribute(HtmlTextWriterAttribute.Src, @"./Screenshots/" + screenshot.Name);
@@ -171,7 +171,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     var openButton = new OpenButton("Veiw screenshot " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss.fff"),
                         modalScreenshotId, Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
-                    ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;
+                    ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;*/
                 }
                 
                 if (!nunitGoTest.IsSuccess())

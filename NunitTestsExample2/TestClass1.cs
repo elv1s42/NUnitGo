@@ -15,7 +15,7 @@ namespace NunitTestsExample2
         public void ParamTestName1(string input, int expected, string guid)
         {
             NunitGoActionAttribute.TestGuid = new Guid(guid);
-            Thread.Sleep(500);
+            Thread.Sleep(200);
             Assert.AreEqual(input, expected.ToString("D"));
         }
 
@@ -24,7 +24,7 @@ namespace NunitTestsExample2
         [TestCase("2", 1, TestName = "Some test name")]
         public void ParamTestName2(string input, int expected)
         {
-            Thread.Sleep(500);
+            Thread.Sleep(100);
             Assert.AreEqual(input, expected.ToString("D"));
         }
 

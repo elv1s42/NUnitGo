@@ -9,7 +9,7 @@ namespace NunitTestsExample
         [Test]
         public void TestMethod1()
         {
-            Thread.Sleep(600);
+            Thread.Sleep(200);
             Assert.AreEqual(1, 2);
         }
 
@@ -26,7 +26,7 @@ namespace NunitTestsExample
         [Category("SuccessCategory")]
         public void ParamTestName(string input, int expected)
         {
-            Thread.Sleep(500);
+            Thread.Sleep(100);
             Assert.AreEqual(input, expected.ToString("D"));
         }
     }

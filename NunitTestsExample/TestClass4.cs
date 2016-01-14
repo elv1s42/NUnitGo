@@ -20,7 +20,7 @@ namespace NunitTestsExample
         public void ParamTestName(string input, int expected, string guid)
         {
             NunitGoActionAttribute.TestGuid = new Guid(guid);
-            Thread.Sleep(300);
+            Thread.Sleep(100);
             Assert.AreEqual(input, expected.ToString("D"));
         }
     }

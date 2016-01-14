@@ -21,6 +21,15 @@ namespace NunitGo.HtmlCustomElements
                 wr.RenderEndTag();//DIV
             }
             page.AddToBody(sWr.ToString());
+
+            page.AddInsideTag("style", ReportTitle.StyleString);
+            page.AddInsideTag("style", HtmlPage.PageStyle);
+            page.AddInsideTag("style", NunitTestHtml.StyleString);
+            page.AddInsideTag("style", ReportFooter.StyleString);
+            page.AddInsideTag("style", ModalBackground.StyleString);
+            page.AddInsideTag("style", HrefButtonBase.StyleString);
+            page.AddInsideTag("style", OpenButton.StyleString);
+            
             page.SavePage(fullPath);
         }
 
@@ -36,7 +45,6 @@ namespace NunitGo.HtmlCustomElements
             page.AddInsideTag("style", NunitTestHtml.StyleString);
             page.AddInsideTag("style", ReportFooter.StyleString);
             page.AddInsideTag("style", ModalBackground.StyleString);
-            page.AddInsideTag("style", ModalWindow.StyleString);
             page.AddInsideTag("style", HrefButtonBase.StyleString);
             page.AddInsideTag("style", OpenButton.StyleString);
 
@@ -56,7 +64,6 @@ namespace NunitGo.HtmlCustomElements
 			report.AddInsideTag("style", MainInformation.StyleString);
 			report.AddInsideTag("style", Bullet.StyleString);
 			report.AddInsideTag("style", ModalBackground.StyleString);
-			report.AddInsideTag("style", ModalWindow.StyleString);
 			report.AddInsideTag("style", HrefButtonBase.StyleString);
 			report.AddInsideTag("style", Tree.StyleString);
 			report.AddInsideTag("style", NunitTestHtml.StyleString);

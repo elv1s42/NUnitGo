@@ -46,14 +46,14 @@ namespace NunitTestsExample
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111114", "Project1", "Subsystem2")]
         public void TestMethod4()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(300);
             Assert.Inconclusive("Inconc. test :)");
         }
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111115")]
         public void TestMethod5()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(300);
             Assert.Ignore("Test was ignored!");
         }
     }
