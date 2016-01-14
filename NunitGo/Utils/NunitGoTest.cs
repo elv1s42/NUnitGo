@@ -12,13 +12,13 @@ namespace NunitGo.Utils
         public double TestDuration;
         public DateTime DateTimeStart;
         public DateTime DateTimeFinish;
-        public int ScreenshotsCount;
         public string TestStackTrace;
         public string TestMessage;
         public string Result;
         public Guid Guid;
         public string AttachmentsPath;
         public string TestHref;
+        public string LogHref;
         public bool HasOutput;
         public List<NunitGoTestScreenshot> Screenshots;
 
@@ -31,12 +31,12 @@ namespace NunitGo.Utils
             TestDuration = 0.0;
             DateTimeStart = new DateTime();
             DateTimeFinish = new DateTime();
-            ScreenshotsCount = 0;
             TestStackTrace = String.Empty;
             TestMessage = String.Empty;
             Result = "Unknown";
             Guid = Guid.NewGuid();
             TestHref = String.Empty;
+            LogHref = String.Empty;
             AttachmentsPath = String.Empty;
             HasOutput = false;
         }

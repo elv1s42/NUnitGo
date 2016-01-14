@@ -73,18 +73,21 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             return sWr.ToString();
         }
 
-        private static string GenerateHtmlView(string txt)
+        private static string GenerateHtmlView(string fileLocation, string height = "25em")
         {
             var sWr = new StringWriter();
             using (var wr = new HtmlTextWriter(sWr))
             {
+                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, height);
+                wr.RenderBeginTag(HtmlTextWriterTag.Div);
                 wr.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
-                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, "90%");
+                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
                 wr.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
                 wr.AddStyleAttribute("border", "0");
-                wr.AddAttribute(HtmlTextWriterAttribute.Src, txt);
+                wr.AddAttribute(HtmlTextWriterAttribute.Src, fileLocation);
                 wr.RenderBeginTag(HtmlTextWriterTag.Iframe);
                 wr.RenderEndTag();//IFRAME
+                wr.RenderEndTag();//DIV
             }
             return sWr.ToString();
         }
@@ -135,43 +138,26 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Screenshots: ");
-                writer.Write(nunitGoTest.ScreenshotsCount);
+                writer.Write(nunitGoTest.Screenshots.Count);
                 writer.RenderEndTag(); //P
-
-                if (nunitGoTest.HasOutput)
-                {
-                    writer.Write(GenerateHtmlView(nunitGoTest.AttachmentsPath));
-                    /*var modalOutId = "modal-out-" + nunitGoTest.Guid;
-                    var output = nunitGoTest.OutputPath;
-                    var modalOut = new ModalWindow(modalOutId, GenerateHtmlView(output));
-                    var onClickString = "openModalWindow(\""
-                        + output + "\",\""
-                        + modalOutId + "\",\""
-                        + modalOutId + "-inner" + "\",\""
-                        + modalOut.BackgroundId + "\")";
-                    var openButton = new OpenButton("Veiw output", modalOutId, Colors.OpenLogsButtonBackground);
-
-                    writer.Write(openButton.ButtonHtml);
-                    ModalWindowsHtml += modalOut.ModalWindowHtml + Environment.NewLine;*/
-                }
 
                 foreach (var screenshot in nunitGoTest.Screenshots)
                 {
-                    /*var sWr = new StringWriter();
-                    using (var wr = new HtmlTextWriter(sWr))
-                    {
-                        wr.AddAttribute(HtmlTextWriterAttribute.Src, @"./Screenshots/" + screenshot.Name);
-                        wr.AddAttribute(HtmlTextWriterAttribute.Alt, screenshot.Name);
-                        wr.RenderBeginTag(HtmlTextWriterTag.Img);
-                        wr.RenderEndTag(); //IMG
-                    }
-                    var screenCode = sWr.ToString();
-                    var modalScreenshotId = "modal-screenshot-" + screenshot.Name;
-                    var modalScreenshot = new ModalWindow(modalScreenshotId, screenCode, 1004, 100);
-                    var openButton = new OpenButton("Veiw screenshot " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss.fff"),
-                        modalScreenshotId, Colors.OpenLogsButtonBackground);
+                    writer.AddAttribute(HtmlTextWriterAttribute.Href, @"./../../Screenshots/" + screenshot.Name);
+                    writer.RenderBeginTag(HtmlTextWriterTag.A);
+                    writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
+                    writer.AddAttribute(HtmlTextWriterAttribute.Src, @"./../../Screenshots/" + screenshot.Name);
+                    writer.AddAttribute(HtmlTextWriterAttribute.Alt, screenshot.Name);
+                    writer.RenderBeginTag(HtmlTextWriterTag.Img);
+                    writer.RenderEndTag();//IMG
+                    writer.RenderEndTag();//A
+                }
+
+                if (nunitGoTest.HasOutput)
+                {
+                    var openButton = new OpenButton("View full log", nunitGoTest.LogHref, Colors.OpenLogsButtonBackground);
                     writer.Write(openButton.ButtonHtml);
-                    ModalWindowsHtml = ModalWindowsHtml + modalScreenshot.ModalWindowHtml + Environment.NewLine;*/
+                    //writer.Write(GenerateHtmlView(nunitGoTest.AttachmentsPath + Structs.Outputs.Out));
                 }
                 
                 if (!nunitGoTest.IsSuccess())

@@ -64,7 +64,6 @@
     <Compile Include="HtmlCustomElements\HtmlCustomElements\MainInformation.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\ModalBackground.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\NunitTestHtml.cs" />
-    <Compile Include="HtmlCustomElements\HtmlCustomElements\OpenModalWindowScript.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\ReportFooter.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\ReportTitle.cs" />
     <Compile Include="HtmlCustomElements\HtmlCustomElements\Timeline.cs" />

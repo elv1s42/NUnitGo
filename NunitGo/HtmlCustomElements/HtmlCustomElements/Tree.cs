@@ -143,21 +143,15 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                 {
                     var testId = Ids.GetTestId(nunitGoTest.Guid.ToString());
                     var htmlTest = new NunitTestHtml(nunitGoTest);
-                    //var modalId = Ids.GetTestModalId(nunitGoTest.Guid.ToString());
-                    //var modalWindow = new ModalWindow(modalId, htmlTest.HtmlCode, 1004, 90);
-                    var openButton = new OpenButton(nunitGoTest.FullName
-                        + " " + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
-                        nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss"),
-                        nunitGoTest.TestHref,  htmlTest.BackgroundColor);
+                    var buttonText = nunitGoTest.FullName
+                                     + " " + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                                     nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss");
+                    var openButton = new OpenButton(buttonText, nunitGoTest.TestHref,  htmlTest.BackgroundColor);
 
                     writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
                     writer.RenderBeginTag(HtmlTextWriterTag.Li);
                     writer.AddAttribute(HtmlTextWriterAttribute.Title, nunitGoTest.FullName);
                     writer.RenderBeginTag(HtmlTextWriterTag.A);
-
-                    //HtmlCodeModalWindows += Environment.NewLine + modalWindow.ModalWindowHtml;
-                    //HtmlCodeModalWindows += Environment.NewLine + htmlTest.ModalWindowsHtml;
-
                     writer.Write(openButton.ButtonHtml);
                     writer.RenderEndTag(); //A
                     writer.RenderEndTag(); //LI

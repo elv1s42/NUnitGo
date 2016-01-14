@@ -73,6 +73,7 @@ namespace NunitGo
                 _test.HasOutput = true;
             }
             _test.TestHref = "Attachments" + @"\" + _test.Guid + @"\" + Structs.Outputs.Test;
+            _test.LogHref = Structs.Outputs.Out;
             _test.AddScreenshots(NunitGoTestScreenshotHelper.GetScreenshots());
             var testPath = _test.AttachmentsPath + Structs.Outputs.Test;
             _test.GenerateTestPage(testPath);

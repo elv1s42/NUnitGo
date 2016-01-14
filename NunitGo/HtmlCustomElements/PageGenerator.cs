@@ -16,6 +16,7 @@ namespace NunitGo.HtmlCustomElements
             using (var wr = new HtmlTextWriter(sWr))
             {
                 wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
+                wr.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White);
                 wr.RenderBeginTag(HtmlTextWriterTag.Div);
                 wr.Write(outputText);
                 wr.RenderEndTag();//DIV
@@ -69,9 +70,6 @@ namespace NunitGo.HtmlCustomElements
 			report.AddInsideTag("style", NunitTestHtml.StyleString);
 			report.AddInsideTag("style", OpenButton.StyleString);
             
-            var openModalWindowScript = new OpenModalWindowScript();
-            report.AddScripts(openModalWindowScript.Script);
-
 			var mainTitle = new ReportTitle();
 			report.AddToBody(mainTitle.HtmlCode);
 

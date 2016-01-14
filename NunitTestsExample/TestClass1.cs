@@ -21,6 +21,30 @@ namespace NunitTestsExample
             Console.WriteLine("Testing log writing 4");
             Thread.Sleep(200);
             Console.WriteLine("Testing log writing 5");
+            Console.WriteLine("Testing log writing 6");
+            Console.WriteLine("Testing log writing 7");
+            Console.WriteLine("Testing log writing 8");
+            Console.WriteLine("Testing log writing 9");
+            Console.WriteLine("Testing log writing 10");
+            Console.WriteLine("Testing log writing 11");
+            Console.WriteLine("Testing log writing 12");
+            Console.WriteLine("Testing log writing 13");
+            Console.WriteLine("Testing log writing 14");
+            Console.WriteLine("Testing log writing 15");
+            Console.WriteLine("Testing log writing 16");
+            Console.WriteLine("Testing log writing 17");
+            Console.WriteLine("Testing log writing 18");
+            Console.WriteLine("Testing log writing 19");
+            Console.WriteLine("Testing log writing 20");
+            Console.WriteLine("Testing log writing 21");
+            Console.WriteLine("Testing log writing 22");
+            Console.WriteLine("Testing log writing 23");
+            Console.WriteLine("Testing log writing 24");
+            Console.WriteLine("Testing log writing 25");
+            Console.WriteLine("Testing log writing 26");
+            Console.WriteLine("Testing log writing 27");
+            Console.WriteLine("Testing log writing 28");
+            Console.WriteLine("Testing log writing 29");
             Assert.AreEqual(1, 2);
         }
 
