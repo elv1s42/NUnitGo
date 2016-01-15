@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace NunitGo.HtmlCustomElements.CSSElements
+namespace NunitGo.CustomElements.CSSElements
 {
     public class CssSet
     {

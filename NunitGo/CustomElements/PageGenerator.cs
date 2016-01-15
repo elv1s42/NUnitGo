@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.HtmlCustomElements.HtmlCustomElements;
-using NunitGo.HtmlCustomElements.ReportSections;
+using NunitGo.CustomElements.CSSElements;
+using NunitGo.CustomElements.HtmlCustomElements;
+using NunitGo.CustomElements.ReportSections;
 using NunitGo.Utils;
 
-namespace NunitGo.HtmlCustomElements
+namespace NunitGo.CustomElements
 {
 	public static class PageGenerator
     {
@@ -24,7 +25,7 @@ namespace NunitGo.HtmlCustomElements
             page.AddToBody(sWr.ToString());
 
             page.AddInsideTag("style", ReportTitle.StyleString);
-            page.AddInsideTag("style", HtmlPage.PageStyle);
+            page.AddInsideTag("style", HtmlPage.StyleString);
             page.AddInsideTag("style", NunitTestHtml.StyleString);
             page.AddInsideTag("style", ReportFooter.StyleString);
             page.AddInsideTag("style", HrefButtonBase.StyleString);
@@ -41,7 +42,7 @@ namespace NunitGo.HtmlCustomElements
             page.AddToBody(htmlTest.HtmlCode);
             
             page.AddInsideTag("style", ReportTitle.StyleString);
-            page.AddInsideTag("style", HtmlPage.PageStyle);
+            page.AddInsideTag("style", HtmlPage.StyleString);
             page.AddInsideTag("style", NunitTestHtml.StyleString);
             page.AddInsideTag("style", ReportFooter.StyleString);
             page.AddInsideTag("style", HrefButtonBase.StyleString);
@@ -53,10 +54,28 @@ namespace NunitGo.HtmlCustomElements
         public static void GenerateReport(List<NunitGoTest> tests, 
             string pathToSave)
         {
-            var report = new HtmlPage("NUnitGo Report");
+            var cssPage = new CssPage();
+            cssPage.AddStyles(new List<string>
+            {
+                ReportTitle.StyleString,
+                HtmlPage.StyleString,
+                Tooltip.StyleString,
+                HorizontalBar.StyleString,
+                ReportFooter.StyleString,
+                MainInformation.StyleString,
+                Bullet.StyleString,
+                HrefButtonBase.StyleString,
+                Tree.StyleString,
+                NunitTestHtml.StyleString,
+                Accordion.StyleString,
+                ReportMenu.StyleString,
+                OpenButton.StyleString
+            });
 
-			report.AddInsideTag("style", ReportTitle.StyleString);
-			report.AddInsideTag("style", HtmlPage.PageStyle);
+            var report = new HtmlPage();
+
+			/*report.AddInsideTag("style", ReportTitle.StyleString);
+			report.AddInsideTag("style", HtmlPage.StyleString);
 			report.AddInsideTag("style", Tooltip.StyleString);
 			report.AddInsideTag("style", HorizontalBar.StyleString);
 			report.AddInsideTag("style", ReportFooter.StyleString);
@@ -65,7 +84,7 @@ namespace NunitGo.HtmlCustomElements
 			report.AddInsideTag("style", HrefButtonBase.StyleString);
 			report.AddInsideTag("style", Tree.StyleString);
 			report.AddInsideTag("style", NunitTestHtml.StyleString);
-			report.AddInsideTag("style", OpenButton.StyleString);
+			report.AddInsideTag("style", OpenButton.StyleString);*/
             
 			var mainTitle = new ReportTitle();
 			report.AddToBody(mainTitle.HtmlCode);
@@ -88,8 +107,7 @@ namespace NunitGo.HtmlCustomElements
 				new AccordionElement(testListSection.HtmlCode, "Test list"),
 				new AccordionElement(timeline.HtmlCode, "Timeline")
 			};
-            var accordion = new Accordion("main-accordion", "Main Accordion", accElements);
-            report.AddInsideTag("style", accordion.GetStyleString());
+            var accordion = new Accordion(accElements);
             report.AddToBody(accordion.AccordionHtml);
 
             var menuElements = new List<ReportMenuItem>
@@ -98,15 +116,17 @@ namespace NunitGo.HtmlCustomElements
 				new ReportMenuItem(testListSection.HtmlCode, "Test list"),
 				new ReportMenuItem(timeline.HtmlCode, "Timeline")
 			};
-            var reportMenu = new ReportMenu("main-menu", "Main Menu", menuElements);
-            report.AddInsideTag("style", reportMenu.GetStyleString());
+            var reportMenu = new ReportMenu(menuElements, "main-menu", "Main Menu");
             report.AddToBody(reportMenu.ReportMenuHtml);
 
 			var footer = new ReportFooter();
-			report.AddInsideTag("footer", footer.HtmlCode);
+            report.AddInsideTag("footer", footer.HtmlCode);
 
-            var pageName = Output.Outputs.FullReport;
-			report.SavePage(Path.Combine(pathToSave, pageName));
+            var cssPageName = Output.Outputs.ReportStyle;
+            cssPage.SavePage(Path.Combine(pathToSave, cssPageName));
+
+            var reportPageName = Output.Outputs.FullReport;
+			report.SavePage(Path.Combine(pathToSave, reportPageName));
 		}
 	}
 }

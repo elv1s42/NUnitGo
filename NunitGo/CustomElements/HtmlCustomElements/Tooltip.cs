@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Web.UI;
-using NunitGo.HtmlCustomElements.CSSElements;
+using NunitGo.CustomElements.CSSElements;
 using NunitGo.Utils;
 
-namespace NunitGo.HtmlCustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.HtmlCustomElements
 {
     public class Tooltip : HtmlBaseElement
     {

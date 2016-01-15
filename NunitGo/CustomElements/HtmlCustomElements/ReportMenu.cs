@@ -1,38 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.HtmlCustomElements.CSSElements;
+using NunitGo.CustomElements.CSSElements;
 using NunitGo.Utils;
 
-namespace NunitGo.HtmlCustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.HtmlCustomElements
 {
     public class ReportMenu : HtmlBaseElement
     {
         public List<ReportMenuItem> Elements;
         public string ReportMenuHtml;
-        private readonly string _id;
+        public static string StyleString
+        {
+            get { return GetStyleString(); }
+        }
 
-        public ReportMenu(string id, string title, List<ReportMenuItem> elements)
+        public ReportMenu(List<ReportMenuItem> elements, string id = "", string title = "")
         {
             Id = id;
             Style = GetStyleString();
             Title = title;
             Elements = elements;
             ReportMenuHtml = GetReportMenuHtml();
-            _id = "#" + id + " ";
         }
 
-        public string GetStyleString()
+        private static string GetStyleString()
         {
             var barCssSet = new CssSet("reportmenu-style");
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu")
+            barCssSet.AddElement(new CssElement(".reportmenu")
             {
                 StyleFields = new List<StyleAttribute>
 				{
 					new StyleAttribute(HtmlTextWriterStyle.MarginBottom, "10%")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu .tab")
+            barCssSet.AddElement(new CssElement(".reportmenu .tab")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -45,7 +47,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu .tab-close")
+            barCssSet.AddElement(new CssElement(".reportmenu .tab-close")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -57,7 +59,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu .reportmenu-tab")
+            barCssSet.AddElement(new CssElement(".reportmenu .reportmenu-tab")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -66,7 +68,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu .tab:hover,.reportmenu div:target .tab")
+            barCssSet.AddElement(new CssElement(".reportmenu .tab:hover,.reportmenu div:target .tab")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -81,7 +83,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu .tab-close:hover,.reportmenu div:target .tab-close")
+            barCssSet.AddElement(new CssElement(".reportmenu .tab-close:hover,.reportmenu div:target .tab-close")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -89,7 +91,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu div .content")
+            barCssSet.AddElement(new CssElement(".reportmenu div .content")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -100,14 +102,14 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     new StyleAttribute(HtmlTextWriterStyle.Display, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu div:target .content")
+            barCssSet.AddElement(new CssElement(".reportmenu div:target .content")
             {
                 StyleFields = new List<StyleAttribute>
 				{
                     new StyleAttribute(HtmlTextWriterStyle.Display, "block")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu > div")
+            barCssSet.AddElement(new CssElement(".reportmenu > div")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -115,7 +117,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     new StyleAttribute(HtmlTextWriterStyle.Overflow, "hidden")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".reportmenu > div:target")
+            barCssSet.AddElement(new CssElement(".reportmenu > div:target")
             {
                 StyleFields = new List<StyleAttribute>
 				{

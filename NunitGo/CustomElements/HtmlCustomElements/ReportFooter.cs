@@ -1,14 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.HtmlCustomElements.CSSElements;
+using NunitGo.CustomElements.CSSElements;
 
-namespace NunitGo.HtmlCustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.HtmlCustomElements
 {
-    public class ReportTitle : HtmlBaseElement
+    public class ReportFooter : HtmlBaseElement
     {
-        public static string ClassName;
-
         public static string StyleString
         {
             get { return GetStyle(); }
@@ -19,28 +17,26 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
             get { return GetCode(); }
         }
 
-        public ReportTitle(string title = "Test Run Report", string id = "main-title")
+        public ReportFooter()
         {
-            Title = title;
-            Id = id;
+            Title = "NUnitGo Test Run Report";
+            Id = "main-title";
             Style = GetStyle();
         }
 
         private static string GetStyle()
         {
-            var titleCssSet = new CssSet("title-style");
-            titleCssSet.AddElement(new CssElement(".report-title")
+            var barCssSet = new CssSet("footer-style");
+            barCssSet.AddElement(new CssElement(".report-footer")
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.Width, "90%"),
-					new StyleAttribute(HtmlTextWriterStyle.Display, "inline-block"),
-					new StyleAttribute(HtmlTextWriterStyle.FontSize, "30px"),
-					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "30px"),
-					new StyleAttribute(HtmlTextWriterStyle.PaddingBottom, "30px")
+                    new StyleAttribute(HtmlTextWriterStyle.Position, "relative"),
+                    new StyleAttribute("bottom", "0"),
+					new StyleAttribute(HtmlTextWriterStyle.FontSize, "15px")
 				}
             });
-            return titleCssSet.ToString();
+            return barCssSet.ToString();
         }
 
         private string GetCode()
@@ -51,10 +47,10 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                 writer.AddStyleAttribute(HtmlTextWriterStyle.TextAlign, "center");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "report-title");
+                writer.AddAttribute(HtmlTextWriterAttribute.Class, "report-footer");
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write(Title);
+                writer.Write("Copyright 2015 " + '\u00a9' + " NUnitGo");
                 writer.RenderEndTag();
                 writer.RenderEndTag();
             }

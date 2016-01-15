@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Web.UI;
 
-namespace NunitGo.HtmlCustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.HtmlCustomElements
 {
     public class CloseButton : HrefButtonBase
     {

@@ -1,38 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.HtmlCustomElements.CSSElements;
+using NunitGo.CustomElements.CSSElements;
 using NunitGo.Utils;
 
-namespace NunitGo.HtmlCustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.HtmlCustomElements
 {
     public class Accordion : HtmlBaseElement
     {
         public List<AccordionElement> Elements;
         public string AccordionHtml;
-        private readonly string _id;
-        
-        public Accordion(string id, string title, List<AccordionElement> elements)
+        public static string StyleString
+        {
+            get { return GetStyleString(); }
+        }
+		
+        public Accordion(List<AccordionElement> elements, string id = "", string title = "")
         {
             Id = id;
             Style = GetStyleString();
             Title = title;
             Elements = elements;
             AccordionHtml = GetAccordion();
-            _id = "#" + id + " ";
         }
 
-        public string GetStyleString()
+        private static string GetStyleString()
         {
             var barCssSet = new CssSet("accordion-style");
-            barCssSet.AddElement(new CssElement(_id + ".accordion")
+            barCssSet.AddElement(new CssElement(".accordion")
             {
                 StyleFields = new List<StyleAttribute>
 				{
 					new StyleAttribute(HtmlTextWriterStyle.MarginBottom, "10%")
 				}
             }); 
-            barCssSet.AddElement(new CssElement(_id + ".accordion .tab")
+            barCssSet.AddElement(new CssElement(".accordion .tab")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -45,7 +47,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".accordion .tab-close")
+            barCssSet.AddElement(new CssElement(".accordion .tab-close")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -57,7 +59,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             }); 
-            barCssSet.AddElement(new CssElement(_id + ".accordion .accordion-tab")
+            barCssSet.AddElement(new CssElement(".accordion .accordion-tab")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -66,7 +68,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".accordion .tab:hover,.accordion div:target .tab")
+            barCssSet.AddElement(new CssElement(".accordion .tab:hover,.accordion div:target .tab")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -81,7 +83,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".accordion .tab-close:hover,.accordion div:target .tab-close")
+            barCssSet.AddElement(new CssElement(".accordion .tab-close:hover,.accordion div:target .tab-close")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -89,7 +91,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".accordion div .content")
+            barCssSet.AddElement(new CssElement(".accordion div .content")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -100,14 +102,14 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     new StyleAttribute(HtmlTextWriterStyle.Display, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".accordion div:target .content")
+            barCssSet.AddElement(new CssElement(".accordion div:target .content")
             {
                 StyleFields = new List<StyleAttribute>
 				{
                     new StyleAttribute(HtmlTextWriterStyle.Display, "block")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".accordion > div")
+            barCssSet.AddElement(new CssElement(".accordion > div")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -115,7 +117,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                     new StyleAttribute(HtmlTextWriterStyle.Overflow, "hidden")
 				}
             });
-            barCssSet.AddElement(new CssElement(_id + ".accordion > div:target")
+            barCssSet.AddElement(new CssElement(".accordion > div:target")
             {
                 StyleFields = new List<StyleAttribute>
 				{

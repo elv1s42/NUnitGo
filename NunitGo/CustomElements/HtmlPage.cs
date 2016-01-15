@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
-using NunitGo.HtmlCustomElements.CSSElements;
+using NunitGo.CustomElements.CSSElements;
 using NunitGo.Utils;
 
-namespace NunitGo.HtmlCustomElements
+namespace NunitGo.CustomElements
 {
     public class HtmlPage
     {
         private string _page;
 
-        public static string PageStyle
+        public static string StyleString
         {
             get
             {
@@ -64,7 +64,7 @@ namespace NunitGo.HtmlCustomElements
             }
         }
 
-        public HtmlPage(string pageTitle)
+        public HtmlPage(string pageTitle = "NUnitGo Report", string styleFullPath = "")
         {
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
@@ -85,6 +85,12 @@ namespace NunitGo.HtmlCustomElements
                 writer.AddTag(HtmlTextWriterTag.Style, new Dictionary<HtmlTextWriterAttribute, string>
                 {
                     {HtmlTextWriterAttribute.Type, @"text/css"}
+                }); 
+                writer.AddTag(HtmlTextWriterTag.Link, new Dictionary<HtmlTextWriterAttribute, string>
+                {
+                    {HtmlTextWriterAttribute.Rel, @"stylesheet"},
+                    {HtmlTextWriterAttribute.Type, @"text/css"},
+                    {HtmlTextWriterAttribute.Href, styleFullPath.Equals("") ? Output.Outputs.ReportStyle : styleFullPath}
                 });
 
                 writer.RenderEndTag(); //HEAD

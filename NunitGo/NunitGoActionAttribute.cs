@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using NunitGo.HtmlCustomElements;
+using NunitGo.CustomElements;
 using NunitGo.Utils;
 
 namespace NunitGo

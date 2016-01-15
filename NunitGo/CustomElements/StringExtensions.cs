@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NunitGo.HtmlCustomElements
+namespace NunitGo.CustomElements
 {
     public static class StringExtensions
     {

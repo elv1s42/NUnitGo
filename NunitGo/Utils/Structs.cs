@@ -12,6 +12,7 @@ namespace NunitGo.Utils
             public static string Trace = "trace" + Type.Default;
             public static string Test = "test" + Type.Default;
             public static string FullReport = "index" + Type.Html;
+            public static string ReportStyle = "reportStyle" + Type.Css;
         }
 
         public struct Type
@@ -19,6 +20,7 @@ namespace NunitGo.Utils
             public static string Default = ".html";
             public static string Txt = ".txt";
             public static string Html = ".html";
+            public static string Css = ".css";
         }
     }
 

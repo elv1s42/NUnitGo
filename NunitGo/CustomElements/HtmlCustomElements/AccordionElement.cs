@@ -1,4 +1,4 @@
-﻿namespace NunitGo.HtmlCustomElements.HtmlCustomElements
+﻿namespace NunitGo.CustomElements.HtmlCustomElements
 {
     public class AccordionElement : HtmlBaseElement
     {

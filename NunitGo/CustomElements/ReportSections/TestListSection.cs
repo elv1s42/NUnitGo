@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.HtmlCustomElements.HtmlCustomElements;
+using NunitGo.CustomElements.HtmlCustomElements;
 using NunitGo.Utils;
 
-namespace NunitGo.HtmlCustomElements.ReportSections
+namespace NunitGo.CustomElements.ReportSections
 {
     public class TestListSection
     {

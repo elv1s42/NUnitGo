@@ -2,10 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Web.UI;
-using NunitGo.HtmlCustomElements.CSSElements;
+using NunitGo.CustomElements.CSSElements;
 using NunitGo.Utils;
 
-namespace NunitGo.HtmlCustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.HtmlCustomElements
 {
 	public class Tree : HtmlBaseElement
 	{

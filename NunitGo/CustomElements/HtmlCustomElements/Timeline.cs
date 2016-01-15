@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.UI;
 using NunitGo.Utils;
 
-namespace NunitGo.HtmlCustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.HtmlCustomElements
 {
     public class Timeline
     {
