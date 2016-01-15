@@ -1,12 +1,12 @@
 ﻿namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 {
-    public class AccordionElement : HtmlBaseElement
+    public class ReportMenuItem : HtmlBaseElement
     {
         public string InnerHtml;
         public string BackgroundColor;
         public double Value;
 
-        public AccordionElement(string innerHtml, string title, string id = "")
+        public ReportMenuItem(string innerHtml, string title, string id = "")
         {
             InnerHtml = innerHtml;
             Title = title;

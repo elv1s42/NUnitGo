@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
 using NunitGo.HtmlCustomElements.CSSElements;
@@ -111,6 +110,11 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.Write(new CloseButton("Back", "./../../" + Output.Outputs.FullReport).ButtonHtml);
+                writer.RenderEndTag(); //DIV
+                
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Test name: ");
                 writer.Write(nunitGoTest.Name);

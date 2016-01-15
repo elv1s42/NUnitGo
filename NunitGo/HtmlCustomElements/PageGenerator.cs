@@ -27,7 +27,6 @@ namespace NunitGo.HtmlCustomElements
             page.AddInsideTag("style", HtmlPage.PageStyle);
             page.AddInsideTag("style", NunitTestHtml.StyleString);
             page.AddInsideTag("style", ReportFooter.StyleString);
-            page.AddInsideTag("style", ModalBackground.StyleString);
             page.AddInsideTag("style", HrefButtonBase.StyleString);
             page.AddInsideTag("style", OpenButton.StyleString);
             
@@ -45,7 +44,6 @@ namespace NunitGo.HtmlCustomElements
             page.AddInsideTag("style", HtmlPage.PageStyle);
             page.AddInsideTag("style", NunitTestHtml.StyleString);
             page.AddInsideTag("style", ReportFooter.StyleString);
-            page.AddInsideTag("style", ModalBackground.StyleString);
             page.AddInsideTag("style", HrefButtonBase.StyleString);
             page.AddInsideTag("style", OpenButton.StyleString);
 
@@ -53,7 +51,7 @@ namespace NunitGo.HtmlCustomElements
         }
 
         public static void GenerateReport(List<NunitGoTest> tests, 
-            string pathToSave, string pageName = "index")
+            string pathToSave)
         {
             var report = new HtmlPage("NUnitGo Report");
 
@@ -64,7 +62,6 @@ namespace NunitGo.HtmlCustomElements
 			report.AddInsideTag("style", ReportFooter.StyleString);
 			report.AddInsideTag("style", MainInformation.StyleString);
 			report.AddInsideTag("style", Bullet.StyleString);
-			report.AddInsideTag("style", ModalBackground.StyleString);
 			report.AddInsideTag("style", HrefButtonBase.StyleString);
 			report.AddInsideTag("style", Tree.StyleString);
 			report.AddInsideTag("style", NunitTestHtml.StyleString);
@@ -85,21 +82,31 @@ namespace NunitGo.HtmlCustomElements
             var testListSection = new TestListSection(tests);
             var timeline = new Timeline(tests);
 
-			var accElements = new List<AccordionElement>
+            var accElements = new List<AccordionElement>
 			{
-				new AccordionElement(statisticsSection.HtmlCode, "Main statistics", "tab1"),
-				new AccordionElement(testListSection.HtmlCode, "Test list", "tab2"),
-				new AccordionElement(timeline.HtmlCode, "Timeline", "tab3")
+				new AccordionElement(statisticsSection.HtmlCode, "Main statistics"),
+				new AccordionElement(testListSection.HtmlCode, "Test list"),
+				new AccordionElement(timeline.HtmlCode, "Timeline")
 			};
-			var accordion = new Accordion("main-accordion", "Main Accordion", accElements);
-			report.AddInsideTag("style", accordion.GetStyleString());
-			report.AddToBody(accordion.AccordionHtml);
-			report.AddToBody(testListSection.ModalsHtml);
+            var accordion = new Accordion("main-accordion", "Main Accordion", accElements);
+            report.AddInsideTag("style", accordion.GetStyleString());
+            report.AddToBody(accordion.AccordionHtml);
+
+            var menuElements = new List<ReportMenuItem>
+			{
+				new ReportMenuItem(statisticsSection.HtmlCode, "Main statistics"),
+				new ReportMenuItem(testListSection.HtmlCode, "Test list"),
+				new ReportMenuItem(timeline.HtmlCode, "Timeline")
+			};
+            var reportMenu = new ReportMenu("main-menu", "Main Menu", menuElements);
+            report.AddInsideTag("style", reportMenu.GetStyleString());
+            report.AddToBody(reportMenu.ReportMenuHtml);
 
 			var footer = new ReportFooter();
 			report.AddInsideTag("footer", footer.HtmlCode);
 
-			report.SavePage(pathToSave, pageName);
+            var pageName = Output.Outputs.FullReport;
+			report.SavePage(Path.Combine(pathToSave, pageName));
 		}
 	}
 }

@@ -131,11 +131,6 @@ namespace NunitGo.HtmlCustomElements
             return AddInsideTag("script", scriptString);
         }
 
-        public void SavePage(string path, string name)
-        {
-            File.WriteAllText(path + @"\" + name + ".html", _page);
-        }
-
         public void SavePage(string fullpath)
         {
             File.WriteAllText(fullpath, _page);

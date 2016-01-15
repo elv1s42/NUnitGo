@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NunitGo.HtmlCustomElements
 {
@@ -19,6 +20,29 @@ namespace NunitGo.HtmlCustomElements
                     yield return line;
                 }
             }
+        }
+
+        public static string ToCamelCase(this string targetString)
+        {
+            // If there are 0 or 1 characters, just return the string:
+            if (targetString == null || targetString.Length < 2)
+                return targetString;
+
+            // Split the string into words:
+            var words = targetString.Split(
+                new char[] { },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            // Combine the words:
+            var result = words[0].ToLower();
+            for (var i = 1; i < words.Length; i++)
+            {
+                result +=
+                    words[i].Substring(0, 1).ToUpper() +
+                    words[i].Substring(1);
+            }
+
+            return result;
         }
     }
 }

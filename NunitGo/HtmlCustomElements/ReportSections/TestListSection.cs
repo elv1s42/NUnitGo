@@ -9,7 +9,6 @@ namespace NunitGo.HtmlCustomElements.ReportSections
     public class TestListSection
     {
         public string HtmlCode;
-        public string ModalsHtml;
 
         public TestListSection(List<NunitGoTest> tests)
         {
@@ -20,7 +19,6 @@ namespace NunitGo.HtmlCustomElements.ReportSections
                 writer.Write(tree.HtmlCode);
             }
             HtmlCode = stringWriter.ToString();
-            ModalsHtml = tree.HtmlCodeModalWindows;
         }
     }
 }

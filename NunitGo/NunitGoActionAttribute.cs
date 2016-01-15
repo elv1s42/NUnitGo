@@ -68,14 +68,14 @@ namespace NunitGo
             var output = TestContext.Out.ToString();
             if (!output.Equals(String.Empty))
             {
-                var outputPath = _test.AttachmentsPath + Structs.Outputs.Out;
+                var outputPath = _test.AttachmentsPath + Output.Outputs.Out;
                 PageGenerator.GenerateOutputPage(outputPath, output);
                 _test.HasOutput = true;
             }
-            _test.TestHref = "Attachments" + @"\" + _test.Guid + @"\" + Structs.Outputs.Test;
-            _test.LogHref = Structs.Outputs.Out;
+            _test.TestHref = "Attachments" + @"\" + _test.Guid + @"\" + Output.Outputs.Test;
+            _test.LogHref = Output.Outputs.Out;
             _test.AddScreenshots(NunitGoTestScreenshotHelper.GetScreenshots());
-            var testPath = _test.AttachmentsPath + Structs.Outputs.Test;
+            var testPath = _test.AttachmentsPath + Output.Outputs.Test;
             _test.GenerateTestPage(testPath);
             _test.Save(_test.AttachmentsPath + "test.xml");
             

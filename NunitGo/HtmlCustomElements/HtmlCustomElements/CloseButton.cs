@@ -5,14 +5,15 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 {
     public class CloseButton : HrefButtonBase
     {
-        private const string ButtonText = "Close";
+        private readonly string _buttonText = "Close";
         private readonly string _href;
         public string ButtonHtml;
 
-        public CloseButton(string buttonText, string href) 
+        public CloseButton(string buttonText = "", string href = "") 
             : base(buttonText, href)
         {
             Id = "";
+            _buttonText = buttonText.Equals("") ? _buttonText : buttonText;
             _href = href;
             ButtonHtml = GetHtml();
         }
@@ -26,7 +27,7 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
                 writer.AddAttribute(HtmlTextWriterAttribute.Href, _href);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "href-button");
                 writer.RenderBeginTag(HtmlTextWriterTag.A);
-                writer.Write(ButtonText);
+                writer.Write(_buttonText);
                 writer.RenderEndTag();
             }
             return stringWriter.ToString();

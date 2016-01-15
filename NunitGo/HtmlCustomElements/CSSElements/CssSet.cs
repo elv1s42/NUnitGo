@@ -32,6 +32,14 @@ namespace NunitGo.HtmlCustomElements.CSSElements
             }
         }
 
+        public void AddElements(List<CssElement> elementList)
+        {
+            foreach (var element in elementList)
+            {
+                AddElement(element);
+            }
+        }
+
         public void AddSet(CssSet setToAdd)
         {
             foreach (var element in setToAdd.GetElements())

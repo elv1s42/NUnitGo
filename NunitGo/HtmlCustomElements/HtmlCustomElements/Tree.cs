@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
@@ -11,7 +10,6 @@ namespace NunitGo.HtmlCustomElements.HtmlCustomElements
 	public class Tree : HtmlBaseElement
 	{
         public string HtmlCode;
-        public string HtmlCodeModalWindows;
 		public static string StyleString
 		{
 			get { return GetStyle(); }
