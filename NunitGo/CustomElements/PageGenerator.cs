@@ -30,20 +30,33 @@ namespace NunitGo.CustomElements
         public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
         {
             var page = new HtmlPage("Test page", "./../../" + Output.Outputs.ReportStyle);
-            
+
             var htmlTest = new NunitTestHtml(nunitGoTest);
             page.AddToBody(htmlTest.HtmlCode);
-            
+
             page.SavePage(fullPath);
         }
 
-        public static void GenerateReport(List<NunitGoTest> tests, 
+        public static void GenerateTestList(this List<NunitGoTest> tests, string fullPath)
+        {
+            var page = new HtmlPage("Test list page");
+
+            var reportMenuTitle = new PageTitle("Test list", "main-test-list", "10%");
+            page.AddToBody(reportMenuTitle.HtmlCode);
+
+            var testListSection = new TestListSection(tests);
+            page.AddToBody(testListSection.HtmlCode);
+
+            page.SavePage(fullPath);
+        }
+
+        public static void GenerateReport(this List<NunitGoTest> tests, 
             string pathToSave)
         {
             var cssPage = new CssPage();
             cssPage.AddStyles(new List<string>
             {
-                ReportTitle.StyleString,
+                PageTitle.StyleString,
                 HtmlPage.StyleString,
                 Tooltip.StyleString,
                 HorizontalBar.StyleString,
@@ -60,7 +73,7 @@ namespace NunitGo.CustomElements
 
             var report = new HtmlPage();
             
-			var mainTitle = new ReportTitle();
+			var mainTitle = new PageTitle();
 			report.AddToBody(mainTitle.HtmlCode);
 
             var mainStats = new MainStatistics(tests);
@@ -68,7 +81,7 @@ namespace NunitGo.CustomElements
 			var mainInformation = new MainInformation(tests, mainStats);
 			report.AddToBody(mainInformation.HtmlCode);
 
-			var reportMenuTitle = new ReportTitle("Report menu", "report-main-menu");
+			var reportMenuTitle = new PageTitle("Report menu", "report-main-menu");
 			report.AddToBody(reportMenuTitle.HtmlCode);
 
             var statisticsSection = new StatisticsSection(mainStats);
@@ -86,9 +99,9 @@ namespace NunitGo.CustomElements
 
             var menuElements = new List<ReportMenuItem>
 			{
-				new ReportMenuItem(statisticsSection.HtmlCode, "Main statistics"),
-				new ReportMenuItem(testListSection.HtmlCode, "Test list"),
-				new ReportMenuItem(timeline.HtmlCode, "Timeline")
+				new ReportMenuItem(statisticsSection.HtmlCode, "Main statistics", ""),
+				new ReportMenuItem(testListSection.HtmlCode, "Test list", Output.Outputs.TestList),
+				new ReportMenuItem(timeline.HtmlCode, "Timeline", "")
 			};
             var reportMenu = new ReportMenu(menuElements, "main-menu", "Main Menu");
             report.AddToBody(reportMenu.ReportMenuHtml);

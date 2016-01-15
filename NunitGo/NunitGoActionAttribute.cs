@@ -78,9 +78,10 @@ namespace NunitGo
             var testPath = _test.AttachmentsPath + Output.Outputs.Test;
             _test.GenerateTestPage(testPath);
             _test.Save(_test.AttachmentsPath + "test.xml");
-            
+
             var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();
-            PageGenerator.GenerateReport(tests, Helper.Output);
+            tests.GenerateTestList(Path.Combine(Helper.Output, Output.Outputs.TestList));
+            tests.GenerateReport(Helper.Output);
 
         }
 

@@ -16,7 +16,20 @@ namespace NunitGo.CustomElements.ReportSections
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "90%");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
                 writer.Write(tree.HtmlCode);
+
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.Write(new CloseButton("Back", Output.Outputs.FullReport).ButtonHtml);
+                writer.RenderEndTag(); //DIV
+
+                writer.RenderEndTag(); //DIV
+
             }
             HtmlCode = stringWriter.ToString();
         }

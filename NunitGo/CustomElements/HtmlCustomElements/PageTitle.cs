@@ -5,9 +5,10 @@ using NunitGo.CustomElements.CSSElements;
 
 namespace NunitGo.CustomElements.HtmlCustomElements
 {
-    public class ReportTitle : HtmlBaseElement
+    public class PageTitle : HtmlBaseElement
     {
         public static string ClassName;
+        public static string Height;
 
         public static string StyleString
         {
@@ -19,11 +20,12 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             get { return GetCode(); }
         }
 
-        public ReportTitle(string title = "Test Run Report", string id = "main-title")
+        public PageTitle(string title = "Test Run Report", string id = "main-title", string height = "")
         {
             Title = title;
             Id = id;
             Style = GetStyle();
+            Height = height;
         }
 
         private static string GetStyle()
@@ -48,6 +50,8 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
+                if(!Height.Equals(""))
+                    writer.AddStyleAttribute(HtmlTextWriterStyle.Height, Height);
                 writer.AddStyleAttribute(HtmlTextWriterStyle.TextAlign, "center");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);

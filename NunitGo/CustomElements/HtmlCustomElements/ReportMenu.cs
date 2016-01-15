@@ -83,15 +83,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            barCssSet.AddElement(new CssElement(".reportmenu .tab-close:hover,.reportmenu div:target .tab-close")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Color, "red"),
-					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
-				}
-            });
-            barCssSet.AddElement(new CssElement(".reportmenu div .content")
+            /*barCssSet.AddElement(new CssElement(".reportmenu div .content")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -124,7 +116,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
                     new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
                     new StyleAttribute(HtmlTextWriterStyle.Height, "100%")
 				}
-            });
+            });*/
             return barCssSet.ToString();
         }
 
@@ -143,22 +135,17 @@ namespace NunitGo.CustomElements.HtmlCustomElements
                     writer.AddAttribute(HtmlTextWriterAttribute.Class, "reportmenu-tab");
                     writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
-                    writer.AddAttribute(HtmlTextWriterAttribute.Href, "#" + element.Id);
+                    writer.AddAttribute(HtmlTextWriterAttribute.Href, element.Href);
                     writer.AddAttribute(HtmlTextWriterAttribute.Class, "tab");
                     writer.RenderBeginTag(HtmlTextWriterTag.A);
                     writer.Write(element.Title);
                     writer.RenderEndTag();
 
-                    writer.AddAttribute(HtmlTextWriterAttribute.Class, "content");
+                    /*writer.AddAttribute(HtmlTextWriterAttribute.Class, "content");
                     writer.RenderBeginTag(HtmlTextWriterTag.Div);
                     writer.Write(element.InnerHtml);
-                    writer.RenderEndTag();
-
-                    writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
-                    writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                    writer.Write(new CloseButton("Back", "./../../" + Output.Outputs.FullReport).ButtonHtml);
-                    writer.RenderEndTag(); //DIV
-
+                    writer.RenderEndTag();*/
+                    
                     writer.RenderEndTag();
                 }
                 writer.RenderEndTag();

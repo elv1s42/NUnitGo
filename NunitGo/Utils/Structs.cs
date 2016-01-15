@@ -10,7 +10,8 @@ namespace NunitGo.Utils
             public static string Log = "log" + Type.Default;
             public static string Error = "error" + Type.Default;
             public static string Trace = "trace" + Type.Default;
-            public static string Test = "test" + Type.Default;
+            public static string Test = "test" + Type.Html;
+            public static string TestList = "testList" + Type.Default;
             public static string FullReport = "index" + Type.Html;
             public static string ReportStyle = "reportStyle" + Type.Css;
         }
