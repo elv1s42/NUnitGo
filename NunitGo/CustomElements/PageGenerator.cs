@@ -12,7 +12,7 @@ namespace NunitGo.CustomElements
     {
         public static void GenerateOutputPage(string fullPath, string outputText)
         {
-            var page = new HtmlPage("Output page");
+            var page = new HtmlPage("Output page", "./../../" + Output.Outputs.ReportStyle);
             var sWr = new StringWriter();
             using (var wr = new HtmlTextWriter(sWr))
             {
@@ -23,31 +23,17 @@ namespace NunitGo.CustomElements
                 wr.RenderEndTag();//DIV
             }
             page.AddToBody(sWr.ToString());
-
-            page.AddInsideTag("style", ReportTitle.StyleString);
-            page.AddInsideTag("style", HtmlPage.StyleString);
-            page.AddInsideTag("style", NunitTestHtml.StyleString);
-            page.AddInsideTag("style", ReportFooter.StyleString);
-            page.AddInsideTag("style", HrefButtonBase.StyleString);
-            page.AddInsideTag("style", OpenButton.StyleString);
             
             page.SavePage(fullPath);
         }
 
         public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
         {
-            var page = new HtmlPage("Test page");
+            var page = new HtmlPage("Test page", "./../../" + Output.Outputs.ReportStyle);
             
             var htmlTest = new NunitTestHtml(nunitGoTest);
             page.AddToBody(htmlTest.HtmlCode);
             
-            page.AddInsideTag("style", ReportTitle.StyleString);
-            page.AddInsideTag("style", HtmlPage.StyleString);
-            page.AddInsideTag("style", NunitTestHtml.StyleString);
-            page.AddInsideTag("style", ReportFooter.StyleString);
-            page.AddInsideTag("style", HrefButtonBase.StyleString);
-            page.AddInsideTag("style", OpenButton.StyleString);
-
             page.SavePage(fullPath);
         }
 
@@ -73,18 +59,6 @@ namespace NunitGo.CustomElements
             });
 
             var report = new HtmlPage();
-
-			/*report.AddInsideTag("style", ReportTitle.StyleString);
-			report.AddInsideTag("style", HtmlPage.StyleString);
-			report.AddInsideTag("style", Tooltip.StyleString);
-			report.AddInsideTag("style", HorizontalBar.StyleString);
-			report.AddInsideTag("style", ReportFooter.StyleString);
-			report.AddInsideTag("style", MainInformation.StyleString);
-			report.AddInsideTag("style", Bullet.StyleString);
-			report.AddInsideTag("style", HrefButtonBase.StyleString);
-			report.AddInsideTag("style", Tree.StyleString);
-			report.AddInsideTag("style", NunitTestHtml.StyleString);
-			report.AddInsideTag("style", OpenButton.StyleString);*/
             
 			var mainTitle = new ReportTitle();
 			report.AddToBody(mainTitle.HtmlCode);
