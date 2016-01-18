@@ -11,7 +11,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
     {
         public string HtmlCode;
 
-        public Timeline(List<NunitGoTest> tests)
+        public Timeline(List<NunitGoTest> tests, string height = "90%")
         {
             var testResultsList = (from test in tests 
                                    let start = test.DateTimeStart.ToString("HH:mm:ss") 
@@ -26,12 +26,24 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Height, height);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
                 writer.AddStyleAttribute(HtmlTextWriterStyle.PaddingLeft, "30px");
                 writer.RenderBeginTag(HtmlTextWriterTag.H3);
                 writer.Write("Timeline (" + tests.First().DateTimeStart 
                     + "-" + tests.Last().DateTimeFinish + "):");
                 writer.RenderEndTag();
                 writer.Write(timelineBar.BarHtml);
+
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.Write(new CloseButton("Back", Output.Outputs.FullReport).ButtonHtml);
+                writer.RenderEndTag(); //DIV
+
+                writer.RenderEndTag(); //DIV
             }
             HtmlCode = stringWriter.ToString();
         }

@@ -64,8 +64,8 @@ namespace NunitGo.CustomElements
             var reportMenuTitle = new PageTitle("Tests timeline", "tests-timeline", "10%");
             page.AddToBody(reportMenuTitle.HtmlCode);
 
-            var testListSection = new TestListSection(tests);
-            page.AddToBody(testListSection.HtmlCode);
+            var timeline = new Timeline(tests);
+            page.AddToBody(timeline.HtmlCode);
 
             page.SavePage(fullPath);
         }
@@ -125,9 +125,9 @@ namespace NunitGo.CustomElements
 
             var menuElements = new List<ReportMenuItem>
 			{
-				new ReportMenuItem(statisticsSection.HtmlCode, "Main statistics", Output.Outputs.TestStatistics),
-				new ReportMenuItem(testListSection.HtmlCode, "Test list", Output.Outputs.TestList),
-				new ReportMenuItem(timeline.HtmlCode, "Timeline", "")
+				new ReportMenuItem("Main statistics", Output.Outputs.TestStatistics),
+				new ReportMenuItem("Test list", Output.Outputs.TestList),
+				new ReportMenuItem("Timeline", Output.Outputs.Timeline)
 			};
             var reportMenu = new ReportMenu(menuElements, "main-menu", "Main Menu");
             report.AddToBody(reportMenu.ReportMenuHtml);
