@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
 using NunitGo.CustomElements.HtmlCustomElements;
 using NunitGo.CustomElements.ReportSections;
@@ -10,19 +9,15 @@ namespace NunitGo.CustomElements
 {
 	public static class PageGenerator
     {
-        public static void GenerateOutputPage(string fullPath, string outputText)
+        public static void GenerateTestOutputPage(string fullPath, string outputText, string backHref)
         {
             var page = new HtmlPage("Output page", "./../../" + Output.Outputs.ReportStyle);
-            var sWr = new StringWriter();
-            using (var wr = new HtmlTextWriter(sWr))
-            {
-                wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
-                wr.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White);
-                wr.RenderBeginTag(HtmlTextWriterTag.Div);
-                wr.Write(outputText);
-                wr.RenderEndTag();//DIV
-            }
-            page.AddToBody(sWr.ToString());
+
+            var reportMenuTitle = new PageTitle("Test output", "test-output", "10%");
+            page.AddToBody(reportMenuTitle.HtmlCode);
+
+            var outputSection = new TestOutputSection(outputText, backHref);
+            page.AddToBody(outputSection.HtmlCode);
             
             page.SavePage(fullPath);
         }
@@ -30,14 +25,13 @@ namespace NunitGo.CustomElements
         public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
         {
             var page = new HtmlPage("Test page", "./../../" + Output.Outputs.ReportStyle);
-
             var htmlTest = new NunitTestHtml(nunitGoTest);
             page.AddToBody(htmlTest.HtmlCode);
 
             page.SavePage(fullPath);
         }
 
-        public static void GenerateTestList(this List<NunitGoTest> tests, string fullPath)
+        public static void GenerateTestListPage(this List<NunitGoTest> tests, string fullPath)
         {
             var page = new HtmlPage("Test list page");
 
@@ -50,9 +44,8 @@ namespace NunitGo.CustomElements
             page.SavePage(fullPath);
         }
 
-        public static void GenerateReport(this List<NunitGoTest> tests, 
-            string pathToSave)
-        {
+	    public static void GenerateStyleFile(string pathToSave)
+	    {
             var cssPage = new CssPage();
             cssPage.AddStyles(new List<string>
             {
@@ -71,6 +64,13 @@ namespace NunitGo.CustomElements
                 OpenButton.StyleString
             });
 
+            var cssPageName = Output.Outputs.ReportStyle;
+            cssPage.SavePage(Path.Combine(pathToSave, cssPageName));
+	    }
+
+	    public static void GenerateReport(this List<NunitGoTest> tests, 
+            string pathToSave)
+        {
             var report = new HtmlPage();
             
 			var mainTitle = new PageTitle();
@@ -108,10 +108,7 @@ namespace NunitGo.CustomElements
 
 			var footer = new ReportFooter();
             report.AddInsideTag("footer", footer.HtmlCode);
-
-            var cssPageName = Output.Outputs.ReportStyle;
-            cssPage.SavePage(Path.Combine(pathToSave, cssPageName));
-
+            
             var reportPageName = Output.Outputs.FullReport;
 			report.SavePage(Path.Combine(pathToSave, reportPageName));
 		}

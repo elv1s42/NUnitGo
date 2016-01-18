@@ -83,40 +83,6 @@ namespace NunitGo.CustomElements.HtmlCustomElements
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
 				}
             });
-            /*barCssSet.AddElement(new CssElement(".reportmenu div .content")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute(HtmlTextWriterStyle.Overflow, "scroll"),
-					new StyleAttribute(HtmlTextWriterStyle.Height, "300px"),
-					new StyleAttribute("min-height", "90vh"),
-                    new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"),
-                    new StyleAttribute(HtmlTextWriterStyle.Display, "none")
-				}
-            });
-            barCssSet.AddElement(new CssElement(".reportmenu div:target .content")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute(HtmlTextWriterStyle.Display, "block")
-				}
-            });
-            barCssSet.AddElement(new CssElement(".reportmenu > div")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute(HtmlTextWriterStyle.Height, "40px"),
-                    new StyleAttribute(HtmlTextWriterStyle.Overflow, "hidden")
-				}
-            });
-            barCssSet.AddElement(new CssElement(".reportmenu > div:target")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
-                    new StyleAttribute(HtmlTextWriterStyle.Height, "100%")
-				}
-            });*/
             return barCssSet.ToString();
         }
 
@@ -141,11 +107,6 @@ namespace NunitGo.CustomElements.HtmlCustomElements
                     writer.Write(element.Title);
                     writer.RenderEndTag();
 
-                    /*writer.AddAttribute(HtmlTextWriterAttribute.Class, "content");
-                    writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                    writer.Write(element.InnerHtml);
-                    writer.RenderEndTag();*/
-                    
                     writer.RenderEndTag();
                 }
                 writer.RenderEndTag();

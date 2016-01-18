@@ -9,7 +9,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
         private readonly string _href;
         public string ButtonHtml;
 
-        public CloseButton(string buttonText = "", string href = "") 
+        public CloseButton(string buttonText, string href) 
             : base(buttonText, href)
         {
             Id = "";

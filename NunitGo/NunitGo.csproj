@@ -76,6 +76,7 @@
     <Compile Include="CustomElements\PageGenerator.cs" />
     <Compile Include="CustomElements\ReportSections\StatisticsSection.cs" />
     <Compile Include="CustomElements\ReportSections\TestListSection.cs" />
+    <Compile Include="CustomElements\ReportSections\TestOutputSection.cs" />
     <Compile Include="CustomElements\StringExtensions.cs" />
     <Compile Include="NunitGoActionAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

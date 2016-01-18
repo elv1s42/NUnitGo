@@ -29,15 +29,6 @@ namespace NunitGo
             _testName = testName;
         }
 
-        public static string TakeScreenshot(NunitGoActionAttribute test, DateTime creationTime = default(DateTime))
-        {
-            var now = DateTime.Now;
-            var screenPath = NunitGoHelper.Screenshots + @"\";
-            creationTime = creationTime.Equals(default(DateTime)) ? now : creationTime;
-
-            return ScreenshotTaker.Taker.TakeScreenshot(creationTime, screenPath);
-        }
-
         public void BeforeTest(ITest test)
         {
             NunitGoHelper.CreateDirectories();
@@ -74,22 +65,24 @@ namespace NunitGo
 
             _test.AttachmentsPath = NunitGoHelper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
             Directory.CreateDirectory(_test.AttachmentsPath);
+            _test.TestHref = "Attachments" + @"\" + _test.Guid + @"\" + Output.Outputs.Test;
+            _test.LogHref = Output.Outputs.Out;
             var output = TestContext.Out.ToString();
             if (!output.Equals(String.Empty))
             {
                 var outputPath = _test.AttachmentsPath + Output.Outputs.Out;
-                PageGenerator.GenerateOutputPage(outputPath, output);
+                PageGenerator.GenerateTestOutputPage(outputPath, output, "./../../" + _test.TestHref);
                 _test.HasOutput = true;
             }
-            _test.TestHref = "Attachments" + @"\" + _test.Guid + @"\" + Output.Outputs.Test;
-            _test.LogHref = Output.Outputs.Out;
             _test.AddScreenshots(NunitGoTestScreenshotHelper.GetScreenshots());
             var testPath = _test.AttachmentsPath + Output.Outputs.Test;
             _test.GenerateTestPage(testPath);
             _test.Save(_test.AttachmentsPath + "test.xml");
 
+            PageGenerator.GenerateStyleFile(NunitGoHelper.Output);
+
             var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();
-            tests.GenerateTestList(Path.Combine(NunitGoHelper.Output, Output.Outputs.TestList));
+            tests.GenerateTestListPage(Path.Combine(NunitGoHelper.Output, Output.Outputs.TestList));
             tests.GenerateReport(NunitGoHelper.Output);
 
         }
