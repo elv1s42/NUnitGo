@@ -18,6 +18,10 @@ namespace NunitGo.Utils
 
         public int TotalExecuted;
 
+        public string StartDate;
+        public string EndDate;
+        public string Duration;
+
         public MainStatistics(List<NunitGoTest> tests)
         {
             TotalAll = tests.Count;
@@ -32,6 +36,10 @@ namespace NunitGo.Utils
             TotalSuccessFalse = tests.Count(x => !x.IsSuccess());
 
             TotalExecuted = TotalAll;
+
+            StartDate = tests.GetStartDate().ToString("dd.MM.yyyy HH:mm:ss.ff");
+            EndDate = tests.GetFinishDate().ToString("dd.MM.yyyy HH:mm:ss.ff");
+            Duration = tests.Duration().ToString(@"hh\:mm\:ss\:fff");
         }
     }
 }

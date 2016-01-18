@@ -82,6 +82,8 @@ namespace NunitGo
             PageGenerator.GenerateStyleFile(NunitGoHelper.Output);
 
             var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();
+            var stats = new MainStatistics(tests);
+            stats.GenerateMainStatisticsPage(Path.Combine(NunitGoHelper.Output, Output.Outputs.TestStatistics));
             tests.GenerateTestListPage(Path.Combine(NunitGoHelper.Output, Output.Outputs.TestList));
             tests.GenerateReport(NunitGoHelper.Output);
 

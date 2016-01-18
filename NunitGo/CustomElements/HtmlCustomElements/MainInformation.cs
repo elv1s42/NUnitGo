@@ -59,7 +59,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             return mainInfoCssSet.ToString();
         }
 
-        public MainInformation(List<NunitGoTest> tests, MainStatistics stats)
+        public MainInformation(MainStatistics stats)
         {
             Style = GetStyle();
 
@@ -77,13 +77,13 @@ namespace NunitGo.CustomElements.HtmlCustomElements
                 writer.Write("Main information:");
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Start Date: " + tests.GetStartDate().ToString("dd.MM.yyyy HH:mm:ss.ff"));
+                writer.Write(Bullet.HtmlCode + "Start Date: " + stats.StartDate);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Finish Date: " + tests.GetFinishDate().ToString("dd.MM.yyyy HH:mm:ss.ff"));
+                writer.Write(Bullet.HtmlCode + "Finish Date: " + stats.EndDate);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Time: " + tests.Duration().ToString(@"hh\:mm\:ss\:fff"));
+                writer.Write(Bullet.HtmlCode + "Time: " + stats.Duration);
                 writer.RenderEndTag();
                 writer.RenderEndTag();//DIV
                 

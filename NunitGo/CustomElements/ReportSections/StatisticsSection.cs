@@ -10,7 +10,7 @@ namespace NunitGo.CustomElements.ReportSections
     {
         public string HtmlCode;
 
-        public StatisticsSection(MainStatistics mainStats)
+        public StatisticsSection(MainStatistics mainStats, string height = "90%")
         {
             var testResultsList = new List<HorizontalBarElement>
 		    {
@@ -61,6 +61,11 @@ namespace NunitGo.CustomElements.ReportSections
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Height, height);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+
                 writer.AddStyleAttribute(HtmlTextWriterStyle.PaddingLeft, "30px");
                 writer.RenderBeginTag(HtmlTextWriterTag.H3);
                 writer.Write("Test cases results:");
@@ -78,6 +83,13 @@ namespace NunitGo.CustomElements.ReportSections
                 writer.Write("Executed test cases:");
                 writer.RenderEndTag();
                 writer.Write(testExecutedBar.BarHtml);
+
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.Write(new CloseButton("Back", Output.Outputs.FullReport).ButtonHtml);
+                writer.RenderEndTag(); //DIV
+
+                writer.RenderEndTag(); //DIV
             }
             HtmlCode = stringWriter.ToString();
         }

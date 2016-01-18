@@ -9,6 +9,15 @@ namespace NunitGo.CustomElements
 {
 	public static class PageGenerator
     {
+        public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
+        {
+            var page = new HtmlPage("Test page", "./../../" + Output.Outputs.ReportStyle);
+            var htmlTest = new NunitTestHtml(nunitGoTest);
+            page.AddToBody(htmlTest.HtmlCode);
+
+            page.SavePage(fullPath);
+        }
+
         public static void GenerateTestOutputPage(string fullPath, string outputText, string backHref)
         {
             var page = new HtmlPage("Output page", "./../../" + Output.Outputs.ReportStyle);
@@ -22,11 +31,15 @@ namespace NunitGo.CustomElements
             page.SavePage(fullPath);
         }
 
-        public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
+        public static void GenerateMainStatisticsPage(this MainStatistics stats, string fullPath)
         {
-            var page = new HtmlPage("Test page", "./../../" + Output.Outputs.ReportStyle);
-            var htmlTest = new NunitTestHtml(nunitGoTest);
-            page.AddToBody(htmlTest.HtmlCode);
+            var page = new HtmlPage("Main statistics page");
+
+            var reportMenuTitle = new PageTitle("Main statistics", "main-statistics", "10%");
+            page.AddToBody(reportMenuTitle.HtmlCode);
+
+            var statisticsSection = new StatisticsSection(stats);
+            page.AddToBody(statisticsSection.HtmlCode);
 
             page.SavePage(fullPath);
         }
@@ -36,6 +49,19 @@ namespace NunitGo.CustomElements
             var page = new HtmlPage("Test list page");
 
             var reportMenuTitle = new PageTitle("Test list", "main-test-list", "10%");
+            page.AddToBody(reportMenuTitle.HtmlCode);
+
+            var testListSection = new TestListSection(tests);
+            page.AddToBody(testListSection.HtmlCode);
+
+            page.SavePage(fullPath);
+        }
+
+        public static void GenerateTimelinePage(this List<NunitGoTest> tests, string fullPath)
+        {
+            var page = new HtmlPage("Timeline page");
+
+            var reportMenuTitle = new PageTitle("Tests timeline", "tests-timeline", "10%");
             page.AddToBody(reportMenuTitle.HtmlCode);
 
             var testListSection = new TestListSection(tests);
@@ -78,7 +104,7 @@ namespace NunitGo.CustomElements
 
             var mainStats = new MainStatistics(tests);
 
-			var mainInformation = new MainInformation(tests, mainStats);
+			var mainInformation = new MainInformation(mainStats);
 			report.AddToBody(mainInformation.HtmlCode);
 
 			var reportMenuTitle = new PageTitle("Report menu", "report-main-menu");
@@ -99,7 +125,7 @@ namespace NunitGo.CustomElements
 
             var menuElements = new List<ReportMenuItem>
 			{
-				new ReportMenuItem(statisticsSection.HtmlCode, "Main statistics", ""),
+				new ReportMenuItem(statisticsSection.HtmlCode, "Main statistics", Output.Outputs.TestStatistics),
 				new ReportMenuItem(testListSection.HtmlCode, "Test list", Output.Outputs.TestList),
 				new ReportMenuItem(timeline.HtmlCode, "Timeline", "")
 			};

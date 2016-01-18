@@ -11,7 +11,9 @@ namespace NunitGo.Utils
             public static string Error = "error" + Type.Default;
             public static string Trace = "trace" + Type.Default;
             public static string Test = "test" + Type.Html;
-            public static string TestList = "testList" + Type.Default;
+            public static string TestList = "testList" + Type.Html;
+            public static string TestStatistics = "testStatistics" + Type.Html;
+            public static string Timeline = "timeline" + Type.Html;
             public static string FullReport = "index" + Type.Html;
             public static string ReportStyle = "reportStyle" + Type.Css;
         }

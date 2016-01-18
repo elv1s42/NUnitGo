@@ -71,26 +71,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             }
             return sWr.ToString();
         }
-
-        private static string GenerateHtmlView(string fileLocation, string height = "25em")
-        {
-            var sWr = new StringWriter();
-            using (var wr = new HtmlTextWriter(sWr))
-            {
-                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, height);
-                wr.RenderBeginTag(HtmlTextWriterTag.Div);
-                wr.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
-                wr.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
-                wr.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
-                wr.AddStyleAttribute("border", "0");
-                wr.AddAttribute(HtmlTextWriterAttribute.Src, fileLocation);
-                wr.RenderBeginTag(HtmlTextWriterTag.Iframe);
-                wr.RenderEndTag();//IFRAME
-                wr.RenderEndTag();//DIV
-            }
-            return sWr.ToString();
-        }
-
+        
         public NunitTestHtml(NunitGoTest nunitGoTest)
         {
             ModalWindowsHtml = "";
