@@ -68,7 +68,7 @@
     <Compile Include="CustomElements\HtmlCustomElements\ReportMenu.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\ReportMenuItem.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\PageTitle.cs" />
-    <Compile Include="CustomElements\HtmlCustomElements\Timeline.cs" />
+    <Compile Include="CustomElements\ReportSections\TimelineSection.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\Tooltip.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\Tree.cs" />
     <Compile Include="CustomElements\HtmlPage.cs" />

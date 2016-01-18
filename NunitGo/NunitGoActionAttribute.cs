@@ -65,7 +65,7 @@ namespace NunitGo
 
             _test.AttachmentsPath = NunitGoHelper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
             Directory.CreateDirectory(_test.AttachmentsPath);
-            _test.TestHref = "Attachments" + @"\" + _test.Guid + @"\" + Output.Outputs.Test;
+            _test.TestHref = "Attachments" + @"/" + _test.Guid + @"/" + Output.Outputs.Test;
             _test.LogHref = Output.Outputs.Out;
             var output = TestContext.Out.ToString();
             if (!output.Equals(String.Empty))
@@ -86,7 +86,7 @@ namespace NunitGo
             tests.GenerateTimelinePage(Path.Combine(NunitGoHelper.Output, Output.Outputs.Timeline));
             stats.GenerateMainStatisticsPage(Path.Combine(NunitGoHelper.Output, Output.Outputs.TestStatistics));
             tests.GenerateTestListPage(Path.Combine(NunitGoHelper.Output, Output.Outputs.TestList));
-            tests.GenerateReport(NunitGoHelper.Output);
+            tests.GenerateReport(NunitGoHelper.Output, stats);
 
         }
 

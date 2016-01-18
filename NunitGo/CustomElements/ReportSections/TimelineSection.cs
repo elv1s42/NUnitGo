@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
+using NunitGo.CustomElements.HtmlCustomElements;
 using NunitGo.Utils;
 
-namespace NunitGo.CustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.ReportSections
 {
-    public class Timeline
+    public class TimelineSection
     {
         public string HtmlCode;
 
-        public Timeline(List<NunitGoTest> tests, string height = "90%")
+        public TimelineSection(List<NunitGoTest> tests, string height = "90%")
         {
             var testResultsList = (from test in tests 
                                    let start = test.DateTimeStart.ToString("HH:mm:ss") 
@@ -31,18 +32,18 @@ namespace NunitGo.CustomElements.HtmlCustomElements
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.Write(new CloseButton("Back", Output.Outputs.FullReport).ButtonHtml);
+                writer.RenderEndTag(); //DIV
+
                 writer.AddStyleAttribute(HtmlTextWriterStyle.PaddingLeft, "30px");
                 writer.RenderBeginTag(HtmlTextWriterTag.H3);
                 writer.Write("Timeline (" + tests.First().DateTimeStart 
                     + "-" + tests.Last().DateTimeFinish + "):");
                 writer.RenderEndTag();
                 writer.Write(timelineBar.BarHtml);
-
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write(new CloseButton("Back", Output.Outputs.FullReport).ButtonHtml);
-                writer.RenderEndTag(); //DIV
-
+                
                 writer.RenderEndTag(); //DIV
             }
             HtmlCode = stringWriter.ToString();

@@ -19,6 +19,11 @@ namespace NunitGo.CustomElements.ReportSections
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.Write(new CloseButton("Back", backHref).ButtonHtml);
+                writer.RenderEndTag(); //DIV
+
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "5%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 writer.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
@@ -27,12 +32,7 @@ namespace NunitGo.CustomElements.ReportSections
                 writer.Write(testOutput);
                 writer.RenderEndTag();//DIV
                 writer.RenderEndTag(); //DIV
-
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write(new CloseButton("Back", backHref).ButtonHtml);
-                writer.RenderEndTag(); //DIV
-
+                
                 writer.RenderEndTag(); //DIV
 
             }

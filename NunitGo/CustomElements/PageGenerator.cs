@@ -64,7 +64,7 @@ namespace NunitGo.CustomElements
             var reportMenuTitle = new PageTitle("Tests timeline", "tests-timeline", "10%");
             page.AddToBody(reportMenuTitle.HtmlCode);
 
-            var timeline = new Timeline(tests);
+            var timeline = new TimelineSection(tests);
             page.AddToBody(timeline.HtmlCode);
 
             page.SavePage(fullPath);
@@ -95,34 +95,19 @@ namespace NunitGo.CustomElements
 	    }
 
 	    public static void GenerateReport(this List<NunitGoTest> tests, 
-            string pathToSave)
+            string pathToSave, MainStatistics mainStats)
         {
             var report = new HtmlPage();
             
 			var mainTitle = new PageTitle();
 			report.AddToBody(mainTitle.HtmlCode);
-
-            var mainStats = new MainStatistics(tests);
-
+            
 			var mainInformation = new MainInformation(mainStats);
 			report.AddToBody(mainInformation.HtmlCode);
 
 			var reportMenuTitle = new PageTitle("Report menu", "report-main-menu");
 			report.AddToBody(reportMenuTitle.HtmlCode);
-
-            var statisticsSection = new StatisticsSection(mainStats);
-            var testListSection = new TestListSection(tests);
-            var timeline = new Timeline(tests);
-
-            var accElements = new List<AccordionElement>
-			{
-				new AccordionElement(statisticsSection.HtmlCode, "Main statistics"),
-				new AccordionElement(testListSection.HtmlCode, "Test list"),
-				new AccordionElement(timeline.HtmlCode, "Timeline")
-			};
-            var accordion = new Accordion(accElements);
-            report.AddToBody(accordion.AccordionHtml);
-
+            
             var menuElements = new List<ReportMenuItem>
 			{
 				new ReportMenuItem("Main statistics", Output.Outputs.TestStatistics),

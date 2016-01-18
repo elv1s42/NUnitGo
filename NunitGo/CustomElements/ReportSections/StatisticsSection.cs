@@ -66,6 +66,11 @@ namespace NunitGo.CustomElements.ReportSections
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.Write(new CloseButton("Back", Output.Outputs.FullReport).ButtonHtml);
+                writer.RenderEndTag(); //DIV
+
                 writer.AddStyleAttribute(HtmlTextWriterStyle.PaddingLeft, "30px");
                 writer.RenderBeginTag(HtmlTextWriterTag.H3);
                 writer.Write("Test cases results:");
@@ -83,12 +88,7 @@ namespace NunitGo.CustomElements.ReportSections
                 writer.Write("Executed test cases:");
                 writer.RenderEndTag();
                 writer.Write(testExecutedBar.BarHtml);
-
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write(new CloseButton("Back", Output.Outputs.FullReport).ButtonHtml);
-                writer.RenderEndTag(); //DIV
-
+                
                 writer.RenderEndTag(); //DIV
             }
             HtmlCode = stringWriter.ToString();
