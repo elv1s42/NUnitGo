@@ -58,11 +58,12 @@ namespace NunitTestsExample
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111113", "Project1", "Subsystem2")]
         public void TestMethod3()
         {
+            
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
-            Helper.TakeScreenshot();
+            NunitGoHelper.TakeScreenshot();
             Thread.Sleep(100);
-            Helper.TakeScreenshot();
+            NunitGoHelper.TakeScreenshot();
             Thread.Sleep(100);
             throw new Exception("Some error occured!");
         }

@@ -20,7 +20,7 @@ namespace NunitGo.Utils
 
         public static List<NunitGoTestScreenshot> GetScreenshots(string path = "")
         {
-            if (path.Equals("")) path = Helper.Screenshots;
+            if (path.Equals("")) path = NunitGoHelper.Screenshots;
             var result = new List<NunitGoTestScreenshot>();
             var filters = new[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp" };
             var files = GetFilesWithFilters(path, filters, false);

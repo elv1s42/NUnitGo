@@ -21,7 +21,10 @@ namespace NunitGo.CustomElements.ReportSections
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "scroll");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "5%");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 writer.Write(tree.HtmlCode);
+                writer.RenderEndTag(); //DIV
 
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);

@@ -7,13 +7,13 @@ namespace NunitGo.Utils
         public NunitGoTestScreenshot()
         {
             var now = DateTime.Now;
-            Name = Helper.GetScreenName(now);
+            Name = NunitGoHelper.GetScreenName(now);
             Date = now;
         }
 
         public NunitGoTestScreenshot(DateTime date)
         {
-            Name = Helper.GetScreenName(date);
+            Name = NunitGoHelper.GetScreenName(date);
             Date = date;
         }
 

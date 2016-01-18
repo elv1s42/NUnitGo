@@ -32,7 +32,7 @@ namespace NunitGo.Utils
         {
             var tests = new List<NunitGoTest>();
             var filesFound = new List<String>();
-            filesFound.AddRange(Directory.GetFiles(Helper.Output, "*.xml", SearchOption.AllDirectories));
+            filesFound.AddRange(Directory.GetFiles(NunitGoHelper.Output, "*.xml", SearchOption.AllDirectories));
             foreach (var file in filesFound)
             {
                 try
@@ -49,13 +49,13 @@ namespace NunitGo.Utils
         public static void TakeScreenshot(this NunitGoTest test)
         {
             var now = DateTime.Now;
-            Helper.TakeScreenshot(now);
+            NunitGoHelper.TakeScreenshot(now);
             test.Screenshots.Add(new NunitGoTestScreenshot(now));
         }
 
         public static void TakeScreenshot(this NunitGoTest test, DateTime date)
         {
-            Helper.TakeScreenshot(date);
+            NunitGoHelper.TakeScreenshot(date);
             test.Screenshots.Add(new NunitGoTestScreenshot(date));
         }
 

@@ -7,7 +7,7 @@ namespace NunitGo.Utils
     {
         private static string GetFilePath()
         {
-            return Helper.Output;
+            return NunitGoHelper.Output;
         }
 
         public static void Clean()

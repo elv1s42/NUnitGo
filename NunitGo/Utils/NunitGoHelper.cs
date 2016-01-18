@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace NunitGo.Utils
 {
-    public static class Helper
+    public static class NunitGoHelper
     {
         public static string Output;
         public static string Screenshots;
@@ -34,7 +34,7 @@ namespace NunitGo.Utils
                 .Value;
         }
 
-        static Helper()
+        static NunitGoHelper()
         {
             Output = GetValue("output-path");
             Screenshots = Output + @"\Screenshots";
@@ -85,6 +85,15 @@ namespace NunitGo.Utils
                 }
             }
             return screenName;
+        }
+
+        public static string TakeScreenshot(this NunitGoActionAttribute test, DateTime creationTime = default(DateTime))
+        {
+            var now = DateTime.Now;
+            var screenPath = Screenshots + @"\";
+            creationTime = creationTime.Equals(default(DateTime)) ? now : creationTime;
+
+            return ScreenshotTaker.Taker.TakeScreenshot(creationTime, screenPath);
         }
     }
 }

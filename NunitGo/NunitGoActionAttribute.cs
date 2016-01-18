@@ -29,9 +29,18 @@ namespace NunitGo
             _testName = testName;
         }
 
+        public static string TakeScreenshot(NunitGoActionAttribute test, DateTime creationTime = default(DateTime))
+        {
+            var now = DateTime.Now;
+            var screenPath = NunitGoHelper.Screenshots + @"\";
+            creationTime = creationTime.Equals(default(DateTime)) ? now : creationTime;
+
+            return ScreenshotTaker.Taker.TakeScreenshot(creationTime, screenPath);
+        }
+
         public void BeforeTest(ITest test)
         {
-            Helper.CreateDirectories();
+            NunitGoHelper.CreateDirectories();
             _start = DateTime.Now;
             Log.Write("START");
         }
@@ -63,7 +72,7 @@ namespace NunitGo
             
             if(!_test.IsSuccess()) _test.TakeScreenshot();
 
-            _test.AttachmentsPath = Helper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
+            _test.AttachmentsPath = NunitGoHelper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
             Directory.CreateDirectory(_test.AttachmentsPath);
             var output = TestContext.Out.ToString();
             if (!output.Equals(String.Empty))
@@ -80,8 +89,8 @@ namespace NunitGo
             _test.Save(_test.AttachmentsPath + "test.xml");
 
             var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();
-            tests.GenerateTestList(Path.Combine(Helper.Output, Output.Outputs.TestList));
-            tests.GenerateReport(Helper.Output);
+            tests.GenerateTestList(Path.Combine(NunitGoHelper.Output, Output.Outputs.TestList));
+            tests.GenerateReport(NunitGoHelper.Output);
 
         }
 
