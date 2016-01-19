@@ -11,7 +11,7 @@ NUnit 3.0 HTML reports
 
 To install NUnitGo, run the following command in the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) 
 
-**PM> Install-Package ScreenshotTaker**
+**PM> Install-Package NUnitGo**
 
 or download [latest release](https://github.com/elv1s42/NUnitGo/releases)
 
