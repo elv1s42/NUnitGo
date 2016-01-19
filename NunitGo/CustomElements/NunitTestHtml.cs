@@ -3,6 +3,7 @@ using System.IO;
 using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
 using NunitGo.CustomElements.HtmlCustomElements;
+using NunitGo.Extensions;
 using NunitGo.Utils;
 
 namespace NunitGo.CustomElements
