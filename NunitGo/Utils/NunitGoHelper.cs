@@ -10,6 +10,7 @@ namespace NunitGo.Utils
     {
         public static string Output;
         public static string Screenshots;
+        public static bool GenerateReport;
         public static bool TakeScreenshotAfterTestFailed;
 
         private static string GetPath()
@@ -31,9 +32,10 @@ namespace NunitGo.Utils
 
         static NunitGoHelper()
         {
-            Output = GetValue("output-path");
+            Output = GetValue("LocalOutputPath");
             Screenshots = Output + @"\Screenshots";
-            TakeScreenshotAfterTestFailed = bool.Parse(GetValue("take-screenshot-after-test-failed"));
+            GenerateReport = bool.Parse(GetValue("GenerateReport"));
+            TakeScreenshotAfterTestFailed = bool.Parse(GetValue("TakeScreenshotAfterTestFailed"));
         }
 
         public static void CreateDirectories()
