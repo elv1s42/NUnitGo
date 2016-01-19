@@ -32,6 +32,8 @@ namespace NunitGo
 
         public void BeforeTest(ITest test)
         {
+            if (!NunitGoHelper.GenerateReport) return;
+
             NunitGoHelper.CreateDirectories();
             _start = DateTime.Now;
             //Log.Write("START:" + test.FullName);
@@ -39,6 +41,8 @@ namespace NunitGo
 
         public void AfterTest(ITest test)
         {
+            if (!NunitGoHelper.GenerateReport) return;
+
             _finish = DateTime.Now;
             var context = TestContext.CurrentContext;
             
