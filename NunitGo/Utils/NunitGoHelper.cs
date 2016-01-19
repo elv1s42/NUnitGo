@@ -10,9 +10,7 @@ namespace NunitGo.Utils
     {
         public static string Output;
         public static string Screenshots;
-        public static bool AfterTestGeneration;
-        public static bool AfterSuiteGeneration;
-        public static bool SaveOutput;
+        public static bool TakeScreenshotAfterTestFailed;
 
         private static string GetPath()
         {
@@ -25,7 +23,7 @@ namespace NunitGo.Utils
         private static string GetValue(string name)
         {
             var path = GetPath();
-            return XDocument.Load(path + "/config.xml")
+            return XDocument.Load(path + "/NUnitGoConfig.xml")
                 .Descendants()
                 .First(x => x.Name.LocalName.Equals(name))
                 .Value;
@@ -35,9 +33,7 @@ namespace NunitGo.Utils
         {
             Output = GetValue("output-path");
             Screenshots = Output + @"\Screenshots";
-            AfterTestGeneration = bool.Parse(GetValue("after-test-generation"));
-            AfterSuiteGeneration = bool.Parse(GetValue("after-suite-generation"));
-            SaveOutput = bool.Parse(GetValue("save-output"));
+            TakeScreenshotAfterTestFailed = bool.Parse(GetValue("take-screenshot-after-test-failed"));
         }
 
         public static void CreateDirectories()

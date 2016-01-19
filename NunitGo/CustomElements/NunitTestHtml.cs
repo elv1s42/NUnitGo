@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
 using NunitGo.CustomElements.HtmlCustomElements;
@@ -128,8 +129,10 @@ namespace NunitGo.CustomElements
                 writer.Write(nunitGoTest.Screenshots.Count);
                 writer.RenderEndTag(); //P
 
-                foreach (var screenshot in nunitGoTest.Screenshots)
+                var screens = nunitGoTest.Screenshots.OrderBy(x => x.Date);
+                foreach (var screenshot in screens)
                 {
+                    writer.Write("Screenshot (Date: " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss.fff") + "):");
                     writer.AddAttribute(HtmlTextWriterAttribute.Href, @"./../../Screenshots/" + screenshot.Name);
                     writer.RenderBeginTag(HtmlTextWriterTag.A);
                     writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");

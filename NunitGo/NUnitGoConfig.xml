@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <output-path>C:\_NUnitGoResults</output-path>
+  <take-screenshot-after-test-failed>True</take-screenshot-after-test-failed>
+</config>

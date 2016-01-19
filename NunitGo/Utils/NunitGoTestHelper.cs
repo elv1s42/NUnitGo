@@ -63,7 +63,10 @@ namespace NunitGo.Utils
 
             foreach (var screen in screens.Where(screen => screen.Date >= start && screen.Date <= end))
             {
-                test.Screenshots.Add(screen);
+                if (!test.Screenshots.Any(x => x.Name.Equals(screen.Name)))
+                {
+                    test.Screenshots.Add(screen);
+                }
             }
         }
 

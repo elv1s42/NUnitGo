@@ -62,7 +62,7 @@ namespace NunitGo
 
             //Log.Write("FINISH: " + test.FullName);
             
-            if(!_test.IsSuccess()) _test.TakeScreenshot();
+            if(!_test.IsSuccess() && NunitGoHelper.TakeScreenshotAfterTestFailed) _test.TakeScreenshot();
 
             _test.AttachmentsPath = NunitGoHelper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
             Directory.CreateDirectory(_test.AttachmentsPath);
