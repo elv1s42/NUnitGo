@@ -142,14 +142,14 @@ namespace NunitGo.CustomElements.HtmlCustomElements
                 {
                     var testId = Ids.GetTestId(nunitGoTest.Guid.ToString());
                     var htmlTest = new NunitTestHtml(nunitGoTest);
-                    var buttonText = nunitGoTest.FullName
-                                     + " " + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
-                                     nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss");
+                    var buttonText = nunitGoTest.Name
+                                     + " (" + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                                     nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss") + ")";
                     var openButton = new OpenButton(buttonText, nunitGoTest.TestHref,  htmlTest.BackgroundColor);
 
                     writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
                     writer.RenderBeginTag(HtmlTextWriterTag.Li);
-                    writer.AddAttribute(HtmlTextWriterAttribute.Title, nunitGoTest.FullName);
+                    writer.AddAttribute(HtmlTextWriterAttribute.Title, nunitGoTest.Name);
                     writer.RenderBeginTag(HtmlTextWriterTag.A);
                     writer.Write(openButton.ButtonHtml);
                     writer.RenderEndTag(); //A

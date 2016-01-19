@@ -34,7 +34,7 @@ namespace NunitGo
         {
             NunitGoHelper.CreateDirectories();
             _start = DateTime.Now;
-            Log.Write("START");
+            //Log.Write("START:" + test.FullName);
         }
 
         public void AfterTest(ITest test)
@@ -50,7 +50,7 @@ namespace NunitGo
                 FullName = test.FullName,
                 ProjectName = (_projectName.Equals("")) ? test.FullName.Split(new []{'.'}).First() : _projectName,
                 ClassName = (_className.Equals("")) ? test.FullName.Split(new[] { '.' }).Skip(1).First() : _className,
-                Name = (_testName.Equals("")) ? test.MethodName : _testName,
+                Name = (_testName.Equals("")) ? test.Name : _testName,
                 TestStackTrace = context.Result.StackTrace ?? "",
                 TestMessage = context.Result.Message ?? "",
                 Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
@@ -59,8 +59,8 @@ namespace NunitGo
                     : (!TestGuid.Equals(Guid.Empty) ? TestGuid : Guid.NewGuid()),
                 Screenshots = new List<Screenshot>()
             };
-            
-            Log.Write("FINISH: " + test.FullName + ", " + _test.Guid);
+
+            //Log.Write("FINISH: " + test.FullName);
             
             if(!_test.IsSuccess()) _test.TakeScreenshot();
 
