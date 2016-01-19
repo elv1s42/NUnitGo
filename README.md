@@ -7,7 +7,7 @@ NUnit 3.0 HTML reports
 
 ## Demo report
 
-Click [here](http://elv1s42.github.io/NUnitGo/reportexample/) to view demo report (without screenshots).
+Click [here](http://elv1s42.github.io/NUnitGo/ReportExample/) to view demo report (without screenshots).
 
 ## Project site
 
