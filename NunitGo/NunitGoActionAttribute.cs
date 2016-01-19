@@ -6,6 +6,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NunitGo.CustomElements;
 using NunitGo.Utils;
+using ScreenshotTaker;
 
 namespace NunitGo
 {
@@ -56,7 +57,7 @@ namespace NunitGo
                 Guid = !_guid.Equals("")
                     ? new Guid(_guid)
                     : (!TestGuid.Equals(Guid.Empty) ? TestGuid : Guid.NewGuid()),
-                Screenshots = new List<NunitGoTestScreenshot>()
+                Screenshots = new List<Screenshot>()
             };
             
             Log.Write("FINISH: " + test.FullName + ", " + _test.Guid);
@@ -74,7 +75,7 @@ namespace NunitGo
                 PageGenerator.GenerateTestOutputPage(outputPath, output, "./../../" + _test.TestHref);
                 _test.HasOutput = true;
             }
-            _test.AddScreenshots(NunitGoTestScreenshotHelper.GetScreenshots());
+            _test.AddScreenshots(ScreenshotHelper.GetScreenshots(NunitGoHelper.Screenshots));
             var testPath = _test.AttachmentsPath + Output.Outputs.Test;
             _test.GenerateTestPage(testPath);
             _test.Save(_test.AttachmentsPath + "test.xml");

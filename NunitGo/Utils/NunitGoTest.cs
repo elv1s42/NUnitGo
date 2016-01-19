@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ScreenshotTaker;
 
 namespace NunitGo.Utils
 {
@@ -20,7 +21,7 @@ namespace NunitGo.Utils
         public string TestHref;
         public string LogHref;
         public bool HasOutput;
-        public List<NunitGoTestScreenshot> Screenshots;
+        public List<Screenshot> Screenshots;
 
         public NunitGoTest()
         {

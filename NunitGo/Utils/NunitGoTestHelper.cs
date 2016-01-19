@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using ScreenshotTaker;
 
 namespace NunitGo.Utils
 {
@@ -50,19 +51,19 @@ namespace NunitGo.Utils
         {
             var now = DateTime.Now;
             NunitGoHelper.TakeScreenshot(now);
-            test.Screenshots.Add(new NunitGoTestScreenshot(now));
+            test.Screenshots.Add(new Screenshot(now));
         }
 
         public static void TakeScreenshot(this NunitGoTest test, DateTime date)
         {
             NunitGoHelper.TakeScreenshot(date);
-            test.Screenshots.Add(new NunitGoTestScreenshot(date));
+            test.Screenshots.Add(new Screenshot(date));
         }
 
         public static void AddScreenshots(this NunitGoTest test,
-            List<NunitGoTestScreenshot> screens)
+            List<Screenshot> screens)
         {
-            if(!test.Screenshots.Any()) test.Screenshots = new List<NunitGoTestScreenshot>();
+            if(!test.Screenshots.Any()) test.Screenshots = new List<Screenshot>();
             var start = test.DateTimeStart;
             var end = test.DateTimeFinish;
 
@@ -73,7 +74,7 @@ namespace NunitGo.Utils
         }
 
         public static void AddScreenshots(this List<NunitGoTest> tests,
-            List<NunitGoTestScreenshot> screens)
+            List<Screenshot> screens)
         {
             foreach (var test in tests)
             {

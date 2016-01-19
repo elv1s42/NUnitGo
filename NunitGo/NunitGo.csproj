@@ -88,8 +88,6 @@
     <Compile Include="Utils\NunitGoSuiteHelper.cs" />
     <Compile Include="Utils\NunitGoTest.cs" />
     <Compile Include="Utils\NunitGoTestHelper.cs" />
-    <Compile Include="Utils\NunitGoTestScreenshot.cs" />
-    <Compile Include="Utils\NunitGoTestScreenshotHelper.cs" />
     <Compile Include="Utils\Structs.cs" />
   </ItemGroup>
   <ItemGroup>

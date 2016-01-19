@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Xml.Linq;
 
 namespace NunitGo.Utils
@@ -58,36 +56,6 @@ namespace NunitGo.Utils
         }
 
         public static string TakeScreenshot(DateTime creationTime = default(DateTime))
-        {
-            var format = ImageFormat.Png;
-            var now = DateTime.Now;
-            var screenPath = Screenshots + @"\";
-            creationTime = creationTime.Equals(default(DateTime)) ? now : creationTime;
-            var screenName = GetScreenName(creationTime, format);
-
-            using (var bmpScreenCapture = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
-                                            Screen.PrimaryScreen.Bounds.Height))
-            {
-                using (var g = Graphics.FromImage(bmpScreenCapture))
-                {
-                    g.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
-                                     Screen.PrimaryScreen.Bounds.Y,
-                                     0, 0,
-                                     bmpScreenCapture.Size,
-                                     CopyPixelOperation.SourceCopy);
-
-                    var file = screenPath + screenName;
-                    bmpScreenCapture.Save(file, format);
-                    var fileInfo = new FileInfo(file);
-                    fileInfo.Refresh();
-                    fileInfo.CreationTime = creationTime;
-
-                }
-            }
-            return screenName;
-        }
-
-        public static string TakeScreenshot(this NunitGoActionAttribute test, DateTime creationTime = default(DateTime))
         {
             var now = DateTime.Now;
             var screenPath = Screenshots + @"\";
