@@ -53,8 +53,6 @@
     <Compile Include="CustomElements\CSSElements\CssPage.cs" />
     <Compile Include="CustomElements\CSSElements\CssSet.cs" />
     <Compile Include="CustomElements\CSSElements\StyleAttribute.cs" />
-    <Compile Include="CustomElements\HtmlCustomElements\Accordion.cs" />
-    <Compile Include="CustomElements\HtmlCustomElements\AccordionElement.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\Bullet.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\HorizontalBar.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\HorizontalBarElement.cs" />
@@ -62,10 +60,10 @@
     <Compile Include="CustomElements\HtmlCustomElements\HtmlBaseElement.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\CloseButton.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\OpenButton.cs" />
-    <Compile Include="CustomElements\HtmlCustomElements\MainInformation.cs" />
-    <Compile Include="CustomElements\HtmlCustomElements\NunitTestHtml.cs" />
-    <Compile Include="CustomElements\HtmlCustomElements\ReportFooter.cs" />
-    <Compile Include="CustomElements\HtmlCustomElements\ReportMenu.cs" />
+    <Compile Include="CustomElements\ReportSections\MainInformationSection.cs" />
+    <Compile Include="CustomElements\NunitTestHtml.cs" />
+    <Compile Include="CustomElements\ReportSections\FooterSection.cs" />
+    <Compile Include="CustomElements\ReportSections\MenuSection.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\ReportMenuItem.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\PageTitle.cs" />
     <Compile Include="CustomElements\ReportSections\TimelineSection.cs" />

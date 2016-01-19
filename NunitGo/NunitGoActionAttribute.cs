@@ -50,7 +50,7 @@ namespace NunitGo
                 FullName = test.FullName,
                 ProjectName = (_projectName.Equals("")) ? test.FullName.Split(new []{'.'}).First() : _projectName,
                 ClassName = (_className.Equals("")) ? test.FullName.Split(new[] { '.' }).Skip(1).First() : _className,
-                Name = (_testName.Equals("")) ? test.Name : _testName,
+                Name = (_testName.Equals("")) ? test.MethodName : _testName,
                 TestStackTrace = context.Result.StackTrace ?? "",
                 TestMessage = context.Result.Message ?? "",
                 Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",

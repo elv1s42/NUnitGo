@@ -2,10 +2,11 @@
 using System.IO;
 using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
+using NunitGo.CustomElements.HtmlCustomElements;
 
-namespace NunitGo.CustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.ReportSections
 {
-    public class ReportFooter : HtmlBaseElement
+    public class FooterSection : HtmlBaseElement
     {
         public static string StyleString
         {
@@ -17,7 +18,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             get { return GetCode(); }
         }
 
-        public ReportFooter()
+        public FooterSection()
         {
             Title = "NUnitGo Test Run Report";
             Id = "main-title";

@@ -79,14 +79,13 @@ namespace NunitGo.CustomElements
                 HtmlPage.StyleString,
                 Tooltip.StyleString,
                 HorizontalBar.StyleString,
-                ReportFooter.StyleString,
-                MainInformation.StyleString,
+                FooterSection.StyleString,
+                MainInformationSection.StyleString,
                 Bullet.StyleString,
                 HrefButtonBase.StyleString,
                 Tree.StyleString,
                 NunitTestHtml.StyleString,
-                Accordion.StyleString,
-                ReportMenu.StyleString,
+                MenuSection.StyleString,
                 OpenButton.StyleString
             });
 
@@ -102,7 +101,7 @@ namespace NunitGo.CustomElements
 			var mainTitle = new PageTitle();
 			report.AddToBody(mainTitle.HtmlCode);
             
-			var mainInformation = new MainInformation(mainStats);
+			var mainInformation = new MainInformationSection(mainStats);
 			report.AddToBody(mainInformation.HtmlCode);
 
 			var reportMenuTitle = new PageTitle("Report menu", "report-main-menu");
@@ -114,10 +113,10 @@ namespace NunitGo.CustomElements
 				new ReportMenuItem("Test list", Output.Outputs.TestList),
 				new ReportMenuItem("Timeline", Output.Outputs.Timeline)
 			};
-            var reportMenu = new ReportMenu(menuElements, "main-menu", "Main Menu");
+            var reportMenu = new MenuSection(menuElements, "main-menu", "Main Menu");
             report.AddToBody(reportMenu.ReportMenuHtml);
 
-			var footer = new ReportFooter();
+			var footer = new FooterSection();
             report.AddInsideTag("footer", footer.HtmlCode);
             
             var reportPageName = Output.Outputs.FullReport;

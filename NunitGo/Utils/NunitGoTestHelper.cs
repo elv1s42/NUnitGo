@@ -47,17 +47,11 @@ namespace NunitGo.Utils
             return tests;
         }
 
-        public static void TakeScreenshot(this NunitGoTest test)
+        public static string TakeScreenshot(this NunitGoTest test, DateTime creationTime = default(DateTime))
         {
-            var now = DateTime.Now;
-            NunitGoHelper.TakeScreenshot(now);
-            test.Screenshots.Add(new Screenshot(now));
-        }
-
-        public static void TakeScreenshot(this NunitGoTest test, DateTime date)
-        {
-            NunitGoHelper.TakeScreenshot(date);
-            test.Screenshots.Add(new Screenshot(date));
+            creationTime = creationTime.Equals(default(DateTime)) ? DateTime.Now : creationTime;
+            test.Screenshots.Add(new Screenshot(creationTime));
+            return Taker.TakeScreenshot(creationTime, NunitGoHelper.Screenshots + @"\");
         }
 
         public static void AddScreenshots(this NunitGoTest test,
@@ -70,15 +64,6 @@ namespace NunitGo.Utils
             foreach (var screen in screens.Where(screen => screen.Date >= start && screen.Date <= end))
             {
                 test.Screenshots.Add(screen);
-            }
-        }
-
-        public static void AddScreenshots(this List<NunitGoTest> tests,
-            List<Screenshot> screens)
-        {
-            foreach (var test in tests)
-            {
-                test.AddScreenshots(screens);
             }
         }
 

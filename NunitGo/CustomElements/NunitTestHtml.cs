@@ -2,9 +2,10 @@
 using System.IO;
 using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
+using NunitGo.CustomElements.HtmlCustomElements;
 using NunitGo.Utils;
 
-namespace NunitGo.CustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements
 {
 	public class NunitTestHtml : HtmlBaseElement
     {

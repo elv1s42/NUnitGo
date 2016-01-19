@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -47,21 +46,6 @@ namespace NunitGo.Utils
             Directory.CreateDirectory(Output);
             Directory.CreateDirectory(Output + @"\Attachments");
             Directory.CreateDirectory(Output + @"\Screenshots");
-        }
-
-        public static string GetScreenName(DateTime now, ImageFormat format = null)
-        {
-            format = format ?? ImageFormat.Png;
-            return String.Format("screenshot_{0}.{1}", now.ToString("yyyyMMddHHmmssfff"), format.ToString().ToLower());
-        }
-
-        public static string TakeScreenshot(DateTime creationTime = default(DateTime))
-        {
-            var now = DateTime.Now;
-            var screenPath = Screenshots + @"\";
-            creationTime = creationTime.Equals(default(DateTime)) ? now : creationTime;
-
-            return ScreenshotTaker.Taker.TakeScreenshot(creationTime, screenPath);
         }
     }
 }

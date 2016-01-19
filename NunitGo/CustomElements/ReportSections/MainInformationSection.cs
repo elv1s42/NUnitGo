@@ -2,11 +2,12 @@
 using System.IO;
 using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
+using NunitGo.CustomElements.HtmlCustomElements;
 using NunitGo.Utils;
 
-namespace NunitGo.CustomElements.HtmlCustomElements
+namespace NunitGo.CustomElements.ReportSections
 {
-    public class MainInformation : HtmlBaseElement
+    public class MainInformationSection : HtmlBaseElement
     {
         public string HtmlCode;
         public static string StyleString
@@ -59,7 +60,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             return mainInfoCssSet.ToString();
         }
 
-        public MainInformation(MainStatistics stats)
+        public MainInformationSection(MainStatistics stats)
         {
             Style = GetStyle();
 
