@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<NunitGoTest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>TestMethodIgnored</Name>
+  <FullName>NunitTestsExample.TestClass1.TestMethodIgnored</FullName>
+  <ClassName>TestClass1</ClassName>
+  <ProjectName>NunitTestsExample</ProjectName>
+  <TestDuration>0.3060306</TestDuration>
+  <DateTimeStart>2016-01-19T09:59:08.6661989+03:00</DateTimeStart>
+  <DateTimeFinish>2016-01-19T09:59:08.9722295+03:00</DateTimeFinish>
+  <TestStackTrace>at NunitTestsExample.TestClass1.TestMethodIgnored() in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass1.cs:line 63
+</TestStackTrace>
+  <TestMessage>Test was ignored!</TestMessage>
+  <Result>Skipped:Ignored</Result>
+  <Guid>11111111-1111-1111-1111-111111111115</Guid>
+  <AttachmentsPath>C:\_NUnitGoResults\Attachments\11111111-1111-1111-1111-111111111115\</AttachmentsPath>
+  <TestHref>Attachments/11111111-1111-1111-1111-111111111115/test.html</TestHref>
+  <LogHref>out.html</LogHref>
+  <HasOutput>false</HasOutput>
+  <Screenshots>
+    <Screenshot>
+      <Name>screenshot_20160119095908978.png</Name>
+      <Date>2016-01-19T09:59:08.9782301+03:00</Date>
+    </Screenshot>
+  </Screenshots>
+</NunitGoTest>

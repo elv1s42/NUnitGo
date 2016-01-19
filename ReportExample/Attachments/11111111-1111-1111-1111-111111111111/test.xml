@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<NunitGoTest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>LongLogTest</Name>
+  <FullName>NunitTestsExample.TestClass1.LongLogTest</FullName>
+  <ClassName>Subsystem1</ClassName>
+  <ProjectName>Project1</ProjectName>
+  <TestDuration>0.610061</TestDuration>
+  <DateTimeStart>2016-01-19T09:59:07.5930916+03:00</DateTimeStart>
+  <DateTimeFinish>2016-01-19T09:59:08.2031526+03:00</DateTimeFinish>
+  <TestStackTrace>at NunitTestsExample.TestClass1.LongLogTest() in c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass1.cs:line 29
+</TestStackTrace>
+  <TestMessage>  Expected: 1
+  But was:  2
+</TestMessage>
+  <Result>Failed</Result>
+  <Guid>11111111-1111-1111-1111-111111111111</Guid>
+  <AttachmentsPath>C:\_NUnitGoResults\Attachments\11111111-1111-1111-1111-111111111111\</AttachmentsPath>
+  <TestHref>Attachments/11111111-1111-1111-1111-111111111111/test.html</TestHref>
+  <LogHref>out.html</LogHref>
+  <HasOutput>true</HasOutput>
+  <Screenshots>
+    <Screenshot>
+      <Name>screenshot_20160119095908208.png</Name>
+      <Date>2016-01-19T09:59:08.2081531+03:00</Date>
+    </Screenshot>
+  </Screenshots>
+</NunitGoTest>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<NunitGoTest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>ParamTestName1("0",1,"11111111-1111-1111-1111-111111111211")</Name>
+  <FullName>NunitTestsExample2.TestClass1.ParamTestName1("0",1,"11111111-1111-1111-1111-111111111211")</FullName>
+  <ClassName>TestClass1</ClassName>
+  <ProjectName>NunitTestsExample2</ProjectName>
+  <TestDuration>0.2620262</TestDuration>
+  <DateTimeStart>2016-01-19T09:59:11.9265249+03:00</DateTimeStart>
+  <DateTimeFinish>2016-01-19T09:59:12.1885511+03:00</DateTimeFinish>
+  <TestStackTrace>at NunitTestsExample2.TestClass1.ParamTestName1(String input, Int32 expected, String guid) in c:\_GitHubProjects\NUnitGo\NunitTestsExample2\TestClass1.cs:line 18
+</TestStackTrace>
+  <TestMessage>  String lengths are both 1. Strings differ at index 0.
+  Expected: "0"
+  But was:  "1"
+  -----------^
+</TestMessage>
+  <Result>Failed</Result>
+  <Guid>11111111-1111-1111-1111-111111111211</Guid>
+  <AttachmentsPath>C:\_NUnitGoResults\Attachments\11111111-1111-1111-1111-111111111211\</AttachmentsPath>
+  <TestHref>Attachments/11111111-1111-1111-1111-111111111211/test.html</TestHref>
+  <LogHref>out.html</LogHref>
+  <HasOutput>false</HasOutput>
+  <Screenshots>
+    <Screenshot>
+      <Name>screenshot_20160119095912199.png</Name>
+      <Date>2016-01-19T09:59:12.1995522+03:00</Date>
+    </Screenshot>
+  </Screenshots>
+</NunitGoTest>

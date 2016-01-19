@@ -1,0 +1,288 @@
+19.01.2016 9:59:05: START:
+ParamTestName
+ParamTestName
+Test 3
+NunitTestsExample.ParamTestClass.Test 3
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:05: FINISH: 
+ParamTestName
+ParamTestName
+Test 3
+NunitTestsExample.ParamTestClass.Test 3
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:06: START:
+ParamTestName
+ParamTestName
+Test 7
+NunitTestsExample.ParamTestClass.Test 7
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:06: FINISH: 
+ParamTestName
+ParamTestName
+Test 7
+NunitTestsExample.ParamTestClass.Test 7
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:06: START:
+ParamTestName
+ParamTestName
+Test 4
+NunitTestsExample.ParamTestClass.Test 4
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:06: FINISH: 
+ParamTestName
+ParamTestName
+Test 4
+NunitTestsExample.ParamTestClass.Test 4
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:06: START:
+ParamTestName
+ParamTestName
+Test 5
+NunitTestsExample.ParamTestClass.Test 5
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:06: FINISH: 
+ParamTestName
+ParamTestName
+Test 5
+NunitTestsExample.ParamTestClass.Test 5
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:06: START:
+ParamTestName
+ParamTestName
+Test 6
+NunitTestsExample.ParamTestClass.Test 6
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:06: FINISH: 
+ParamTestName
+ParamTestName
+Test 6
+NunitTestsExample.ParamTestClass.Test 6
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:07: START:
+ParamTestName
+ParamTestName
+Test 1
+NunitTestsExample.ParamTestClass.Test 1
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:07: FINISH: 
+ParamTestName
+ParamTestName
+Test 1
+NunitTestsExample.ParamTestClass.Test 1
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:07: START:
+ParamTestName
+ParamTestName
+Test 8
+NunitTestsExample.ParamTestClass.Test 8
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:07: FINISH: 
+ParamTestName
+ParamTestName
+Test 8
+NunitTestsExample.ParamTestClass.Test 8
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:07: START:
+ParamTestName
+ParamTestName
+Test 2
+NunitTestsExample.ParamTestClass.Test 2
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:07: FINISH: 
+ParamTestName
+ParamTestName
+Test 2
+NunitTestsExample.ParamTestClass.Test 2
+NunitTestsExample.ParamTestClass
+NunitTestsExample.ParamTestClass
+
+19.01.2016 9:59:07: START:
+LongLogTest
+LongLogTest
+LongLogTest
+NunitTestsExample.TestClass1.LongLogTest
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:08: FINISH: 
+LongLogTest
+LongLogTest
+LongLogTest
+NunitTestsExample.TestClass1.LongLogTest
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:08: START:
+SuccessTest
+SuccessTest
+SuccessTest
+NunitTestsExample.TestClass1.SuccessTest
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:08: FINISH: 
+SuccessTest
+SuccessTest
+SuccessTest
+NunitTestsExample.TestClass1.SuccessTest
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:08: START:
+TestMethodIgnored
+TestMethodIgnored
+TestMethodIgnored
+NunitTestsExample.TestClass1.TestMethodIgnored
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:08: FINISH: 
+TestMethodIgnored
+TestMethodIgnored
+TestMethodIgnored
+NunitTestsExample.TestClass1.TestMethodIgnored
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:09: START:
+TestMethodInconclusive
+TestMethodInconclusive
+TestMethodInconclusive
+NunitTestsExample.TestClass1.TestMethodInconclusive
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:09: FINISH: 
+TestMethodInconclusive
+TestMethodInconclusive
+TestMethodInconclusive
+NunitTestsExample.TestClass1.TestMethodInconclusive
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:09: START:
+ThreeScreenshotsExpected
+ThreeScreenshotsExpected
+ThreeScreenshotsExpected
+NunitTestsExample.TestClass1.ThreeScreenshotsExpected
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:09: FINISH: 
+ThreeScreenshotsExpected
+ThreeScreenshotsExpected
+ThreeScreenshotsExpected
+NunitTestsExample.TestClass1.ThreeScreenshotsExpected
+NunitTestsExample.TestClass1
+NunitTestsExample.TestClass1
+
+19.01.2016 9:59:10: START:
+TestMethod2
+TestMethod2
+TestMethod2
+NunitTestsExample.TestClass2.TestMethod2
+NunitTestsExample.TestClass2
+NunitTestsExample.TestClass2
+
+19.01.2016 9:59:10: FINISH: 
+TestMethod2
+TestMethod2
+TestMethod2
+NunitTestsExample.TestClass2.TestMethod2
+NunitTestsExample.TestClass2
+NunitTestsExample.TestClass2
+
+19.01.2016 9:59:10: START:
+TestMethod3
+TestMethod3
+TestMethod3
+NunitTestsExample.TestClass2.TestMethod3
+NunitTestsExample.TestClass2
+NunitTestsExample.TestClass2
+
+19.01.2016 9:59:11: FINISH: 
+TestMethod3
+TestMethod3
+TestMethod3
+NunitTestsExample.TestClass2.TestMethod3
+NunitTestsExample.TestClass2
+NunitTestsExample.TestClass2
+
+19.01.2016 9:59:11: START:
+ParamTestName1
+ParamTestName1
+ParamTestName1("0",1,"11111111-1111-1111-1111-111111111211")
+NunitTestsExample2.TestClass1.ParamTestName1("0",1,"11111111-1111-1111-1111-111111111211")
+NunitTestsExample2.TestClass1
+NunitTestsExample2.TestClass1
+
+19.01.2016 9:59:12: FINISH: 
+ParamTestName1
+ParamTestName1
+ParamTestName1("0",1,"11111111-1111-1111-1111-111111111211")
+NunitTestsExample2.TestClass1.ParamTestName1("0",1,"11111111-1111-1111-1111-111111111211")
+NunitTestsExample2.TestClass1
+NunitTestsExample2.TestClass1
+
+19.01.2016 9:59:12: START:
+ParamTestName1
+ParamTestName1
+ParamTestName1("1",1,"11111111-1111-1111-1111-111111111212")
+NunitTestsExample2.TestClass1.ParamTestName1("1",1,"11111111-1111-1111-1111-111111111212")
+NunitTestsExample2.TestClass1
+NunitTestsExample2.TestClass1
+
+19.01.2016 9:59:13: FINISH: 
+ParamTestName1
+ParamTestName1
+ParamTestName1("1",1,"11111111-1111-1111-1111-111111111212")
+NunitTestsExample2.TestClass1.ParamTestName1("1",1,"11111111-1111-1111-1111-111111111212")
+NunitTestsExample2.TestClass1
+NunitTestsExample2.TestClass1
+
+19.01.2016 9:59:13: START:
+ParamTestName1
+ParamTestName1
+Testing name attribute
+NunitTestsExample2.TestClass1.Testing name attribute
+NunitTestsExample2.TestClass1
+NunitTestsExample2.TestClass1
+
+19.01.2016 9:59:13: FINISH: 
+ParamTestName1
+ParamTestName1
+Testing name attribute
+NunitTestsExample2.TestClass1.Testing name attribute
+NunitTestsExample2.TestClass1
+NunitTestsExample2.TestClass1
+

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<NunitGoTest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>TestMethod3</Name>
+  <FullName>NunitTestsExample.TestClass2.TestMethod3</FullName>
+  <ClassName>Subsystem2</ClassName>
+  <ProjectName>Project1</ProjectName>
+  <TestDuration>0.10401039999999999</TestDuration>
+  <DateTimeStart>2016-01-19T09:59:10.9934316+03:00</DateTimeStart>
+  <DateTimeFinish>2016-01-19T09:59:11.097442+03:00</DateTimeFinish>
+  <TestStackTrace />
+  <TestMessage />
+  <Result>Passed</Result>
+  <Guid>11111111-1111-1111-1111-111111111123</Guid>
+  <AttachmentsPath>C:\_NUnitGoResults\Attachments\11111111-1111-1111-1111-111111111123\</AttachmentsPath>
+  <TestHref>Attachments/11111111-1111-1111-1111-111111111123/test.html</TestHref>
+  <LogHref>out.html</LogHref>
+  <HasOutput>false</HasOutput>
+  <Screenshots />
+</NunitGoTest>
