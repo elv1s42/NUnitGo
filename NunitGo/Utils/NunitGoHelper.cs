@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using NunitGo.NunitGoItems;
 
 namespace NunitGo.Utils
 {
@@ -11,6 +12,7 @@ namespace NunitGo.Utils
         public static string Attachments;
         public static bool GenerateReport;
         public static bool TakeScreenshotAfterTestFailed;
+        public static NunitGoConfiguration Configuration;
 
         private static string GetPath()
         {
@@ -28,15 +30,14 @@ namespace NunitGo.Utils
             Attachments = Output + @"\Attachments";
             GenerateReport = configuration.GenerateReport;
             TakeScreenshotAfterTestFailed = configuration.TakeScreenshotAfterTestFailed;
+            Configuration = configuration;
         }
 
         public static void CreateDirectories()
         {
-            //if (Directory.Exists(Output)) return;
             Directory.CreateDirectory(Output);
-            Directory.CreateDirectory(Output + @"\Attachments");
-            Directory.CreateDirectory(Output + @"\Screenshots");
-            
+            Directory.CreateDirectory(Screenshots);
+            Directory.CreateDirectory(Attachments);
         }
     }
 }
