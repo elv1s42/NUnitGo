@@ -85,7 +85,7 @@ namespace NunitGo
 
             _test.AttachmentsPath = NunitGoHelper.Output + @"\" + "Attachments" + @"\" + _test.Guid + @"\";
             Directory.CreateDirectory(_test.AttachmentsPath);
-            _test.TestHref = "Attachments" + @"/" + _test.Guid + @"/" + Output.Outputs.Test;
+            _test.TestHref = "Attachments" + @"/" + _test.Guid + @"/" + Output.Outputs.TestHtml;
             _test.LogHref = Output.Outputs.Out;
             var output = TestContext.Out.ToString();
             if (!output.Equals(String.Empty))
@@ -96,9 +96,9 @@ namespace NunitGo
             }
             _test.AddScreenshots(ScreenshotHelper.GetScreenshots(NunitGoHelper.Screenshots));
 
-            var testPath = _test.AttachmentsPath + Output.Outputs.Test;
+            var testPath = _test.AttachmentsPath + Output.Outputs.TestHtml;
             _test.GenerateTestPage(testPath);
-            _test.Save(_test.AttachmentsPath + "test.xml");
+            _test.Save(_test.AttachmentsPath + Output.Outputs.TestXml);
 
             PageGenerator.GenerateStyleFile(NunitGoHelper.Output);
 

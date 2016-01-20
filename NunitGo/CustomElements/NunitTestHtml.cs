@@ -10,7 +10,7 @@ using NunitGo.Utils;
 
 namespace NunitGo.CustomElements
 {
-	public class NunitTestHtml : HtmlBaseElement
+	internal class NunitTestHtml : HtmlBaseElement
     {
         public string ModalWindowsHtml;
 		

@@ -8,7 +8,7 @@ using ScreenshotTaker;
 
 namespace NunitGo.Utils
 {
-    internal static class NunitGoTestHelper
+    public static class NunitGoTestHelper
     {
         public static void Save(this NunitGoTest test, string fullPath)
         {
@@ -19,7 +19,7 @@ namespace NunitGo.Utils
             }
         }
 
-        public static NunitGoTest Load(string fullPath)
+        private static NunitGoTest Load(string fullPath)
         {
             NunitGoTest test;
             var ser = new XmlSerializer(typeof(NunitGoTest));
@@ -34,7 +34,7 @@ namespace NunitGo.Utils
         {
             var tests = new List<NunitGoTest>();
             var filesFound = new List<String>();
-            filesFound.AddRange(Directory.GetFiles(NunitGoHelper.Output, "*.xml", SearchOption.AllDirectories));
+            filesFound.AddRange(Directory.GetFiles(NunitGoHelper.Output, Output.Outputs.TestXml/*"*.xml"*/, SearchOption.AllDirectories));
             foreach (var file in filesFound)
             {
                 try

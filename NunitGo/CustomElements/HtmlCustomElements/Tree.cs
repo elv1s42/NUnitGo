@@ -9,7 +9,7 @@ using NunitGo.Utils;
 
 namespace NunitGo.CustomElements.HtmlCustomElements
 {
-	public class Tree : HtmlBaseElement
+	internal class Tree : HtmlBaseElement
 	{
         public string HtmlCode;
 		public static string StyleString

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NunitGo.Utils;
 
 namespace NunitGo.NunitGoItems
 {

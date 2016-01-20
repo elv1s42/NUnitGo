@@ -9,7 +9,7 @@ using NunitGo.Utils;
 
 namespace NunitGo.CustomElements.ReportSections
 {
-    public class TimelineSection
+    internal class TimelineSection
     {
         public string HtmlCode;
 

@@ -7,7 +7,7 @@ using NunitGo.Utils;
 
 namespace NunitGo.CustomElements.ReportSections
 {
-    public class MainInformationSection : HtmlBaseElement
+    internal class MainInformationSection : HtmlBaseElement
     {
         public string HtmlCode;
         public static string StyleString

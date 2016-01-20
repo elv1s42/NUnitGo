@@ -8,7 +8,8 @@
             public static string Log = "log" + Type.Default;
             public static string Error = "error" + Type.Default;
             public static string Trace = "trace" + Type.Default;
-            public static string Test = "Test" + Type.Html;
+            public static string TestHtml = "Test" + Type.Html;
+            public static string TestXml = "Test" + Type.Xml;
             public static string TestList = "TestList" + Type.Html;
             public static string TestStatistics = "TestStatistics" + Type.Html;
             public static string Timeline = "Timeline" + Type.Html;
@@ -20,6 +21,7 @@
         {
             public static string Default = ".html";
             public static string Txt = ".txt";
+            public static string Xml = ".xml";
             public static string Html = ".html";
             public static string Css = ".css";
         }

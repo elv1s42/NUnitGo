@@ -9,7 +9,7 @@ using NunitGo.Utils;
 
 namespace NunitGo.CustomElements
 {
-	public static class PageGenerator
+	internal static class PageGenerator
     {
         public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
         {

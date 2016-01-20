@@ -4,7 +4,7 @@ using NunitGo.NunitGoItems;
 
 namespace NunitGo.Utils
 {
-    public static class NunitGoSuiteHelper
+    internal static class NunitGoSuiteHelper
     {
         public static NunitGoSuite GetSuite(this List<NunitGoTest> tests, string suiteName)
         {

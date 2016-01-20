@@ -4,7 +4,7 @@ using NunitGo.NunitGoItems;
 
 namespace NunitGo.Utils
 {
-    public class MainStatistics
+    internal class MainStatistics
     {
         public int TotalAll;
         public int TotalPassed;
