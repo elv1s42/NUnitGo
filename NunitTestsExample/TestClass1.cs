@@ -56,7 +56,7 @@ namespace NunitTestsExample
             Assert.Inconclusive("Inconc. test :)");
         }
 
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111115")]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111115", "Project1")]
         public void TestMethodIgnored()
         {
             Thread.Sleep(300);

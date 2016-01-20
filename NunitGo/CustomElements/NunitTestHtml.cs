@@ -98,7 +98,12 @@ namespace NunitGo.CustomElements
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 writer.Write(new CloseButton("Back", "./../../" + Output.Outputs.TestList).ButtonHtml);
                 writer.RenderEndTag(); //DIV
-                
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Test full name: ");
+                writer.Write(nunitGoTest.FullName);
+                writer.RenderEndTag(); //P
+
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Test name: ");
                 writer.Write(nunitGoTest.Name);
@@ -161,6 +166,11 @@ namespace NunitGo.CustomElements
                     writer.Write(GenerateTxtView(nunitGoTest.TestMessage));
                     writer.RenderEndTag(); //P
                 }
+
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Test guid: ");
+                writer.Write(nunitGoTest.Guid);
+                writer.RenderEndTag(); //P
 
                 writer.RenderEndTag(); //DIV
                 writer.RenderEndTag(); //DIV

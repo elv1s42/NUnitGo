@@ -5,28 +5,13 @@ namespace NunitGo.Utils
 {
     public static class Log
     {
-        private static string GetFilePath()
-        {
-            return NunitGoHelper.Output;
-        }
+        private const string LogFile = @"NunitGoLog.txt";
+        private static readonly string Output = NunitGoHelper.Output;
 
-        public static void Clean()
+        private static void WriteToFile(string msg, string fileName)
         {
-            try
-            {
-                File.WriteAllText(GetFilePath() + @"\NunitGoAddinLog.txt", String.Empty);
-            }
-            catch (Exception e)
-            {
-                Write("Exception in Clean() method: " + e.Message + " " + e.StackTrace);
-            }
-        }
-
-        public static void Write(string msg)
-        {
-            var path = GetFilePath();
-            Directory.CreateDirectory(path);
-            using (var sw = File.AppendText(path + @"\NunitGoAddinLog.txt"))
+            Directory.CreateDirectory(Output);
+            using (var sw = File.AppendText(Path.Combine(Output, fileName)))
             {
                 try
                 {
@@ -40,9 +25,38 @@ namespace NunitGo.Utils
             }
         }
 
-        public static void Exception(Exception exception)
+        public static void Write(string msg)
         {
-            Write("Exception! Message: " + exception.Message + " , StackTrace: " + exception.StackTrace);
+            Directory.CreateDirectory(Output);
+            using (var sw = File.AppendText(Path.Combine(Output, LogFile)))
+            {
+                try
+                {
+                    var logLine = String.Format("{0:G}: {1}", DateTime.Now, msg);
+                    sw.WriteLine(logLine);
+                }
+                catch (Exception ex)
+                {
+                    Exception(ex);
+                }
+                finally
+                {
+                    sw.Close();
+                }
+            }
+        }
+
+        public static void Exception(Exception exception, string exceptionMessage = "")
+        {
+            var msg = (exceptionMessage.Equals("") ? "Exception!" : exceptionMessage) + Environment.NewLine
+                + " Message: " + Environment.NewLine + exception.Message + Environment.NewLine +
+                "StackTrace: " + Environment.NewLine + exception.StackTrace;
+            WriteToFile(msg, "Exception_" + DateTime.Now.ToString("ddMMyyHHmmssfff") + ".txt");
+        }
+
+        public static void Warning(string warningMessage)
+        {
+            WriteToFile(warningMessage, "Warning_" + DateTime.Now.ToString("ddMMyyHHmmssfff") + ".txt");
         }
     }
 }
