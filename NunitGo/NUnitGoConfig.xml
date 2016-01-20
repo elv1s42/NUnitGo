@@ -3,4 +3,5 @@
   <LocalOutputPath>C:\_NUnitGoResults</LocalOutputPath>
   <TakeScreenshotAfterTestFailed>True</TakeScreenshotAfterTestFailed>
   <GenerateReport>True</GenerateReport>
+  <SendEmails>True</SendEmails>
 </config>

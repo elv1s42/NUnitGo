@@ -82,9 +82,9 @@
     <Compile Include="Utils\NunitGoHelper.cs" />
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Utils\MainStatistics.cs" />
-    <Compile Include="Utils\NunitGoSuite.cs" />
+    <Compile Include="NunitGoItems\NunitGoSuite.cs" />
     <Compile Include="Utils\NunitGoSuiteHelper.cs" />
-    <Compile Include="Utils\NunitGoTest.cs" />
+    <Compile Include="NunitGoItems\NunitGoTest.cs" />
     <Compile Include="Utils\NunitGoTestHelper.cs" />
     <Compile Include="Utils\Output.cs" />
   </ItemGroup>

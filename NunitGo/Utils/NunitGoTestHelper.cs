@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+using NunitGo.NunitGoItems;
 using ScreenshotTaker;
 
 namespace NunitGo.Utils
 {
-    public static class NunitGoTestHelper
+    internal static class NunitGoTestHelper
     {
         public static void Save(this NunitGoTest test, string fullPath)
         {
@@ -40,8 +41,9 @@ namespace NunitGo.Utils
                 {
                     tests.Add(Load(file));
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Log.Exception(ex, "Exception while loading test xml file");
                 }
             }
             return tests;

@@ -4,6 +4,7 @@ using System.IO;
 using NunitGo.CustomElements.CSSElements;
 using NunitGo.CustomElements.HtmlCustomElements;
 using NunitGo.CustomElements.ReportSections;
+using NunitGo.NunitGoItems;
 using NunitGo.Utils;
 
 namespace NunitGo.CustomElements

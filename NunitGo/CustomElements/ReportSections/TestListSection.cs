@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web.UI;
 using NunitGo.CustomElements.HtmlCustomElements;
+using NunitGo.NunitGoItems;
 using NunitGo.Utils;
 
 namespace NunitGo.CustomElements.ReportSections

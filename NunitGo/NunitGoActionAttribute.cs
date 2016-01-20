@@ -5,6 +5,7 @@ using System.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NunitGo.CustomElements;
+using NunitGo.NunitGoItems;
 using NunitGo.Utils;
 using ScreenshotTaker;
 
@@ -13,7 +14,7 @@ namespace NunitGo
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
     {
-        private readonly Guid _testGuid;
+        private Guid _testGuid;
         private readonly string _projectName;
         private readonly string _className;
         private readonly string _testName;
@@ -25,9 +26,9 @@ namespace NunitGo
 
         public NunitGoActionAttribute(string testGuidString = "", string projectName = "", string className = "", string testName = "")
         {
-            _testGuid = !testGuidString.Equals("")
-                    ? new Guid(testGuidString)
-                    : Guid.Empty;
+            _testGuid = testGuidString.Equals("")
+                    ? Guid.Empty
+                    : new Guid(testGuidString);
             _projectName = projectName;
             _className = className;
             _testName = testName;
@@ -56,7 +57,12 @@ namespace NunitGo
 
             _finish = DateTime.Now;
             var context = TestContext.CurrentContext;
-            
+
+            if (_testGuid.Equals(Guid.Empty))
+            {
+                _testGuid =  TestGuid.Equals(Guid.Empty) ? new Guid() : TestGuid;
+            }
+
             _test = new NunitGoTest
             {
                 DateTimeStart = _start,
@@ -69,7 +75,7 @@ namespace NunitGo
                 TestStackTrace = context.Result.StackTrace ?? "",
                 TestMessage = context.Result.Message ?? "",
                 Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
-                Guid = _testGuid.Equals(Guid.Empty) ? TestGuid : Guid.NewGuid(),
+                Guid = _testGuid,//_testGuid.Equals(Guid.Empty) ? TestGuid : Guid.NewGuid(),
                 Screenshots = new List<Screenshot>()
             };
 

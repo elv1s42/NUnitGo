@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using NunitGo.Utils;
 using ScreenshotTaker;
 
-namespace NunitGo.Utils
+namespace NunitGo.NunitGoItems
 {
     public class NunitGoTest
     {
