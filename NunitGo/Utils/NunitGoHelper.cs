@@ -24,13 +24,21 @@ namespace NunitGo.Utils
 
         static NunitGoHelper()
         {
-            var configuration = NunitGoConfigurationHelper.Load(Path.Combine(GetPath(), "NUnitGoConfig.xml"));
-            Output = configuration.LocalOutputPath;
-            Screenshots = Output + @"\Screenshots";
-            Attachments = Output + @"\Attachments";
-            GenerateReport = configuration.GenerateReport;
-            TakeScreenshotAfterTestFailed = configuration.TakeScreenshotAfterTestFailed;
-            Configuration = configuration;
+            try
+            {
+                var configuration = NunitGoConfigurationHelper.Load(Path.Combine(GetPath(), "NUnitGoConfig.xml"));
+                Output = configuration.LocalOutputPath;
+                Screenshots = Output + @"\Screenshots";
+                Attachments = Output + @"\Attachments";
+                GenerateReport = configuration.GenerateReport;
+                TakeScreenshotAfterTestFailed = configuration.TakeScreenshotAfterTestFailed;
+                Configuration = configuration;
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, GetPath(), "Exception in NunitGoHelper constructor");
+            }
+            
         }
 
         public static void CreateDirectories()

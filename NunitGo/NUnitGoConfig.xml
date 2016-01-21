@@ -1,6 +1,32 @@
-﻿<NunitGoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+﻿<?xml version="1.0"?>
+<NunitGoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LocalOutputPath>C:\_NUnitGoResults</LocalOutputPath>
   <TakeScreenshotAfterTestFailed>true</TakeScreenshotAfterTestFailed>
   <GenerateReport>true</GenerateReport>
   <SendEmails>true</SendEmails>
+  <Subsciptions>
+    <Subsciption>
+      <Name>Subscription1</Name>
+      <TargetEmails>
+        <Address>
+          <Email>test@test.test</Email>
+          <Name>Test</Name>
+        </Address>
+      </TargetEmails>
+    </Subsciption>
+  </Subsciptions>
+  <SmtpHost>smtp.gmail.com</SmtpHost>
+  <SmtpPort>587</SmtpPort>
+  <MailFromList>
+    <Address>
+      <Email>test@test.test</Email>
+      <Name>Test</Name>
+      <Password>123</Password>
+    </Address>
+    <Address>
+      <Email>test2@test.test</Email>
+      <Name>Test</Name>
+      <Password>123</Password>
+    </Address>
+  </MailFromList>
 </NunitGoConfiguration>

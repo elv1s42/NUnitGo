@@ -6,12 +6,29 @@ namespace NunitGo.Utils
     public static class Log
     {
         private const string LogFile = @"NunitGoLog.txt";
-        private static readonly string Output = NunitGoHelper.Output;
+        private static readonly string Output = NunitGoHelper.Output ?? @"C:\_NUnitGoResults";
 
         private static void WriteToFile(string msg, string fileName)
         {
             Directory.CreateDirectory(Output);
             using (var sw = File.AppendText(Path.Combine(Output, fileName)))
+            {
+                try
+                {
+                    var logLine = String.Format("{0:G}: {1}", DateTime.Now, msg);
+                    sw.WriteLine(logLine);
+                }
+                finally
+                {
+                    sw.Close();
+                }
+            }
+        }
+
+        private static void WriteToFile(string msg, string fileName, string filePath)
+        {
+            Directory.CreateDirectory(Output);
+            using (var sw = File.AppendText(Path.Combine(filePath, fileName)))
             {
                 try
                 {
@@ -52,6 +69,14 @@ namespace NunitGo.Utils
                 + " Message: " + Environment.NewLine + exception.Message + Environment.NewLine +
                 "StackTrace: " + Environment.NewLine + exception.StackTrace;
             WriteToFile(msg, "Exception_" + DateTime.Now.ToString("ddMMyyHHmmssfff") + ".txt");
+        }
+
+        public static void Exception(Exception exception, string path, string exceptionMessage)
+        {
+            var msg = exceptionMessage + Environment.NewLine
+                + " Message: " + Environment.NewLine + exception.Message + Environment.NewLine +
+                "StackTrace: " + Environment.NewLine + exception.StackTrace;
+            WriteToFile(msg, "Exception_" + DateTime.Now.ToString("ddMMyyHHmmssfff") + ".txt", path);
         }
 
         public static void Warning(string warningMessage)

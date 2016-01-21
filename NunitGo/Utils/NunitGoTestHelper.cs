@@ -34,7 +34,7 @@ namespace NunitGo.Utils
         {
             var tests = new List<NunitGoTest>();
             var filesFound = new List<String>();
-            filesFound.AddRange(Directory.GetFiles(NunitGoHelper.Output, Output.Outputs.TestXml/*"*.xml"*/, SearchOption.AllDirectories));
+            filesFound.AddRange(Directory.GetFiles(NunitGoHelper.Output, Output.Outputs.TestXml, SearchOption.AllDirectories));
             foreach (var file in filesFound)
             {
                 try

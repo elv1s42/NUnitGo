@@ -10,7 +10,7 @@ namespace NunitTestsExample
     [TestFixture]
     public class TestClass1
     {
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111111", "Project1", "Subsystem1")]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111111", "Project1", "Subsystem1", "Long log test", "Subscription1")]
         public void LongLogTest()
         {
             Console.WriteLine("Testing log writing 1");
@@ -22,7 +22,7 @@ namespace NunitTestsExample
             Console.WriteLine("Testing log writing 4");
             Thread.Sleep(200);
             Console.WriteLine("Testing log writing 5");
-            for (var i = 0; i < 55; i++)
+            for (var i = 6; i < 55; i++)
             {
                 Console.WriteLine("Testing log writing " + i);
             }

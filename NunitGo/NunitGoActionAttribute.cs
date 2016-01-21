@@ -6,6 +6,7 @@ using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using NunitGo.CustomElements;
 using NunitGo.NunitGoItems;
+using NunitGo.NunitGoItems.Subscriptions;
 using NunitGo.Utils;
 using ScreenshotTaker;
 
@@ -18,13 +19,15 @@ namespace NunitGo
         private readonly string _projectName;
         private readonly string _className;
         private readonly string _testName;
+        private readonly Subsciption _subscription;
         private NunitGoTest _test;
         private DateTime _start;
         private DateTime _finish;
 
         public static Guid TestGuid = Guid.Empty;
 
-        public NunitGoActionAttribute(string testGuidString = "", string projectName = "", string className = "", string testName = "")
+        public NunitGoActionAttribute(string testGuidString = "", string projectName = "", string className = "", 
+            string testName = "", string subscription = "")
         {
             _testGuid = testGuidString.Equals("")
                     ? Guid.Empty
@@ -32,14 +35,21 @@ namespace NunitGo
             _projectName = projectName;
             _className = className;
             _testName = testName;
+            _subscription = (subscription == "")
+                ? null
+                : NunitGoHelper.Configuration.Subsciptions.First(s => s.Name.Equals(subscription));
         }
 
-        public NunitGoActionAttribute(Guid testGuid, string projectName = "", string className = "", string testName = "")
+        public NunitGoActionAttribute(Guid testGuid, string projectName = "", string className = "",
+            string testName = "", string subscription = "")
         {
             _testGuid = testGuid;
             _projectName = projectName;
             _className = className;
             _testName = testName;
+            _subscription = (subscription == "")
+                ? null
+                : NunitGoHelper.Configuration.Subsciptions.First(s => s.Name.Equals(subscription));
         }
 
         public void BeforeTest(ITest test)
@@ -97,8 +107,16 @@ namespace NunitGo
             _test.AddScreenshots(ScreenshotHelper.GetScreenshots(NunitGoHelper.Screenshots));
 
             var testPath = _test.AttachmentsPath + Output.Outputs.TestHtml;
-            _test.GenerateTestPage(testPath);
+            var testHtml = _test.GenerateTestPage(testPath);
             _test.Save(_test.AttachmentsPath + Output.Outputs.TestXml);
+
+            if ((_test.IsBroken() || _test.IsFailed()) && NunitGoHelper.Configuration.SendEmails 
+                && _subscription != null)
+            {
+                var mailSubject = String.Format("Test '{0}' was broken or failed", _test.Name);
+                EmailHelper.Send(NunitGoHelper.Configuration.MailFromList, _subscription.TargetEmails, mailSubject, testHtml);
+                
+            }
 
             PageGenerator.GenerateStyleFile(NunitGoHelper.Output);
 
