@@ -107,15 +107,13 @@ namespace NunitGo
             _test.AddScreenshots(ScreenshotHelper.GetScreenshots(NunitGoHelper.Screenshots));
 
             var testPath = _test.AttachmentsPath + Output.Outputs.TestHtml;
-            var testHtml = _test.GenerateTestPage(testPath);
+             _test.GenerateTestPage(testPath);
             _test.Save(_test.AttachmentsPath + Output.Outputs.TestXml);
 
             if ((_test.IsBroken() || _test.IsFailed()) && NunitGoHelper.Configuration.SendEmails 
                 && _subscription != null)
             {
-                var mailSubject = String.Format("Test '{0}' was broken or failed", _test.Name);
-                EmailHelper.Send(NunitGoHelper.Configuration.MailFromList, _subscription.TargetEmails, mailSubject, testHtml);
-                
+                EmailHelper.Send(NunitGoHelper.Configuration.MailFromList, _subscription.TargetEmails, _test);                
             }
 
             PageGenerator.GenerateStyleFile(NunitGoHelper.Output);

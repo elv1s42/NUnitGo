@@ -13,6 +13,7 @@ namespace NunitGo.NunitGoItems
         public List<Subsciption> Subsciptions;
         public string SmtpHost;
         public int SmtpPort;
+        public bool EnableSsl;
         public List<Address> MailFromList;
     }
 }

@@ -9,7 +9,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
 {
     internal static class EmailHelper
     {
-        public static bool SingleSend(Address from, Address to, string mailSubject, string mailBody, bool isBodyHtml = true)
+        public static bool SingleSend(Address from, Address to, MailMessage message, bool isBodyHtml = true)
         {
             try
             {
@@ -19,21 +19,21 @@ namespace NunitGo.NunitGoItems.Subscriptions
                 {
                     Host = NunitGoHelper.Configuration.SmtpHost,
                     Port = NunitGoHelper.Configuration.SmtpPort,
-                    EnableSsl = true,
+                    EnableSsl = NunitGoHelper.Configuration.EnableSsl,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(from.Email.Split('@').First(), from.Password),
                     Timeout = 10000
                 };
-                Log.Write(String.Format("Sending email from {0}, {1}, {2}, to {3}, {4}. " + Environment.NewLine +
-                                        "Host: {5}, Port: {6}. " + from.Email.Split('@').First(), 
-                                        from.Email, from.Name, from.Password, to.Email, to.Name, smtp.Host, smtp.Port));
+                //Log.Write(String.Format("Sending email from {0}, {1}, {2}, to {3}, {4}. " + Environment.NewLine +
+                //                        "Host: {5}, Port: {6}. " + from.Email.Split('@').First(), 
+                //                        from.Email, from.Name, from.Password, to.Email, to.Name, smtp.Host, smtp.Port));
                 using (smtp)
                 {
-                    using (var message = new MailMessage(fromAddress, toAddress){IsBodyHtml = isBodyHtml})
-                    {
-                        smtp.Send(message);
-                    }
+                    message.From = fromAddress;
+                    message.To.Add(toAddress);
+                    smtp.Send(message);
+                    
                 }
             }
             catch (Exception ex)
@@ -45,7 +45,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
         }
 
         public static void Send(List<Address> mailFromList, List<Address> targetEmails,
-            string mailSubject, string mailBody, bool isBodyHtml = true)
+            NunitGoTest nunitGoTest, bool isBodyHtml = true)
         {
             foreach (var address in targetEmails)
             {
@@ -53,9 +53,24 @@ namespace NunitGo.NunitGoItems.Subscriptions
                 var success = false;
                 while (!success && fromMails.Any())
                 {
-                    success = SingleSend(fromMails.First(), address, mailSubject, mailBody, isBodyHtml);
-                    if (!success)
-                        fromMails = fromMails.Skip(1).ToList();
+                    //var fromMail = fromMails.First();
+                    //var from = fromMail.ToMailAddress();
+                    //var to = new
+
+                    using (var message = new MailMessage
+                    {
+                        IsBodyHtml = isBodyHtml,
+                        Subject = MailGenerator.GetMailSubject(nunitGoTest),
+                        Body = MailGenerator.GetMailBody(nunitGoTest)
+                    })
+                    {
+                        var attachments = MailGenerator.GetAttachmentsFromScreenshots(nunitGoTest);
+                        message.AddAttachments(attachments);
+                        success = SingleSend(fromMails.First(), address, message, isBodyHtml);
+                        if (!success)
+                            fromMails = fromMails.Skip(1).ToList();
+                        
+                    }
                 }
             }
         }

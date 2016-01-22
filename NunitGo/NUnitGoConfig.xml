@@ -17,6 +17,7 @@
   </Subsciptions>
   <SmtpHost>smtp.gmail.com</SmtpHost>
   <SmtpPort>587</SmtpPort>
+  <EnableSsl>false</EnableSsl>
   <MailFromList>
     <Address>
       <Email>test@test.test</Email>

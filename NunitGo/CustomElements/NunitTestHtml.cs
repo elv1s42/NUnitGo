@@ -52,7 +52,7 @@ namespace NunitGo.CustomElements
 				{
 					new StyleAttribute("box-sizing", "border-box"),
 					new StyleAttribute(HtmlTextWriterStyle.Overflow, "auto"),
-					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"),
+					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White),
 					new StyleAttribute(HtmlTextWriterStyle.Top, "0%"),
 					new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "10px"),
@@ -63,7 +63,7 @@ namespace NunitGo.CustomElements
 			return testCssSet.ToString();
 		}
 
-        private static string GenerateTxtView(string txt)
+        public static string GenerateTxtView(string txt)
         {
             var sWr = new StringWriter();
             using (var wr = new HtmlTextWriter(sWr))

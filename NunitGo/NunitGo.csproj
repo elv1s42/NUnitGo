@@ -79,7 +79,10 @@
     <Compile Include="NunitGoActionAttribute.cs" />
     <Compile Include="NunitGoItems\NunitGoConfiguration.cs" />
     <Compile Include="NunitGoItems\Subscriptions\Address.cs" />
+    <Compile Include="NunitGoItems\Subscriptions\AddressExtensions.cs" />
     <Compile Include="NunitGoItems\Subscriptions\EmailHelper.cs" />
+    <Compile Include="NunitGoItems\Subscriptions\MailGenerator.cs" />
+    <Compile Include="NunitGoItems\Subscriptions\MailMessageExtensions.cs" />
     <Compile Include="NunitGoItems\Subscriptions\Subsciption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Colors.cs" />

@@ -7,5 +7,6 @@ namespace NunitGo.NunitGoItems.Subscriptions
         public string Email;
         public string Name;
         public string Password;
+        
     }
 }

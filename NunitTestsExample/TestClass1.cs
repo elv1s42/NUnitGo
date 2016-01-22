@@ -10,7 +10,12 @@ namespace NunitTestsExample
     [TestFixture]
     public class TestClass1
     {
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111111", "Project1", "Subsystem1", "Long log test", "Subscription1")]
+        [Test, NunitGoAction(
+            "11111111-1111-1111-1111-111111111111", 
+            "Project1", 
+            "Subsystem1", 
+            "Long log test", 
+            "Subscription1")]
         public void LongLogTest()
         {
             Console.WriteLine("Testing log writing 1");
@@ -29,17 +34,15 @@ namespace NunitTestsExample
             Assert.AreEqual(1, 2);
         }
 
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1"), Category("SuccessCategory")]
-        public void SuccessTest()
-        {
-            Thread.Sleep(200);
-            Assert.AreEqual(1, 1);
-        }
-
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111113", "Project1", "Subsystem2")]
+        [Test, NunitGoAction(
+            "11111111-1111-1111-1111-111111111113", 
+            "Project1", 
+            "Subsystem2", 
+            "Three screenshots expected test", 
+            "Subscription1")]
         public void ThreeScreenshotsExpected()
         {
-            
+
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
             Taker.TakeScreenshot(NunitGoHelper.Screenshots);
@@ -49,6 +52,13 @@ namespace NunitTestsExample
             throw new Exception("Some error occured!");
         }
 
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1"), Category("SuccessCategory")]
+        public void SuccessTest()
+        {
+            Thread.Sleep(200);
+            Assert.AreEqual(1, 1);
+        }
+        
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111114", "Project1", "Subsystem2")]
         public void TestMethodInconclusive()
         {
