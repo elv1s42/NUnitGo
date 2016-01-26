@@ -25,7 +25,9 @@ namespace NunitGo.NunitGoItems.Subscriptions
 
         public static string GetMailSubject(NunitGoTest nunitGoTest)
         {
-            return String.Format("Test '{0}' was broken or failed", nunitGoTest.Name);
+            return nunitGoTest.IsSuccess() 
+                ? String.Format("Test '{0}' was finished successfully", nunitGoTest.Name) 
+                : String.Format("Test '{0}' was not successfully finished", nunitGoTest.Name);
         }
 
         public static string GetMailBody(NunitGoTest nunitGoTest)

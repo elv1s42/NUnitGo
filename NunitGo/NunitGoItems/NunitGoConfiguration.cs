@@ -15,6 +15,6 @@ namespace NunitGo.NunitGoItems
         public string SmtpHost;
         public int SmtpPort;
         public bool EnableSsl;
-        public List<Address> MailFromList;
+        public List<Address> SendFromList;
     }
 }

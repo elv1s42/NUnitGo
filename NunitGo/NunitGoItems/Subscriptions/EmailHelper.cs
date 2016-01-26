@@ -53,10 +53,6 @@ namespace NunitGo.NunitGoItems.Subscriptions
                 var success = false;
                 while (!success && fromMails.Any())
                 {
-                    //var fromMail = fromMails.First();
-                    //var from = fromMail.ToMailAddress();
-                    //var to = new
-
                     using (var message = new MailMessage
                     {
                         IsBodyHtml = isBodyHtml,
@@ -69,7 +65,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
                         success = SingleSend(fromMails.First(), address, message, isBodyHtml);
                         if (!success)
                             fromMails = fromMails.Skip(1).ToList();
-                        
+
                     }
                 }
             }

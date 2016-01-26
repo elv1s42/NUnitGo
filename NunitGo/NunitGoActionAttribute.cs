@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using NunitGo.Attributes;
 using NunitGo.CustomElements;
 using NunitGo.NunitGoItems;
 using NunitGo.NunitGoItems.Subscriptions;
@@ -19,7 +21,6 @@ namespace NunitGo
         private readonly string _projectName;
         private readonly string _className;
         private readonly string _testName;
-        private readonly Subsciption _subscription;
         private NunitGoTest _test;
         private DateTime _start;
         private DateTime _finish;
@@ -27,7 +28,7 @@ namespace NunitGo
         public static Guid TestGuid = Guid.Empty;
 
         public NunitGoActionAttribute(string testGuidString = "", string projectName = "", string className = "", 
-            string testName = "", string subscription = "")
+            string testName = "")
         {
             _guid = testGuidString.Equals("")
                     ? Guid.Empty
@@ -35,21 +36,15 @@ namespace NunitGo
             _projectName = projectName;
             _className = className;
             _testName = testName;
-            _subscription = (subscription == "")
-                ? null
-                : NunitGoHelper.Configuration.Subsciptions.First(s => s.Name.Equals(subscription));
         }
 
         public NunitGoActionAttribute(Guid guid, string projectName = "", string className = "",
-            string testName = "", string subscription = "")
+            string testName = "")
         {
             _guid = guid;
             _projectName = projectName;
             _className = className;
             _testName = testName;
-            _subscription = (subscription == "")
-                ? null
-                : NunitGoHelper.Configuration.Subsciptions.First(s => s.Name.Equals(subscription));
         }
 
         public void BeforeTest(ITest test)
@@ -112,16 +107,23 @@ namespace NunitGo
              _test.GenerateTestPage(testPath);
             _test.Save(_test.AttachmentsPath + Output.Outputs.TestXml);
 
-            if ((_test.IsBroken() || _test.IsFailed()) && configuration.SendEmails)
+            var subs = test.Method.MethodInfo.GetCustomAttributes<NunitGoSubscriptionAttribute>();
+            foreach (var sub in subs)
             {
-                if(_subscription!=null) 
-                    EmailHelper.Send(configuration.MailFromList, _subscription.TargetEmails, _test);
+                //Log.Write("suscription: " + sub.Name);
+                var targetEmails = configuration.Subsciptions.First(x => x.Name.Equals(sub.Name)).TargetEmails;
+                EmailHelper.Send(configuration.SendFromList, targetEmails, _test);
+            }
+
+            var singleSub = test.Method.MethodInfo.GetCustomAttribute<NunitGoSingleSubscriptionAttribute>();
+            if (singleSub != null)
+            {
                 var singleTestSubscription =
                     configuration.SingleTestSubscriptions.FirstOrDefault(x => x.TestGuid.Equals(_test.Guid));
                 if (singleTestSubscription != null)
-                    EmailHelper.Send(configuration.MailFromList, singleTestSubscription.TargetEmails, _test);
+                    EmailHelper.Send(configuration.SendFromList, singleTestSubscription.TargetEmails, _test);
             }
-
+            
             PageGenerator.GenerateStyleFile(outputPath);
 
             var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();

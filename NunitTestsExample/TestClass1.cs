@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
 using NunitGo;
+using NunitGo.Attributes;
 using NunitGo.Utils;
 using ScreenshotTaker;
 
@@ -14,8 +16,7 @@ namespace NunitTestsExample
             "11111111-1111-1111-1111-111111111111", 
             "Project1", 
             "Subsystem1", 
-            "Long log test", 
-            "Subscription1")]
+            "Long log test")]
         public void LongLogTest()
         {
             Console.WriteLine("Testing log writing 1");
@@ -37,12 +38,11 @@ namespace NunitTestsExample
         [Test, NunitGoAction(
             "11111111-1111-1111-1111-111111111113", 
             "Project1", 
-            "Subsystem2", 
-            "Three screenshots expected test", 
-            "Subscription1")]
+            "Subsystem2",
+            "Three screenshots expected test")]
+        [NunitGoSingleSubscription]
         public void ThreeScreenshotsExpected()
         {
-
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
             Taker.TakeScreenshot(NunitGoHelper.Screenshots);
@@ -53,6 +53,7 @@ namespace NunitTestsExample
         }
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1"), Category("SuccessCategory")]
+        [NunitGoSubscription("TestSubscription1")]
         public void SuccessTest()
         {
             Thread.Sleep(200);
@@ -68,6 +69,15 @@ namespace NunitTestsExample
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111115", "Project1")]
         public void TestMethodIgnored()
+        {
+            Thread.Sleep(300);
+            Assert.Ignore("Test was ignored!");
+        }
+
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111115", "Project1", "Subsystem2")]
+        [NunitGoSubscription("TestSubscription1")]
+        [NunitGoSubscription("TestSubscription2")]
+        public void TestMethodTwoSubs()
         {
             Thread.Sleep(300);
             Assert.Ignore("Test was ignored!");
