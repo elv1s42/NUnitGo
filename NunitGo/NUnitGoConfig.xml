@@ -24,6 +24,14 @@
         </Address>
       </TargetEmails>
     </SingleTestSubscription>
+    <SingleTestSubscription>
+      <TestGuid>11111111-1111-1111-1111-111111111113</TestGuid>
+      <TargetEmails>
+        <Address>
+          <Email>dddfff@asd.asd</Email>
+        </Address>
+      </TargetEmails>
+    </SingleTestSubscription>
   </SingleTestSubscriptions>
   <SmtpHost>smtp.gmail.com</SmtpHost>
   <SmtpPort>587</SmtpPort>

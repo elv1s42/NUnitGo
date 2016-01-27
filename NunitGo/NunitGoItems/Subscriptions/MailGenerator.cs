@@ -27,7 +27,15 @@ namespace NunitGo.NunitGoItems.Subscriptions
         {
             return nunitGoTest.IsSuccess() 
                 ? String.Format("Test '{0}' was finished successfully", nunitGoTest.Name) 
-                : String.Format("Test '{0}' was not successfully finished", nunitGoTest.Name);
+                : (nunitGoTest.IsFailed() 
+                ? String.Format("Test '{0}' was failed", nunitGoTest.Name) 
+                : (nunitGoTest.IsBroken() 
+                ? String.Format("Test '{0}' was broken", nunitGoTest.Name)
+                : (nunitGoTest.IsIgnored()
+                ? String.Format("Test '{0}' was ignored", nunitGoTest.Name)
+                : (nunitGoTest.IsInconclusive()
+                ? String.Format("Test '{0}' is inconclusive", nunitGoTest.Name)
+                : String.Format("Test '{0}' was not successfully finished", nunitGoTest.Name)))));
         }
 
         public static string GetMailBody(NunitGoTest nunitGoTest)
@@ -120,16 +128,14 @@ namespace NunitGo.NunitGoItems.Subscriptions
                 foreach (var screenshot in screens)
                 {
                     writer.Write("Screenshot (Date: " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss.fff") + "):");
-                    //writer.AddAttribute(HtmlTextWriterAttribute.Href, @"./../../Screenshots/" + screenshot.Name);
-                    //writer.RenderBeginTag(HtmlTextWriterTag.A);
                     writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                    writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
+                    //writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
+                    writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "inherited");
                     writer.AddAttribute(HtmlTextWriterAttribute.Src, @"cid:" + screenshot.Name);
                     writer.AddAttribute(HtmlTextWriterAttribute.Alt, screenshot.Name);
                     writer.RenderBeginTag(HtmlTextWriterTag.Img);
                     writer.RenderEndTag();//IMG
                     writer.RenderEndTag();//DIV
-                    //writer.RenderEndTag();//A
                 }
 
                 if (!nunitGoTest.IsSuccess())
