@@ -15,11 +15,12 @@ namespace NunitGo.NunitGoItems.Subscriptions
             {
                 var fromAddress = new MailAddress(from.Email, from.Name);
                 var toAddress = new MailAddress(to.Email, to.Name);
+                var config = NunitGoHelper.Configuration;
                 var smtp = new SmtpClient
                 {
-                    Host = NunitGoHelper.Configuration.SmtpHost,
-                    Port = NunitGoHelper.Configuration.SmtpPort,
-                    EnableSsl = NunitGoHelper.Configuration.EnableSsl,
+                    Host = config.SmtpHost,
+                    Port = config.SmtpPort,
+                    EnableSsl = config.EnableSsl,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
                     Credentials = new NetworkCredential(from.Email.Split('@').First(), from.Password),

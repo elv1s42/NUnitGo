@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using NUnit.Framework;
 using NunitGo;
+using NunitGo.Attributes;
 
 namespace NunitTestsExample
 {
@@ -15,14 +16,16 @@ namespace NunitTestsExample
         }
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111122", "Project1", "Subsystem1"), Category("SuccessCategory")]
-        public void TestMethod2()
+        [NunitGoSingleSubscription(FullPath = "SubscriptionSingle.xml", UnsuccessfulOnly = false)]
+        public void TestSingleSubscriptionFromXml()
         {
             Thread.Sleep(200);
             Assert.AreEqual(1, 1);
         }
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111123", "Project1", "Subsystem2"), Category("SuccessCategory")]
-        public void TestMethod3()
+        [NunitGoSubscription(FullPath = "SubscriptionMulti.xml", UnsuccessfulOnly = false)]
+        public void TestSubscriptionFromXml()
         {
             Thread.Sleep(100);
             Assert.AreEqual(1, 1);

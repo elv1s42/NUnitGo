@@ -1,0 +1,9 @@
+﻿<?xml version="1.0"?>
+<SingleTestSubscription xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TestGuid>11111111-1111-1111-1111-111111111111</TestGuid>
+  <TargetEmails>
+    <Address>
+      <Email>Evgeniy.Kosyakov@katharsis.ru</Email>
+    </Address>
+  </TargetEmails>
+</SingleTestSubscription>

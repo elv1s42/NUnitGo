@@ -1,6 +1,4 @@
-﻿using System.IO;
-using System.Xml.Serialization;
-using NunitGo.NunitGoItems;
+﻿using NunitGo.NunitGoItems;
 
 namespace NunitGo.Utils
 {
@@ -8,22 +6,12 @@ namespace NunitGo.Utils
     {
         public static void Save(this NunitGoConfiguration configuration, string fullPath)
         {
-            var ser = new XmlSerializer(typeof(NunitGoConfiguration));
-            using (var fs = new FileStream(fullPath, FileMode.OpenOrCreate))
-            {
-                ser.Serialize(fs, configuration);
-            }
+            XmlHelper.Save(configuration, fullPath);
         }
 
         public static NunitGoConfiguration Load(string fullPath)
-        {
-            NunitGoConfiguration configuration;
-            var ser = new XmlSerializer(typeof(NunitGoConfiguration));
-            using (var fs = new FileStream(fullPath, FileMode.OpenOrCreate))
-            {
-                configuration = (NunitGoConfiguration)ser.Deserialize(fs);
-            }
-            return configuration;
+        {           
+            return XmlHelper.Load<NunitGoConfiguration>(fullPath);
         }
     }
 }

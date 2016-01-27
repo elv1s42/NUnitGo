@@ -6,5 +6,6 @@ namespace NunitGo.Attributes
     public class NunitGoSingleSubscriptionAttribute : Attribute
     {
         public bool UnsuccessfulOnly = true;
+        public string FullPath { get; set; }
     }
 }

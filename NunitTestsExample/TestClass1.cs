@@ -53,7 +53,7 @@ namespace NunitTestsExample
         }
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1"), Category("SuccessCategory")]
-        [NunitGoSubscription("TestSubscription1")]
+        [NunitGoSubscription(Name = "TestSubscription1", UnsuccessfulOnly = false)]
         public void SuccessTest()
         {
             Thread.Sleep(200);
@@ -75,8 +75,8 @@ namespace NunitTestsExample
         }
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111115", "Project1", "Subsystem2")]
-        [NunitGoSubscription("TestSubscription1")]
-        [NunitGoSubscription("TestSubscription2")]
+        [NunitGoSubscription(Name = "TestSubscription1")]
+        [NunitGoSubscription(Name = "TestSubscription2")]
         public void TestMethodTwoSubs()
         {
             Thread.Sleep(300);

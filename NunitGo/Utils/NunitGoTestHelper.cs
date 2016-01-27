@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Xml.Serialization;
 using NunitGo.NunitGoItems;
 using ScreenshotTaker;
 
@@ -12,22 +11,12 @@ namespace NunitGo.Utils
     {
         public static void Save(this NunitGoTest test, string fullPath)
         {
-            var ser = new XmlSerializer(typeof(NunitGoTest));
-            using (var fs = new FileStream(fullPath, FileMode.OpenOrCreate))
-            {
-                ser.Serialize(fs, test);
-            }
+            XmlHelper.Save(test, fullPath);
         }
 
         private static NunitGoTest Load(string fullPath)
         {
-            NunitGoTest test;
-            var ser = new XmlSerializer(typeof(NunitGoTest));
-            using (var fs = new FileStream(fullPath, FileMode.OpenOrCreate))
-            {
-                test = (NunitGoTest) ser.Deserialize(fs);
-            }
-            return test;
+            return XmlHelper.Load<NunitGoTest>(fullPath);
         }
         
         public static List<NunitGoTest> GetTests()

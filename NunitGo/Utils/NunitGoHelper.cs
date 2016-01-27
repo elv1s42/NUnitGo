@@ -26,7 +26,10 @@ namespace NunitGo.Utils
         {
             try
             {
-                var configuration = NunitGoConfigurationHelper.Load(Path.Combine(GetPath(), "NUnitGoConfig.xml"));
+                var path = GetPath();
+                Directory.SetCurrentDirectory(path);
+                var configuration = NunitGoConfigurationHelper.Load(@"NUnitGoConfig.xml");
+                //var configuration = NunitGoConfigurationHelper.Load(Path.Combine(path, "NUnitGoConfig.xml"));
                 Output = configuration.LocalOutputPath;
                 Screenshots = Output + @"\Screenshots";
                 Attachments = Output + @"\Attachments";

@@ -68,6 +68,14 @@ namespace NunitGo.Utils
             var msg = (exceptionMessage.Equals("") ? "Exception!" : exceptionMessage) + Environment.NewLine
                 + " Message: " + Environment.NewLine + exception.Message + Environment.NewLine +
                 "StackTrace: " + Environment.NewLine + exception.StackTrace;
+            var inner = exception.InnerException;
+            while (inner!=null)
+            {
+                msg = msg + Environment.NewLine + " Inner Exception: " + Environment.NewLine +
+                    inner.Message + Environment.NewLine +
+                "StackTrace: " + Environment.NewLine + inner.StackTrace;
+                inner = inner.InnerException;
+            }
             WriteToFile(msg, "Exception_" + DateTime.Now.ToString("ddMMyyHHmmssfff") + ".txt");
         }
 
