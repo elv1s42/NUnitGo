@@ -4,6 +4,7 @@
   <TakeScreenshotAfterTestFailed>true</TakeScreenshotAfterTestFailed>
   <GenerateReport>true</GenerateReport>
   <SendEmails>true</SendEmails>
+  <AddLinksInsideEmail>true</AddLinksInsideEmail>
   <Subsciptions>
     <Subsciption>
       <Name>Subscription1</Name>

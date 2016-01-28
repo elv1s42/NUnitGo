@@ -23,7 +23,7 @@ namespace NunitGo.Utils
         {
             var tests = new List<NunitGoTest>();
             var filesFound = new List<String>();
-            filesFound.AddRange(Directory.GetFiles(NunitGoHelper.Output, Output.Outputs.TestXml, SearchOption.AllDirectories));
+            filesFound.AddRange(Directory.GetFiles(NunitGoHelper.Configuration.LocalOutputPath, Output.Outputs.TestXml, SearchOption.AllDirectories));
             foreach (var file in filesFound)
             {
                 try
@@ -38,11 +38,11 @@ namespace NunitGo.Utils
             return tests;
         }
 
-        public static string TakeScreenshot(this NunitGoTest test, DateTime creationTime = default(DateTime))
+        public static void TakeScreenshot(this NunitGoTest test, string screenshotsPath, DateTime creationTime = default(DateTime))
         {
             creationTime = creationTime.Equals(default(DateTime)) ? DateTime.Now : creationTime;
             test.Screenshots.Add(new Screenshot(creationTime));
-            return Taker.TakeScreenshot(creationTime, NunitGoHelper.Screenshots + @"\");
+            Taker.TakeScreenshot(creationTime, screenshotsPath);
         }
 
         public static void AddScreenshots(this NunitGoTest test,

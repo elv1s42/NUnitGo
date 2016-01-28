@@ -12,11 +12,11 @@ namespace NunitGo.NunitGoItems.Subscriptions
 {
     internal static class MailGenerator
     {
-        public static List<Attachment> GetAttachmentsFromScreenshots(NunitGoTest nunitGoTest)
+        public static List<Attachment> GetAttachmentsFromScreenshots(NunitGoTest nunitGoTest, string screenshotsPath)
         {
             return nunitGoTest.Screenshots.Select(
-                screenshot => 
-                    new Attachment(Path.Combine(NunitGoHelper.Screenshots, screenshot.Name))
+                screenshot =>
+                    new Attachment(Path.Combine(screenshotsPath, screenshot.Name))
                     {
                         ContentId = screenshot.Name
                     })

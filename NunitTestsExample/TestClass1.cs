@@ -45,9 +45,10 @@ namespace NunitTestsExample
         {
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
-            Taker.TakeScreenshot(NunitGoHelper.Screenshots);
+            //Taker.TakeScreenshot(NunitGoHelper.Screenshots);
+            NunitGoHelper.TakeScreenshot();
             Thread.Sleep(100);
-            Taker.TakeScreenshot(NunitGoHelper.Screenshots);
+            NunitGoHelper.TakeScreenshot();
             Thread.Sleep(100);
             throw new Exception("Some error occured!");
         }

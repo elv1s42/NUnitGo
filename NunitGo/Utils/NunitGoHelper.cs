@@ -2,16 +2,12 @@
 using System.IO;
 using System.Reflection;
 using NunitGo.NunitGoItems;
+using ScreenshotTaker;
 
 namespace NunitGo.Utils
 {
     public static class NunitGoHelper
     {
-        public static string Output;
-        public static string Screenshots;
-        public static string Attachments;
-        public static bool GenerateReport;
-        public static bool TakeScreenshotAfterTestFailed;
         public static NunitGoConfiguration Configuration;
 
         private static string GetPath()
@@ -30,25 +26,17 @@ namespace NunitGo.Utils
                 Directory.SetCurrentDirectory(path);
                 var configuration = NunitGoConfigurationHelper.Load(@"NUnitGoConfig.xml");
                 //var configuration = NunitGoConfigurationHelper.Load(Path.Combine(path, "NUnitGoConfig.xml"));
-                Output = configuration.LocalOutputPath;
-                Screenshots = Output + @"\Screenshots";
-                Attachments = Output + @"\Attachments";
-                GenerateReport = configuration.GenerateReport;
-                TakeScreenshotAfterTestFailed = configuration.TakeScreenshotAfterTestFailed;
                 Configuration = configuration;
             }
             catch (Exception ex)
             {
                 Log.Exception(ex, GetPath(), "Exception in NunitGoHelper constructor");
             }
-            
         }
 
-        public static void CreateDirectories()
+        public static void TakeScreenshot()
         {
-            Directory.CreateDirectory(Output);
-            Directory.CreateDirectory(Screenshots);
-            Directory.CreateDirectory(Attachments);
+            Taker.TakeScreenshot(Configuration.LocalOutputPath + @"\Screenshots");
         }
     }
 }

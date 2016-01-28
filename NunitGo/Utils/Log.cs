@@ -6,7 +6,7 @@ namespace NunitGo.Utils
     public static class Log
     {
         private const string LogFile = @"NunitGoLog.txt";
-        private static readonly string Output = NunitGoHelper.Output ?? @"C:\_NUnitGoResults";
+        private static readonly string Output = NunitGoHelper.Configuration.LocalOutputPath ?? @"C:\_NUnitGoResults";
 
         private static void WriteToFile(string msg, string fileName)
         {
