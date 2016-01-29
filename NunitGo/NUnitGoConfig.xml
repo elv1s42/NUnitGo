@@ -5,13 +5,21 @@
   <GenerateReport>true</GenerateReport>
   <SendEmails>true</SendEmails>
   <AddLinksInsideEmail>true</AddLinksInsideEmail>
+  <ServerLink>http://ServerAddress/Reports/ReportFolder/</ServerLink>
   <Subsciptions>
     <Subsciption>
-      <Name>Subscription1</Name>
+      <Name>TestSubscription1</Name>
       <TargetEmails>
         <Address>
-          <Email>test@test.test</Email>
-          <Name>Test</Name>
+          <Email>tester1@test.test</Email>
+        </Address>
+      </TargetEmails>
+    </Subsciption>
+    <Subsciption>
+      <Name>TestSubscription2</Name>
+      <TargetEmails>
+        <Address>
+          <Email>tester2@test.test</Email>
         </Address>
       </TargetEmails>
     </Subsciption>
@@ -21,7 +29,7 @@
       <TestGuid>11111111-1111-1111-1111-111111111147</TestGuid>
       <TargetEmails>
         <Address>
-          <Email>test2@test.test</Email>
+          <Email>tester1@test.test</Email>
         </Address>
       </TargetEmails>
     </SingleTestSubscription>
@@ -29,7 +37,7 @@
       <TestGuid>11111111-1111-1111-1111-111111111113</TestGuid>
       <TargetEmails>
         <Address>
-          <Email>dddfff@asd.asd</Email>
+          <Email>tester1@test.test</Email>
         </Address>
       </TargetEmails>
     </SingleTestSubscription>
@@ -39,14 +47,8 @@
   <EnableSsl>false</EnableSsl>
   <SendFromList>
     <Address>
-      <Email>test@test.test</Email>
-      <Name>Test</Name>
-      <Password>123</Password>
-    </Address>
-    <Address>
-      <Email>test2@test.test</Email>
-      <Name>Test</Name>
-      <Password>123</Password>
+      <Email>Autotests@test.test</Email>
+      <Name>Autotests</Name>
     </Address>
   </SendFromList>
 </NunitGoConfiguration>
