@@ -38,7 +38,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
                 : String.Format("Test '{0}' was not successfully finished", nunitGoTest.Name)))));
         }
 
-        public static string GetMailBody(NunitGoTest nunitGoTest)
+        public static string GetMailBody(NunitGoTest nunitGoTest, bool addLinks)
         {
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
@@ -67,7 +67,6 @@ namespace NunitGo.NunitGoItems.Subscriptions
                 writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White);
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Padding, "10px");
                 writer.AddStyleAttribute("border", "10px solid " + Colors.ModalBorderColor);
-                //writer.AddStyleAttribute("background", Colors.BodyBackground);
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "0px");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.FontFamily, "Tahoma,Verdana,Segoe,sans-serif");
@@ -76,11 +75,9 @@ namespace NunitGo.NunitGoItems.Subscriptions
 
                 writer.AddStyleAttribute("box-sizing", "border-box");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "auto");
-                //writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White);
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Top, "0%");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Padding, "10px");
-                //writer.AddStyleAttribute("border", "10px solid " + Colors.ModalBorderColor);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "test-window");
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, "Test");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
@@ -129,7 +126,6 @@ namespace NunitGo.NunitGoItems.Subscriptions
                 {
                     writer.Write("Screenshot (Date: " + screenshot.Date.ToString("dd.MM.yy HH:mm:ss.fff") + "):");
                     writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                    //writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
                     writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "inherited");
                     writer.AddAttribute(HtmlTextWriterAttribute.Src, @"cid:" + screenshot.Name);
                     writer.AddAttribute(HtmlTextWriterAttribute.Alt, screenshot.Name);
@@ -148,6 +144,25 @@ namespace NunitGo.NunitGoItems.Subscriptions
                     writer.AddTag(HtmlTextWriterTag.B, "Message: ");
                     writer.Write(NunitTestHtml.GenerateTxtView(nunitGoTest.TestMessage));
                     writer.RenderEndTag(); //P
+                }
+
+                if (addLinks)
+                {
+                    writer.RenderBeginTag(HtmlTextWriterTag.P);
+                    writer.AddTag(HtmlTextWriterTag.B, "Test page: ");
+                    writer.AddStyleAttribute("background", Colors.OpenLogsButtonBackground);
+                    writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
+                    writer.AddStyleAttribute(HtmlTextWriterStyle.Color, "black");
+                    writer.AddStyleAttribute(HtmlTextWriterStyle.TextDecoration, "none !important");
+                    writer.AddAttribute(HtmlTextWriterAttribute.Href, nunitGoTest.TestHrefAbsolute);
+                    writer.RenderBeginTag(HtmlTextWriterTag.A);
+                    writer.Write(Environment.NewLine + "View on site");
+                    writer.RenderEndTag(); //A
+                    writer.RenderEndTag(); //P
+                    
+                    //var openButton = new OpenButton("View on site", nunitGoTest.TestHrefAbsolute, Colors.OpenLogsButtonBackground);
+                    //writer.Write(openButton.ButtonHtml);
+                    
                 }
                 
                 writer.RenderEndTag(); //DIV

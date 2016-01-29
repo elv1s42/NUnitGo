@@ -23,7 +23,7 @@ namespace NunitGo.CustomElements.ReportSections
                                                        Environment.NewLine + "Result: " + test.Result 
                                    let bcgColor = test.GetBackgroundColor() 
                                    select new HorizontalBarElement("", toolitipText, bcgColor, test.TestDuration, 
-                                       test.TestHref)).ToList();
+                                       test.TestHrefRelative)).ToList();
             var timelineBar = new HorizontalBar("timeline-bar", "", testResultsList, false);
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))

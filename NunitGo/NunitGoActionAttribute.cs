@@ -61,6 +61,7 @@ namespace NunitGo
             var outputPath = _configuration.LocalOutputPath;
             var screenshotsPath = outputPath + @"\Screenshots\";
             var attachmentsPath = outputPath + @"\Attachments\";
+            var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Outputs.TestHtml;
 
             _nunitGoTest = new NunitGoTest
             {
@@ -78,7 +79,8 @@ namespace NunitGo
                 Screenshots = new List<Screenshot>(),
                 HasOutput = !TestContext.Out.ToString().Equals(String.Empty),
                 AttachmentsPath = attachmentsPath + _guid + @"\",
-                TestHref = "Attachments" + @"/" + _guid + @"/" + Output.Outputs.TestHtml,
+                TestHrefRelative = relativeTestHref,
+                TestHrefAbsolute = Path.Combine(_configuration.LocalOutputPath, relativeTestHref),
                 LogHref = Output.Outputs.Out
             };
 
@@ -92,6 +94,8 @@ namespace NunitGo
             SendEmails(_nunitGoTest.IsSuccess(), test, screenshotsPath);
             
             GenerateReport();
+
+            Flush();
         }
 
         public ActionTargets Targets
@@ -112,14 +116,16 @@ namespace NunitGo
                     if (subscription != null)
                     {
                         if ((sub.UnsuccessfulOnly && !isSuccess) || (!sub.UnsuccessfulOnly))
-                            EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails, _nunitGoTest, screenshotsPath);
+                            EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails, 
+                                _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
 
                     if (sub.FullPath != null)
                     {
                         subscription = XmlHelper.Load<Subsciption>(sub.FullPath);
                         if ((sub.UnsuccessfulOnly && !isSuccess) || (!sub.UnsuccessfulOnly))
-                            EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails, _nunitGoTest, screenshotsPath);
+                            EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
+                                _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
                 }
 
@@ -131,7 +137,8 @@ namespace NunitGo
                     if (singleTestSubscription != null)
                     {
                         if ((singleSub.UnsuccessfulOnly && !isSuccess) || (!singleSub.UnsuccessfulOnly))
-                            EmailHelper.Send(_configuration.SendFromList, singleTestSubscription.TargetEmails, _nunitGoTest, screenshotsPath);
+                            EmailHelper.Send(_configuration.SendFromList, singleTestSubscription.TargetEmails,
+                                _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
                     else
                     {
@@ -139,7 +146,8 @@ namespace NunitGo
                         {
                             var singleSubFromXml = XmlHelper.Load<SingleTestSubscription>(singleSub.FullPath);
                             if ((singleSub.UnsuccessfulOnly && !isSuccess) || (!singleSub.UnsuccessfulOnly))
-                                EmailHelper.Send(_configuration.SendFromList, singleSubFromXml.TargetEmails, _nunitGoTest, screenshotsPath);
+                                EmailHelper.Send(_configuration.SendFromList, singleSubFromXml.TargetEmails,
+                                    _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
                         }
                     }
 
@@ -161,7 +169,7 @@ namespace NunitGo
                 if (_nunitGoTest.HasOutput)
                 {
                     var testOutputPath = _nunitGoTest.AttachmentsPath + Output.Outputs.Out;
-                    PageGenerator.GenerateTestOutputPage(testOutputPath, TestContext.Out.ToString(), "./../../" + _nunitGoTest.TestHref);
+                    PageGenerator.GenerateTestOutputPage(testOutputPath, TestContext.Out.ToString(), "./../../" + _nunitGoTest.TestHrefRelative);
                     _nunitGoTest.HasOutput = true;
                 }
                 var testPath = _nunitGoTest.AttachmentsPath + Output.Outputs.TestHtml;
@@ -170,7 +178,7 @@ namespace NunitGo
                 var outputPath = _configuration.LocalOutputPath;
                 PageGenerator.GenerateStyleFile(outputPath);
 
-                var tests = NunitGoTestHelper.GetTests().OrderBy(x => x.DateTimeFinish).ToList();
+                var tests = NunitGoTestHelper.GetTests(_configuration.LocalOutputPath).OrderBy(x => x.DateTimeFinish).ToList();
                 var stats = new MainStatistics(tests);
                 tests.GenerateTimelinePage(Path.Combine(outputPath, Output.Outputs.Timeline));
                 stats.GenerateMainStatisticsPage(Path.Combine(outputPath, Output.Outputs.TestStatistics));
@@ -204,6 +212,14 @@ namespace NunitGo
             Directory.CreateDirectory(localOutput + @"\Screenshots");
             Directory.CreateDirectory(localOutput + @"\Attachments");
             Directory.CreateDirectory(_nunitGoTest.AttachmentsPath);
+        }
+
+        private void Flush()
+        {
+            _guid = Guid.Empty;
+            _nunitGoTest = new NunitGoTest();
+            _start = default(DateTime);
+            _finish = default(DateTime);
         }
     }
 }

@@ -19,7 +19,8 @@ namespace NunitGo.NunitGoItems
         public string Result;
         public Guid Guid;
         public string AttachmentsPath;
-        public string TestHref;
+        public string TestHrefRelative;
+        public string TestHrefAbsolute;
         public string LogHref;
         public bool HasOutput;
         public List<Screenshot> Screenshots;
@@ -37,7 +38,8 @@ namespace NunitGo.NunitGoItems
             TestMessage = String.Empty;
             Result = "Unknown";
             Guid = Guid.NewGuid();
-            TestHref = String.Empty;
+            TestHrefRelative = String.Empty;
+            TestHrefAbsolute = String.Empty;
             LogHref = String.Empty;
             AttachmentsPath = String.Empty;
             HasOutput = false;

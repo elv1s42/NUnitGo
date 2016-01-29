@@ -19,11 +19,11 @@ namespace NunitGo.Utils
             return XmlHelper.Load<NunitGoTest>(fullPath);
         }
         
-        public static List<NunitGoTest> GetTests()
+        public static List<NunitGoTest> GetTests(string localOutputPath)
         {
             var tests = new List<NunitGoTest>();
             var filesFound = new List<String>();
-            filesFound.AddRange(Directory.GetFiles(NunitGoHelper.Configuration.LocalOutputPath, Output.Outputs.TestXml, SearchOption.AllDirectories));
+            filesFound.AddRange(Directory.GetFiles(localOutputPath, Output.Outputs.TestXml, SearchOption.AllDirectories));
             foreach (var file in filesFound)
             {
                 try

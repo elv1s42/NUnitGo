@@ -37,7 +37,7 @@
   <SmtpHost>smtp.gmail.com</SmtpHost>
   <SmtpPort>587</SmtpPort>
   <EnableSsl>false</EnableSsl>
-  <MailFromList>
+  <SendFromList>
     <Address>
       <Email>test@test.test</Email>
       <Name>Test</Name>
@@ -48,5 +48,5 @@
       <Name>Test</Name>
       <Password>123</Password>
     </Address>
-  </MailFromList>
+  </SendFromList>
 </NunitGoConfiguration>

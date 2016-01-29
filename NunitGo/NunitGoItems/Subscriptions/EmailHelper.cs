@@ -46,7 +46,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
         }
 
         public static void Send(List<Address> mailFromList, List<Address> targetEmails,
-            NunitGoTest nunitGoTest, string screenshotsPath, bool isBodyHtml = true)
+            NunitGoTest nunitGoTest, string screenshotsPath, bool addLinks, bool isBodyHtml = true)
         {
             foreach (var address in targetEmails)
             {
@@ -58,7 +58,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
                     {
                         IsBodyHtml = isBodyHtml,
                         Subject = MailGenerator.GetMailSubject(nunitGoTest),
-                        Body = MailGenerator.GetMailBody(nunitGoTest)
+                        Body = MailGenerator.GetMailBody(nunitGoTest, addLinks)
                     })
                     {
                         var attachments = MailGenerator.GetAttachmentsFromScreenshots(nunitGoTest, screenshotsPath);
