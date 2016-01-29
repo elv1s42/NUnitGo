@@ -10,6 +10,7 @@ namespace NunitGo.NunitGoItems
         public bool GenerateReport;
         public bool SendEmails;
         public bool AddLinksInsideEmail;
+        public string ServerLink;
         public List<Subsciption> Subsciptions;
         public List<SingleTestSubscription> SingleTestSubscriptions;
         public string SmtpHost;

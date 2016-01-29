@@ -15,7 +15,7 @@ namespace NunitGo.CustomElements
         {
             try
             {
-                var page = new HtmlPage("Test page", "./../../" + Output.Outputs.ReportStyle);
+                var page = new HtmlPage("Test page", "./../../" + Output.Files.ReportStyleFile);
                 var htmlTest = new NunitTestHtml(nunitGoTest);
                 page.AddToBody(htmlTest.HtmlCode);
 
@@ -33,7 +33,7 @@ namespace NunitGo.CustomElements
         {
             try
             {
-                var page = new HtmlPage("Output page", "./../../" + Output.Outputs.ReportStyle);
+                var page = new HtmlPage("Output page", "./../../" + Output.Files.ReportStyleFile);
 
                 var reportMenuTitle = new PageTitle("Test output", "test-output", "10%");
                 page.AddToBody(reportMenuTitle.HtmlCode);
@@ -130,7 +130,7 @@ namespace NunitGo.CustomElements
                     OpenButton.StyleString
                 });
 
-                var cssPageName = Output.Outputs.ReportStyle;
+                var cssPageName = Output.Files.ReportStyleFile;
                 cssPage.SavePage(Path.Combine(pathToSave, cssPageName));
             }
             catch (Exception ex)
@@ -157,9 +157,9 @@ namespace NunitGo.CustomElements
 
                 var menuElements = new List<ReportMenuItem>
 			    {
-				    new ReportMenuItem("Main statistics", Output.Outputs.TestStatistics),
-				    new ReportMenuItem("Test list", Output.Outputs.TestList),
-				    new ReportMenuItem("Timeline", Output.Outputs.Timeline)
+				    new ReportMenuItem("Main statistics", Output.Files.TestStatisticsFile),
+				    new ReportMenuItem("Test list", Output.Files.TestListFile),
+				    new ReportMenuItem("Timeline", Output.Files.TimelineFile)
 			    };
                 var reportMenu = new MenuSection(menuElements, "main-menu", "Main Menu");
                 report.AddToBody(reportMenu.ReportMenuHtml);
@@ -167,7 +167,7 @@ namespace NunitGo.CustomElements
                 var footer = new FooterSection();
                 report.AddInsideTag("footer", footer.HtmlCode);
 
-                var reportPageName = Output.Outputs.FullReport;
+                var reportPageName = Output.Files.FullReportFile;
                 report.SavePage(Path.Combine(pathToSave, reportPageName));
             }
             catch (Exception ex)

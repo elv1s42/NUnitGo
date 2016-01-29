@@ -16,14 +16,14 @@ namespace NunitGo.Utils
 
         private static NunitGoTest Load(string fullPath)
         {
-            return XmlHelper.Load<NunitGoTest>(fullPath);
+            return XmlHelper.Load<NunitGoTest>(fullPath, "Excteption while loading NunitGoTest, Path = " + fullPath);
         }
         
         public static List<NunitGoTest> GetTests(string localOutputPath)
         {
             var tests = new List<NunitGoTest>();
             var filesFound = new List<String>();
-            filesFound.AddRange(Directory.GetFiles(localOutputPath, Output.Outputs.TestXml, SearchOption.AllDirectories));
+            filesFound.AddRange(Directory.GetFiles(localOutputPath, Output.Files.TestXmlFile, SearchOption.AllDirectories));
             foreach (var file in filesFound)
             {
                 try

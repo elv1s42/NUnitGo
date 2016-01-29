@@ -97,7 +97,7 @@ namespace NunitGo.CustomElements
 
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write(new CloseButton("Back", "./../../" + Output.Outputs.TestList).ButtonHtml);
+                writer.Write(new CloseButton("Back", "./../../" + Output.Files.TestListFile).ButtonHtml);
                 writer.RenderEndTag(); //DIV
 
                 writer.RenderBeginTag(HtmlTextWriterTag.P);

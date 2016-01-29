@@ -16,7 +16,7 @@ namespace NunitTestsExample
         }
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111122", "Project1", "Subsystem1"), Category("SuccessCategory")]
-        [NunitGoSingleSubscription(FullPath = "SubscriptionSingle.xml", UnsuccessfulOnly = false)]
+        [SingleTestSubscription(FullPath = "SubscriptionSingle.xml", UnsuccessfulOnly = false)]
         public void TestSingleSubscriptionFromXml()
         {
             Thread.Sleep(200);
@@ -24,7 +24,7 @@ namespace NunitTestsExample
         }
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111123", "Project1", "Subsystem2"), Category("SuccessCategory")]
-        [NunitGoSubscription(FullPath = "SubscriptionMulti.xml", UnsuccessfulOnly = false)]
+        [Subscription(FullPath = "SubscriptionMulti.xml", UnsuccessfulOnly = false)]
         public void TestSubscriptionFromXml()
         {
             Thread.Sleep(100);

@@ -2,22 +2,19 @@
 {
     public class Output
     {
-        public struct Outputs
+        public struct Files
         {
-            public static string Out = "out" + Type.Default;
-            public static string Log = "log" + Type.Default;
-            public static string Error = "error" + Type.Default;
-            public static string Trace = "trace" + Type.Default;
-            public static string TestHtml = "Test" + Type.Html;
-            public static string TestXml = "Test" + Type.Xml;
-            public static string TestList = "TestList" + Type.Html;
-            public static string TestStatistics = "TestStatistics" + Type.Html;
-            public static string Timeline = "Timeline" + Type.Html;
-            public static string FullReport = "index" + Type.Html;
-            public static string ReportStyle = "reportStyle" + Type.Css;
+            public static string TestOutputFile = "out" + FileType.Default;
+            public static string TestHtmlFile = "Test" + FileType.Html;
+            public static string TestXmlFile = "Test" + FileType.Xml;
+            public static string TestListFile = "TestList" + FileType.Html;
+            public static string TestStatisticsFile = "TestStatistics" + FileType.Html;
+            public static string TimelineFile = "Timeline" + FileType.Html;
+            public static string FullReportFile = "index" + FileType.Html;
+            public static string ReportStyleFile = "reportStyle" + FileType.Css;
         }
 
-        public struct Type
+        public struct FileType
         {
             public static string Default = ".html";
             public static string Txt = ".txt";

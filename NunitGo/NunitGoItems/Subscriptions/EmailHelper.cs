@@ -9,7 +9,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
 {
     internal static class EmailHelper
     {
-        public static bool SingleSend(Address from, Address to, MailMessage message, bool isBodyHtml = true)
+        private static bool SingleSend(Address from, Address to, MailMessage message)
         {
             try
             {
@@ -26,9 +26,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
                     Credentials = new NetworkCredential(from.Email.Split('@').First(), from.Password),
                     Timeout = 10000
                 };
-                //Log.Write(String.Format("Sending email from {0}, {1}, {2}, to {3}, {4}. " + Environment.NewLine +
-                //                        "Host: {5}, Port: {6}. " + from.Email.Split('@').First(), 
-                //                        from.Email, from.Name, from.Password, to.Email, to.Name, smtp.Host, smtp.Port));
+
                 using (smtp)
                 {
                     message.From = fromAddress;
@@ -46,7 +44,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
         }
 
         public static void Send(List<Address> mailFromList, List<Address> targetEmails,
-            NunitGoTest nunitGoTest, string screenshotsPath, bool addLinks, bool isBodyHtml = true)
+            NunitGoTest nunitGoTest, string screenshotsPath, bool addLinks)
         {
             foreach (var address in targetEmails)
             {
@@ -56,14 +54,14 @@ namespace NunitGo.NunitGoItems.Subscriptions
                 {
                     using (var message = new MailMessage
                     {
-                        IsBodyHtml = isBodyHtml,
+                        IsBodyHtml = true,
                         Subject = MailGenerator.GetMailSubject(nunitGoTest),
                         Body = MailGenerator.GetMailBody(nunitGoTest, addLinks)
                     })
                     {
                         var attachments = MailGenerator.GetAttachmentsFromScreenshots(nunitGoTest, screenshotsPath);
                         message.AddAttachments(attachments);
-                        success = SingleSend(fromMails.First(), address, message, isBodyHtml);
+                        success = SingleSend(fromMails.First(), address, message);
                         if (!success)
                             fromMails = fromMails.Skip(1).ToList();
 

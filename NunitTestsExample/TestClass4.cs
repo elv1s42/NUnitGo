@@ -18,7 +18,7 @@ namespace NunitTestsExample
         [TestCase("6", 3, "11111111-1111-1111-1111-111111111147", TestName = "Test 7")]
         [TestCase("7", 7, "11111111-1111-1111-1111-111111111148", TestName = "Test 8")]
         [NunitGoAction]
-        [NunitGoSingleSubscription]
+        [SingleTestSubscription]
         public void ParamTestName(string input, int expected, string guid)
         {
             NunitGoActionAttribute.TestGuid = new Guid(guid);

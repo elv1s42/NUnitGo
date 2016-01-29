@@ -61,8 +61,8 @@ namespace NunitGo
             var outputPath = _configuration.LocalOutputPath;
             var screenshotsPath = outputPath + @"\Screenshots\";
             var attachmentsPath = outputPath + @"\Attachments\";
-            var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Outputs.TestHtml;
-
+            var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Files.TestHtmlFile;
+            
             _nunitGoTest = new NunitGoTest
             {
                 DateTimeStart = _start,
@@ -80,8 +80,8 @@ namespace NunitGo
                 HasOutput = !TestContext.Out.ToString().Equals(String.Empty),
                 AttachmentsPath = attachmentsPath + _guid + @"\",
                 TestHrefRelative = relativeTestHref,
-                TestHrefAbsolute = Path.Combine(_configuration.LocalOutputPath, relativeTestHref),
-                LogHref = Output.Outputs.Out
+                TestHrefAbsolute = _configuration.ServerLink + relativeTestHref,
+                LogHref = Output.Files.TestOutputFile
             };
 
             CreateDirectories();
@@ -89,7 +89,7 @@ namespace NunitGo
             TakeScreenshot(screenshotsPath);
             
             _nunitGoTest.AddScreenshots(ScreenshotHelper.GetScreenshots(screenshotsPath));
-            _nunitGoTest.Save(_nunitGoTest.AttachmentsPath + Output.Outputs.TestXml);
+            _nunitGoTest.Save(_nunitGoTest.AttachmentsPath + Output.Files.TestXmlFile);
 
             SendEmails(_nunitGoTest.IsSuccess(), test, screenshotsPath);
             
@@ -109,7 +109,7 @@ namespace NunitGo
             {
                 if (!_configuration.SendEmails) return;
 
-                var subs = test.Method.MethodInfo.GetCustomAttributes<NunitGoSubscriptionAttribute>();
+                var subs = test.Method.MethodInfo.GetCustomAttributes<SubscriptionAttribute>();
                 foreach (var sub in subs)
                 {
                     var subscription = _configuration.Subsciptions.FirstOrDefault(x => x.Name.Equals(sub.Name));
@@ -129,7 +129,7 @@ namespace NunitGo
                     }
                 }
 
-                var singleSubs = test.Method.MethodInfo.GetCustomAttributes<NunitGoSingleSubscriptionAttribute>();
+                var singleSubs = test.Method.MethodInfo.GetCustomAttributes<SingleTestSubscriptionAttribute>();
                 foreach (var singleSub in singleSubs)
                 {
                     var singleTestSubscription =
@@ -168,11 +168,11 @@ namespace NunitGo
 
                 if (_nunitGoTest.HasOutput)
                 {
-                    var testOutputPath = _nunitGoTest.AttachmentsPath + Output.Outputs.Out;
+                    var testOutputPath = _nunitGoTest.AttachmentsPath + Output.Files.TestOutputFile;
                     PageGenerator.GenerateTestOutputPage(testOutputPath, TestContext.Out.ToString(), "./../../" + _nunitGoTest.TestHrefRelative);
                     _nunitGoTest.HasOutput = true;
                 }
-                var testPath = _nunitGoTest.AttachmentsPath + Output.Outputs.TestHtml;
+                var testPath = _nunitGoTest.AttachmentsPath + Output.Files.TestHtmlFile;
                 _nunitGoTest.GenerateTestPage(testPath);
 
                 var outputPath = _configuration.LocalOutputPath;
@@ -180,9 +180,9 @@ namespace NunitGo
 
                 var tests = NunitGoTestHelper.GetTests(_configuration.LocalOutputPath).OrderBy(x => x.DateTimeFinish).ToList();
                 var stats = new MainStatistics(tests);
-                tests.GenerateTimelinePage(Path.Combine(outputPath, Output.Outputs.Timeline));
-                stats.GenerateMainStatisticsPage(Path.Combine(outputPath, Output.Outputs.TestStatistics));
-                tests.GenerateTestListPage(Path.Combine(outputPath, Output.Outputs.TestList));
+                tests.GenerateTimelinePage(Path.Combine(outputPath, Output.Files.TimelineFile));
+                stats.GenerateMainStatisticsPage(Path.Combine(outputPath, Output.Files.TestStatisticsFile));
+                tests.GenerateTestListPage(Path.Combine(outputPath, Output.Files.TestListFile));
                 tests.GenerateReportMainPage(outputPath, stats);
 
             }

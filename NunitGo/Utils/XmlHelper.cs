@@ -11,7 +11,7 @@ namespace NunitGo.Utils
             try
             {
                 var ser = new XmlSerializer(typeof(T));
-                using (var fs = new FileStream(fullPath, FileMode.OpenOrCreate))
+                using (var fs = new FileStream(fullPath, FileMode.CreateNew))
                 {
                     ser.Serialize(fs, t);
                 }
@@ -22,7 +22,7 @@ namespace NunitGo.Utils
             }
         }
 
-        public static T Load<T>(string fullPath) where T : class
+        public static T Load<T>(string fullPath, string exceptionMessage = "") where T : class
         {
             try
             {
@@ -36,7 +36,7 @@ namespace NunitGo.Utils
             }
             catch (Exception ex)
             {
-                Log.Exception(ex, "Load exception");
+                Log.Exception(ex, exceptionMessage.Equals("") ? "Load exception" : exceptionMessage);
                 return null;
             }
         }

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using NUnit.Framework;
 using NunitGo;
 using NunitGo.Attributes;
 using NunitGo.Utils;
-using ScreenshotTaker;
 
 namespace NunitTestsExample
 {
@@ -35,30 +33,29 @@ namespace NunitTestsExample
             Assert.AreEqual(1, 2);
         }
 
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1"), Category("SuccessCategory")]
+        [Subscription(Name = "TestSubscription1", UnsuccessfulOnly = false)]
+        public void SuccessTest()
+        {
+            Thread.Sleep(200);
+            Assert.AreEqual(1, 1);
+        }
+
         [Test, NunitGoAction(
             "11111111-1111-1111-1111-111111111113", 
             "Project1", 
             "Subsystem2",
             "Three screenshots expected test")]
-        [NunitGoSingleSubscription]
+        [SingleTestSubscription]
         public void ThreeScreenshotsExpected()
         {
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
-            //Taker.TakeScreenshot(NunitGoHelper.Screenshots);
             NunitGoHelper.TakeScreenshot();
             Thread.Sleep(100);
             NunitGoHelper.TakeScreenshot();
             Thread.Sleep(100);
             throw new Exception("Some error occured!");
-        }
-
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111112", "Project1", "Subsystem1"), Category("SuccessCategory")]
-        [NunitGoSubscription(Name = "TestSubscription1", UnsuccessfulOnly = false)]
-        public void SuccessTest()
-        {
-            Thread.Sleep(200);
-            Assert.AreEqual(1, 1);
         }
         
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111114", "Project1", "Subsystem2")]
@@ -75,9 +72,9 @@ namespace NunitTestsExample
             Assert.Ignore("Test was ignored!");
         }
 
-        [Test, NunitGoAction("11111111-1111-1111-1111-111111111115", "Project1", "Subsystem2")]
-        [NunitGoSubscription(Name = "TestSubscription1")]
-        [NunitGoSubscription(Name = "TestSubscription2")]
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111116", "Project1", "Subsystem2")]
+        [Subscription(Name = "TestSubscription1")]
+        [Subscription(Name = "TestSubscription2")]
         public void TestMethodTwoSubs()
         {
             Thread.Sleep(300);

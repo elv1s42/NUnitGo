@@ -91,7 +91,7 @@ namespace NunitGo.CustomElements
                 {
                     {HtmlTextWriterAttribute.Rel, @"stylesheet"},
                     {HtmlTextWriterAttribute.Type, @"text/css"},
-                    {HtmlTextWriterAttribute.Href, styleFullPath.Equals("") ? Output.Outputs.ReportStyle : styleFullPath}
+                    {HtmlTextWriterAttribute.Href, styleFullPath.Equals("") ? Output.Files.ReportStyleFile : styleFullPath}
                 });
 
                 writer.RenderEndTag(); //HEAD
