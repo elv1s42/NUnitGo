@@ -14,7 +14,7 @@ using ScreenshotTaker;
 
 namespace NunitGo
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
     {
         private Guid _guid;
@@ -69,15 +69,15 @@ namespace NunitGo
                 DateTimeFinish = DateTime.Now,
                 TestDuration = (_finish - _start).TotalSeconds,
                 FullName = test.FullName,
-                ProjectName = (_projectName.Equals("")) ? test.FullName.Split(new []{'.'}).First() : _projectName,
-                ClassName = (_className.Equals("")) ? test.FullName.Split(new[] { '.' }).Skip(1).First() : _className,
+                ProjectName = (_projectName.Equals("")) ? test.FullName.Split('.').First() : _projectName,
+                ClassName = (_className.Equals("")) ? test.FullName.Split('.').Skip(1).First() : _className,
                 Name = (_testName.Equals("")) ? test.Name : _testName,
                 TestStackTrace = context.Result.StackTrace ?? "",
                 TestMessage = context.Result.Message ?? "",
                 Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
                 Guid = _guid,
                 Screenshots = new List<Screenshot>(),
-                HasOutput = !TestContext.Out.ToString().Equals(String.Empty),
+                HasOutput = !TestContext.Out.ToString().Equals(string.Empty),
                 AttachmentsPath = attachmentsPath + _guid + @"\",
                 TestHrefRelative = relativeTestHref,
                 TestHrefAbsolute = _configuration.ServerLink + relativeTestHref,
