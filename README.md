@@ -25,7 +25,11 @@ Click [here](http://elv1s42.github.io/NUnitGo/) to visit site.
 
 ##  Usage
 
-Using NUnitGo with **Test** Attribute:
+###  Generating report
+
+#### Using NUnitGo with NUnit **Test** Attribute. 
+
+The most simple way to add your test to HTML report is to add *NunitGoAction* Attribute for your Test method:
 
 ```csharp
 [TestFixture]
@@ -38,3 +42,22 @@ public class TestClass1
     }
 }
 ```
+
+You can also specify TestProject name and TestClass name, and set Guid string for your test. This names are used to generate hierachical test list. **Each test must have unique Guid string**.
+
+```csharp
+[TestFixture]
+public class TestClass1
+{
+    [Test, NunitGoAction(
+            "11111111-1111-1111-1111-111111111111", 
+            "Project name", 
+            "Class name", 
+            "Test name")]
+    public void SimpleTest()
+    {
+        Assert.AreEqual(1, 1);
+    }
+}
+```
+ 
