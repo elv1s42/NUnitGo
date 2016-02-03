@@ -30,34 +30,44 @@
       <section>
         <p><a href="https://ci.appveyor.com/project/elv1s42/nunitgo/branch/master"><img src="https://ci.appveyor.com/api/projects/status/github/elv1s42/nunitgo?branch=master&amp;svg=true" alt="Windows Build status"></a>
 <a href="https://travis-ci.org/elv1s42/NUnitGo"><img src="https://travis-ci.org/elv1s42/NUnitGo.svg?branch=master" alt="Build Status"></a>
-<a href="https://codeclimate.com/github/elv1s42/NUnitGo"><img src="https://codeclimate.com/github/elv1s42/NUnitGo/badges/issue_count.svg" alt="Issue Count"></a></p>
-
-<p><a href="https://www.nuget.org/packages/NUnitGo/"><img src="https://img.shields.io/nuget/dt/NUnitGo.svg" alt="NuGet Downloads"></a> 
-<a href="https://www.nuget.org/packages/NUnitGo/"><img src="https://img.shields.io/nuget/v/NUnitGo.svg" alt="NuGet Version"></a></p>
+<a href="https://www.nuget.org/packages/NUnitGo/"><img src="https://img.shields.io/nuget/dt/NUnitGo.svg" alt="NuGet Downloads"></a> 
+<a href="https://www.nuget.org/packages/NUnitGo/"><img src="https://img.shields.io/nuget/v/NUnitGo.svg" alt="NuGet Version"></a>
+<a href="https://codeclimate.com/github/elv1s42/NUnitGo"><img src="https://codeclimate.com/github/elv1s42/NUnitGo/badges/issue_count.svg" alt="Issue Count"></a>
+<a href="https://github.com/elv1s42/NUnitGo/blob/master/LICENSE.txt"><img src="https://img.shields.io/npm/l/express.svg" alt="Lisence Information"></a>
+<a href="http://elv1s42.github.io/NUnitGo/"><img src="https://img.shields.io/badge/Website-visit-brightgreen.svg" alt="Website"></a></p>
 
 <h1>
-<a id="nunitgo" class="anchor" href="#nunitgo" aria-hidden="true"><span class="octicon octicon-link"></span></a>NUnitGo</h1>
+<a id="nunitgo" class="anchor" href="#nunitgo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NUnitGo</h1>
 
 <p>NUnit 3.0 HTML reports</p>
 
 <h2>
-<a id="installation-and-usage" class="anchor" href="#installation-and-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation and Usage</h2>
+<a id="wiki" class="anchor" href="#wiki" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wiki</h2>
 
-<p>To install NUnitGo, run the following command in the <a href="http://docs.nuget.org/docs/start-here/using-the-package-manager-console">Package Manager Console</a> </p>
-
-<p><strong>PM&gt; Install-Package NUnitGo</strong></p>
-
-<p>or download <a href="https://github.com/elv1s42/NUnitGo/releases">latest release</a></p>
+<p>Click <a href="https://github.com/elv1s42/NUnitGo/wiki">here</a> to read project wiki.</p>
 
 <h2>
-<a id="demo-report" class="anchor" href="#demo-report" aria-hidden="true"><span class="octicon octicon-link"></span></a>Demo report</h2>
+<a id="demo-report-and-project-site" class="anchor" href="#demo-report-and-project-site" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo report and Project site</h2>
 
 <p>Click <a href="http://elv1s42.github.io/NUnitGo/ReportExample/">here</a> to view demo report (without screenshots).</p>
 
-<h2>
-<a id="project-site" class="anchor" href="#project-site" aria-hidden="true"><span class="octicon octicon-link"></span></a>Project site</h2>
-
 <p>Click <a href="http://elv1s42.github.io/NUnitGo/">here</a> to visit site.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>The most simple way to add your test to NUnitGo HTML report is to add <em>NunitGoAction</em> Attribute for your Test method. To receive Emails with test result add <strong>Subsciption</strong> or <strong>SingleTestSubscription</strong> Attribute.</p>
+
+<div class="highlight highlight-source-cs"><pre>[TestFixture]
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TestClass1</span>
+{
+    [Test, NunitGoAction]
+    [Subsciption(Name = <span class="pl-s"><span class="pl-pds">"</span>TestSubscription1<span class="pl-pds">"</span></span>)]
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">SimpleTest</span>()
+    {
+        Assert.AreEqual(<span class="pl-c1">1</span>, <span class="pl-c1">1</span>);
+    }
+}</pre></div>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/elv1s42">elv1s42</a></p>
