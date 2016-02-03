@@ -13,7 +13,7 @@ NUnit 3.0 HTML reports
 
 Click [here](https://github.com/elv1s42/NUnitGo/wiki) to read project wiki.
 
-## Demo report and Project srte
+## Demo report and Project site
 
 Click [here](http://elv1s42.github.io/NUnitGo/ReportExample/) to view demo report (without screenshots).
 
