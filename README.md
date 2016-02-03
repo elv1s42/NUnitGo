@@ -9,7 +9,7 @@
 # NUnitGo
 NUnit 3.0 HTML reports
 
-##  Installation and Usage
+##  Installation
 
 To install NUnitGo, run the following command in the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) 
 
@@ -17,10 +17,24 @@ To install NUnitGo, run the following command in the [Package Manager Console](h
 
 or download [latest release](https://github.com/elv1s42/NUnitGo/releases)
 
-## Demo report
+## Demo report and Project srte
 
 Click [here](http://elv1s42.github.io/NUnitGo/ReportExample/) to view demo report (without screenshots).
 
-## Project site
-
 Click [here](http://elv1s42.github.io/NUnitGo/) to visit site.
+
+##  Usage
+
+Using NUnitGo with **Test** Attribute:
+
+```csharp
+[TestFixture]
+public class TestClass1
+{
+    [Test, NunitGoAction]
+    public void SimpleTest()
+    {
+        Assert.AreEqual(1, 1);
+    }
+}
+```
