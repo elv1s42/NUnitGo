@@ -9,13 +9,9 @@
 # NUnitGo
 NUnit 3.0 HTML reports
 
-##  Installation
+##  Wiki
 
-To install NUnitGo, run the following command in the [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console) 
-
-**PM> Install-Package NUnitGo**
-
-or download [latest release](https://github.com/elv1s42/NUnitGo/releases)
+Click [here](https://github.com/elv1s42/NUnitGo/wiki) to read project wiki.
 
 ## Demo report and Project srte
 
