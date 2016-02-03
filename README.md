@@ -19,7 +19,7 @@ Click [here](http://elv1s42.github.io/NUnitGo/ReportExample/) to view demo repor
 
 Click [here](http://elv1s42.github.io/NUnitGo/) to visit site.
 
-##  Usage
+##  Usage example
 
 The most simple way to add your test to NUnitGo HTML report is to add *NunitGoAction* Attribute for your Test method. To receive Emails with test result add **Subsciption** or **SingleTestSubscription** Attribute.
 
