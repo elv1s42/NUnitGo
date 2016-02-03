@@ -25,57 +25,17 @@ Click [here](http://elv1s42.github.io/NUnitGo/) to visit site.
 
 ##  Usage
 
-###  Generating report
-
-#### Using NUnitGo with NUnit **Test** Attribute. 
-
-The most simple way to add your test to HTML report is to add *NunitGoAction* Attribute for your Test method:
+The most simple way to add your test to NUnitGo HTML report is to add *NunitGoAction* Attribute for your Test method. To receive Emails with test result add **Subsciption** or **SingleTestSubscription** Attribute.
 
 ```csharp
 [TestFixture]
 public class TestClass1
 {
     [Test, NunitGoAction]
+    [Subsciption(Name = "TestSubscription1")]
     public void SimpleTest()
     {
         Assert.AreEqual(1, 1);
     }
-}
-```
-
-You can also specify TestProject name, TestClass name, Test name and set Guid string for your test. This names are used to generate hierachical test list. **Each test must have unique Guid string**.
-
-```csharp
-[TestFixture]
-public class TestClass1
-{
-    [Test, NunitGoAction(
-            "11111111-1111-1111-1111-111111111111", 
-            "Project name", 
-            "Class name", 
-            "Test name")]
-    public void SimpleTest()
-    {
-        Assert.AreEqual(1, 1);
-    }
-}
-```
- 
-#### Using NUnitGo with NUnit **TestCase** Attribute.
-
-*NunitGoAction* Attribute does not support multiple usage, so you need to pass Guid string as TestCase argument:
-
-```csharp
-[TestCase("0", 1, "11111111-1111-1111-1111-111111111121")]
-[TestCase("1", 1, "11111111-1111-1111-1111-111111111122")]
-[TestCase("2", 1, "11111111-1111-1111-1111-111111111123")]
-[NunitGoAction]
-public void ParamTest(string input, int expected, string guid)
-{
-    NunitGoActionAttribute.TestGuid = new Guid(guid); //each test will have it's own Guid
-    
-    //Test method body:
-    
-    Assert.AreEqual(input, expected.ToString("D"));
 }
 ```
