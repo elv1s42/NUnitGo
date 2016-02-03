@@ -43,7 +43,7 @@ public class TestClass1
 }
 ```
 
-You can also specify TestProject name and TestClass name, and set Guid string for your test. This names are used to generate hierachical test list. **Each test must have unique Guid string**.
+You can also specify TestProject name, TestClass name, Test name and set Guid string for your test. This names are used to generate hierachical test list. **Each test must have unique Guid string**.
 
 ```csharp
 [TestFixture]
@@ -61,3 +61,21 @@ public class TestClass1
 }
 ```
  
+#### Using NUnitGo with NUnit **TestCase** Attribute.
+
+*NunitGoAction* Attribute does not support multiple usage, so you need to pass Guid string as TestCase argument:
+
+```csharp
+[TestCase("0", 1, "11111111-1111-1111-1111-111111111121")]
+[TestCase("1", 1, "11111111-1111-1111-1111-111111111122")]
+[TestCase("2", 1, "11111111-1111-1111-1111-111111111123")]
+[NunitGoAction]
+public void ParamTest(string input, int expected, string guid)
+{
+    NunitGoActionAttribute.TestGuid = new Guid(guid); //each test will have it's own Guid
+    
+    //Test method body:
+    
+    Assert.AreEqual(input, expected.ToString("D"));
+}
+```
