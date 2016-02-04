@@ -14,7 +14,7 @@ namespace NunitTestsExample
             "11111111-1111-1111-1111-111111111111", 
             "Project1", 
             "Subsystem1", 
-            "Long log test")]
+            "Long log test name")]
         public void LongLogTest()
         {
             Console.WriteLine("Testing log writing 1");
