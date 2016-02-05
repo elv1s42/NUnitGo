@@ -26,16 +26,16 @@ namespace NunitGo.NunitGoItems.Subscriptions
         public static string GetMailSubject(NunitGoTest nunitGoTest)
         {
             return nunitGoTest.IsSuccess() 
-                ? String.Format("Test '{0}' was finished successfully", nunitGoTest.Name) 
+                ? string.Format("Test '{0}' was finished successfully", nunitGoTest.Name) 
                 : (nunitGoTest.IsFailed() 
-                ? String.Format("Test '{0}' was failed", nunitGoTest.Name) 
+                ? string.Format("Test '{0}' was failed", nunitGoTest.Name) 
                 : (nunitGoTest.IsBroken() 
-                ? String.Format("Test '{0}' was broken", nunitGoTest.Name)
+                ? string.Format("Test '{0}' was broken", nunitGoTest.Name)
                 : (nunitGoTest.IsIgnored()
-                ? String.Format("Test '{0}' was ignored", nunitGoTest.Name)
+                ? string.Format("Test '{0}' was ignored", nunitGoTest.Name)
                 : (nunitGoTest.IsInconclusive()
-                ? String.Format("Test '{0}' is inconclusive", nunitGoTest.Name)
-                : String.Format("Test '{0}' was not successfully finished", nunitGoTest.Name)))));
+                ? string.Format("Test '{0}' is inconclusive", nunitGoTest.Name)
+                : string.Format("Test '{0}' was not successfully finished", nunitGoTest.Name)))));
         }
 
         public static string GetMailBody(NunitGoTest nunitGoTest, bool addLinks)

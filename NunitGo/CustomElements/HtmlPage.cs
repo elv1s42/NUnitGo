@@ -122,7 +122,7 @@ namespace NunitGo.CustomElements
             foreach (var line in lines.Where(line => line.Contains(@"</" + tagName + @">")))
             {
                 lines.Insert(lines.IndexOf(line), stringToAdd);
-                _page = String.Join(Environment.NewLine, lines);
+                _page = string.Join(Environment.NewLine, lines);
                 return _page;
             }
             return _page;

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 using NunitGo.NunitGoItems;
-using ScreenshotTaker;
+using NunitGo.NunitGoItems.Screenshots;
 
 namespace NunitGo.Utils
 {

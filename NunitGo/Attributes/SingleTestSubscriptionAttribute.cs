@@ -2,7 +2,7 @@
 
 namespace NunitGo.Attributes
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Method)]
     public class SingleTestSubscriptionAttribute : Attribute
     {
         public bool UnsuccessfulOnly = true;

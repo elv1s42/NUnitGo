@@ -36,10 +36,6 @@
       <HintPath>..\packages\NUnit.3.0.1\lib\net45\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ScreenshotTaker, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ScreenshotTaker.1.0.3\lib\net45\ScreenshotTaker.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -80,6 +76,9 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="NunitGoActionAttribute.cs" />
     <Compile Include="NunitGoItems\NunitGoConfiguration.cs" />
+    <Compile Include="NunitGoItems\Screenshots\Screenshot.cs" />
+    <Compile Include="NunitGoItems\Screenshots\ScreenshotHelper.cs" />
+    <Compile Include="NunitGoItems\Screenshots\Taker.cs" />
     <Compile Include="NunitGoItems\Subscriptions\Address.cs" />
     <Compile Include="NunitGoItems\Subscriptions\AddressExtensions.cs" />
     <Compile Include="NunitGoItems\Subscriptions\EmailHelper.cs" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using NunitGo.NunitGoItems.Screenshots;
 using NunitGo.Utils;
-using ScreenshotTaker;
 
 namespace NunitGo.NunitGoItems
 {
@@ -27,21 +27,21 @@ namespace NunitGo.NunitGoItems
 
         public NunitGoTest()
         {
-            Name = String.Empty;
-            FullName = String.Empty;
-            ClassName = String.Empty;
-            ProjectName = String.Empty;
+            Name = string.Empty;
+            FullName = string.Empty;
+            ClassName = string.Empty;
+            ProjectName = string.Empty;
             TestDuration = 0.0;
             DateTimeStart = new DateTime();
             DateTimeFinish = new DateTime();
-            TestStackTrace = String.Empty;
-            TestMessage = String.Empty;
+            TestStackTrace = string.Empty;
+            TestMessage = string.Empty;
             Result = "Unknown";
             Guid = Guid.NewGuid();
-            TestHrefRelative = String.Empty;
-            TestHrefAbsolute = String.Empty;
-            LogHref = String.Empty;
-            AttachmentsPath = String.Empty;
+            TestHrefRelative = string.Empty;
+            TestHrefAbsolute = string.Empty;
+            LogHref = string.Empty;
+            AttachmentsPath = string.Empty;
             HasOutput = false;
         }
 

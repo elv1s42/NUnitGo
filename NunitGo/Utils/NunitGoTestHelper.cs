@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NunitGo.NunitGoItems;
-using ScreenshotTaker;
+using NunitGo.NunitGoItems.Screenshots;
 
 namespace NunitGo.Utils
 {
@@ -22,7 +22,7 @@ namespace NunitGo.Utils
         public static List<NunitGoTest> GetTests(string localOutputPath)
         {
             var tests = new List<NunitGoTest>();
-            var filesFound = new List<String>();
+            var filesFound = new List<string>();
             filesFound.AddRange(Directory.GetFiles(localOutputPath, Output.Files.TestXmlFile, SearchOption.AllDirectories));
             foreach (var file in filesFound)
             {

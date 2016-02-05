@@ -8,9 +8,9 @@ using NUnit.Framework.Interfaces;
 using NunitGo.Attributes;
 using NunitGo.CustomElements;
 using NunitGo.NunitGoItems;
+using NunitGo.NunitGoItems.Screenshots;
 using NunitGo.NunitGoItems.Subscriptions;
 using NunitGo.Utils;
-using ScreenshotTaker;
 
 namespace NunitGo
 {
