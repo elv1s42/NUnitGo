@@ -112,45 +112,47 @@ namespace NunitGo
                 var subs = test.Method.MethodInfo.GetCustomAttributes<SubscriptionAttribute>();
                 foreach (var sub in subs)
                 {
+                    var sendCondition = (sub.UnsuccessfulOnly && !isSuccess) || (!sub.UnsuccessfulOnly);
+                    if (!sendCondition) continue;
+
                     var subscription = _configuration.Subsciptions.FirstOrDefault(x => x.Name.Equals(sub.Name));
                     if (subscription != null)
                     {
-                        if ((sub.UnsuccessfulOnly && !isSuccess) || (!sub.UnsuccessfulOnly))
-                            EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails, 
-                                _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
+                        EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
+                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
-
-                    if (sub.FullPath != null)
+                    else if (sub.FullPath != null)
                     {
                         subscription = XmlHelper.Load<Subsciption>(sub.FullPath);
-                        if ((sub.UnsuccessfulOnly && !isSuccess) || (!sub.UnsuccessfulOnly))
-                            EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
-                                _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
+                        EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
+                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
+                    }
+                    else if (sub.Targets.Any())
+                    {
+                        EmailHelper.Send(_configuration.SendFromList, sub.Targets,
+                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
                 }
 
                 var singleSubs = test.Method.MethodInfo.GetCustomAttributes<SingleTestSubscriptionAttribute>();
                 foreach (var singleSub in singleSubs)
                 {
+                    var sendCondition = (singleSub.UnsuccessfulOnly && !isSuccess) || (!singleSub.UnsuccessfulOnly);
+                    if (!sendCondition) continue;
+
                     var singleTestSubscription =
                         _configuration.SingleTestSubscriptions.FirstOrDefault(x => x.TestGuid.Equals(_nunitGoTest.Guid));
                     if (singleTestSubscription != null)
                     {
-                        if ((singleSub.UnsuccessfulOnly && !isSuccess) || (!singleSub.UnsuccessfulOnly))
-                            EmailHelper.Send(_configuration.SendFromList, singleTestSubscription.TargetEmails,
-                                _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
+                        EmailHelper.Send(_configuration.SendFromList, singleTestSubscription.TargetEmails,
+                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
-                    else
+                    else if (singleSub.FullPath != null)
                     {
-                        if (singleSub.FullPath != null)
-                        {
-                            var singleSubFromXml = XmlHelper.Load<SingleTestSubscription>(singleSub.FullPath);
-                            if ((singleSub.UnsuccessfulOnly && !isSuccess) || (!singleSub.UnsuccessfulOnly))
-                                EmailHelper.Send(_configuration.SendFromList, singleSubFromXml.TargetEmails,
-                                    _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
-                        }
+                        var singleSubFromXml = XmlHelper.Load<SingleTestSubscription>(singleSub.FullPath);
+                        EmailHelper.Send(_configuration.SendFromList, singleSubFromXml.TargetEmails,
+                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
-
                 }
             }
             catch (Exception ex)

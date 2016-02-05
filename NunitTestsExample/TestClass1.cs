@@ -15,6 +15,7 @@ namespace NunitTestsExample
             "Project1", 
             "Subsystem1", 
             "Long log test name")]
+        [Subscription("tester1@test.test", "tester2@test.test")]
         public void LongLogTest()
         {
             Console.WriteLine("Testing log writing 1");
