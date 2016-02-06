@@ -9,7 +9,7 @@
 # NUnitGo
 NUnit 3.0 HTML reports
 
-##  Wiki
+## Project Wiki
 
 Click [here](https://github.com/elv1s42/NUnitGo/wiki) to read project wiki.
 
