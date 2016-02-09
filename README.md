@@ -28,7 +28,7 @@ The most simple way to add your test to NUnitGo HTML report is to add *NunitGoAc
 public class TestClass1
 {
     [Test, NunitGoAction]
-    [Subsciption(Name = "TestSubscription1")]
+    [Subsciption(Name = "TestSubscriptionName")]
     public void SimpleTest()
     {
         Assert.AreEqual(1, 1);
