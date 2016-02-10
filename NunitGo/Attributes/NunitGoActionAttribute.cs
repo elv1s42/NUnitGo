@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using NUnit.Framework;
-using NUnit.Framework.Interfaces;
-using NunitGo.Attributes;
 using NunitGo.CustomElements;
 using NunitGo.NunitGoItems;
 using NunitGo.NunitGoItems.Screenshots;
 using NunitGo.NunitGoItems.Subscriptions;
 using NunitGo.Utils;
+using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 
-namespace NunitGo
+namespace NunitGo.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
@@ -30,6 +29,7 @@ namespace NunitGo
         private NunitGoTest _nunitGoTest;
         private DateTime _start;
         private DateTime _finish;
+        private string _testOutput;
 
         public static Guid TestGuid = Guid.Empty;
         private static List<Screenshot> _currentTestScreenshots; 
@@ -67,7 +67,8 @@ namespace NunitGo
             _guid = _guid.Equals(Guid.Empty) 
                 ? (TestGuid.Equals(Guid.Empty) ? Guid.NewGuid() : TestGuid)
                 : _guid;
-
+            _testOutput = TestContext.Out.ToString();
+            
             var context = TestContext.CurrentContext;
 
             var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Files.TestHtmlFile;
@@ -78,14 +79,14 @@ namespace NunitGo
                 DateTimeFinish = DateTime.Now,
                 TestDuration = (_finish - _start).TotalSeconds,
                 FullName = test.FullName,
-                ProjectName = (_projectName.Equals("")) ? test.FullName.Split('.').First() : _projectName,
-                ClassName = (_className.Equals("")) ? test.FullName.Split('.').Skip(1).First() : _className,
-                Name = (_testName.Equals("")) ? test.Name : _testName,
+                ProjectName = _projectName.Equals("") ? test.FullName.Split('.').First() : _projectName,
+                ClassName = _className.Equals("") ? test.FullName.Split('.').Skip(1).First() : _className,
+                Name = _testName.Equals("") ? test.Name : _testName,
                 TestStackTrace = context.Result.StackTrace ?? "",
                 TestMessage = context.Result.Message ?? "",
                 Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
                 Guid = _guid,
-                HasOutput = !TestContext.Out.ToString().Equals(string.Empty),
+                HasOutput = !_testOutput.Equals(string.Empty),
                 AttachmentsPath = _attachmentsPath + _guid + @"\",
                 TestHrefRelative = relativeTestHref,
                 TestHrefAbsolute = _configuration.ServerLink + relativeTestHref,
@@ -176,14 +177,8 @@ namespace NunitGo
             {
                 if (!_configuration.GenerateReport) return;
 
-                if (_nunitGoTest.HasOutput)
-                {
-                    var testOutputPath = _nunitGoTest.AttachmentsPath + Output.Files.TestOutputFile;
-                    PageGenerator.GenerateTestOutputPage(testOutputPath, TestContext.Out.ToString(), "./../../" + _nunitGoTest.TestHrefRelative);
-                    _nunitGoTest.HasOutput = true;
-                }
                 var testPath = _nunitGoTest.AttachmentsPath + Output.Files.TestHtmlFile;
-                _nunitGoTest.GenerateTestPage(testPath);
+                _nunitGoTest.GenerateTestPage(testPath, _testOutput);
 
                 PageGenerator.GenerateStyleFile(_outputPath);
 

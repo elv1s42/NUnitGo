@@ -1,4 +1,6 @@
-﻿namespace NunitGo.Utils
+﻿using System;
+
+namespace NunitGo.Utils
 {
     public class Output
     {

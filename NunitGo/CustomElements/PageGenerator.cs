@@ -11,12 +11,12 @@ namespace NunitGo.CustomElements
 {
 	internal static class PageGenerator
     {
-        public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
+        public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath, string testOutput = "")
         {
             try
             {
                 var page = new HtmlPage("Test page", "./../../" + Output.Files.ReportStyleFile);
-                var htmlTest = new NunitTestHtml(nunitGoTest);
+                var htmlTest = new NunitTestHtml(nunitGoTest, testOutput);
                 page.AddToBody(htmlTest.HtmlCode);
 
                 page.SavePage(fullPath);
@@ -24,26 +24,6 @@ namespace NunitGo.CustomElements
             catch (Exception ex)
             {
                 Log.Exception(ex, "Exception while generating test html page");
-            }
-        }
-
-        public static void GenerateTestOutputPage(string fullPath, string outputText, string backHref)
-        {
-            try
-            {
-                var page = new HtmlPage("Output page", "./../../" + Output.Files.ReportStyleFile);
-
-                var reportMenuTitle = new PageTitle("Test output", "test-output", "10%");
-                page.AddToBody(reportMenuTitle.HtmlCode);
-
-                var outputSection = new TestOutputSection(outputText, backHref);
-                page.AddToBody(outputSection.HtmlCode);
-
-                page.SavePage(fullPath);
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex, "Exception while generating test output page");
             }
         }
 

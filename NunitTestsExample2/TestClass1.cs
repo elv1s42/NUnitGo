@@ -2,6 +2,7 @@
 using System.Threading;
 using NUnit.Framework;
 using NunitGo;
+using NunitGo.Attributes;
 
 namespace NunitTestsExample2
 {
