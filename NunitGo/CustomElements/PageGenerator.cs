@@ -11,7 +11,7 @@ namespace NunitGo.CustomElements
 {
 	internal static class PageGenerator
     {
-        public static string GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
+        public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath)
         {
             try
             {
@@ -20,13 +20,11 @@ namespace NunitGo.CustomElements
                 page.AddToBody(htmlTest.HtmlCode);
 
                 page.SavePage(fullPath);
-                return page.GetFullPage();
             }
             catch (Exception ex)
             {
                 Log.Exception(ex, "Exception while generating test html page");
             }
-            return "";
         }
 
         public static void GenerateTestOutputPage(string fullPath, string outputText, string backHref)

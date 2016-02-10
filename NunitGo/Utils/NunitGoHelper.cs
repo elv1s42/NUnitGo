@@ -2,7 +2,6 @@
 using System.IO;
 using System.Reflection;
 using NunitGo.NunitGoItems;
-using NunitGo.NunitGoItems.Screenshots;
 
 namespace NunitGo.Utils
 {
@@ -32,11 +31,6 @@ namespace NunitGo.Utils
             {
                 Log.Exception(ex, GetPath(), "Exception in NunitGoHelper constructor");
             }
-        }
-
-        public static void TakeScreenshot()
-        {
-            Taker.TakeScreenshot(Configuration.LocalOutputPath + @"\Screenshots");
         }
     }
 }

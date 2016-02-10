@@ -37,30 +37,7 @@ namespace NunitGo.Utils
             }
             return tests;
         }
-
-        public static void TakeScreenshot(this NunitGoTest test, string screenshotsPath, DateTime creationTime = default(DateTime))
-        {
-            creationTime = creationTime.Equals(default(DateTime)) ? DateTime.Now : creationTime;
-            test.Screenshots.Add(new Screenshot(creationTime));
-            Taker.TakeScreenshot(creationTime, screenshotsPath);
-        }
-
-        public static void AddScreenshots(this NunitGoTest test,
-            List<Screenshot> screens)
-        {
-            if(!test.Screenshots.Any()) test.Screenshots = new List<Screenshot>();
-            var start = test.DateTimeStart;
-            var end = test.DateTimeFinish;
-
-            foreach (var screen in screens.Where(screen => screen.Date >= start && screen.Date <= end))
-            {
-                if (!test.Screenshots.Any(x => x.Name.Equals(screen.Name)))
-                {
-                    test.Screenshots.Add(screen);
-                }
-            }
-        }
-
+        
         public static DateTime GetStartDate(this List<NunitGoTest> tests)
         {
             return tests.OrderBy(x => x.DateTimeStart).First().DateTimeStart;

@@ -168,10 +168,10 @@ namespace NunitGo.CustomElements
                     writer.RenderEndTag(); //P
                 }
 
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                /*writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Test guid: ");
                 writer.Write(nunitGoTest.Guid);
-                writer.RenderEndTag(); //P
+                writer.RenderEndTag(); //P*/
 
                 writer.RenderEndTag(); //DIV
                 writer.RenderEndTag(); //DIV

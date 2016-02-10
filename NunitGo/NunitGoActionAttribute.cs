@@ -21,16 +21,23 @@ namespace NunitGo
         private readonly string _projectName;
         private readonly string _className;
         private readonly string _testName;
-        private readonly NunitGoConfiguration _configuration;
+        private static NunitGoConfiguration _configuration;
+
+        private static string _outputPath;
+        private static string _screenshotsPath;
+        private static string _attachmentsPath;
+
         private NunitGoTest _nunitGoTest;
         private DateTime _start;
         private DateTime _finish;
 
         public static Guid TestGuid = Guid.Empty;
-
+        private static List<Screenshot> _currentTestScreenshots; 
+        
         public NunitGoActionAttribute(string testGuidString = "", string projectName = "", string className = "", 
             string testName = "")
         {
+            _currentTestScreenshots = new List<Screenshot>();
             _guid = testGuidString.Equals("")
                     ? Guid.Empty
                     : new Guid(testGuidString);
@@ -38,6 +45,10 @@ namespace NunitGo
             _className = className;
             _testName = testName;
             _configuration = NunitGoHelper.Configuration;
+            
+            _outputPath = _configuration.LocalOutputPath;
+            _screenshotsPath = _outputPath + @"\Screenshots\";
+            _attachmentsPath = _outputPath + @"\Attachments\";
         }
         
         public void BeforeTest(ITest test)
@@ -58,9 +69,7 @@ namespace NunitGo
                 : _guid;
 
             var context = TestContext.CurrentContext;
-            var outputPath = _configuration.LocalOutputPath;
-            var screenshotsPath = outputPath + @"\Screenshots\";
-            var attachmentsPath = outputPath + @"\Attachments\";
+
             var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Files.TestHtmlFile;
             
             _nunitGoTest = new NunitGoTest
@@ -76,22 +85,21 @@ namespace NunitGo
                 TestMessage = context.Result.Message ?? "",
                 Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
                 Guid = _guid,
-                Screenshots = new List<Screenshot>(),
                 HasOutput = !TestContext.Out.ToString().Equals(string.Empty),
-                AttachmentsPath = attachmentsPath + _guid + @"\",
+                AttachmentsPath = _attachmentsPath + _guid + @"\",
                 TestHrefRelative = relativeTestHref,
                 TestHrefAbsolute = _configuration.ServerLink + relativeTestHref,
                 LogHref = Output.Files.TestOutputFile
             };
 
             CreateDirectories();
+
+            TakeScreenshotAfterTest();
+            AddScreenshots();
             
-            TakeScreenshot(screenshotsPath);
-            
-            _nunitGoTest.AddScreenshots(ScreenshotHelper.GetScreenshots(screenshotsPath));
             _nunitGoTest.Save(_nunitGoTest.AttachmentsPath + Output.Files.TestXmlFile);
 
-            SendEmails(_nunitGoTest.IsSuccess(), test, screenshotsPath);
+            SendEmails(_nunitGoTest.IsSuccess(), test);
             
             GenerateReport();
 
@@ -103,7 +111,7 @@ namespace NunitGo
             get { return ActionTargets.Test; }
         }
 
-        private void SendEmails(bool isSuccess, ITest test, string screenshotsPath)
+        private void SendEmails(bool isSuccess, ITest test)
         {
             try
             {
@@ -119,18 +127,18 @@ namespace NunitGo
                     if (subscription != null)
                     {
                         EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
-                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
+                            _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
                     else if (sub.FullPath != null)
                     {
                         subscription = XmlHelper.Load<Subsciption>(sub.FullPath);
                         EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
-                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
+                            _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
                     else if (sub.Targets.Any())
                     {
                         EmailHelper.Send(_configuration.SendFromList, sub.Targets,
-                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
+                            _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
                 }
 
@@ -145,13 +153,13 @@ namespace NunitGo
                     if (singleTestSubscription != null)
                     {
                         EmailHelper.Send(_configuration.SendFromList, singleTestSubscription.TargetEmails,
-                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
+                            _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
                     else if (singleSub.FullPath != null)
                     {
                         var singleSubFromXml = XmlHelper.Load<SingleTestSubscription>(singleSub.FullPath);
                         EmailHelper.Send(_configuration.SendFromList, singleSubFromXml.TargetEmails,
-                            _nunitGoTest, screenshotsPath, _configuration.AddLinksInsideEmail);
+                            _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
                 }
             }
@@ -177,15 +185,14 @@ namespace NunitGo
                 var testPath = _nunitGoTest.AttachmentsPath + Output.Files.TestHtmlFile;
                 _nunitGoTest.GenerateTestPage(testPath);
 
-                var outputPath = _configuration.LocalOutputPath;
-                PageGenerator.GenerateStyleFile(outputPath);
+                PageGenerator.GenerateStyleFile(_outputPath);
 
-                var tests = NunitGoTestHelper.GetTests(_configuration.LocalOutputPath).OrderBy(x => x.DateTimeFinish).ToList();
+                var tests = NunitGoTestHelper.GetTests(_outputPath).OrderBy(x => x.DateTimeFinish).ToList();
                 var stats = new MainStatistics(tests);
-                tests.GenerateTimelinePage(Path.Combine(outputPath, Output.Files.TimelineFile));
-                stats.GenerateMainStatisticsPage(Path.Combine(outputPath, Output.Files.TestStatisticsFile));
-                tests.GenerateTestListPage(Path.Combine(outputPath, Output.Files.TestListFile));
-                tests.GenerateReportMainPage(outputPath, stats);
+                tests.GenerateTimelinePage(Path.Combine(_outputPath, Output.Files.TimelineFile));
+                stats.GenerateMainStatisticsPage(Path.Combine(_outputPath, Output.Files.TestStatisticsFile));
+                tests.GenerateTestListPage(Path.Combine(_outputPath, Output.Files.TestListFile));
+                tests.GenerateReportMainPage(_outputPath, stats);
 
             }
             catch (Exception ex)
@@ -194,12 +201,12 @@ namespace NunitGo
             }
         }
 
-        private void TakeScreenshot(string screenshotsPath)
+        public void TakeScreenshotAfterTest()
         {
             try
             {
                 if (!_nunitGoTest.IsSuccess() && _configuration.TakeScreenshotAfterTestFailed)
-                    _nunitGoTest.TakeScreenshot(screenshotsPath);
+                    TakeScreenshot();
             }
             catch (Exception ex)
             {
@@ -207,12 +214,23 @@ namespace NunitGo
             }
         }
 
+        public static void TakeScreenshot()
+        {
+            var now = DateTime.Now;
+            _currentTestScreenshots.Add(new Screenshot(now));
+            Taker.TakeScreenshot(_screenshotsPath, now);
+        }
+
+        private void AddScreenshots()
+        {
+            _nunitGoTest.Screenshots.AddRange(_currentTestScreenshots);
+        }
+
         private void CreateDirectories()
         {
-            var localOutput = _configuration.LocalOutputPath;
-            Directory.CreateDirectory(localOutput);
-            Directory.CreateDirectory(localOutput + @"\Screenshots");
-            Directory.CreateDirectory(localOutput + @"\Attachments");
+            Directory.CreateDirectory(_outputPath);
+            Directory.CreateDirectory(_screenshotsPath);
+            Directory.CreateDirectory(_attachmentsPath);
             Directory.CreateDirectory(_nunitGoTest.AttachmentsPath);
         }
 
@@ -222,6 +240,7 @@ namespace NunitGo
             _nunitGoTest = new NunitGoTest();
             _start = default(DateTime);
             _finish = default(DateTime);
+            _currentTestScreenshots = new List<Screenshot>();
         }
     }
 }

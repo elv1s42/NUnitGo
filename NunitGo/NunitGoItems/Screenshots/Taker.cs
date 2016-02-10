@@ -9,18 +9,6 @@ namespace NunitGo.NunitGoItems.Screenshots
 {
     public static class Taker
     {
-        private static void SaveScreen(this Image img, string path, string name, ImageFormat format)
-        {
-            var fullPath = path + @"\" + name + "." + format;
-            if (!Directory.Exists(path.TrimEnd('\\')))
-            {
-                Directory.CreateDirectory(path.TrimEnd('\\'));
-            }
-            Console.WriteLine("Saving screenshot: " + fullPath);
-            img.Save(fullPath, format);
-            Console.WriteLine("Saved.");
-        }
-
         public static string GetScreenName(DateTime now, ImageFormat format = null)
         {
             format = format ?? ImageFormat.Png;
@@ -35,22 +23,7 @@ namespace NunitGo.NunitGoItems.Screenshots
             return path + @"\_Screenshots";
         }
 
-        public static void DeleteScreenshots(string path = "")
-        {
-            var folderPath = path.Equals("") ? GetPath() : path;
-            var folder = new DirectoryInfo(folderPath);
-
-            foreach (var file in folder.GetFiles())
-            {
-                file.Delete();
-            }
-            foreach (var dir in folder.GetDirectories())
-            {
-                dir.Delete(true);
-            }
-        }
-
-        public static string TakeScreenshot(DateTime creationTime = default(DateTime), string screenPath = "")
+        public static string TakeScreenshot(string screenPath, DateTime creationTime = default(DateTime))
         {
             var format = ImageFormat.Png;
             var now = DateTime.Now;
@@ -77,27 +50,6 @@ namespace NunitGo.NunitGoItems.Screenshots
                 }
             }
             return screenName;
-        }
-
-        public static void TakeScreenshot(string path = "", string name = "")
-        {
-            var now = DateTime.Now;
-            var screenPath = path.Equals("") ? GetPath() : path;
-            var screenName = name.Equals("") ? string.Format("screenshot_{0}", now.ToString("yyyyMMddHHmmssfff")) : name;
-
-            using (var bmpScreenCapture = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
-                                            Screen.PrimaryScreen.Bounds.Height))
-            {
-                using (var g = Graphics.FromImage(bmpScreenCapture))
-                {
-                    g.CopyFromScreen(Screen.PrimaryScreen.Bounds.X,
-                                     Screen.PrimaryScreen.Bounds.Y,
-                                     0, 0,
-                                     bmpScreenCapture.Size,
-                                     CopyPixelOperation.SourceCopy);
-                    bmpScreenCapture.SaveScreen(screenPath, screenName, ImageFormat.Png);
-                }
-            }
         }
     }
 }

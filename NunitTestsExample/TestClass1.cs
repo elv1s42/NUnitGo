@@ -52,9 +52,9 @@ namespace NunitTestsExample
         {
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
-            NunitGoHelper.TakeScreenshot();
+            NunitGoActionAttribute.TakeScreenshot();
             Thread.Sleep(100);
-            NunitGoHelper.TakeScreenshot();
+            NunitGoActionAttribute.TakeScreenshot();
             Thread.Sleep(100);
             throw new Exception("Some error occured!");
         }

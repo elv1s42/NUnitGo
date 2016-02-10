@@ -43,6 +43,7 @@ namespace NunitGo.NunitGoItems
             LogHref = string.Empty;
             AttachmentsPath = string.Empty;
             HasOutput = false;
+            Screenshots = new List<Screenshot>();
         }
 
         public bool IsSuccess()
