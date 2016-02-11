@@ -89,8 +89,7 @@ namespace NunitGo.Attributes
                 HasOutput = !_testOutput.Equals(string.Empty),
                 AttachmentsPath = _attachmentsPath + _guid + @"\",
                 TestHrefRelative = relativeTestHref,
-                TestHrefAbsolute = _configuration.ServerLink + relativeTestHref,
-                LogHref = Output.Files.TestOutputFile
+                TestHrefAbsolute = _configuration.ServerLink + relativeTestHref
             };
 
             CreateDirectories();
