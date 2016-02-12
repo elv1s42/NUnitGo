@@ -64,6 +64,8 @@
     <Compile Include="CustomElements\ReportSections\MenuSection.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\ReportMenuItem.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\PageTitle.cs" />
+    <Compile Include="CustomElements\TestsHistory\NunitGoJsHighstock.cs" />
+    <Compile Include="CustomElements\TestsHistory\NunitGoTestHistory.cs" />
     <Compile Include="CustomElements\ReportSections\TimelineSection.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\Tooltip.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\Tree.cs" />

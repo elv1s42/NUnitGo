@@ -53,6 +53,7 @@ namespace NunitGo.Attributes
         
         public void BeforeTest(ITest test)
         {
+            CreateDirectories();
             //Log.Write("START:" + test.FullName);
             if (!_configuration.GenerateReport) return;
 
@@ -71,12 +72,12 @@ namespace NunitGo.Attributes
             
             var context = TestContext.CurrentContext;
 
-            var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Files.TestHtmlFile;
+            var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Files.GetTestHtmlName(_finish);
             
             _nunitGoTest = new NunitGoTest
             {
                 DateTimeStart = _start,
-                DateTimeFinish = DateTime.Now,
+                DateTimeFinish = _finish,
                 TestDuration = (_finish - _start).TotalSeconds,
                 FullName = test.FullName,
                 ProjectName = _projectName.Equals("") ? test.FullName.Split('.').First() : _projectName,
@@ -92,12 +93,12 @@ namespace NunitGo.Attributes
                 TestHrefAbsolute = _configuration.ServerLink + relativeTestHref
             };
 
-            CreateDirectories();
-
+            Directory.CreateDirectory(_nunitGoTest.AttachmentsPath);
+            
             TakeScreenshotAfterTest();
             AddScreenshots();
             
-            _nunitGoTest.Save(_nunitGoTest.AttachmentsPath + Output.Files.TestXmlFile);
+            _nunitGoTest.Save(_nunitGoTest.AttachmentsPath + Output.Files.GetTestXmlName(_nunitGoTest.DateTimeFinish));
 
             SendEmails(_nunitGoTest.IsSuccess(), test);
             
@@ -176,12 +177,12 @@ namespace NunitGo.Attributes
             {
                 if (!_configuration.GenerateReport) return;
 
-                var testPath = _nunitGoTest.AttachmentsPath + Output.Files.TestHtmlFile;
+                var testPath = _nunitGoTest.AttachmentsPath + Output.Files.GetTestHtmlName(_nunitGoTest.DateTimeFinish);
                 _nunitGoTest.GenerateTestPage(testPath, _testOutput);
 
                 PageGenerator.GenerateStyleFile(_outputPath);
 
-                var tests = NunitGoTestHelper.GetTests(_outputPath).OrderBy(x => x.DateTimeFinish).ToList();
+                var tests = NunitGoTestHelper.GetTests(_attachmentsPath).OrderBy(x => x.DateTimeFinish).ToList();
                 var stats = new MainStatistics(tests);
                 tests.GenerateTimelinePage(Path.Combine(_outputPath, Output.Files.TimelineFile));
                 stats.GenerateMainStatisticsPage(Path.Combine(_outputPath, Output.Files.TestStatisticsFile));
@@ -225,7 +226,6 @@ namespace NunitGo.Attributes
             Directory.CreateDirectory(_outputPath);
             Directory.CreateDirectory(_screenshotsPath);
             Directory.CreateDirectory(_attachmentsPath);
-            Directory.CreateDirectory(_nunitGoTest.AttachmentsPath);
         }
 
         private void Flush()
