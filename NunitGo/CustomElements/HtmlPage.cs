@@ -83,6 +83,10 @@ namespace NunitGo.CustomElements
                     {"charset", "utf-8"}
                 });
                 writer.AddTag(HtmlTextWriterTag.Title, pageTitle);
+                writer.AddAttribute(HtmlTextWriterAttribute.Src, "http://code.jquery.com/jquery-1.11.0.min.js");
+                writer.AddTag(HtmlTextWriterTag.Script);
+                writer.AddAttribute(HtmlTextWriterAttribute.Src, "https://code.highcharts.com/stock/highstock.js");
+                writer.AddTag(HtmlTextWriterTag.Script);
                 writer.AddTag(HtmlTextWriterTag.Style, new Dictionary<HtmlTextWriterAttribute, string>
                 {
                     {HtmlTextWriterAttribute.Type, @"text/css"}
@@ -133,9 +137,20 @@ namespace NunitGo.CustomElements
             return AddInsideTag("body", stringToAdd);
         }
 
-        public string AddScripts(string scriptString)
+        public void AddScript(string scriptFile)
         {
-            return AddInsideTag("script", scriptString);
+            var strWr = new StringWriter();
+            using (var writer = new HtmlTextWriter(strWr))
+            {
+                writer.AddAttribute(HtmlTextWriterAttribute.Src, scriptFile);
+                writer.AddTag(HtmlTextWriterTag.Script);
+            }
+            AddInsideTag("head", strWr.ToString());
+        }
+        
+        public string AddToHead(string text = "")
+        {
+            return AddInsideTag("head", text);
         }
 
         public void SavePage(string fullpath)

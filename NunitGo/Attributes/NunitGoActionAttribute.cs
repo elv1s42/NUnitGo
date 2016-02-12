@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using NunitGo.CustomElements;
+using NunitGo.CustomElements.TestsHistory;
 using NunitGo.NunitGoItems;
 using NunitGo.NunitGoItems.Screenshots;
 using NunitGo.NunitGoItems.Subscriptions;
@@ -101,7 +102,12 @@ namespace NunitGo.Attributes
             _nunitGoTest.Save(_nunitGoTest.AttachmentsPath + Output.Files.GetTestXmlName(_nunitGoTest.DateTimeFinish));
 
             SendEmails(_nunitGoTest.IsSuccess(), test);
+
+            var testVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
+            testVersions.BuildHistoryJsFile(_nunitGoTest.AttachmentsPath, Output.GetChartId(_nunitGoTest.Guid, _nunitGoTest.DateTimeFinish));
+
             
+
             GenerateReport();
 
             Flush();
@@ -178,11 +184,11 @@ namespace NunitGo.Attributes
                 if (!_configuration.GenerateReport) return;
 
                 var testPath = _nunitGoTest.AttachmentsPath + Output.Files.GetTestHtmlName(_nunitGoTest.DateTimeFinish);
-                _nunitGoTest.GenerateTestPage(testPath, _testOutput);
+                _nunitGoTest.GenerateTestPage(testPath, _testOutput, Output.GetTestScriptName(_nunitGoTest.DateTimeFinish));
 
                 PageGenerator.GenerateStyleFile(_outputPath);
 
-                var tests = NunitGoTestHelper.GetTests(_attachmentsPath).OrderBy(x => x.DateTimeFinish).ToList();
+                var tests = NunitGoTestHelper.GetNewestTests(_attachmentsPath).OrderBy(x => x.DateTimeFinish).ToList();
                 var stats = new MainStatistics(tests);
                 tests.GenerateTimelinePage(Path.Combine(_outputPath, Output.Files.TimelineFile));
                 stats.GenerateMainStatisticsPage(Path.Combine(_outputPath, Output.Files.TestStatisticsFile));

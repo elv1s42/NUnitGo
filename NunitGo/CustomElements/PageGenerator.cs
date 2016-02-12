@@ -11,12 +11,13 @@ namespace NunitGo.CustomElements
 {
 	internal static class PageGenerator
     {
-        public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath, string testOutput = "")
+        public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath, string testOutput = "", string chartFile = "")
         {
             try
             {
                 var page = new HtmlPage("Test page", "./../../" + Output.Files.ReportStyleFile);
                 var htmlTest = new NunitTestHtml(nunitGoTest, testOutput);
+                page.AddScript(chartFile);
                 page.AddToBody(htmlTest.HtmlCode);
 
                 page.SavePage(fullPath);

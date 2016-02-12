@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using NunitGo.NunitGoItems;
 
 namespace NunitGo.Utils
@@ -18,18 +17,28 @@ namespace NunitGo.Utils
         {
             return XmlHelper.Load<NunitGoTest>(fullPath, "Excteption while loading NunitGoTest, Path = " + fullPath);
         }
-        
-        public static List<NunitGoTest> GetTests(string attachmentsPath)
+
+        public static List<NunitGoTest> GetTestsFromFolder(string folder)
         {
             var tests = new List<NunitGoTest>();
-            var filesFound = new List<string>();
-            filesFound.AddRange(Directory.GetFiles(attachmentsPath, Output.Files.TestXmlFile, SearchOption.AllDirectories));
+            try
+            {
+                var dirInfo = new DirectoryInfo(folder);
+                var files = dirInfo.GetFiles("*.xml");
+                tests.AddRange(files.Select(fileInfo => Load(fileInfo.FullName)));
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Exception while loading test xml file");
+            }
+            return tests;
+        }
 
+        public static List<NunitGoTest> GetNewestTests(string attachmentsPath)
+        {
+            var tests = new List<NunitGoTest>();
             var folders = Directory.GetDirectories(attachmentsPath);
-                //.Where(x => Regex
-                //    .Match(Path.GetFileName(x), @"(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}")
-                //    .Success);
-            
+
             foreach (var folder in folders)
             {
                 try

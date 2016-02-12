@@ -127,10 +127,9 @@ namespace NunitGo.CustomElements
 
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "table-cell");
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "column-2");
+
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, Output.GetChartId(nunitGoTest.Guid, nunitGoTest.DateTimeFinish));
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "TODO: Add test history");
-                writer.RenderEndTag();
                 writer.RenderEndTag();//DIV
 
                 writer.RenderEndTag();//DIV

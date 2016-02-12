@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using NunitGo.NunitGoItems;
 
 namespace NunitGo.CustomElements.TestsHistory
 {
     public static class NunitGoTestHistory
     {
-        public static void BuildHistory(this List<NunitGoTest> nunitGoTests)
+        public static void BuildHistoryJsFile(this List<NunitGoTest> nunitGoTests, string testsPath, string id)
         {
-            var orderedList = nunitGoTests.OrderBy(x => x.DateTimeFinish);
-
+            var highstock = new NunitGoJsHighstock(nunitGoTests, id);
+            var jsString = highstock.JsCode;
+            highstock.SaveScript(jsString, testsPath);
         }
     }
 }

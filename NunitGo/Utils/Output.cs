@@ -26,6 +26,16 @@ namespace NunitGo.Utils
             }
         }
 
+        public static string GetChartId(Guid testGuid, DateTime testFinishDateTime)
+        {
+            return "history-" + testGuid.ToString().ToLower() + testFinishDateTime.ToString("-yy-MM-dd-HH-mm-ss-fff");
+        }
+
+        public static string GetTestScriptName(DateTime testFinishDateTime)
+        {
+            return "test-script-" + testFinishDateTime.ToString("yy-MM-dd-HH-mm-ss-fff") + ".js";
+        }
+
         public struct FileType
         {
             public static string Default = ".html";
