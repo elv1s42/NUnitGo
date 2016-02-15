@@ -7,7 +7,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class EnvironmentSection
     {
-        public static void AddEnvironment(this HtmlTextWriter writer, string id = "")
+        public static HtmlTextWriter AddEnvironment(this HtmlTextWriter writer, string id = "")
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Id, id.Equals("") ? "table-cell" : id);
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
@@ -31,6 +31,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
             writer.Write(Bullet.HtmlCode + "User: " + Environment.UserDomainName);
             writer.RenderEndTag();
             writer.RenderEndTag();//DIV
+            return writer;
         }
     }
 }

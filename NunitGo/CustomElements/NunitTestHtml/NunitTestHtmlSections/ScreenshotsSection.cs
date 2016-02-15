@@ -6,7 +6,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class ScreenshotsSection
     {
-        public static void AddScreenshots(this HtmlTextWriter writer, NunitGoTest nunitGoTest, string id = "")
+        public static HtmlTextWriter AddScreenshots(this HtmlTextWriter writer, NunitGoTest nunitGoTest, string id = "")
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Id, id.Equals("") ? "table-cell" : id);
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
@@ -24,6 +24,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
                 writer.RenderEndTag();//A
             }
             writer.RenderEndTag();//DIV
+            return writer;
         }
     }
 }

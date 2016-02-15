@@ -6,7 +6,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class FailureSection
     {
-        public static void AddFailure(this HtmlTextWriter writer, NunitGoTest nunitGoTest, string id = "")
+        public static HtmlTextWriter AddFailure(this HtmlTextWriter writer, NunitGoTest nunitGoTest, string id = "")
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Id, id.Equals("") ? "table-cell" : id);
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
@@ -22,6 +22,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
                 writer.RenderEndTag(); //P
             }
             writer.RenderEndTag();//DIV
+            return writer;
         }
     }
 }

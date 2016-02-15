@@ -68,7 +68,7 @@ namespace NunitGo.CustomElements
             }
         }
 
-        public HtmlPage(string pageTitle = "NUnitGo Report", string styleFullPath = "")
+        public HtmlPage(string pageTitle = "NUnitGo Report", string styleFullPath = "", string scriptString = "")
         {
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
@@ -90,6 +90,7 @@ namespace NunitGo.CustomElements
                 writer.AddTag(HtmlTextWriterTag.Script);
                 writer.AddAttribute(HtmlTextWriterAttribute.Src, "https://code.highcharts.com/stock/highstock.js");
                 writer.AddTag(HtmlTextWriterTag.Script);
+                writer.AddTag(HtmlTextWriterTag.Script, scriptString);
                 writer.AddTag(HtmlTextWriterTag.Style, new Dictionary<HtmlTextWriterAttribute, string>
                 {
                     {HtmlTextWriterAttribute.Type, @"text/css"}
@@ -138,6 +139,11 @@ namespace NunitGo.CustomElements
         public string AddToBody(string stringToAdd)
         {
             return AddInsideTag("body", stringToAdd);
+        }
+
+        public string AddScriptText(string script)
+        {
+            return AddInsideTag("script", script);
         }
 
         public void AddScript(string scriptFile)

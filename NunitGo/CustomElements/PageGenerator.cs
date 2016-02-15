@@ -15,7 +15,19 @@ namespace NunitGo.CustomElements
         {
             try
             {
-                var page = new HtmlPage("Test page", "./../../" + Output.Files.ReportStyleFile);
+                var script = string.Format(@"
+                    $(document).ready(function() {{
+                        $("".tabs-menu a"").click(function(event) {{
+                            event.preventDefault();
+                            $(this).parent().addClass(""current"");
+                            $(this).parent().siblings().removeClass(""current"");
+                            var tab = $(this).attr(""href"");
+                            $("".tab-content"").not(tab).css(""display"", ""none"");
+                            $(tab).fadeIn();
+                        }});
+                    }});
+                ");
+                var page = new HtmlPage("Test page", "./../../" + Output.Files.ReportStyleFile, script);
                 var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest, testOutput);
                 page.AddScript(chartFile);
                 page.AddToBody(htmlTest.HtmlCode);

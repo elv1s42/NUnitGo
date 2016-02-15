@@ -98,5 +98,52 @@ namespace NunitGo.Extensions
             writer.RenderEndTag();//LI
             writer.RenderEndTag();//UL
         }
+
+        public static HtmlTextWriter OpenTag(this HtmlTextWriter writer, HtmlTextWriterTag tag)
+        {
+            writer.RenderBeginTag(tag);
+            return writer;
+        }
+
+        public static HtmlTextWriter WithStyleAttr(this HtmlTextWriter writer, HtmlTextWriterStyle styleAttr, string value)
+        {
+            writer.AddStyleAttribute(styleAttr, value);
+            return writer;
+        }
+
+        public static HtmlTextWriter WithStyleAttr(this HtmlTextWriter writer, string styleAttr, string value)
+        {
+            writer.AddStyleAttribute(styleAttr, value);
+            return writer;
+        }
+
+        public static HtmlTextWriter WithAttr(this HtmlTextWriter writer, HtmlTextWriterAttribute attr, string value)
+        {
+            writer.AddAttribute(attr, value);
+            return writer;
+        }
+
+        public static HtmlTextWriter WithAttr(this HtmlTextWriter writer, string attr, string value)
+        {
+            writer.AddAttribute(attr, value);
+            return writer;
+        }
+
+        public static HtmlTextWriter SimpleWrite(this HtmlTextWriter writer, string value)
+        {
+            writer.Write(value);
+            return writer;
+        }
+
+        public static HtmlTextWriter NewTag(this HtmlTextWriter writer, HtmlTextWriterTag tag, string value)
+        {
+            return writer.OpenTag(tag).SimpleWrite(value).CloseTag();
+        }
+
+        public static HtmlTextWriter CloseTag(this HtmlTextWriter writer)
+        {
+            writer.RenderEndTag();
+            return writer;
+        }
     }
 }

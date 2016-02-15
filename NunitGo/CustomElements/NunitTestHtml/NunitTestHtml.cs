@@ -4,6 +4,7 @@ using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
 using NunitGo.CustomElements.HtmlCustomElements;
 using NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections;
+using NunitGo.Extensions;
 using NunitGo.NunitGoItems;
 using NunitGo.Utils;
 
@@ -42,10 +43,10 @@ namespace NunitGo.CustomElements.NunitTestHtml
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "0"),
 					new StyleAttribute(HtmlTextWriterStyle.FontSize, "18px")
 				}
-			}); 
-			testCssSet.AddElement(new CssElement(".test-window")
-			{
-				StyleFields = new List<StyleAttribute>
+            });
+            testCssSet.AddElement(new CssElement(".test-window")
+            {
+                StyleFields = new List<StyleAttribute>
 				{
 					new StyleAttribute("box-sizing", "border-box"),
 					new StyleAttribute(HtmlTextWriterStyle.Overflow, "auto"),
@@ -56,7 +57,55 @@ namespace NunitGo.CustomElements.NunitTestHtml
 					new StyleAttribute("border", "10px solid " + Colors.ModalBorderColor),
 					new StyleAttribute(HtmlTextWriterStyle.Position, "absolute")
 				}
-			});
+            });
+            testCssSet.AddElement(new CssElement(".tabs-menu li")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.Height, "30px"),
+					new StyleAttribute("float", "left"),
+					new StyleAttribute("margin-right", "10px")
+				}
+            });
+            testCssSet.AddElement(new CssElement(".tabs-menu li.current")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.ZIndex, "5")
+				}
+            });
+            testCssSet.AddElement(new CssElement(".tabs-menu li a")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.Padding, "10px"),
+					new StyleAttribute("text-derocation", "none")
+				}
+            });
+            testCssSet.AddElement(new CssElement(".tab")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.Width, "auto"),
+					new StyleAttribute("float", "left"),
+					new StyleAttribute("margin-bottom", "20px")
+				}
+            });
+            testCssSet.AddElement(new CssElement(".tab-content")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
+					new StyleAttribute(HtmlTextWriterStyle.Display, "none")
+				}
+            });
+            testCssSet.AddElement(new CssElement("#test-environment-href")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.Display, "block")
+				}
+            });
 			return testCssSet.ToString();
 		}
 
@@ -98,38 +147,73 @@ namespace NunitGo.CustomElements.NunitTestHtml
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "table");
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
 
-                writer.AddStyleAttribute("align", "center");
                 writer.RenderBeginTag(HtmlTextWriterTag.Table);
 
                 writer.RenderBeginTag(HtmlTextWriterTag.Tr);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "50%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Td);
                 writer.AddTestResult(nunitGoTest);
                 writer.RenderEndTag();//TD
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "50%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Td);
 				writer.AddTestHistory(nunitGoTest);
                 writer.RenderEndTag();//TD
                 writer.RenderEndTag();//TR
-
-                writer.RenderBeginTag(HtmlTextWriterTag.Tr);
-                writer.RenderBeginTag(HtmlTextWriterTag.Td);
-                writer.AddEnvironment();
-                writer.RenderEndTag();//TD
-                writer.RenderBeginTag(HtmlTextWriterTag.Td);
-                writer.AddScreenshots(nunitGoTest);
-                writer.RenderEndTag();//TD
-                writer.RenderEndTag();//TR
-
-                writer.RenderBeginTag(HtmlTextWriterTag.Tr);
-                writer.RenderBeginTag(HtmlTextWriterTag.Td); 
-                writer.AddFailure(nunitGoTest);
-                writer.RenderEndTag();//TD
-                writer.RenderBeginTag(HtmlTextWriterTag.Td);
-                writer.AddOutput(nunitGoTest, testOutput);
-                writer.RenderEndTag();//TD
-                writer.RenderEndTag();//TR
-
+                
                 writer.RenderEndTag();//TABLE
 
+                writer.WithAttr(HtmlTextWriterAttribute.Id, "tabs-container")
+                    .OpenTag(HtmlTextWriterTag.Div)
+                        .WithAttr(HtmlTextWriterAttribute.Class, "tabs-menu")
+                        .OpenTag(HtmlTextWriterTag.Ul)
+                            .WithAttr(HtmlTextWriterAttribute.Class, "current")
+                            .OpenTag(HtmlTextWriterTag.Li)
+                                .WithAttr(HtmlTextWriterAttribute.Href, "#test-environment-href")
+                                .NewTag(HtmlTextWriterTag.A, "Test environment")
+                            .CloseTag()
+                            .OpenTag(HtmlTextWriterTag.Li)
+                                .WithAttr(HtmlTextWriterAttribute.Href, "#test-failure-href")
+                                .NewTag(HtmlTextWriterTag.A, "Test environment")
+                            .CloseTag()
+                            .OpenTag(HtmlTextWriterTag.Li)
+                                .WithAttr(HtmlTextWriterAttribute.Href, "#test-screenshots-href")
+                                .NewTag(HtmlTextWriterTag.A, "Test environment")
+                            .CloseTag()
+                            .OpenTag(HtmlTextWriterTag.Li)
+                                .WithAttr(HtmlTextWriterAttribute.Href, "#test-output-href")
+                                .NewTag(HtmlTextWriterTag.A, "Test environment")
+                            .CloseTag()
+                        .CloseTag()
+                        .WithAttr(HtmlTextWriterAttribute.Class, "tab")
+                        .OpenTag(HtmlTextWriterTag.Div)
+                            .WithAttr(HtmlTextWriterAttribute.Id, "test-environment-href")
+                            .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
+                            .OpenTag(HtmlTextWriterTag.Div)
+                                .AddEnvironment()
+                            .CloseTag()
+                            .WithAttr(HtmlTextWriterAttribute.Id, "test-failure-href")
+                            .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
+                            .OpenTag(HtmlTextWriterTag.Div)
+                                .AddFailure(nunitGoTest)
+                            .CloseTag()
+                            .WithAttr(HtmlTextWriterAttribute.Id, "test-screenshots-href")
+                            .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
+                            .OpenTag(HtmlTextWriterTag.Div)
+                                .AddScreenshots(nunitGoTest)
+                            .CloseTag()
+                            .WithAttr(HtmlTextWriterAttribute.Id, "test-output-href")
+                            .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
+                            .OpenTag(HtmlTextWriterTag.Div)
+                                .AddOutput(nunitGoTest, testOutput)
+                            .CloseTag()
+                        .CloseTag()
+                    .CloseTag();
+
+                /*writer.AddEnvironment();
+                writer.AddScreenshots(nunitGoTest);
+                writer.AddFailure(nunitGoTest);
+                writer.AddOutput(nunitGoTest, testOutput);
+                */
 				writer.RenderEndTag(); //DIV
 				writer.RenderEndTag(); //DIV
 
