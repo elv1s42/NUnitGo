@@ -87,7 +87,7 @@ namespace NunitGo.CustomElements.TestsHistory
             
                             yAxis: {{
                                 title: {{
-                                    text: 'Time (minutes)'
+                                    text: 'Time (seconds)'
                                 }}
                             }},
                             legend: {{

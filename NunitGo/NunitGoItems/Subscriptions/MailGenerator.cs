@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web.UI;
 using NunitGo.CustomElements;
+using NunitGo.CustomElements.NunitTestHtml;
 using NunitGo.Extensions;
 using NunitGo.Utils;
 

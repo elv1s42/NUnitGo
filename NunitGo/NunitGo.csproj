@@ -58,8 +58,14 @@
     <Compile Include="CustomElements\HtmlCustomElements\HtmlBaseElement.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\CloseButton.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\OpenButton.cs" />
+    <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\FailureSection.cs" />
+    <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\OutputSection.cs" />
+    <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\ScreenshotsSection.cs" />
+    <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\TestHistorySection.cs" />
+    <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\EnvironmentSection.cs" />
+    <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\TestResultSection.cs" />
     <Compile Include="CustomElements\ReportSections\MainInformationSection.cs" />
-    <Compile Include="CustomElements\NunitTestHtml.cs" />
+    <Compile Include="CustomElements\NunitTestHtml\NunitTestHtml.cs" />
     <Compile Include="CustomElements\ReportSections\FooterSection.cs" />
     <Compile Include="CustomElements\ReportSections\MenuSection.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\ReportMenuItem.cs" />

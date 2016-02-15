@@ -142,7 +142,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
                 foreach (var nunitGoTest in tests)
                 {
                     var testId = nunitGoTest.Guid.ToString();
-                    var htmlTest = new NunitTestHtml(nunitGoTest);
+                    var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest);
                     var buttonText = nunitGoTest.Name
                                      + " (" + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
                                      nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss") + ")";

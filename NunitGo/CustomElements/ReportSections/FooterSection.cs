@@ -51,7 +51,7 @@ namespace NunitGo.CustomElements.ReportSections
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "report-footer");
                 writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write("Copyright 2015 " + '\u00a9' + " NUnitGo");
+                writer.Write("Copyright 2015-2016 " + '\u00a9' + " NUnitGo");
                 writer.RenderEndTag();
                 writer.RenderEndTag();
             }

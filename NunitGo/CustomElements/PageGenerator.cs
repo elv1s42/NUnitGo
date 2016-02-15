@@ -16,7 +16,7 @@ namespace NunitGo.CustomElements
             try
             {
                 var page = new HtmlPage("Test page", "./../../" + Output.Files.ReportStyleFile);
-                var htmlTest = new NunitTestHtml(nunitGoTest, testOutput);
+                var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest, testOutput);
                 page.AddScript(chartFile);
                 page.AddToBody(htmlTest.HtmlCode);
 
@@ -104,7 +104,7 @@ namespace NunitGo.CustomElements
                     Bullet.StyleString,
                     HrefButtonBase.StyleString,
                     Tree.StyleString,
-                    NunitTestHtml.StyleString,
+                    NunitTestHtml.NunitTestHtml.StyleString,
                     MenuSection.StyleString,
                     OpenButton.StyleString
                 });
