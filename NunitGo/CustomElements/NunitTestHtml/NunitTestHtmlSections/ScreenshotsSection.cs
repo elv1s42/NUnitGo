@@ -6,9 +6,9 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class ScreenshotsSection
     {
-        public static void AddScreenshots(this HtmlTextWriter writer, NunitGoTest nunitGoTest)
+        public static void AddScreenshots(this HtmlTextWriter writer, NunitGoTest nunitGoTest, string id = "")
         {
-            writer.AddAttribute(HtmlTextWriterAttribute.Id, "table-cell");
+            writer.AddAttribute(HtmlTextWriterAttribute.Id, id.Equals("") ? "table-cell" : id);
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
             var screens = nunitGoTest.Screenshots.OrderBy(x => x.Date);
             foreach (var screenshot in screens)

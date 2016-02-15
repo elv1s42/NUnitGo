@@ -6,9 +6,9 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class TestHistorySection
     {
-        public static void AddTestHistory(this HtmlTextWriter writer, NunitGoTest nunitGoTest)
+        public static void AddTestHistory(this HtmlTextWriter writer, NunitGoTest nunitGoTest, string id = "")
         {
-            writer.AddAttribute(HtmlTextWriterAttribute.Id, "table-cell");
+            writer.AddAttribute(HtmlTextWriterAttribute.Id, id.Equals("") ? "table-cell" : id);
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
             writer.AddAttribute(HtmlTextWriterAttribute.Id, Output.GetChartId(nunitGoTest.Guid, nunitGoTest.DateTimeFinish));
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
