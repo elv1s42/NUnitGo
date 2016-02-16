@@ -49,7 +49,8 @@ namespace NunitGo.CustomElements.NunitTestHtml
                 StyleFields = new List<StyleAttribute>
 				{
 					new StyleAttribute("box-sizing", "border-box"),
-					new StyleAttribute(HtmlTextWriterStyle.Overflow, "auto"),
+					new StyleAttribute(HtmlTextWriterStyle.OverflowX, "auto"),
+					new StyleAttribute(HtmlTextWriterStyle.OverflowY, "scroll"),
 					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White),
 					new StyleAttribute(HtmlTextWriterStyle.Top, "0%"),
 					new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
@@ -79,14 +80,14 @@ namespace NunitGo.CustomElements.NunitTestHtml
                 StyleFields = new List<StyleAttribute>
 				{
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "10px"),
-					new StyleAttribute("text-derocation", "none")
+					new StyleAttribute("text-decoration", "none")
 				}
             });
-            testCssSet.AddElement(new CssElement(".tab")
+            testCssSet.AddElement(new CssElement(".test-tab")
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.Width, "auto"),
+					new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
 					new StyleAttribute("float", "left"),
 					new StyleAttribute("margin-bottom", "20px")
 				}
@@ -114,10 +115,8 @@ namespace NunitGo.CustomElements.NunitTestHtml
 			var sWr = new StringWriter();
 			using (var wr = new HtmlTextWriter(sWr))
 			{
-				wr.AddStyleAttribute(HtmlTextWriterStyle.WhiteSpace, "pre-line");
-				wr.RenderBeginTag(HtmlTextWriterTag.Div);
-				wr.Write(txt);
-				wr.RenderEndTag();//DIV
+				wr.Css(HtmlTextWriterStyle.WhiteSpace, "pre-line")
+                    .Tag(HtmlTextWriterTag.Div, txt);
 			}
 			return sWr.ToString();
 		}
@@ -144,23 +143,20 @@ namespace NunitGo.CustomElements.NunitTestHtml
 				writer.Write(new CloseButton("Back", "./../../" + Output.Files.TestListFile).ButtonHtml);
 				writer.RenderEndTag(); //DIV
                 
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "table");
-                writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
-
-                writer.RenderBeginTag(HtmlTextWriterTag.Table);
-
-                writer.RenderBeginTag(HtmlTextWriterTag.Tr);
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "50%");
-                writer.RenderBeginTag(HtmlTextWriterTag.Td);
-                writer.AddTestResult(nunitGoTest);
-                writer.RenderEndTag();//TD
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "50%");
-                writer.RenderBeginTag(HtmlTextWriterTag.Td);
-				writer.AddTestHistory(nunitGoTest);
-                writer.RenderEndTag();//TD
-                writer.RenderEndTag();//TR
-                
-                writer.RenderEndTag();//TABLE
+                writer.Css(HtmlTextWriterStyle.Display, "table")
+                    .Css(HtmlTextWriterStyle.BackgroundColor, Colors.BodyBackground)
+                    .Tag(HtmlTextWriterTag.Table,
+			        () => writer.Tag(HtmlTextWriterTag.Tr,
+			            () => writer
+			                .Css(HtmlTextWriterStyle.Width, "50%")
+                            .Css(HtmlTextWriterStyle.BackgroundColor, Colors.White)
+			                .Tag(HtmlTextWriterTag.Td,
+			                    () => writer.AddTestResult(nunitGoTest))
+			                .Css(HtmlTextWriterStyle.Width, "50%")
+                            .Css(HtmlTextWriterStyle.BackgroundColor, Colors.White)
+			                .Tag(HtmlTextWriterTag.Td,
+			                    () => writer.AddTestHistory(nunitGoTest))
+			            ));
 
                 writer.WithAttr(HtmlTextWriterAttribute.Id, "tabs-container")
                     .OpenTag(HtmlTextWriterTag.Div)
@@ -169,22 +165,22 @@ namespace NunitGo.CustomElements.NunitTestHtml
                             .WithAttr(HtmlTextWriterAttribute.Class, "current")
                             .OpenTag(HtmlTextWriterTag.Li)
                                 .WithAttr(HtmlTextWriterAttribute.Href, "#test-environment-href")
-                                .NewTag(HtmlTextWriterTag.A, "Test environment")
+                                .Tag(HtmlTextWriterTag.A, "Test environment")
                             .CloseTag()
                             .OpenTag(HtmlTextWriterTag.Li)
                                 .WithAttr(HtmlTextWriterAttribute.Href, "#test-failure-href")
-                                .NewTag(HtmlTextWriterTag.A, "Test environment")
+                                .Tag(HtmlTextWriterTag.A, "Failure")
                             .CloseTag()
                             .OpenTag(HtmlTextWriterTag.Li)
                                 .WithAttr(HtmlTextWriterAttribute.Href, "#test-screenshots-href")
-                                .NewTag(HtmlTextWriterTag.A, "Test environment")
+                                .Tag(HtmlTextWriterTag.A, "Screenshots")
                             .CloseTag()
                             .OpenTag(HtmlTextWriterTag.Li)
                                 .WithAttr(HtmlTextWriterAttribute.Href, "#test-output-href")
-                                .NewTag(HtmlTextWriterTag.A, "Test environment")
+                                .Tag(HtmlTextWriterTag.A, "Output")
                             .CloseTag()
                         .CloseTag()
-                        .WithAttr(HtmlTextWriterAttribute.Class, "tab")
+                        .WithAttr(HtmlTextWriterAttribute.Class, "test-tab")
                         .OpenTag(HtmlTextWriterTag.Div)
                             .WithAttr(HtmlTextWriterAttribute.Id, "test-environment-href")
                             .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
@@ -209,11 +205,6 @@ namespace NunitGo.CustomElements.NunitTestHtml
                         .CloseTag()
                     .CloseTag();
 
-                /*writer.AddEnvironment();
-                writer.AddScreenshots(nunitGoTest);
-                writer.AddFailure(nunitGoTest);
-                writer.AddOutput(nunitGoTest, testOutput);
-                */
 				writer.RenderEndTag(); //DIV
 				writer.RenderEndTag(); //DIV
 

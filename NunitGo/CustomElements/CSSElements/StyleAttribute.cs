@@ -20,7 +20,7 @@ namespace NunitGo.CustomElements.CSSElements
             Value = value;
             StyleString = styleString;
         }
-
+        
         private readonly Dictionary<string, HtmlTextWriterStyle> _stringStyleDictionary = 
             new Dictionary<string, HtmlTextWriterStyle>
             {

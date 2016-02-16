@@ -105,13 +105,13 @@ namespace NunitGo.Extensions
             return writer;
         }
 
-        public static HtmlTextWriter WithStyleAttr(this HtmlTextWriter writer, HtmlTextWriterStyle styleAttr, string value)
+        public static HtmlTextWriter Css(this HtmlTextWriter writer, HtmlTextWriterStyle styleAttr, string value)
         {
             writer.AddStyleAttribute(styleAttr, value);
             return writer;
         }
 
-        public static HtmlTextWriter WithStyleAttr(this HtmlTextWriter writer, string styleAttr, string value)
+        public static HtmlTextWriter Css(this HtmlTextWriter writer, string styleAttr, string value)
         {
             writer.AddStyleAttribute(styleAttr, value);
             return writer;
@@ -135,7 +135,7 @@ namespace NunitGo.Extensions
             return writer;
         }
 
-        public static HtmlTextWriter NewTag(this HtmlTextWriter writer, HtmlTextWriterTag tag, string value)
+        public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag, string value)
         {
             return writer.OpenTag(tag).SimpleWrite(value).CloseTag();
         }
@@ -144,6 +144,23 @@ namespace NunitGo.Extensions
         {
             writer.RenderEndTag();
             return writer;
+        }
+
+        public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag, Action someAction)
+        {
+            writer.OpenTag(tag);
+            someAction.Invoke();
+            return writer.CloseTag();
+        }
+
+        public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag, params Action[] someActions)
+        {
+            writer.OpenTag(tag);
+            foreach (var action in someActions)
+            {
+                action.Invoke();
+            }
+            return writer.CloseTag();
         }
     }
 }
