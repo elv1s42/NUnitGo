@@ -28,7 +28,6 @@ namespace NunitGo.CustomElements.NunitTestHtml
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
 					new StyleAttribute(HtmlTextWriterStyle.Margin, "0"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "0"),
 					new StyleAttribute(HtmlTextWriterStyle.FontSize, "16px")
@@ -48,21 +47,24 @@ namespace NunitGo.CustomElements.NunitTestHtml
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute("box-sizing", "border-box"),
-					new StyleAttribute(HtmlTextWriterStyle.OverflowX, "auto"),
-					new StyleAttribute(HtmlTextWriterStyle.OverflowY, "scroll"),
-					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White),
+					new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
+					new StyleAttribute(HtmlTextWriterStyle.Overflow, "auto"),
 					new StyleAttribute(HtmlTextWriterStyle.Top, "0%"),
-					new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
-					new StyleAttribute(HtmlTextWriterStyle.Padding, "10px"),
-					new StyleAttribute("border", "10px solid " + Colors.ModalBorderColor),
 					new StyleAttribute(HtmlTextWriterStyle.Position, "absolute")
+				}
+            });
+            testCssSet.AddElement(new CssElement(".tabs-menu")
+            {
+                StyleFields = new List<StyleAttribute>
+				{
+					new StyleAttribute(HtmlTextWriterStyle.ListStyleType, "none")
 				}
             });
             testCssSet.AddElement(new CssElement(".tabs-menu li")
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.TestBorderColor),
 					new StyleAttribute(HtmlTextWriterStyle.Height, "30px"),
 					new StyleAttribute("float", "left"),
 					new StyleAttribute("margin-right", "10px")
@@ -72,6 +74,7 @@ namespace NunitGo.CustomElements.NunitTestHtml
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White),
 					new StyleAttribute(HtmlTextWriterStyle.ZIndex, "5")
 				}
             });
@@ -79,6 +82,7 @@ namespace NunitGo.CustomElements.NunitTestHtml
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "10px"),
 					new StyleAttribute("text-decoration", "none")
 				}
@@ -87,6 +91,7 @@ namespace NunitGo.CustomElements.NunitTestHtml
             {
                 StyleFields = new List<StyleAttribute>
 				{
+					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White),
 					new StyleAttribute(HtmlTextWriterStyle.Width, "100%"),
 					new StyleAttribute("float", "left"),
 					new StyleAttribute("margin-bottom", "20px")
@@ -130,7 +135,6 @@ namespace NunitGo.CustomElements.NunitTestHtml
 			using (var writer = new HtmlTextWriter(strWr))
 			{
 				writer.AddStyleAttribute(HtmlTextWriterStyle.Left, "0%");
-				writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "100%");
 				writer.AddAttribute(HtmlTextWriterAttribute.Class, "test-window");
 				writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
 				writer.RenderBeginTag(HtmlTextWriterTag.Div);
@@ -138,27 +142,25 @@ namespace NunitGo.CustomElements.NunitTestHtml
 				writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
 				writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
-				writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
-				writer.RenderBeginTag(HtmlTextWriterTag.Div);
-				writer.Write(new CloseButton("Back", "./../../" + Output.Files.TestListFile).ButtonHtml);
-				writer.RenderEndTag(); //DIV
-                
-                writer.Css(HtmlTextWriterStyle.Display, "table")
-                    .Css(HtmlTextWriterStyle.BackgroundColor, Colors.BodyBackground)
-                    .Tag(HtmlTextWriterTag.Table,
-			        () => writer.Tag(HtmlTextWriterTag.Tr,
-			            () => writer
-			                .Css(HtmlTextWriterStyle.Width, "50%")
-                            .Css(HtmlTextWriterStyle.BackgroundColor, Colors.White)
-			                .Tag(HtmlTextWriterTag.Td,
-			                    () => writer.AddTestResult(nunitGoTest))
-			                .Css(HtmlTextWriterStyle.Width, "50%")
-                            .Css(HtmlTextWriterStyle.BackgroundColor, Colors.White)
-			                .Tag(HtmlTextWriterTag.Td,
-			                    () => writer.AddTestHistory(nunitGoTest))
-			            ));
-
-                writer.WithAttr(HtmlTextWriterAttribute.Id, "tabs-container")
+			    writer.Css("float", "right")
+			        .Tag(HtmlTextWriterTag.Div,
+			            () => writer.Write(new CloseButton("Back", "./../../" + Output.Files.TestListFile).ButtonHtml))
+			        .Css(HtmlTextWriterStyle.Display, "table")
+			        .Css(HtmlTextWriterStyle.Width, "100%")
+			        .Css(HtmlTextWriterStyle.BackgroundColor, Colors.BodyBackground)
+			        .Tag(HtmlTextWriterTag.Table,
+			            () => writer.Tag(HtmlTextWriterTag.Tr,
+			                () => writer
+			                    .Css(HtmlTextWriterStyle.Width, "50%")
+			                    .Css(HtmlTextWriterStyle.BackgroundColor, Colors.White)
+			                    .Tag(HtmlTextWriterTag.Td,
+			                        () => writer.AddTestResult(nunitGoTest))
+			                    .Css(HtmlTextWriterStyle.Width, "50%")
+			                    .Css(HtmlTextWriterStyle.BackgroundColor, Colors.White)
+			                    .Tag(HtmlTextWriterTag.Td,
+			                        () => writer.AddTestHistory(nunitGoTest))
+			                ))
+                            .WithAttr(HtmlTextWriterAttribute.Id, "tabs-container")
                     .OpenTag(HtmlTextWriterTag.Div)
                         .WithAttr(HtmlTextWriterAttribute.Class, "tabs-menu")
                         .OpenTag(HtmlTextWriterTag.Ul)

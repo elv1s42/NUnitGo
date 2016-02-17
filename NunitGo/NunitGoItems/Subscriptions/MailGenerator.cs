@@ -67,7 +67,7 @@ namespace NunitGo.NunitGoItems.Subscriptions
 
                 writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.White);
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Padding, "10px");
-                writer.AddStyleAttribute("border", "10px solid " + Colors.ModalBorderColor);
+                writer.AddStyleAttribute("border", "10px solid " + Colors.TestBorderColor);
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "0px");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.FontFamily, "Tahoma,Verdana,Segoe,sans-serif");

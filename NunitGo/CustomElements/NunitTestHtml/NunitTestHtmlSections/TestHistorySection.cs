@@ -9,6 +9,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
         public static HtmlTextWriter AddTestHistory(this HtmlTextWriter writer, NunitGoTest nunitGoTest, string id = "")
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Id, id.Equals("") ? "table-cell" : id);
+            writer.AddStyleAttribute(HtmlTextWriterStyle.Padding, "20px");
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
             writer.AddAttribute(HtmlTextWriterAttribute.Id, Output.GetChartId(nunitGoTest.Guid, nunitGoTest.DateTimeFinish));
             writer.RenderBeginTag(HtmlTextWriterTag.Div);

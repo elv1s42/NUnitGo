@@ -9,6 +9,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
         public static HtmlTextWriter AddTestResult(this HtmlTextWriter writer, NunitGoTest nunitGoTest, string id = "")
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Id, id.Equals("") ? "table-cell" : id);
+            writer.AddStyleAttribute(HtmlTextWriterStyle.Padding, "20px");
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
 
             writer.RenderBeginTag(HtmlTextWriterTag.P);

@@ -10,6 +10,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
         public static HtmlTextWriter AddEnvironment(this HtmlTextWriter writer, string id = "")
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Id, id.Equals("") ? "table-cell" : id);
+            writer.AddStyleAttribute(HtmlTextWriterStyle.Padding, "20px");
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
             writer.AddTag(HtmlTextWriterTag.B, "Environment information: ");
             writer.RenderBeginTag(HtmlTextWriterTag.P);
