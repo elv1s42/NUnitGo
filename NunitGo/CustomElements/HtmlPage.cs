@@ -68,7 +68,7 @@ namespace NunitGo.CustomElements
             }
         }
 
-        public HtmlPage(string pageTitle = "NUnitGo Report", string styleFullPath = "", string scriptString = "")
+        public HtmlPage(string pageTitle, string styleFullPath = "", string scriptString = "", string localScriptFilePath = "")
         {
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
@@ -90,7 +90,13 @@ namespace NunitGo.CustomElements
                 writer.AddTag(HtmlTextWriterTag.Script);
                 writer.AddAttribute(HtmlTextWriterAttribute.Src, "https://code.highcharts.com/stock/highstock.js");
                 writer.AddTag(HtmlTextWriterTag.Script);
-                writer.AddTag(HtmlTextWriterTag.Script, scriptString);
+                if (!scriptString.Equals(""))
+                    writer.AddTag(HtmlTextWriterTag.Script, scriptString);
+                if (!localScriptFilePath.Equals(""))
+                {
+                    writer.AddAttribute(HtmlTextWriterAttribute.Src, localScriptFilePath);
+                    writer.AddTag(HtmlTextWriterTag.Script);
+                }
                 writer.AddTag(HtmlTextWriterTag.Style, new Dictionary<HtmlTextWriterAttribute, string>
                 {
                     {HtmlTextWriterAttribute.Type, @"text/css"}

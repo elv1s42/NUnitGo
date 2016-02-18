@@ -4,7 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using NunitGo.CustomElements;
-using NunitGo.CustomElements.TestsHistory;
+using NunitGo.CustomElements.NunitTestHtml;
+using NunitGo.CustomElements.ReportSections.MainInformationSection;
 using NunitGo.NunitGoItems;
 using NunitGo.NunitGoItems.Screenshots;
 using NunitGo.NunitGoItems.Subscriptions;
@@ -55,7 +56,6 @@ namespace NunitGo.Attributes
         public void BeforeTest(ITest test)
         {
             CreateDirectories();
-            //Log.Write("START:" + test.FullName);
             if (!_configuration.GenerateReport) return;
 
             _start = DateTime.Now;
@@ -63,8 +63,6 @@ namespace NunitGo.Attributes
 
         public void AfterTest(ITest test)
         {
-            //Log.Write("FINISH: " + test.FullName);
-            
             _finish = DateTime.Now;
             _guid = _guid.Equals(Guid.Empty) 
                 ? (TestGuid.Equals(Guid.Empty) ? Guid.NewGuid() : TestGuid)
@@ -99,15 +97,10 @@ namespace NunitGo.Attributes
             TakeScreenshotAfterTest();
             AddScreenshots();
             
-            _nunitGoTest.Save(_nunitGoTest.AttachmentsPath + Output.Files.GetTestXmlName(_nunitGoTest.DateTimeFinish));
+            SaveTestFiles();
 
             SendEmails(_nunitGoTest.IsSuccess(), test);
-
-            var testVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
-            testVersions.BuildHistoryJsFile(_nunitGoTest.AttachmentsPath, Output.GetChartId(_nunitGoTest.Guid, _nunitGoTest.DateTimeFinish));
-
             
-
             GenerateReport();
 
             Flush();
@@ -116,6 +109,23 @@ namespace NunitGo.Attributes
         public ActionTargets Targets
         {
             get { return ActionTargets.Test; }
+        }
+
+        private void SaveTestFiles()
+        {
+            try
+            {
+                _nunitGoTest.Save(_nunitGoTest.AttachmentsPath + Output.Files.GetTestXmlName(_nunitGoTest.DateTimeFinish));
+                var testVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
+                var highstockHistory = new NunitGoJsHighstock(testVersions, Output.GetHistoryChartId(_nunitGoTest.Guid, _nunitGoTest.DateTimeFinish));
+                highstockHistory.SaveScript(_nunitGoTest.AttachmentsPath);
+                var testPath = _nunitGoTest.AttachmentsPath + Output.Files.GetTestHtmlName(_nunitGoTest.DateTimeFinish);
+                _nunitGoTest.GenerateTestPage(testPath, _testOutput, Output.GetTestHistoryScriptName(_nunitGoTest.DateTimeFinish));
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Exception in SaveTestFiles");
+            }
         }
 
         private void SendEmails(bool isSuccess, ITest test)
@@ -183,13 +193,12 @@ namespace NunitGo.Attributes
             {
                 if (!_configuration.GenerateReport) return;
 
-                var testPath = _nunitGoTest.AttachmentsPath + Output.Files.GetTestHtmlName(_nunitGoTest.DateTimeFinish);
-                _nunitGoTest.GenerateTestPage(testPath, _testOutput, Output.GetTestScriptName(_nunitGoTest.DateTimeFinish));
-
                 PageGenerator.GenerateStyleFile(_outputPath);
 
                 var tests = NunitGoTestHelper.GetNewestTests(_attachmentsPath).OrderBy(x => x.DateTimeFinish).ToList();
                 var stats = new MainStatistics(tests);
+                var statsChart = new MainInfoChart(stats, Output.GetStatsPieId());
+                statsChart.SaveScript(_outputPath);
                 tests.GenerateTimelinePage(Path.Combine(_outputPath, Output.Files.TimelineFile));
                 stats.GenerateMainStatisticsPage(Path.Combine(_outputPath, Output.Files.TestStatisticsFile));
                 tests.GenerateTestListPage(Path.Combine(_outputPath, Output.Files.TestListFile));

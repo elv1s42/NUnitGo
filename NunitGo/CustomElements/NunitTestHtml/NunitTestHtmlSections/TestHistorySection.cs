@@ -11,7 +11,7 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
             writer.AddAttribute(HtmlTextWriterAttribute.Id, id.Equals("") ? "table-cell" : id);
             writer.AddStyleAttribute(HtmlTextWriterStyle.Padding, "20px");
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
-            writer.AddAttribute(HtmlTextWriterAttribute.Id, Output.GetChartId(nunitGoTest.Guid, nunitGoTest.DateTimeFinish));
+            writer.AddAttribute(HtmlTextWriterAttribute.Id, Output.GetHistoryChartId(nunitGoTest.Guid, nunitGoTest.DateTimeFinish));
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
             writer.RenderEndTag();//DIV
             writer.RenderEndTag();//DIV

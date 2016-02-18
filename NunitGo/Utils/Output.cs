@@ -26,14 +26,24 @@ namespace NunitGo.Utils
             }
         }
 
-        public static string GetChartId(Guid testGuid, DateTime testFinishDateTime)
+        public static string GetHistoryChartId(Guid testGuid, DateTime testFinishDateTime)
         {
             return "history-" + testGuid.ToString().ToLower() + testFinishDateTime.ToString("-yy-MM-dd-HH-mm-ss-fff");
         }
 
-        public static string GetTestScriptName(DateTime testFinishDateTime)
+        public static string GetStatsPieId()
+        {
+            return "statistics-pie";
+        }
+
+        public static string GetTestHistoryScriptName(DateTime testFinishDateTime)
         {
             return "test-script-" + testFinishDateTime.ToString("yy-MM-dd-HH-mm-ss-fff") + ".js";
+        }
+
+        public static string GetMainStatsScriptName()
+        {
+            return "stats.js";
         }
 
         public struct FileType

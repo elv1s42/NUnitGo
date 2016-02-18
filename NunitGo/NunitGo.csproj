@@ -64,14 +64,14 @@
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\TestHistorySection.cs" />
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\EnvironmentSection.cs" />
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\TestResultSection.cs" />
-    <Compile Include="CustomElements\ReportSections\MainInformationSection.cs" />
+    <Compile Include="CustomElements\ReportSections\MainInformationSection\MainInfoChart.cs" />
+    <Compile Include="CustomElements\ReportSections\MainInformationSection\MainInformationSection.cs" />
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtml.cs" />
     <Compile Include="CustomElements\ReportSections\FooterSection.cs" />
     <Compile Include="CustomElements\ReportSections\MenuSection.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\ReportMenuItem.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\PageTitle.cs" />
-    <Compile Include="CustomElements\TestsHistory\NunitGoJsHighstock.cs" />
-    <Compile Include="CustomElements\TestsHistory\NunitGoTestHistory.cs" />
+    <Compile Include="CustomElements\NunitTestHtml\NunitGoJsHighstock.cs" />
     <Compile Include="CustomElements\ReportSections\TimelineSection.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\Tooltip.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\Tree.cs" />

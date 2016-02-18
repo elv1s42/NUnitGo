@@ -6,7 +6,7 @@ using System.Linq;
 using NunitGo.NunitGoItems;
 using NunitGo.Utils;
 
-namespace NunitGo.CustomElements.TestsHistory
+namespace NunitGo.CustomElements.NunitTestHtml
 {
     public class NunitGoJsHighstock
     {
@@ -14,11 +14,11 @@ namespace NunitGo.CustomElements.TestsHistory
 
         public string JsCode;
 
-        public void SaveScript(string scriptCode, string path)
+        public void SaveScript(string path)
         {
-            var name = Output.GetTestScriptName(_lastTestFinishDateTime);
+            var name = Output.GetTestHistoryScriptName(_lastTestFinishDateTime);
             var fullPath = Path.Combine(path, name);
-            File.WriteAllText(fullPath, scriptCode);
+            File.WriteAllText(fullPath, JsCode);
         }
 
         public NunitGoJsHighstock(List<NunitGoTest> nunitGoTests, string id)
@@ -29,20 +29,13 @@ namespace NunitGo.CustomElements.TestsHistory
             var testsData = "";
             foreach (var nunitGoTest in orderedList)
             {
-                testsData += string.Format(@"{{ x: Date.UTC({0}), y: {1}, marker:{{ fillColor: '{2}' }}, url: '{3}'}},",
+                testsData += string.Format(@"{{ x: Date.UTC({0}), y: {1}, marker:{{ fillColor: '{2}'}}, url: '{3}'}},",
                     nunitGoTest.DateTimeFinish.ToString("yyyy, MM, dd, HH, mm, ss"),
                     nunitGoTest.TestDuration.ToString(CultureInfo.InvariantCulture).Replace(",", "."),
                     nunitGoTest.GetBackgroundColor(),
                     Output.Files.GetTestHtmlName(nunitGoTest.DateTimeFinish));
             }
-
-            var testsStartedData = "";
-            foreach (var nunitGoTest in orderedList)
-            {
-                testsStartedData += string.Format(@"{{ x: Date.UTC({0}), title: 'Test started', text: 'start time'}},",
-                    nunitGoTest.DateTimeStart.ToString("yyyy, MM, dd, HH, mm, ss"));
-            }
-
+            
             var testsScreenshotsData = "";
             foreach (var nunitGoTest in orderedList)
             {
@@ -55,12 +48,10 @@ namespace NunitGo.CustomElements.TestsHistory
             
             JsCode = string.Format(@"
                     $(function () {{
-                        $('#{0}').highcharts('StockChart', {{
-        		
+                        $('#{0}').highcharts('StockChart', {{       		
            	                chart: {{
-            		                type: 'areaspline'
-        		                }},
-        		
+            		                type: 'spline'
+        		                }},        		
                             rangeSelector: {{
                                 buttons : [{{
                                         type : 'day',
@@ -83,11 +74,10 @@ namespace NunitGo.CustomElements.TestsHistory
                             }},
                             title: {{
                                 text: 'Test history'
-                            }},
-            
+                            }},            
                             yAxis: {{
                                 title: {{
-                                    text: 'Time (seconds)'
+                                    text: 'Test duration (seconds)'
                                 }}
                             }},
                             legend: {{
@@ -101,43 +91,37 @@ namespace NunitGo.CustomElements.TestsHistory
         		                }},
                             series: 
                             [{{
-            		                marker: {{
+            		            marker: {{
                 		                enabled: true,
-                                    radius:  10
+                                        radius:  10,
+                                        lineColor: '{2}',
+                                        lineWidth: 3
            		                  }},
                                 point:{{
                                     events:{{
-                                        click: function(){{
-                                            var url = this.url;
-                                            window.open(url,'_blank');
-                                        }}
+                                        click: function(){{ var url = this.url; window.open(url,'_blank');}}
                                     }},
                                 }},
                                 name: 'Test durtion',
-                                type: 'area',
+                                type: 'spline',
                                 data: [{1}],
                                 id: 'dataseries',
                                 tooltip: {{
                                     valueDecimals: 4
-                                }}
-                            }}, {{
-                                name: 'Test started',
-                                type: 'flags',
-                                data: [{2}],
-                                onSeries: 'dataseries',
-                                shape: 'flag',
-                                width: 70,                
-                                fillColor : Highcharts.getOptions().colors[3]
+                                }},
+                                fillColor : '{2}',
+                                color : '{2}'
                             }}, {{
                                 name: 'Screenshots',
                                 type: 'flags',
                                 data: [{3}],
                                 shape: 'flag',
                                 width: 16,
-                                fillColor : Highcharts.getOptions().colors[3]
+                                fillColor : '{4}',
+                                color : '{2}'
                             }}]
                         }});
-                }});", id, testsData, testsStartedData, testsScreenshotsData);
+                }});", id, testsData, Colors.TestBorderColor, testsScreenshotsData, Colors.BodyBackground);
         }
     }
 }

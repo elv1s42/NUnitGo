@@ -4,6 +4,7 @@ using System.IO;
 using NunitGo.CustomElements.CSSElements;
 using NunitGo.CustomElements.HtmlCustomElements;
 using NunitGo.CustomElements.ReportSections;
+using NunitGo.CustomElements.ReportSections.MainInformationSection;
 using NunitGo.NunitGoItems;
 using NunitGo.Utils;
 
@@ -125,7 +126,7 @@ namespace NunitGo.CustomElements
         {
             try
             {
-                var report = new HtmlPage();
+                var report = new HtmlPage("NUnitGo Report", "", "", Output.GetMainStatsScriptName());
                 var mainTitle = new PageTitle();
                 report.AddToBody(mainTitle.HtmlCode);
                 var mainInformation = new MainInformationSection(mainStats);

@@ -3,9 +3,10 @@ using System.IO;
 using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
 using NunitGo.CustomElements.HtmlCustomElements;
+using NunitGo.Extensions;
 using NunitGo.Utils;
 
-namespace NunitGo.CustomElements.ReportSections
+namespace NunitGo.CustomElements.ReportSections.MainInformationSection
 {
     internal class MainInformationSection : HtmlBaseElement
     {
@@ -28,9 +29,7 @@ namespace NunitGo.CustomElements.ReportSections
 					new StyleAttribute(HtmlTextWriterStyle.Margin, "1% 0% 0% 0%"),
 					new StyleAttribute(HtmlTextWriterStyle.Padding, "1% 2% 2% 2%"),
 					new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, "white"), 
-					new StyleAttribute(HtmlTextWriterStyle.Width, "80%"), 
-					new StyleAttribute(HtmlTextWriterStyle.Height, "20%"), 
-					new StyleAttribute(HtmlTextWriterStyle.MarginLeft, "10%"), 
+					new StyleAttribute(HtmlTextWriterStyle.Width, "100%"), 
 					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none") 
 				}
             }); 
@@ -67,30 +66,28 @@ namespace NunitGo.CustomElements.ReportSections
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
             {
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "table");
                 writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.RenderBeginTag(HtmlTextWriterTag.Table);
+                writer.RenderBeginTag(HtmlTextWriterTag.Tr);
 
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "table-cell");
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "column-1");
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.RenderBeginTag(HtmlTextWriterTag.Td);
                 writer.RenderBeginTag(HtmlTextWriterTag.H1);
                 writer.Write("Main information:");
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Start Date: " + stats.StartDate);
+                writer.Write(Bullet.HtmlCode + "Start datetime: " + stats.StartDate);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Finish Date: " + stats.EndDate);
+                writer.Write(Bullet.HtmlCode + "Finish datetime: " + stats.EndDate);
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Time: " + stats.Duration);
+                writer.Write(Bullet.HtmlCode + "Duration: " + stats.Duration);
                 writer.RenderEndTag();
-                writer.RenderEndTag();//DIV
+                writer.RenderEndTag();//Td
                 
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "table-cell");
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "column-2");
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.RenderBeginTag(HtmlTextWriterTag.Td);
                 writer.RenderBeginTag(HtmlTextWriterTag.H1);
                 writer.Write("Main results:");
                 writer.RenderEndTag();
@@ -114,33 +111,13 @@ namespace NunitGo.CustomElements.ReportSections
                 writer.RenderEndTag();
                 writer.RenderEndTag();
 
-                writer.AddStyleAttribute(HtmlTextWriterStyle.Display, "table-cell");
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "column-3");
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.RenderBeginTag(HtmlTextWriterTag.H1);
-                writer.Write("Environment:");
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "CLR version: " + System.Environment.Version);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "OS version: " + System.Environment.OSVersion.VersionString);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Platform: " + System.Environment.OSVersion.Platform);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Machine name: " + System.Environment.MachineName);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "User domain: " + System.Environment.UserName);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "User: " + System.Environment.UserDomainName);
-                writer.RenderEndTag();
-                writer.RenderEndTag();//DIV
-                
-                writer.RenderEndTag();//DIV
+                writer.Css(HtmlTextWriterStyle.Width, "50%")
+                    .WithAttr(HtmlTextWriterAttribute.Id, Output.GetStatsPieId())
+                    .Tag(HtmlTextWriterTag.Td);
+
+                writer.RenderEndTag();//TR
+                writer.RenderEndTag();//TABLE
             }
 
             HtmlCode = strWr.ToString();

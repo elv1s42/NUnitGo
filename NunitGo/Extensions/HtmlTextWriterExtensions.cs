@@ -111,6 +111,14 @@ namespace NunitGo.Extensions
             return writer;
         }
 
+        public static HtmlTextWriter CssShadow(this HtmlTextWriter writer, string value)
+        {
+            writer.AddStyleAttribute("box-shadow", value);
+            writer.AddStyleAttribute("-moz-box-shadow", value);
+            writer.AddStyleAttribute("-webkit-box-shadow", value);
+            return writer;
+        }
+
         public static HtmlTextWriter Css(this HtmlTextWriter writer, string styleAttr, string value)
         {
             writer.AddStyleAttribute(styleAttr, value);

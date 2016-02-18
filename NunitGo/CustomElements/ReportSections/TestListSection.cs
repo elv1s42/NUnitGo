@@ -28,7 +28,7 @@ namespace NunitGo.CustomElements.ReportSections
                         )
                     );
 
-                writer.Css("box-shadow", "0 0 20px 0 " + Colors.TestBorderColor)
+                writer.CssShadow("0 0 20px 0 " + Colors.TestBorderColor)
                     .Css(HtmlTextWriterStyle.BackgroundColor, Colors.White)
                     .Tag(HtmlTextWriterTag.Div, () => writer.Write(tree.HtmlCode));
 

@@ -52,7 +52,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
                     .Css("padding", "20px")
                     .Css("margin", "0")
                     .Css(HtmlTextWriterStyle.Position, "relative")
-                    .Css("box-shadow", "0 0 20px -5px black")
+                    .CssShadow("0 0 20px -5px black")
                     .Tag(HtmlTextWriterTag.H2,
                         () => writer.Text(Title));
             }
