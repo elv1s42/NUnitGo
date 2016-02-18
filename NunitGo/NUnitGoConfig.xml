@@ -5,13 +5,13 @@
   <GenerateReport>false</GenerateReport>
   <SendEmails>true</SendEmails>
   <AddLinksInsideEmail>true</AddLinksInsideEmail>
-  <ServerLink>http://prog124.local.katharsis.ru:1240/AutomatedTests/templates/_ReportsPK8IntegrationTests/Date_2014_11_10_Time_14_48_49/</ServerLink>
+  <ServerLink>http://server/folder/</ServerLink>
   <Subsciptions>
     <Subsciption>
       <Name>TestSubscription1</Name>
       <TargetEmails>
         <Address>
-          <Email>Evgeniy.Kosyakov@katharsis.ru</Email>
+          <Email>tester2@test.test</Email>
         </Address>
       </TargetEmails>
     </Subsciption>
@@ -19,7 +19,7 @@
       <Name>TestSubscription2</Name>
       <TargetEmails>
         <Address>
-          <Email>Evgeniy.Kosyakov@katharsis.ru</Email>
+          <Email>tester2@test.test</Email>
         </Address>
       </TargetEmails>
     </Subsciption>
@@ -29,7 +29,7 @@
       <TestGuid>11111111-1111-1111-1111-111111111147</TestGuid>
       <TargetEmails>
         <Address>
-          <Email>Evgeniy.Kosyakov@katharsis.ru</Email>
+          <Email>tester1@test.test</Email>
         </Address>
       </TargetEmails>
     </SingleTestSubscription>
@@ -37,18 +37,18 @@
       <TestGuid>11111111-1111-1111-1111-111111111113</TestGuid>
       <TargetEmails>
         <Address>
-          <Email>Evgeniy.Kosyakov@katharsis.ru</Email>
+          <Email>tester2@test.test</Email>
         </Address>
       </TargetEmails>
     </SingleTestSubscription>
   </SingleTestSubscriptions>
-  <SmtpHost>mail.katharsis.ru</SmtpHost>
-  <SmtpPort>25</SmtpPort>
+  <SmtpHost>smtp.gmail.com</SmtpHost>
+  <SmtpPort>587</SmtpPort>
   <EnableSsl>false</EnableSsl>
   <SendFromList>
     <Address>
-      <Email>Autotests@katharsis.ru</Email>
-      <Name>Katharsis Autotests</Name>
+      <Email>Autotests@test.test</Email>
+      <Name>Autotests</Name>
     </Address>
   </SendFromList>
 </NunitGoConfiguration>
