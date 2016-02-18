@@ -2,7 +2,7 @@
 <NunitGoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LocalOutputPath>C:\_NUnitGoResults</LocalOutputPath>
   <TakeScreenshotAfterTestFailed>true</TakeScreenshotAfterTestFailed>
-  <GenerateReport>true</GenerateReport>
+  <GenerateReport>false</GenerateReport>
   <SendEmails>true</SendEmails>
   <AddLinksInsideEmail>true</AddLinksInsideEmail>
   <ServerLink>http://prog124.local.katharsis.ru:1240/AutomatedTests/templates/_ReportsPK8IntegrationTests/Date_2014_11_10_Time_14_48_49/</ServerLink>

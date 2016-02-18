@@ -4,7 +4,7 @@ using NunitGo.Utils;
 
 namespace NunitGo.CustomElements.ReportSections.MainInformationSection
 {
-    internal class MainInfoChart
+    public class MainInfoChart
     {
         public string JsCode;
 

@@ -56,8 +56,6 @@ namespace NunitGo.Attributes
         public void BeforeTest(ITest test)
         {
             CreateDirectories();
-            if (!_configuration.GenerateReport) return;
-
             _start = DateTime.Now;
         }
 
@@ -187,7 +185,7 @@ namespace NunitGo.Attributes
             
         }
 
-        private void GenerateReport()
+        public void GenerateReport()
         {
             try
             {
