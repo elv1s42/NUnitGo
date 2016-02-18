@@ -31,7 +31,6 @@ namespace NunitGo.CustomElements
                 var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest, testOutput);
                 page.AddScript(chartFile);
                 page.AddToBody(htmlTest.HtmlCode);
-
                 page.SavePage(fullPath);
             }
             catch (Exception ex)
@@ -45,13 +44,10 @@ namespace NunitGo.CustomElements
             try
             {
                 var page = new HtmlPage("Main statistics page");
-
-                var reportMenuTitle = new PageTitle("Main statistics", "main-statistics", "10%");
+                var reportMenuTitle = new PageTitle("Main statistics", "main-statistics");
                 page.AddToBody(reportMenuTitle.HtmlCode);
-
                 var statisticsSection = new StatisticsSection(stats);
                 page.AddToBody(statisticsSection.HtmlCode);
-
                 page.SavePage(fullPath);
             }
             catch (Exception ex)
@@ -65,13 +61,10 @@ namespace NunitGo.CustomElements
             try
             {
                 var page = new HtmlPage("Test list page");
-
-                var reportMenuTitle = new PageTitle("Test list", "main-test-list", "10%");
+                var reportMenuTitle = new PageTitle("Test list", "main-test-list");
                 page.AddToBody(reportMenuTitle.HtmlCode);
-
                 var testListSection = new TestListSection(tests);
                 page.AddToBody(testListSection.HtmlCode);
-
                 page.SavePage(fullPath);
             }
             catch (Exception ex)
@@ -85,13 +78,10 @@ namespace NunitGo.CustomElements
             try
             {
                 var page = new HtmlPage("Timeline page");
-
-                var reportMenuTitle = new PageTitle("Tests timeline", "tests-timeline", "10%");
+                var reportMenuTitle = new PageTitle("Tests timeline", "tests-timeline");
                 page.AddToBody(reportMenuTitle.HtmlCode);
-
                 var timeline = new TimelineSection(tests);
                 page.AddToBody(timeline.HtmlCode);
-
                 page.SavePage(fullPath);
             }
             catch (Exception ex)
@@ -136,28 +126,20 @@ namespace NunitGo.CustomElements
             try
             {
                 var report = new HtmlPage();
-
                 var mainTitle = new PageTitle();
                 report.AddToBody(mainTitle.HtmlCode);
-
                 var mainInformation = new MainInformationSection(mainStats);
                 report.AddToBody(mainInformation.HtmlCode);
-
-                var reportMenuTitle = new PageTitle("Report menu", "report-main-menu");
-                report.AddToBody(reportMenuTitle.HtmlCode);
-
                 var menuElements = new List<ReportMenuItem>
 			    {
 				    new ReportMenuItem("Main statistics", Output.Files.TestStatisticsFile),
 				    new ReportMenuItem("Test list", Output.Files.TestListFile),
 				    new ReportMenuItem("Timeline", Output.Files.TimelineFile)
 			    };
-                var reportMenu = new MenuSection(menuElements, "main-menu", "Main Menu");
+                var reportMenu = new MenuSection(menuElements, "main-menu", "Report menu");
                 report.AddToBody(reportMenu.ReportMenuHtml);
-
                 var footer = new FooterSection();
                 report.AddInsideTag("footer", footer.HtmlCode);
-
                 var reportPageName = Output.Files.FullReportFile;
                 report.SavePage(Path.Combine(pathToSave, reportPageName));
             }

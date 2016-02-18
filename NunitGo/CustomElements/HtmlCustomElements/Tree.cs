@@ -176,7 +176,8 @@ namespace NunitGo.CustomElements.HtmlCustomElements
 			using (var writer = new HtmlTextWriter(strWr))
 			{
 				writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
-				writer.RenderBeginTag(HtmlTextWriterTag.Div);
+				writer.Css(HtmlTextWriterStyle.Padding, "20px")
+                    .RenderBeginTag(HtmlTextWriterTag.Div);
                 BuildTreeFromSuites(writer, new List<NunitGoSuite> {tests.GetSuite("All tests")});
                 writer.RenderEndTag(); //DIV
 			}

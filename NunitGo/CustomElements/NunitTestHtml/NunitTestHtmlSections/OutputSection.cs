@@ -18,6 +18,10 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
                 writer.Write(NunitTestHtml.GenerateTxtView(testOutput));
                 writer.RenderEndTag(); //P
             }
+            else
+            {
+                writer.Write("Test output is empty");
+            }
             writer.RenderEndTag();//DIV
             return writer;
         }

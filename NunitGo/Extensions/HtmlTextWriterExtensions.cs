@@ -129,7 +129,7 @@ namespace NunitGo.Extensions
             return writer;
         }
 
-        public static HtmlTextWriter SimpleWrite(this HtmlTextWriter writer, string value)
+        public static HtmlTextWriter Text(this HtmlTextWriter writer, string value)
         {
             writer.Write(value);
             return writer;
@@ -137,7 +137,7 @@ namespace NunitGo.Extensions
 
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag, string value)
         {
-            return writer.OpenTag(tag).SimpleWrite(value).CloseTag();
+            return writer.OpenTag(tag).Text(value).CloseTag();
         }
 
         public static HtmlTextWriter CloseTag(this HtmlTextWriter writer)

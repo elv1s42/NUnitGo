@@ -22,6 +22,10 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
                 writer.Write(NunitTestHtml.GenerateTxtView(nunitGoTest.TestMessage));
                 writer.RenderEndTag(); //P
             }
+            else
+            {
+                writer.Write("Test was successful, there is no failure message");
+            }
             writer.RenderEndTag();//DIV
             return writer;
         }

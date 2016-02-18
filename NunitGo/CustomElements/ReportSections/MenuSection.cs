@@ -3,6 +3,7 @@ using System.IO;
 using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
 using NunitGo.CustomElements.HtmlCustomElements;
+using NunitGo.Extensions;
 using NunitGo.Utils;
 
 namespace NunitGo.CustomElements.ReportSections
@@ -96,6 +97,14 @@ namespace NunitGo.CustomElements.ReportSections
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "reportmenu");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer
+                    .Css(HtmlTextWriterStyle.TextAlign, "center")
+                    .Css("padding", "20px")
+                    .Css("margin", "0")
+                    .Css(HtmlTextWriterStyle.Position, "relative")
+                    .Tag(HtmlTextWriterTag.H2,
+                        () => writer.Text(Title));
+
                 foreach (var element in Elements)
                 {
                     writer.AddAttribute(HtmlTextWriterAttribute.Id, element.Id);

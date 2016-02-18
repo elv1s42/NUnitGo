@@ -2,13 +2,14 @@
 using System.IO;
 using System.Web.UI;
 using NunitGo.CustomElements.CSSElements;
+using NunitGo.Extensions;
+using NunitGo.Utils;
 
 namespace NunitGo.CustomElements.HtmlCustomElements
 {
     public class PageTitle : HtmlBaseElement
     {
         public static string ClassName;
-        public static string Height;
 
         public static string StyleString
         {
@@ -20,12 +21,11 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             get { return GetCode(); }
         }
 
-        public PageTitle(string title = "Test Run Report", string id = "main-title", string height = "")
+        public PageTitle(string title = "Test Run Report", string id = "main-title")
         {
             Title = title;
             Id = id;
             Style = GetStyle();
-            Height = height;
         }
 
         private static string GetStyle()
@@ -35,11 +35,7 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             {
                 StyleFields = new List<StyleAttribute>
 				{
-					new StyleAttribute(HtmlTextWriterStyle.Width, "90%"),
-					new StyleAttribute(HtmlTextWriterStyle.Display, "inline-block"),
-					new StyleAttribute(HtmlTextWriterStyle.FontSize, "30px"),
-					new StyleAttribute(HtmlTextWriterStyle.PaddingTop, "30px"),
-					new StyleAttribute(HtmlTextWriterStyle.PaddingBottom, "30px")
+                    new StyleAttribute(HtmlTextWriterStyle.BackgroundColor, Colors.TestBorderColor)
 				}
             });
             return titleCssSet.ToString();
@@ -50,17 +46,15 @@ namespace NunitGo.CustomElements.HtmlCustomElements
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
-                if(!Height.Equals(""))
-                    writer.AddStyleAttribute(HtmlTextWriterStyle.Height, Height);
-                writer.AddStyleAttribute(HtmlTextWriterStyle.TextAlign, "center");
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "report-title");
-                writer.AddAttribute(HtmlTextWriterAttribute.Title, Title);
-                writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write(Title);
-                writer.RenderEndTag();
-                writer.RenderEndTag();
+                writer
+                    .Css(HtmlTextWriterStyle.BackgroundColor, Colors.TestBorderColor)
+                    .Css(HtmlTextWriterStyle.TextAlign, "center")
+                    .Css("padding", "20px")
+                    .Css("margin", "0")
+                    .Css(HtmlTextWriterStyle.Position, "relative")
+                    .Css("box-shadow", "0 0 20px -5px black")
+                    .Tag(HtmlTextWriterTag.H2,
+                        () => writer.Text(Title));
             }
             return stringWriter.ToString();
         }

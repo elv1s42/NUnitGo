@@ -24,6 +24,8 @@ namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
                 writer.RenderEndTag();//IMG
                 writer.RenderEndTag();//A
             }
+            if(!screens.Any())
+                writer.Write("There are no screenshots in this test");
             writer.RenderEndTag();//DIV
             return writer;
         }
