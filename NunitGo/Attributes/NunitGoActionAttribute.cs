@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using NunitGo.CustomElements;
-using NunitGo.CustomElements.NunitTestHtml;
-using NunitGo.CustomElements.ReportSections.MainInformationSection;
-using NunitGo.NunitGoItems;
-using NunitGo.NunitGoItems.Screenshots;
-using NunitGo.NunitGoItems.Subscriptions;
-using NunitGo.Utils;
+using NunitGoCore.CustomElements;
+using NunitGoCore.CustomElements.NunitTestHtml;
+using NunitGoCore.CustomElements.ReportSections.MainInformationSection;
+using NunitGoCore.NunitGoItems;
+using NunitGoCore.NunitGoItems.Screenshots;
+using NunitGoCore.NunitGoItems.Subscriptions;
+using NunitGoCore.Utils;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 
-namespace NunitGo.Attributes
+namespace NunitGoCore.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
@@ -41,8 +41,8 @@ namespace NunitGo.Attributes
         {
             _currentTestScreenshots = new List<Screenshot>();
             _guid = testGuidString.Equals("")
-                    ? Guid.Empty
-                    : new Guid(testGuidString);
+                ? Guid.Empty
+                : new Guid(testGuidString);
             _projectName = projectName;
             _className = className;
             _testName = testName;
@@ -109,6 +109,16 @@ namespace NunitGo.Attributes
             get { return ActionTargets.Test; }
         }
 
+        internal void SetTestGuid(string guid)
+        {
+            _guid = new Guid(guid);
+        }
+
+        internal string GetTestGuid()
+        {
+            return _guid.ToString();
+        }
+
         private void SaveTestFiles()
         {
             try
@@ -126,6 +136,19 @@ namespace NunitGo.Attributes
             {
                 Log.Exception(ex, "Exception in SaveTestFiles");
             }
+        }
+
+        private void AddEvents(ITest test)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Exception in SendEmail");
+            }
+
         }
 
         private void SendEmails(bool isSuccess, ITest test)
@@ -216,7 +239,7 @@ namespace NunitGo.Attributes
             }
         }
 
-        public void TakeScreenshotAfterTest()
+        private void TakeScreenshotAfterTest()
         {
             try
             {
@@ -256,5 +279,6 @@ namespace NunitGo.Attributes
             _finish = default(DateTime);
             _currentTestScreenshots = new List<Screenshot>();
         }
+
     }
 }

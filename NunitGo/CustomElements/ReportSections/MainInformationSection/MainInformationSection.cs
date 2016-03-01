@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.CustomElements.CSSElements;
-using NunitGo.CustomElements.HtmlCustomElements;
-using NunitGo.Extensions;
-using NunitGo.Utils;
+using NunitGoCore.CustomElements.CSSElements;
+using NunitGoCore.CustomElements.HtmlCustomElements;
+using NunitGoCore.Extensions;
+using NunitGoCore.Utils;
 
-namespace NunitGo.CustomElements.ReportSections.MainInformationSection
+namespace NunitGoCore.CustomElements.ReportSections.MainInformationSection
 {
     internal class MainInformationSection : HtmlBaseElement
     {

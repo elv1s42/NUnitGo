@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.CustomElements.CSSElements;
-using NunitGo.CustomElements.HtmlCustomElements;
-using NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections;
-using NunitGo.Extensions;
-using NunitGo.NunitGoItems;
-using NunitGo.Utils;
+using NunitGoCore.CustomElements.CSSElements;
+using NunitGoCore.CustomElements.HtmlCustomElements;
+using NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections;
+using NunitGoCore.Extensions;
+using NunitGoCore.NunitGoItems;
+using NunitGoCore.Utils;
 
-namespace NunitGo.CustomElements.NunitTestHtml
+namespace NunitGoCore.CustomElements.NunitTestHtml
 {
 	internal class NunitTestHtml : HtmlBaseElement
 	{

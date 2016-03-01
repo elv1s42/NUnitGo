@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
-using NunitGo.Utils;
+﻿using System.IO;
+using NunitGoCore.Utils;
 
-namespace NunitGo.CustomElements.ReportSections.MainInformationSection
+namespace NunitGoCore.CustomElements.ReportSections.MainInformationSection
 {
     public class MainInfoChart
     {

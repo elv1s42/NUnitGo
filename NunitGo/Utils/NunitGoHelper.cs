@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using NunitGo.NunitGoItems;
+using NunitGoCore.NunitGoItems;
 
-namespace NunitGo.Utils
+namespace NunitGoCore.Utils
 {
     public static class NunitGoHelper
     {

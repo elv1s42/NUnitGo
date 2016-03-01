@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace NunitGo.CustomElements.CSSElements
+namespace NunitGoCore.CustomElements.CSSElements
 {
     public class CssPage
     {

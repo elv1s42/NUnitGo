@@ -46,9 +46,9 @@
     <Compile Include="TestClass2.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NunitGo\NunitGo.csproj">
+    <ProjectReference Include="..\NunitGo\NunitGoCore.csproj">
       <Project>{9F012544-A421-4807-8FF8-C3339395D39F}</Project>
-      <Name>NunitGo</Name>
+      <Name>NunitGoCore</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

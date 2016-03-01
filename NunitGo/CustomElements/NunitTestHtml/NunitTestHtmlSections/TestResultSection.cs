@@ -1,8 +1,8 @@
 ﻿using System.Web.UI;
-using NunitGo.Extensions;
-using NunitGo.NunitGoItems;
+using NunitGoCore.Extensions;
+using NunitGoCore.NunitGoItems;
 
-namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
+namespace NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class TestResultSection
     {

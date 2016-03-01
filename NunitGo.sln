@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8AD5AD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitTestsExample", "NunitTestsExample\NunitTestsExample.csproj", "{6AD67FD6-5CAE-46ED-81D8-6B2B7F7889AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitGo", "NunitGo\NunitGo.csproj", "{9F012544-A421-4807-8FF8-C3339395D39F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitGoCore", "NunitGo\NunitGoCore.csproj", "{9F012544-A421-4807-8FF8-C3339395D39F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunitTestsExample2", "NunitTestsExample2\NunitTestsExample2.csproj", "{691481A7-DC73-4D34-B97B-21C0307F88E0}"
 EndProject

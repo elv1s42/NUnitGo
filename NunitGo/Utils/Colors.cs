@@ -1,4 +1,4 @@
-﻿namespace NunitGo.Utils
+﻿namespace NunitGoCore.Utils
 {
     public struct Colors
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.CustomElements.HtmlCustomElements;
-using NunitGo.Utils;
+using NunitGoCore.CustomElements.HtmlCustomElements;
+using NunitGoCore.Utils;
 
-namespace NunitGo.CustomElements.ReportSections
+namespace NunitGoCore.CustomElements.ReportSections
 {
     internal class StatisticsSection
     {

@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Linq;
-using NunitGo.CustomElements;
-using NunitGo.CustomElements.ReportSections.MainInformationSection;
-using NunitGo.Utils;
+using NunitGoCore.CustomElements;
+using NunitGoCore.CustomElements.ReportSections.MainInformationSection;
+using NunitGoCore.Utils;
 
 namespace NunitGoReport
 {

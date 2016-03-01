@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using NunitGo.Utils;
+using NunitGoCore.Utils;
 
-namespace NunitGo.NunitGoItems.Subscriptions
+namespace NunitGoCore.NunitGoItems.Subscriptions
 {
     internal static class EmailHelper
     {

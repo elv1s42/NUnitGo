@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
-using NunitGo.CustomElements.CSSElements;
-using NunitGo.Extensions;
-using NunitGo.Utils;
+using NunitGoCore.CustomElements.CSSElements;
+using NunitGoCore.Extensions;
+using NunitGoCore.Utils;
 
-namespace NunitGo.CustomElements
+namespace NunitGoCore.CustomElements
 {
     public class HtmlPage
     {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading;
+using NunitGoCore.Attributes;
 using NUnit.Framework;
-using NunitGo;
-using NunitGo.Attributes;
 
 namespace NunitTestsExample2
 {
@@ -20,12 +19,15 @@ namespace NunitTestsExample2
             Assert.AreEqual(input, expected.ToString("D"));
         }
 
-        [TestCase("0", 1)]
-        [TestCase("1", 1)]
-        [TestCase("2", 1, TestName = "Some test name")]
-        public void ParamTestName2(string input, int expected)
+        [TestCase("0", 1, "11111111-1111-1111-1111-111111111214", TestName = "param test 1")]
+        [TestCase("1", 1, "11111111-1111-1111-1111-111111111215", TestName = "param test 2")]
+        [TestCase("2", 1, "11111111-1111-1111-1111-111111111216", TestName = "param test 3")]
+        [NunitGoAction]
+        public void ParamTestName2(string input, int expected, string guid)
         {
-            Thread.Sleep(100);
+            //NunitGo.SetTestGuid(guid);
+            NunitGoActionAttribute.TestGuid = new Guid(guid);
+            Thread.Sleep(200);
             Assert.AreEqual(input, expected.ToString("D"));
         }
 

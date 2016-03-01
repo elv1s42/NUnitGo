@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using NunitGo.NunitGoItems.Subscriptions;
+using NunitGoCore.NunitGoItems.Subscriptions;
 
-namespace NunitGo.NunitGoItems
+namespace NunitGoCore.NunitGoItems
 {
     public class NunitGoConfiguration
     {

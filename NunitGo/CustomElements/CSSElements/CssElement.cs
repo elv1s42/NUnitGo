@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NunitGo.CustomElements.CSSElements
+namespace NunitGoCore.CustomElements.CSSElements
 {
     public class CssElement
     {

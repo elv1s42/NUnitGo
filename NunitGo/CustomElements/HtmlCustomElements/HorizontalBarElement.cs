@@ -1,4 +1,4 @@
-﻿namespace NunitGo.CustomElements.HtmlCustomElements
+﻿namespace NunitGoCore.CustomElements.HtmlCustomElements
 {
     public class HorizontalBarElement
     {

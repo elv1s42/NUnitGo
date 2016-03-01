@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NunitGo.NunitGoItems;
+using NunitGoCore.NunitGoItems;
 
-namespace NunitGo.Utils
+namespace NunitGoCore.Utils
 {
     public class MainStatistics
     {

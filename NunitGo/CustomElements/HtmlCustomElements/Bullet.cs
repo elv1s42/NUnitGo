@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.CustomElements.CSSElements;
-using NunitGo.Utils;
+using NunitGoCore.CustomElements.CSSElements;
+using NunitGoCore.Utils;
 
-namespace NunitGo.CustomElements.HtmlCustomElements
+namespace NunitGoCore.CustomElements.HtmlCustomElements
 {
     public class Bullet : HtmlBaseElement
     {

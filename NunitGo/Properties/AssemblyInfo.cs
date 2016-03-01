@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NunitGo")]
+[assembly: AssemblyTitle("NunitGoCore")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NunitGo")]
-[assembly: AssemblyProduct("NunitGo")]
+[assembly: AssemblyProduct("NunitGoCore")]
 [assembly: AssemblyCopyright("Copyright © Kosjakov Evgeniy 2015-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

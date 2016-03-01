@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Web.UI;
-using NunitGo.NunitGoItems;
+using NunitGoCore.NunitGoItems;
 
-namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
+namespace NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class ScreenshotsSection
     {

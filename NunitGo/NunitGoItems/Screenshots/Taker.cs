@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace NunitGo.NunitGoItems.Screenshots
+namespace NunitGoCore.NunitGoItems.Screenshots
 {
     public static class Taker
     {

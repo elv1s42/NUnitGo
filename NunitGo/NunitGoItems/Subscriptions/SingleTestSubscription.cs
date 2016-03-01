@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NunitGo.NunitGoItems.Subscriptions
+namespace NunitGoCore.NunitGoItems.Subscriptions
 {
     public class SingleTestSubscription
     {

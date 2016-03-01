@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGo.CustomElements.CSSElements;
-using NunitGo.CustomElements.HtmlCustomElements;
+using NunitGoCore.CustomElements.CSSElements;
+using NunitGoCore.CustomElements.HtmlCustomElements;
 
-namespace NunitGo.CustomElements.ReportSections
+namespace NunitGoCore.CustomElements.ReportSections
 {
     public class FooterSection : HtmlBaseElement
     {

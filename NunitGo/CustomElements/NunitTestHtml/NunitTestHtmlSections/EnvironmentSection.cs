@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Web.UI;
-using NunitGo.CustomElements.HtmlCustomElements;
-using NunitGo.Extensions;
+using NunitGoCore.CustomElements.HtmlCustomElements;
+using NunitGoCore.Extensions;
 
-namespace NunitGo.CustomElements.NunitTestHtml.NunitTestHtmlSections
+namespace NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class EnvironmentSection
     {

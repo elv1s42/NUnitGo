@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NunitGo.NunitGoItems.Subscriptions;
+using NunitGoCore.NunitGoItems.Subscriptions;
 
-namespace NunitGo.Attributes
+namespace NunitGoCore.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class SingleTestSubscriptionAttribute : Attribute

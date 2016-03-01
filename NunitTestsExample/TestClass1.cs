@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading;
 using NUnit.Framework;
-using NunitGo;
-using NunitGo.Attributes;
-using NunitGo.Utils;
+using NunitGoCore.Attributes;
 
 namespace NunitTestsExample
 {
