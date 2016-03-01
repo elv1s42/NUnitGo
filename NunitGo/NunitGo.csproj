@@ -82,6 +82,7 @@
     <Compile Include="CustomElements\ReportSections\TestListSection.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Attributes\NunitGoActionAttribute.cs" />
+    <Compile Include="NunitGoItems\Events\NunitGoTestEvent.cs" />
     <Compile Include="NunitGoItems\NunitGoConfiguration.cs" />
     <Compile Include="NunitGoItems\Screenshots\Screenshot.cs" />
     <Compile Include="NunitGoItems\Screenshots\ScreenshotHelper.cs" />
