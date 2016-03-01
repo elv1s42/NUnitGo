@@ -113,10 +113,12 @@ namespace NunitGo.Attributes
         {
             try
             {
-                _nunitGoTest.Save(_nunitGoTest.AttachmentsPath + Output.Files.GetTestXmlName(_nunitGoTest.DateTimeFinish));
+                _nunitGoTest.SaveAsXml(_nunitGoTest.AttachmentsPath + Output.Files.GetTestXmlName(_nunitGoTest.DateTimeFinish));
                 var testVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
-                var highstockHistory = new NunitGoJsHighstock(testVersions, Output.GetHistoryChartId(_nunitGoTest.Guid, _nunitGoTest.DateTimeFinish));
+                var chartId = Output.GetHistoryChartId(_nunitGoTest.Guid, _nunitGoTest.DateTimeFinish);
+                var highstockHistory = new NunitGoJsHighstock(testVersions, chartId);
                 highstockHistory.SaveScript(_nunitGoTest.AttachmentsPath);
+                
                 var testPath = _nunitGoTest.AttachmentsPath + Output.Files.GetTestHtmlName(_nunitGoTest.DateTimeFinish);
                 _nunitGoTest.GenerateTestPage(testPath, _testOutput, Output.GetTestHistoryScriptName(_nunitGoTest.DateTimeFinish));
             }
@@ -174,6 +176,11 @@ namespace NunitGo.Attributes
                     {
                         var singleSubFromXml = XmlHelper.Load<SingleTestSubscription>(singleSub.FullPath);
                         EmailHelper.Send(_configuration.SendFromList, singleSubFromXml.TargetEmails,
+                            _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail);
+                    }
+                    else if (singleSub.Targets.Any())
+                    {
+                        EmailHelper.Send(_configuration.SendFromList, singleSub.Targets,
                             _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail);
                     }
                 }

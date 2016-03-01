@@ -8,9 +8,9 @@ namespace NunitGo.Utils
 {
     public static class NunitGoTestHelper
     {
-        public static void Save(this NunitGoTest test, string fullPath)
+        public static void SaveAsXml(this NunitGoTest test, string fullPath)
         {
-            XmlHelper.Save(test, fullPath);
+            test.Save(fullPath);
         }
 
         private static NunitGoTest Load(string fullPath)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NunitGo.NunitGoItems.Events;
 using NunitGo.NunitGoItems.Screenshots;
 using NunitGo.Utils;
 
@@ -24,6 +25,7 @@ namespace NunitGo.NunitGoItems
         public string LogHref;
         public bool HasOutput;
         public List<Screenshot> Screenshots;
+        public List<NunitGoTestEvent> Events;
 
         public NunitGoTest()
         {
@@ -44,6 +46,7 @@ namespace NunitGo.NunitGoItems
             AttachmentsPath = string.Empty;
             HasOutput = false;
             Screenshots = new List<Screenshot>();
+            Events = new List<NunitGoTestEvent>();
         }
 
         public bool IsSuccess()
