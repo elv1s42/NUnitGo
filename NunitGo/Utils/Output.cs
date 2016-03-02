@@ -36,6 +36,16 @@ namespace NunitGoCore.Utils
             return "statistics-pie";
         }
 
+        public static string GetScreenshotsPath(string localOutputPath)
+        {
+            return localOutputPath + @"\Screenshots\";
+        }
+
+        public static string GetAttachmentsPath(string localOutputPath)
+        {
+            return localOutputPath + @"\Attachments\";
+        }
+
         public static string GetTestHistoryScriptName(DateTime testFinishDateTime)
         {
             return "test-script-" + testFinishDateTime.ToString("yy-MM-dd-HH-mm-ss-fff") + ".js";

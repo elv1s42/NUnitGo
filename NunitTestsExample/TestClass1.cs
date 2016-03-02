@@ -21,7 +21,7 @@ namespace NunitTestsExample
             Thread.Sleep(200);
             //third test event - test fails
             NunitGo.EventStarted("Checking some stuff 3");
-            throw new Exception("Some error");
+            Assert.AreEqual(1, 2);
             NunitGo.EventFinished("Checking some stuff 3");
             NunitGo.EventFinished("Checking some stuff 2");
             Assert.AreEqual(1, 1);
@@ -88,10 +88,12 @@ namespace NunitTestsExample
         {
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
-            NunitGoActionAttribute.TakeScreenshot();
-            Thread.Sleep(100);
-            NunitGoActionAttribute.TakeScreenshot();
-            Thread.Sleep(100);
+            //NunitGoActionAttribute.TakeScreenshot();
+            NunitGo.TakeScreenshot();
+            Thread.Sleep(400);
+            //NunitGoActionAttribute.TakeScreenshot();
+            NunitGo.TakeScreenshot();
+            Thread.Sleep(300);
             throw new Exception("Some error occured!");
         }
         

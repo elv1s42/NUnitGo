@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace NunitGoCore.NunitGoItems.Screenshots
 {
-    public static class Taker
+    internal static class Taker
     {
         public static string GetScreenName(DateTime now, ImageFormat format = null)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NunitGoCore.NunitGoItems.Events;
 using NunitGoCore.NunitGoItems.Screenshots;
+using NunitGoCore.Utils;
 
 namespace NunitGoCore
 {
@@ -10,12 +11,20 @@ namespace NunitGoCore
     {
         private static List<TestEvent> _events;
         private static List<Screenshot> _screenshots;
+        public static Guid TestGuid = Guid.Empty;
 
         public static void Event(string name, Action testEventAction)
         {
             _events.Add(new TestEvent(name, DateTime.Now));
             testEventAction.Invoke();
             _events.First(x => x.Name.Equals(name)).Finished = DateTime.Now;
+        }
+
+        public static void TakeScreenshot()
+        {
+            var now = DateTime.Now;
+            _screenshots.Add(new Screenshot(now));
+            Taker.TakeScreenshot(Output.GetScreenshotsPath(NunitGoHelper.Configuration.LocalOutputPath), now);
         }
 
         public static void EventStarted(string name)
@@ -26,6 +35,11 @@ namespace NunitGoCore
         public static void EventFinished(string name)
         {
             _events.First(x => x.Name.Equals(name)).Finished = DateTime.Now;
+        }
+
+        internal static List<Screenshot> GetScreenshots()
+        {
+            return _screenshots;
         }
 
         internal static List<TestEvent> GetEvents()
