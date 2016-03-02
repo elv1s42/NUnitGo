@@ -88,10 +88,8 @@ namespace NunitTestsExample
         {
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
-            //NunitGoActionAttribute.TakeScreenshot();
             NunitGo.TakeScreenshot();
             Thread.Sleep(400);
-            //NunitGoActionAttribute.TakeScreenshot();
             NunitGo.TakeScreenshot();
             Thread.Sleep(300);
             throw new Exception("Some error occured!");

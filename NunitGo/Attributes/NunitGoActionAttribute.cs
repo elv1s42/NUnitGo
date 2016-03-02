@@ -32,7 +32,7 @@ namespace NunitGoCore.Attributes
         private DateTime _finish;
         private string _testOutput;
 
-        public static Guid TestGuid = Guid.Empty;
+        //public static Guid TestGuid = Guid.Empty;
         
         public NunitGoActionAttribute(string testGuidString = "", string projectName = "", string className = "", 
             string testName = "")
@@ -61,7 +61,7 @@ namespace NunitGoCore.Attributes
         {
             _finish = DateTime.Now;
             _guid = _guid.Equals(Guid.Empty) 
-                ? (TestGuid.Equals(Guid.Empty) ? Guid.NewGuid() : TestGuid)
+                ? (NunitGo.TestGuid.Equals(Guid.Empty) ? Guid.NewGuid() : NunitGo.TestGuid)
                 : _guid;
             _testOutput = TestContext.Out.ToString();
             

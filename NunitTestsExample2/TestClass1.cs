@@ -9,13 +9,13 @@ namespace NunitTestsExample2
     [TestFixture]
     public class TestClass1
     {
-        [TestCase("0", 1, "11111111-1111-1111-1111-111111111211")]
+        [TestCase("0", 0, "11111111-1111-1111-1111-111111111211")]
         [TestCase("1", 1, "11111111-1111-1111-1111-111111111212")]
-        [TestCase("2", 1, "11111111-1111-1111-1111-111111111213", TestName = "Testing name attribute")]
+        [TestCase("2", 2, "11111111-1111-1111-1111-111111111213", TestName = "Testing name attribute")]
         [NunitGoAction]
         public void ParamTestName1(string input, int expected, string guid)
         {
-            NunitGoActionAttribute.TestGuid = new Guid(guid);
+            NunitGo.SetTestGuid(guid);
             Thread.Sleep(200);
             Assert.AreEqual(input, expected.ToString("D"));
         }
@@ -26,8 +26,7 @@ namespace NunitTestsExample2
         [NunitGoAction]
         public void ParamTestName2(string input, int expected, string guid)
         {
-            //NunitGo.SetTestGuid(guid);
-            NunitGoActionAttribute.TestGuid = new Guid(guid);
+            NunitGo.SetTestGuid(guid);
             Thread.Sleep(200);
             NunitGo.EventStarted("Test event 1");
             Thread.Sleep(200);

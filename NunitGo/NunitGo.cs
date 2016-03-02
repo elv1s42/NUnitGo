@@ -11,7 +11,7 @@ namespace NunitGoCore
     {
         private static List<TestEvent> _events;
         private static List<Screenshot> _screenshots;
-        public static Guid TestGuid = Guid.Empty;
+        internal static Guid TestGuid = Guid.Empty;
 
         public static void Event(string name, Action testEventAction)
         {
@@ -37,6 +37,16 @@ namespace NunitGoCore
             _events.First(x => x.Name.Equals(name)).Finished = DateTime.Now;
         }
 
+        public static void SetTestGuid(string guid)
+        {
+            TestGuid = new Guid(guid);
+        }
+
+        internal static Guid GetTestGuid()
+        {
+            return TestGuid;
+        }
+
         internal static List<Screenshot> GetScreenshots()
         {
             return _screenshots;
@@ -51,12 +61,6 @@ namespace NunitGoCore
             return _events;
         }
 
-        private static void CleanUp()
-        {
-            _events = new List<TestEvent>();
-            _screenshots = new List<Screenshot>();
-        }
-
         internal static void SetUp()
         {
             CleanUp();
@@ -65,6 +69,13 @@ namespace NunitGoCore
         internal static void TearDown()
         {
             CleanUp();
+        }
+
+        private static void CleanUp()
+        {
+            TestGuid = Guid.Empty;
+            _events = new List<TestEvent>();
+            _screenshots = new List<Screenshot>();
         }
     }
 }
