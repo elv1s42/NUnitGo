@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using NunitGoCore;
 using NUnit.Framework;
 using NunitGoCore.Attributes;
 
@@ -8,6 +9,43 @@ namespace NunitTestsExample
     [TestFixture]
     public class TestClass1
     {
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111100", "Project1", "Subsystem1", "Unsuccessful test with 3 events")]
+        public void UnsuccessTestThreeEvents()
+        {
+            //first test event
+            NunitGo.EventStarted("Checking some stuff 1");
+            Thread.Sleep(500);
+            NunitGo.EventFinished("Checking some stuff 1");
+            //second test event
+            NunitGo.EventStarted("Checking some stuff 2");
+            Thread.Sleep(200);
+            //third test event - test fails
+            NunitGo.EventStarted("Checking some stuff 3");
+            throw new Exception("Some error");
+            NunitGo.EventFinished("Checking some stuff 3");
+            NunitGo.EventFinished("Checking some stuff 2");
+            Assert.AreEqual(1, 1);
+        }
+
+        [Test, NunitGoAction("11111111-1111-1111-1111-111111111110", "Project1", "Subsystem1", "Successful test with 3 events"), Category("SuccessCategory")]
+        [Subscription(Name = "TestSubscription1", UnsuccessfulOnly = false)]
+        public void SuccessTestThreeEvents()
+        {
+            //first test event
+            NunitGo.EventStarted("Checking some stuff 1");
+            Thread.Sleep(500);
+            NunitGo.EventFinished("Checking some stuff 1");
+            //second test event
+            NunitGo.EventStarted("Checking some stuff 2");
+            Thread.Sleep(200);
+            //third test event
+            NunitGo.EventStarted("Checking some stuff 3");
+            Thread.Sleep(400);
+            NunitGo.EventFinished("Checking some stuff 3");
+            NunitGo.EventFinished("Checking some stuff 2");
+            Assert.AreEqual(1, 1);
+        }
+
         [Test, NunitGoAction(
             "11111111-1111-1111-1111-111111111111", 
             "Project1", 
@@ -39,7 +77,7 @@ namespace NunitTestsExample
             Thread.Sleep(200);
             Assert.AreEqual(1, 1);
         }
-
+        
         [Test, NunitGoAction(
             "11111111-1111-1111-1111-111111111113", 
             "Project1", 

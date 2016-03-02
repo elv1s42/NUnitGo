@@ -61,6 +61,7 @@
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\FailureSection.cs" />
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\OutputSection.cs" />
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\ScreenshotsSection.cs" />
+    <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\TestEventsSection.cs" />
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\TestHistorySection.cs" />
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\EnvironmentSection.cs" />
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\TestResultSection.cs" />
@@ -82,7 +83,8 @@
     <Compile Include="CustomElements\ReportSections\TestListSection.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Attributes\NunitGoActionAttribute.cs" />
-    <Compile Include="NunitGoItems\Events\NunitGoTestEvent.cs" />
+    <Compile Include="NunitGo.cs" />
+    <Compile Include="NunitGoItems\Events\TestEvent.cs" />
     <Compile Include="NunitGoItems\NunitGoConfiguration.cs" />
     <Compile Include="NunitGoItems\Screenshots\Screenshot.cs" />
     <Compile Include="NunitGoItems\Screenshots\ScreenshotHelper.cs" />

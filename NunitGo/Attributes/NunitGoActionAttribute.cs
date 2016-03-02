@@ -34,7 +34,7 @@ namespace NunitGoCore.Attributes
         private string _testOutput;
 
         public static Guid TestGuid = Guid.Empty;
-        private static List<Screenshot> _currentTestScreenshots; 
+        private static List<Screenshot> _currentTestScreenshots;
         
         public NunitGoActionAttribute(string testGuidString = "", string projectName = "", string className = "", 
             string testName = "")
@@ -56,6 +56,7 @@ namespace NunitGoCore.Attributes
         public void BeforeTest(ITest test)
         {
             CreateDirectories();
+            NunitGo.SetUp();
             _start = DateTime.Now;
         }
 
@@ -87,12 +88,14 @@ namespace NunitGoCore.Attributes
                 HasOutput = !_testOutput.Equals(string.Empty),
                 AttachmentsPath = _attachmentsPath + _guid + @"\",
                 TestHrefRelative = relativeTestHref,
-                TestHrefAbsolute = _configuration.ServerLink + relativeTestHref
+                TestHrefAbsolute = _configuration.ServerLink + relativeTestHref,
+                Events = NunitGo.GetEvents()
             };
 
+            Log.Write("Check: " + _nunitGoTest.Events.Count);
             Directory.CreateDirectory(_nunitGoTest.AttachmentsPath);
             
-            TakeScreenshotAfterTest();
+            TakeScreenshotIfFailed();
             AddScreenshots();
             
             SaveTestFiles();
@@ -137,20 +140,7 @@ namespace NunitGoCore.Attributes
                 Log.Exception(ex, "Exception in SaveTestFiles");
             }
         }
-
-        private void AddEvents(ITest test)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                Log.Exception(ex, "Exception in SendEmail");
-            }
-
-        }
-
+        
         private void SendEmails(bool isSuccess, ITest test)
         {
             try
@@ -239,7 +229,7 @@ namespace NunitGoCore.Attributes
             }
         }
 
-        private void TakeScreenshotAfterTest()
+        private void TakeScreenshotIfFailed()
         {
             try
             {
@@ -264,7 +254,7 @@ namespace NunitGoCore.Attributes
             _nunitGoTest.Screenshots.AddRange(_currentTestScreenshots);
         }
 
-        private void CreateDirectories()
+        private static void CreateDirectories()
         {
             Directory.CreateDirectory(_outputPath);
             Directory.CreateDirectory(_screenshotsPath);
@@ -278,6 +268,7 @@ namespace NunitGoCore.Attributes
             _start = default(DateTime);
             _finish = default(DateTime);
             _currentTestScreenshots = new List<Screenshot>();
+            NunitGo.TearDown();
         }
 
     }

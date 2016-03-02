@@ -25,7 +25,7 @@ namespace NunitGoCore.NunitGoItems
         public string LogHref;
         public bool HasOutput;
         public List<Screenshot> Screenshots;
-        public List<NunitGoTestEvent> Events;
+        public List<TestEvent> Events;
 
         public NunitGoTest()
         {
@@ -46,7 +46,7 @@ namespace NunitGoCore.NunitGoItems
             AttachmentsPath = string.Empty;
             HasOutput = false;
             Screenshots = new List<Screenshot>();
-            Events = new List<NunitGoTestEvent>();
+            Events = new List<TestEvent>();
         }
 
         public bool IsSuccess()

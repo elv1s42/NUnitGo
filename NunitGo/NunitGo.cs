@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using NunitGoCore.NunitGoItems.Events;
+using NunitGoCore.NunitGoItems.Screenshots;
+
+namespace NunitGoCore
+{
+    public static class NunitGo
+    {
+        private static List<TestEvent> _events;
+        private static List<Screenshot> _screenshots;
+
+        public static void Event(string name, Action testEventAction)
+        {
+            _events.Add(new TestEvent(name, DateTime.Now));
+            testEventAction.Invoke();
+            _events.First(x => x.Name.Equals(name)).Finished = DateTime.Now;
+        }
+
+        public static void EventStarted(string name)
+        {
+            _events.Add(new TestEvent(name, DateTime.Now));
+        }
+
+        public static void EventFinished(string name)
+        {
+            _events.First(x => x.Name.Equals(name)).Finished = DateTime.Now;
+        }
+
+        internal static List<TestEvent> GetEvents()
+        {
+            foreach (var testEvent in _events.Where(testEvent => testEvent.Finished.Equals(default(DateTime))))
+            {
+                testEvent.Finished = DateTime.Now;
+            }
+            return _events;
+        }
+
+        private static void CleanUp()
+        {
+            _events = new List<TestEvent>();
+            _screenshots = new List<Screenshot>();
+        }
+
+        internal static void SetUp()
+        {
+            CleanUp();
+        }
+
+        internal static void TearDown()
+        {
+            CleanUp();
+        }
+    }
+}

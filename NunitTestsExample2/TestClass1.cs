@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using NunitGoCore;
 using NunitGoCore.Attributes;
 using NUnit.Framework;
 
@@ -28,6 +29,9 @@ namespace NunitTestsExample2
             //NunitGo.SetTestGuid(guid);
             NunitGoActionAttribute.TestGuid = new Guid(guid);
             Thread.Sleep(200);
+            NunitGo.EventStarted("Test event 1");
+            Thread.Sleep(200);
+            NunitGo.EventFinished("Test event 1");
             Assert.AreEqual(input, expected.ToString("D"));
         }
 

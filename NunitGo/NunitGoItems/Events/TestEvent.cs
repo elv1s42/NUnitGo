@@ -2,7 +2,7 @@
 
 namespace NunitGoCore.NunitGoItems.Events
 {
-    public class NunitGoTestEvent
+    public class TestEvent
     {
         public string Name;
         public DateTime Started;
@@ -13,7 +13,14 @@ namespace NunitGoCore.NunitGoItems.Events
             get { return (Finished - Started).TotalSeconds; }
         }
 
-        public NunitGoTestEvent(string eventName = "", DateTime started = default(DateTime), DateTime finished = default(DateTime))
+        public TestEvent()
+        {
+            Name = "";
+            Started = default(DateTime);
+            Finished = default(DateTime);
+        }
+
+        public TestEvent(string eventName = "", DateTime started = default(DateTime), DateTime finished = default(DateTime))
         {
             Name = eventName;
             Started = started;
