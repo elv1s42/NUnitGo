@@ -2,46 +2,50 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8" /><title>
 		Main statistics page
-	</title><style type="text/css">
+	</title><script src="http://code.jquery.com/jquery-1.11.0.min.js">
+		
+
+	</script><script src="https://code.highcharts.com/stock/highstock.js">
+		
+
+	</script><style type="text/css">
 
 	</style><link rel="stylesheet" type="text/css" href="reportStyle.css" />
 </head><body>
 	
 
-<div style="height:10%;text-align:center;">
-	<div id="main-statistics" class="report-title" title="Main statistics">
-		Main statistics
-	</div>
-</div>
+<h2 style="background-color:#CCEBE8;text-align:center;padding:20px;margin:0;position:relative;box-shadow:0 0 20px -5px black;-moz-box-shadow:0 0 20px -5px black;-webkit-box-shadow:0 0 20px -5px black;">
+	Main statistics
+</h2>
 <div style="height:90%;background-color:white;overflow:scroll;">
 	<div style="margin:1% 2% 3% 97%;">
 		<a id="" href="index.html" class="href-button">Back</a>
 	</div><h3 style="padding-left:30px;">
 		Test cases results:
 	</h3><div id="test-results-bar" class="horizontal-bar" title="Test results bar">
-	<div data-tooltip="Failed (8/18)" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:44.444%;">
-	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Failed</a>
-</div><div data-tooltip="Passed (7/18)" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:38.889%;">
+	<div data-tooltip="Passed (15/24)" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:62.500%;">
 	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Passed</a>
-</div><div data-tooltip="Broken (1/18)" class="tooltip" id="horizontal-bar-item" style="background-color:#ffc107;width:05.556%;">
-	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Broken</a>
-</div><div data-tooltip="Ignored (1/18)" class="tooltip" id="horizontal-bar-item" style="background-color:#81d4fa;width:05.556%;">
+</div><div data-tooltip="Failed (5/24)" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:20.833%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Failed</a>
+</div><div data-tooltip="Ignored (2/24)" class="tooltip" id="horizontal-bar-item" style="background-color:#81d4fa;width:08.333%;">
 	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Ignored</a>
-</div><div data-tooltip="Iconclusive (1/18)" class="tooltip" id="horizontal-bar-item" style="background-color:white;width:05.556%;">
+</div><div data-tooltip="Broken (1/24)" class="tooltip" id="horizontal-bar-item" style="background-color:#ffc107;width:04.167%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Broken</a>
+</div><div data-tooltip="Iconclusive (1/24)" class="tooltip" id="horizontal-bar-item" style="background-color:#D6FAF7;width:04.167%;">
 	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Inconclusive</a>
 </div>
 </div><h3 style="padding-left:30px;">
 		Test cases success:
 	</h3><div id="test-success-bar" class="horizontal-bar" title="Test success bar">
-	<div data-tooltip="False (11/18)" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:61.111%;">
-	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">False</a>
-</div><div data-tooltip="True (7/18)" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:38.889%;">
+	<div data-tooltip="True (15/24)" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:62.500%;">
 	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">True</a>
+</div><div data-tooltip="False (9/24)" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:37.500%;">
+	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">False</a>
 </div>
 </div><h3 style="padding-left:30px;">
 		Executed test cases:
 	</h3><div id="test-success-bar" class="horizontal-bar" title="Test success bar">
-	<div data-tooltip="Executed (18/18)" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:100.000%;">
+	<div data-tooltip="Executed (24/24)" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:100.000%;">
 	<a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;">Executed</a>
 </div>
 </div>

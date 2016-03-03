@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<NunitGoTest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Three screenshots expected test</Name>
+  <FullName>NunitTestsExample.TestClass1.ThreeScreenshotsExpected</FullName>
+  <ClassName>Subsystem2</ClassName>
+  <ProjectName>Project1</ProjectName>
+  <TestDuration>0.9530953</TestDuration>
+  <DateTimeStart>2016-03-03T12:41:07.7279409+03:00</DateTimeStart>
+  <DateTimeFinish>2016-03-03T12:41:08.6810362+03:00</DateTimeFinish>
+  <TestStackTrace>   в NunitTestsExample.TestClass1.ThreeScreenshotsExpected() в c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass1.cs:строка 96</TestStackTrace>
+  <TestMessage>System.Exception : Some error occured!</TestMessage>
+  <Result>Failed:Error</Result>
+  <Guid>11111111-1111-1111-1111-111111111113</Guid>
+  <AttachmentsPath>C:\_NUnitGoResults\Attachments\11111111-1111-1111-1111-111111111113\</AttachmentsPath>
+  <TestHrefRelative>Attachments/11111111-1111-1111-1111-111111111113/Test-16-03-03-12-41-08-681.html</TestHrefRelative>
+  <TestHrefAbsolute>http://prog124.local.katharsis.ru:1240/AutomatedTests/templates/_ReportsPK8IntegrationTests/Date_2014_11_10_Time_14_48_49/Attachments/11111111-1111-1111-1111-111111111113/Test-16-03-03-12-41-08-681.html</TestHrefAbsolute>
+  <LogHref />
+  <HasOutput>true</HasOutput>
+  <Screenshots>
+    <Screenshot>
+      <Name>screenshot_20160303124108684.png</Name>
+      <Date>2016-03-03T12:41:08.6840365+03:00</Date>
+    </Screenshot>
+    <Screenshot>
+      <Name>screenshot_20160303124107728.png</Name>
+      <Date>2016-03-03T12:41:07.728941+03:00</Date>
+    </Screenshot>
+    <Screenshot>
+      <Name>screenshot_20160303124108252.png</Name>
+      <Date>2016-03-03T12:41:08.2529934+03:00</Date>
+    </Screenshot>
+  </Screenshots>
+  <Events />
+</NunitGoTest>

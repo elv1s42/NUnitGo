@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8" /><title>
+		Test page
+	</title><script src="http://code.jquery.com/jquery-1.11.0.min.js">
+		
+
+	</script><script src="https://code.highcharts.com/stock/highstock.js">
+		
+
+	</script><script>
+		
+					$(document).ready(function() {
+						$(".tabs-menu a").click(function(event) {
+							event.preventDefault();
+							$(this).parent().addClass("current");
+							$(this).parent().siblings().removeClass("current");
+							var tab = $(this).attr("href");
+							$(".tab-content").not(tab).css("display", "none");
+							$(tab).fadeIn();
+						});
+					});
+				
+	</script><style type="text/css">
+
+	</style><link rel="stylesheet" type="text/css" href="./../../reportStyle.css" />
+<script src="test-script-16-03-03-12-35-54-199.js">
+	
+
+</script>
+</head><body>
+	
+
+<div class="test-window" title style="left:0%;">
+	<div id="testcase-element">
+		<h2 style="text-align:center;background-color:#CCEBE8;padding:20px;margin:0;box-shadow:0 0 20px -5px black;-moz-box-shadow:0 0 20px -5px black;-webkit-box-shadow:0 0 20px -5px black;">
+			Long log test name. Result: <span style="padding:10px;background-color:#ef5350;">Failed</span>
+		</h2><div style="float:right;padding:10px;">
+			<a id="" href="./../../TestList.html" class="href-button">Back</a>
+		</div><table style="display:table;width:100%;background-color:#D6FAF7;border-spacing:0;box-shadow:0 0 20px 0 #CCEBE8;-moz-box-shadow:0 0 20px 0 #CCEBE8;-webkit-box-shadow:0 0 20px 0 #CCEBE8;">
+			<tr>
+				<td style="width:50%;background-color:white;"><div id="table-cell" style="padding:20px;">
+					<p><b>Test full name: </b>NunitTestsExample.TestClass1.LongLogTest</p><p><b>Test name: </b>Long log test name</p><p><b>Test duration: </b>0,6080608</p><p><b>Time period: </b>03.03.16 12:35:53.591 - 03.03.16 12:35:54.199</p><p style="background-color:#ef5350;"><b>Test result: </b>Failed</p>
+				</div></td><td style="width:50%;background-color:white;"><div id="table-cell" style="padding:20px;">
+					<div id="history-11111111-1111-1111-1111-111111111111-16-03-03-12-35-54-199">
+
+					</div>
+				</div></td>
+			</tr>
+		</table><div id="tabs-container">
+			<ul class="tabs-menu">
+				<li class="current"><a href="#test-environment-href">Test environment</a></li><li><a href="#test-failure-href">Failure</a></li><li><a href="#test-screenshots-href">Screenshots</a></li><li><a href="#test-output-href">Output</a></li><li><a href="#test-events-href">Test events</a></li>
+			</ul><div class="test-tab">
+				<div id="test-environment-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						<b>Environment information: </b><p><em class="bullet" id="bullet-item"></em>CLR version: 4.0.30319.42000</p><p><em class="bullet" id="bullet-item"></em>OS version: Microsoft Windows NT 6.1.7601 Service Pack 1</p><p><em class="bullet" id="bullet-item"></em>Platform: Win32NT</p><p><em class="bullet" id="bullet-item"></em>Machine name: PROG174</p><p><em class="bullet" id="bullet-item"></em>User domain: kosyakov</p><p><em class="bullet" id="bullet-item"></em>User: FIRST</p>
+					</div>
+				</div><div id="test-failure-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						<p><b>Stack trace: </b><div style="white-space:pre-line;">
+	в NunitTestsExample.TestClass1.LongLogTest() в c:\_GitHubProjects\NUnitGo\NunitTestsExample\TestClass1.cs:строка 71
+
+</div></p><p><b>Message: </b><div style="white-space:pre-line;">
+	  Expected: 1
+  But was:  2
+
+</div></p>
+					</div>
+				</div><div id="test-screenshots-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						Screenshot (Date: 03.03.16 12:35:54.199):<a href="./../../Screenshots/screenshot_20160303123554199.png"><img src="./../../Screenshots/screenshot_20160303123554199.png" alt="screenshot_20160303123554199.png" style="width:100%;" /></a>
+					</div>
+				</div><div id="test-output-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						<p><b>Test output: </b><div style="white-space:pre-line;">
+	Testing log writing 1
+Testing log writing 2
+Testing log writing 3
+Testing log writing 4
+Testing log writing 5
+Testing log writing 6
+Testing log writing 7
+Testing log writing 8
+Testing log writing 9
+Testing log writing 10
+Testing log writing 11
+Testing log writing 12
+Testing log writing 13
+Testing log writing 14
+Testing log writing 15
+Testing log writing 16
+Testing log writing 17
+Testing log writing 18
+Testing log writing 19
+Testing log writing 20
+Testing log writing 21
+Testing log writing 22
+Testing log writing 23
+Testing log writing 24
+Testing log writing 25
+Testing log writing 26
+Testing log writing 27
+Testing log writing 28
+Testing log writing 29
+Testing log writing 30
+Testing log writing 31
+Testing log writing 32
+Testing log writing 33
+Testing log writing 34
+Testing log writing 35
+Testing log writing 36
+Testing log writing 37
+Testing log writing 38
+Testing log writing 39
+Testing log writing 40
+Testing log writing 41
+Testing log writing 42
+Testing log writing 43
+Testing log writing 44
+Testing log writing 45
+Testing log writing 46
+Testing log writing 47
+Testing log writing 48
+Testing log writing 49
+Testing log writing 50
+Testing log writing 51
+Testing log writing 52
+Testing log writing 53
+Testing log writing 54
+
+</div></p>
+					</div>
+				</div><div id="test-events-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						There are no test events in this test
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<footer>
+	
+
+</footer>
+</html>

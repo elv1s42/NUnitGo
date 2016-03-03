@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<NunitGoTest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>Successful test with 3 events</Name>
+  <FullName>NunitTestsExample.TestClass1.SuccessTestThreeEvents</FullName>
+  <ClassName>Subsystem1</ClassName>
+  <ProjectName>Project1</ProjectName>
+  <TestDuration>2.0302029999999998</TestDuration>
+  <DateTimeStart>2016-03-03T12:35:55.7457458+03:00</DateTimeStart>
+  <DateTimeFinish>2016-03-03T12:35:57.7759488+03:00</DateTimeFinish>
+  <TestStackTrace />
+  <TestMessage />
+  <Result>Passed</Result>
+  <Guid>11111111-1111-1111-1111-111111111110</Guid>
+  <AttachmentsPath>C:\_NUnitGoResults\Attachments\11111111-1111-1111-1111-111111111110\</AttachmentsPath>
+  <TestHrefRelative>Attachments/11111111-1111-1111-1111-111111111110/Test-16-03-03-12-35-57-775.html</TestHrefRelative>
+  <TestHrefAbsolute>http://prog124.local.katharsis.ru:1240/AutomatedTests/templates/_ReportsPK8IntegrationTests/Date_2014_11_10_Time_14_48_49/Attachments/11111111-1111-1111-1111-111111111110/Test-16-03-03-12-35-57-775.html</TestHrefAbsolute>
+  <LogHref />
+  <HasOutput>false</HasOutput>
+  <Screenshots />
+  <Events>
+    <TestEvent>
+      <Name>Checking some stuff 1</Name>
+      <Started>2016-03-03T12:35:55.7467459+03:00</Started>
+      <Finished>2016-03-03T12:35:56.1757888+03:00</Finished>
+    </TestEvent>
+    <TestEvent>
+      <Name>Checking some stuff 2</Name>
+      <Started>2016-03-03T12:35:56.1757888+03:00</Started>
+      <Finished>2016-03-03T12:35:57.1408853+03:00</Finished>
+    </TestEvent>
+    <TestEvent>
+      <Name>Checking some stuff 3</Name>
+      <Started>2016-03-03T12:35:56.3758088+03:00</Started>
+      <Finished>2016-03-03T12:35:57.1408853+03:00</Finished>
+    </TestEvent>
+  </Events>
+</NunitGoTest>

@@ -2,45 +2,43 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8" /><title>
 		NUnitGo Report
-	</title><style type="text/css">
+	</title><script src="http://code.jquery.com/jquery-1.11.0.min.js">
+		
+
+	</script><script src="https://code.highcharts.com/stock/highstock.js">
+		
+
+	</script><script src="stats.js">
+		
+
+	</script><style type="text/css">
 
 	</style><link rel="stylesheet" type="text/css" href="reportStyle.css" />
 </head><body>
 	
 
-<div style="text-align:center;">
-	<div id="main-title" class="report-title" title="Test Run Report">
-		Test Run Report
-	</div>
-</div>
-<div id="main-information" style="display:table;">
-	<div class="column-1" style="display:table-cell;">
-		<h1>
+<h2 style="background-color:#CCEBE8;text-align:center;padding:20px;margin:0;position:relative;box-shadow:0 0 20px -5px black;-moz-box-shadow:0 0 20px -5px black;-webkit-box-shadow:0 0 20px -5px black;">
+	Test Run Report
+</h2>
+<table id="main-information">
+	<tr>
+		<td class="column-1"><h1>
 			Main information:
-		</h1><p><em class="bullet" id="bullet-item"></em>Start Date: 19.01.2016 09:59:05.46</p><p><em class="bullet" id="bullet-item"></em>Finish Date: 19.01.2016 09:59:13.30</p><p><em class="bullet" id="bullet-item"></em>Time: 00:00:07:837</p>
-	</div><div class="column-2" style="display:table-cell;">
-		<h1>
+		</h1><p><em class="bullet" id="bullet-item"></em>Start datetime: 03.03.2016 12:40:59.79</p><p><em class="bullet" id="bullet-item"></em>Finish datetime: 03.03.2016 12:41:15.56</p><p><em class="bullet" id="bullet-item"></em>Duration: 00:00:15:766</p></td><td class="column-2"><h1>
 			Main results:
-		</h1><p><em class="bullet" id="bullet-item"></em>Total: 18</p><p><em class="bullet" id="bullet-item"></em>Success: 7</p><p><em class="bullet" id="bullet-item"></em>Errors: 1</p><p><em class="bullet" id="bullet-item"></em>Failures: 8</p><p><em class="bullet" id="bullet-item"></em>Inconclusive: 1</p><p><em class="bullet" id="bullet-item"></em>Ignored: 1</p>
-	</div><div class="column-3" style="display:table-cell;">
-		<h1>
-			Environment:
-		</h1><p><em class="bullet" id="bullet-item"></em>CLR version: 4.0.30319.0</p><p><em class="bullet" id="bullet-item"></em>OS version: Microsoft Windows NT 6.1.7601 Service Pack 1</p><p><em class="bullet" id="bullet-item"></em>Platform: Win32NT</p><p><em class="bullet" id="bullet-item"></em>Machine name: PROGXXX</p><p><em class="bullet" id="bullet-item"></em>User domain: userdomain</p><p><em class="bullet" id="bullet-item"></em>User: FIRST</p>
-	</div>
-</div>
-<div style="text-align:center;">
-	<div id="report-main-menu" class="report-title" title="Report menu">
-		Report menu
-	</div>
-</div>
+		</h1><p><em class="bullet" id="bullet-item"></em>Total: 24</p><p><em class="bullet" id="bullet-item"></em>Success: 15</p><p><em class="bullet" id="bullet-item"></em>Errors: 1</p><p><em class="bullet" id="bullet-item"></em>Failures: 5</p><p><em class="bullet" id="bullet-item"></em>Inconclusive: 1</p><p><em class="bullet" id="bullet-item"></em>Ignored: 2</p></td><td class="column-3" id="statistics-pie" style="width:50%;"></td>
+	</tr>
+</table>
 <div id="main-menu">
 	<div class="reportmenu">
-		<div id="mainStatistics" class="reportmenu-tab">
-			<a href="testStatistics.html" class="tab">Main statistics</a>
+		<h2 style="text-align:center;padding:20px;margin:0;position:relative;">
+			Report menu
+		</h2><div id="mainStatistics" class="reportmenu-tab">
+			<a href="TestStatistics.html" class="tab">Main statistics</a>
 		</div><div id="testList" class="reportmenu-tab">
-			<a href="testList.html" class="tab">Test list</a>
+			<a href="TestList.html" class="tab">Test list</a>
 		</div><div id="timeline" class="reportmenu-tab">
-			<a href="timeline.html" class="tab">Timeline</a>
+			<a href="Timeline.html" class="tab">Timeline</a>
 		</div>
 	</div>
 </div>
@@ -50,7 +48,7 @@
 
 <div style="text-align:center;">
 	<div id="main-title" class="report-footer" title="NUnitGo Test Run Report">
-		Copyright 2015 © NUnitGo
+		Copyright 2015-2016 © NUnitGo
 	</div>
 </div>
 </footer>

@@ -2,77 +2,99 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8" /><title>
 		Timeline page
-	</title><style type="text/css">
+	</title><script src="http://code.jquery.com/jquery-1.11.0.min.js">
+		
+
+	</script><script src="https://code.highcharts.com/stock/highstock.js">
+		
+
+	</script><style type="text/css">
 
 	</style><link rel="stylesheet" type="text/css" href="reportStyle.css" />
 </head><body>
 	
 
-<div style="height:10%;text-align:center;">
-	<div id="tests-timeline" class="report-title" title="Tests timeline">
-		Tests timeline
-	</div>
-</div>
+<h2 style="background-color:#CCEBE8;text-align:center;padding:20px;margin:0;position:relative;box-shadow:0 0 20px -5px black;-moz-box-shadow:0 0 20px -5px black;-webkit-box-shadow:0 0 20px -5px black;">
+	Tests timeline
+</h2>
 <div style="height:90%;background-color:white;overflow:scroll;">
 	<div style="margin:1% 2% 3% 97%;">
 		<a id="" href="index.html" class="href-button">Back</a>
 	</div><h3 style="padding-left:30px;">
-		Timeline (19.01.2016 9:59:05-19.01.2016 9:59:13):
+		Timeline (03.03.2016 12:40:59-03.03.2016 12:41:15):
 	</h3><div id="timeline-bar" class="horizontal-bar">
-	<div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 3, Time: 09:59:05 - 09:59:05, 
-Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:03.811%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111143/test.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 7, Time: 09:59:06 - 09:59:06, 
-Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:02.797%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111147/test.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 4, Time: 09:59:06 - 09:59:06, 
-Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:02.797%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111144/test.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 5, Time: 09:59:06 - 09:59:06, 
-Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.934%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111145/test.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 6, Time: 09:59:06 - 09:59:06, 
-Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:02.852%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111146/test.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 1, Time: 09:59:07 - 09:59:07, 
-Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:02.824%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111141/test.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 8, Time: 09:59:07 - 09:59:07, 
-Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.824%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111148/test.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 2, Time: 09:59:07 - 09:59:07, 
-Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.824%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111142/test.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.TestClass1.LongLogTest, Time: 09:59:07 - 09:59:08, 
-Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:16.726%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111111/test.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.TestClass1.SuccessTest, Time: 09:59:08 - 09:59:08, 
-Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:05.539%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111112/test.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.TestClass1.TestMethodIgnored, Time: 09:59:08 - 09:59:08, 
-Result: Skipped:Ignored" class="tooltip" id="horizontal-bar-item" style="background-color:#81d4fa;width:08.390%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111115/test.html" class="href-open-button" style="background:#81d4fa;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.TestClass1.TestMethodInconclusive, Time: 09:59:09 - 09:59:09, 
-Result: Inconclusive" class="tooltip" id="horizontal-bar-item" style="background-color:white;width:08.418%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111114/test.html" class="href-open-button" style="background:white;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.TestClass1.ThreeScreenshotsExpected, Time: 09:59:09 - 09:59:09, 
-Result: Failed:Error" class="tooltip" id="horizontal-bar-item" style="background-color:#ffc107;width:10.365%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111113/test.html" class="href-open-button" style="background:#ffc107;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.TestClass2.TestMethod2, Time: 09:59:10 - 09:59:10, 
-Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:05.703%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111122/test.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample.TestClass2.TestMethod3, Time: 09:59:10 - 09:59:11, 
-Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.852%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111123/test.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample2.TestClass1.ParamTestName1(&quot;0&quot;,1,&quot;11111111-1111-1111-1111-111111111211&quot;), Time: 09:59:11 - 09:59:12, 
-Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:07.184%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111211/test.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample2.TestClass1.ParamTestName1(&quot;1&quot;,1,&quot;11111111-1111-1111-1111-111111111212&quot;), Time: 09:59:12 - 09:59:13, 
-Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:05.566%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111212/test.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
-</div><div data-tooltip="Test: NunitTestsExample2.TestClass1.Testing name attribute, Time: 09:59:13 - 09:59:13, 
-Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:05.594%;">
-	<a id="" href="Attachments/11111111-1111-1111-1111-111111111213/test.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+	<div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 6, Time: 12:40:59 - 12:40:59, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:01.590%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111146/Test-16-03-03-12-40-59-913.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 7, Time: 12:41:00 - 12:41:00, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:01.359%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111147/Test-16-03-03-12-41-00-434.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 1, Time: 12:41:00 - 12:41:00, 
+Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:01.644%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111141/Test-16-03-03-12-41-00-700.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 2, Time: 12:41:01 - 12:41:01, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:01.359%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111142/Test-16-03-03-12-41-01-117.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 3, Time: 12:41:01 - 12:41:01, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:01.372%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111143/Test-16-03-03-12-41-01-382.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 4, Time: 12:41:01 - 12:41:01, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:01.372%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111144/Test-16-03-03-12-41-01-627.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 8, Time: 12:41:01 - 12:41:01, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:01.359%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111148/Test-16-03-03-12-41-01-887.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.ParamTestClass.Test 5, Time: 12:41:02 - 12:41:02, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:01.359%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111145/Test-16-03-03-12-41-02-174.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass1.LongLogTest, Time: 12:41:02 - 12:41:02, 
+Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:08.357%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111111/Test-16-03-03-12-41-02-969.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass1.SuccessTest, Time: 12:41:03 - 12:41:04, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.718%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111112/Test-16-03-03-12-41-04-085.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass1.SuccessTestThreeEvents, Time: 12:41:04 - 12:41:05, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:13.467%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111110/Test-16-03-03-12-41-05-412.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass1.TestMethodIgnored, Time: 12:41:05 - 12:41:05, 
+Result: Skipped:Ignored" class="tooltip" id="horizontal-bar-item" style="background-color:#81d4fa;width:04.104%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111115/Test-16-03-03-12-41-05-961.html" class="href-open-button" style="background:#81d4fa;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass1.TestMethodInconclusive, Time: 12:41:06 - 12:41:06, 
+Result: Inconclusive" class="tooltip" id="horizontal-bar-item" style="background-color:#D6FAF7;width:04.117%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111114/Test-16-03-03-12-41-06-534.html" class="href-open-button" style="background:#D6FAF7;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass1.TestMethodTwoSubs, Time: 12:41:06 - 12:41:07, 
+Result: Skipped:Ignored" class="tooltip" id="horizontal-bar-item" style="background-color:#81d4fa;width:04.104%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111116/Test-16-03-03-12-41-07-095.html" class="href-open-button" style="background:#81d4fa;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass1.ThreeScreenshotsExpected, Time: 12:41:07 - 12:41:08, 
+Result: Failed:Error" class="tooltip" id="horizontal-bar-item" style="background-color:#ffc107;width:12.950%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111113/Test-16-03-03-12-41-08-681.html" class="href-open-button" style="background:#ffc107;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass1.UnsuccessTestThreeEvents, Time: 12:41:09 - 12:41:10, 
+Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:09.580%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111100/Test-16-03-03-12-41-10-161.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass2.TestSingleSubscriptionFromXml, Time: 12:41:10 - 12:41:11, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.731%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111122/Test-16-03-03-12-41-11-161.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample.TestClass2.TestSubscriptionFromXml, Time: 12:41:11 - 12:41:11, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:01.372%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111123/Test-16-03-03-12-41-11-510.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample2.TestClass1.ParamTestName1(&quot;0&quot;,0,&quot;11111111-1111-1111-1111-111111111211&quot;), Time: 12:41:12 - 12:41:12, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:03.003%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111211/Test-16-03-03-12-41-12-687.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample2.TestClass1.ParamTestName1(&quot;1&quot;,1,&quot;11111111-1111-1111-1111-111111111212&quot;), Time: 12:41:13 - 12:41:13, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.731%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111212/Test-16-03-03-12-41-13-316.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample2.TestClass1.Testing name attribute, Time: 12:41:13 - 12:41:13, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:02.718%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111213/Test-16-03-03-12-41-13-665.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample2.TestClass1.param test 2, Time: 12:41:13 - 12:41:14, 
+Result: Passed" class="tooltip" id="horizontal-bar-item" style="background-color:#8bc34a;width:05.463%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111215/Test-16-03-03-12-41-14-218.html" class="href-open-button" style="background:#8bc34a;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample2.TestClass1.param test 1, Time: 12:41:14 - 12:41:14, 
+Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:05.721%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111214/Test-16-03-03-12-41-14-826.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
+</div><div data-tooltip="Test: NunitTestsExample2.TestClass1.param test 3, Time: 12:41:15 - 12:41:15, 
+Result: Failed" class="tooltip" id="horizontal-bar-item" style="background-color:#ef5350;width:05.449%;">
+	<a id="" href="Attachments/11111111-1111-1111-1111-111111111216/Test-16-03-03-12-41-15-562.html" class="href-open-button" style="background:#ef5350;"></a><a id="tooltip-item-inner-text" style="display:inline-block;overflow:hidden;"></a>
 </div>
 </div>
 </div>
