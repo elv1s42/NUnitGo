@@ -7,7 +7,19 @@
 [![Website](https://img.shields.io/badge/Website-visit-brightgreen.svg)](http://elv1s42.github.io/NUnitGo/)
 
 # NUnitGo
-NUnit 3.0 HTML reports
+###Creating HTML reports for NUnit tests
+Main report page:
+<p align="center">
+  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/mainPage.png?raw=true" alt="Project icon">
+</p>
+Tests list page:
+<p align="center">
+  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/testListPage.png?raw=true" alt="Project icon">
+</p>
+Test page:
+<p align="center">
+  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/testPage.png?raw=true" alt="Project icon">
+</p>
 
 ## Project Wiki
 
