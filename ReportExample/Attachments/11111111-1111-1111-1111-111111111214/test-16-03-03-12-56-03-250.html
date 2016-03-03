@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8" /><title>
+		Test page
+	</title><script src="http://code.jquery.com/jquery-1.11.0.min.js">
+		
+
+	</script><script src="https://code.highcharts.com/stock/highstock.js">
+		
+
+	</script><script>
+		
+					$(document).ready(function() {
+						$(".tabs-menu a").click(function(event) {
+							event.preventDefault();
+							$(this).parent().addClass("current");
+							$(this).parent().siblings().removeClass("current");
+							var tab = $(this).attr("href");
+							$(".tab-content").not(tab).css("display", "none");
+							$(tab).fadeIn();
+						});
+					});
+				
+	</script><style type="text/css">
+
+	</style><link rel="stylesheet" type="text/css" href="./../../reportStyle.css" />
+<script src="test-script-16-03-03-12-56-03-250.js">
+	
+
+</script>
+</head><body>
+	
+
+<div class="test-window" title style="left:0%;">
+	<div id="testcase-element">
+		<h2 style="text-align:center;background-color:#CCEBE8;padding:20px;margin:0;box-shadow:0 0 20px -5px black;-moz-box-shadow:0 0 20px -5px black;-webkit-box-shadow:0 0 20px -5px black;">
+			param test 1. Result: <span style="padding:10px;background-color:#ef5350;">Failed</span>
+		</h2><div style="float:right;padding:10px;">
+			<a id="" href="./../../testList.html" class="href-button">Back</a>
+		</div><table style="display:table;width:100%;background-color:#D6FAF7;border-spacing:0;box-shadow:0 0 20px 0 #CCEBE8;-moz-box-shadow:0 0 20px 0 #CCEBE8;-webkit-box-shadow:0 0 20px 0 #CCEBE8;">
+			<tr>
+				<td style="width:50%;background-color:white;"><div id="table-cell" style="padding:20px;">
+					<p><b>Test full name: </b>NunitTestsExample2.TestClass1.param test 1</p><p><b>Test name: </b>param test 1</p><p><b>Test duration: </b>0,4220422</p><p><b>Time period: </b>03.03.16 12:56:02.828 - 03.03.16 12:56:03.250</p><p style="background-color:#ef5350;"><b>Test result: </b>Failed</p>
+				</div></td><td style="width:50%;background-color:white;"><div id="table-cell" style="padding:20px;">
+					<div id="history-11111111-1111-1111-1111-111111111214-16-03-03-12-56-03-250">
+
+					</div>
+				</div></td>
+			</tr>
+		</table><div id="tabs-container">
+			<ul class="tabs-menu">
+				<li class="current"><a href="#test-environment-href">Test environment</a></li><li><a href="#test-failure-href">Failure</a></li><li><a href="#test-screenshots-href">Screenshots</a></li><li><a href="#test-output-href">Output</a></li><li><a href="#test-events-href">Test events</a></li>
+			</ul><div class="test-tab">
+				<div id="test-environment-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						<b>Environment information: </b><p><em class="bullet" id="bullet-item"></em>CLR version: 4.0.30319.42000</p><p><em class="bullet" id="bullet-item"></em>OS version: Microsoft Windows NT 6.1.7601 Service Pack 1</p><p><em class="bullet" id="bullet-item"></em>Platform: Win32NT</p><p><em class="bullet" id="bullet-item"></em>Machine name: PROG174</p><p><em class="bullet" id="bullet-item"></em>User domain: kosyakov</p><p><em class="bullet" id="bullet-item"></em>User: FIRST</p>
+					</div>
+				</div><div id="test-failure-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						<p><b>Stack trace: </b><div style="white-space:pre-line;">
+	в NunitTestsExample2.TestClass1.ParamTestName2(String input, Int32 expected, String guid) в c:\_GitHubProjects\NUnitGo\NunitTestsExample2\TestClass1.cs:строка 34
+
+</div></p><p><b>Message: </b><div style="white-space:pre-line;">
+	  String lengths are both 1. Strings differ at index 0.
+  Expected: "0"
+  But was:  "1"
+  -----------^
+
+</div></p>
+					</div>
+				</div><div id="test-screenshots-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						Screenshot (Date: 03.03.16 12:56:03.250):<a href="./../../Screenshots/screenshot_20160303125603250.png"><img src="./../../Screenshots/screenshot_20160303125603250.png" alt="screenshot_20160303125603250.png" style="width:100%;" /></a>
+					</div>
+				</div><div id="test-output-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						Test output is empty
+					</div>
+				</div><div id="test-events-href" class="tab-content">
+					<div id="table-cell" style="padding:20px;">
+						<p><b>Test event: </b>Test event 1</p><p><em class="bullet" id="bullet-item"></em>Started: 03.03.16 12:56:03.029</p><p><em class="bullet" id="bullet-item"></em>Finished: 03.03.16 12:56:03.229</p><p><em class="bullet" id="bullet-item"></em>Duration: 00:00:00:200</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<footer>
+	
+
+</footer>
+</html>

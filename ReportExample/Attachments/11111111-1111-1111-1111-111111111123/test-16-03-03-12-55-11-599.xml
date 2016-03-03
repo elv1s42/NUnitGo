@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<NunitGoTest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>TestSubscriptionFromXml</Name>
+  <FullName>NunitTestsExample.TestClass2.TestSubscriptionFromXml</FullName>
+  <ClassName>Subsystem2</ClassName>
+  <ProjectName>Project1</ProjectName>
+  <TestDuration>0.10001</TestDuration>
+  <DateTimeStart>2016-03-03T12:55:11.4993096+03:00</DateTimeStart>
+  <DateTimeFinish>2016-03-03T12:55:11.5993196+03:00</DateTimeFinish>
+  <TestStackTrace />
+  <TestMessage />
+  <Result>Passed</Result>
+  <Guid>11111111-1111-1111-1111-111111111123</Guid>
+  <AttachmentsPath>C:\_NUnitGoResults\Attachments\11111111-1111-1111-1111-111111111123\</AttachmentsPath>
+  <TestHrefRelative>Attachments/11111111-1111-1111-1111-111111111123/test-16-03-03-12-55-11-599.html</TestHrefRelative>
+  <TestHrefAbsolute>http://prog124.local.katharsis.ru:1240/AutomatedTests/templates/_ReportsPK8IntegrationTests/Date_2014_11_10_Time_14_48_49/Attachments/11111111-1111-1111-1111-111111111123/test-16-03-03-12-55-11-599.html</TestHrefAbsolute>
+  <LogHref />
+  <HasOutput>false</HasOutput>
+  <Screenshots />
+  <Events />
+</NunitGoTest>
