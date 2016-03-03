@@ -13,36 +13,37 @@ namespace NunitTestsExample
         public void UnsuccessTestThreeEvents()
         {
             //first test event
-            NunitGo.EventStarted("Checking some stuff 1");
+            NunitGo.EventStarted("Checking something");
             Thread.Sleep(500);
-            NunitGo.EventFinished("Checking some stuff 1");
+            NunitGo.EventFinished("Checking something");
             //second test event
-            NunitGo.EventStarted("Checking some stuff 2");
+            NunitGo.EventStarted("Some operation time");
             Thread.Sleep(200);
             //third test event - test fails
-            NunitGo.EventStarted("Checking some stuff 3");
+            NunitGo.EventStarted("Suboperation time");
             Assert.AreEqual(1, 2);
-            NunitGo.EventFinished("Checking some stuff 3");
-            NunitGo.EventFinished("Checking some stuff 2");
-            Assert.AreEqual(1, 1);
+            NunitGo.EventFinished("Suboperation time");
+            NunitGo.EventFinished("Some operation time");
         }
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111110", "Project1", "Subsystem1", "Successful test with 3 events"), Category("SuccessCategory")]
         [Subscription(Name = "TestSubscription1", UnsuccessfulOnly = false)]
         public void SuccessTestThreeEvents()
         {
+            var r = new Random();
             //first test event
             NunitGo.EventStarted("Checking some stuff 1");
-            Thread.Sleep(500);
+            Thread.Sleep(r.Next(500));
             NunitGo.EventFinished("Checking some stuff 1");
             //second test event
             NunitGo.EventStarted("Checking some stuff 2");
             Thread.Sleep(200);
             //third test event
             NunitGo.EventStarted("Checking some stuff 3");
-            Thread.Sleep(400);
+            Thread.Sleep(r.Next(1000));
             NunitGo.EventFinished("Checking some stuff 3");
             NunitGo.EventFinished("Checking some stuff 2");
+            Thread.Sleep(r.Next(700));
             Assert.AreEqual(1, 1);
         }
 

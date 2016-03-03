@@ -24,28 +24,51 @@ namespace NunitGoCore.CustomElements.NunitTestHtml
         public NunitGoJsHighstock(List<NunitGoTest> nunitGoTests, string id)
         {
             var orderedList = nunitGoTests.OrderBy(x => x.DateTimeFinish);
-            _lastTestFinishDateTime = orderedList.Last().DateTimeFinish;
+            var lastTest = orderedList.Last();
+            _lastTestFinishDateTime = lastTest.DateTimeFinish;
+            
+            var testsData = orderedList
+                .Aggregate("", 
+                (current, nunitGoTest) => current + string.Format(@"{{ x: Date.UTC({0}), y: {1}, marker:{{ fillColor: '{2}'}}, url: '{3}'}},", 
+                    nunitGoTest.DateTimeFinish.ToString("yyyy, MM, dd, HH, mm, ss"), 
+                    nunitGoTest.TestDuration.ToString(CultureInfo.InvariantCulture).Replace(",", "."), 
+                    nunitGoTest.GetBackgroundColor(), Output.Files.GetTestHtmlName(nunitGoTest.DateTimeFinish)));
+            var testsScreenshotsData = orderedList
+                .Aggregate("", 
+                (current1, nunitGoTest) => nunitGoTest
+                    .Screenshots
+                    .Aggregate(current1, 
+                    (current, screenshot) => current + string.Format(@"{{ x: Date.UTC({0}), title: 'img', text: 'Screenshot'}},", 
+                        screenshot.Date.ToString("yyyy, MM, dd, HH, mm, ss"))));
+            var lastTestEvents = lastTest.Events;
+            var allEvents = lastTestEvents
+                .Select(testEvent => 
+                    (from nunitGoTest in orderedList 
+                     where nunitGoTest.Events.Any(x => x.Name.Equals(testEvent.Name)) 
+                     select nunitGoTest.Events.First(x => x.Name.Equals(testEvent.Name))).ToList()).ToList();
+            var testEventsData = "";
+            foreach (var eventList in allEvents)
+            {
+                var eventData = eventList
+                    .Aggregate("",
+                    (current, testEvent) => current + string.Format(@"{{ x: Date.UTC({0}), y: {1}, text: '{2}'}},", 
+                        testEvent.Finished.ToString("yyyy, MM, dd, HH, mm, ss"), 
+                        testEvent.Duration.ToString(CultureInfo.InvariantCulture).Replace(",", "."),
+                        "Event duration: " + testEvent.DurationString));
+                testEventsData += string.Format(@"{{
+                                marker: {{
+                		                enabled: true,
+                                        radius:  4,
+                                        lineColor: '{3}'
+           		                }},
+                                name: '{0}',
+                                type: 'spline',
+                                data: [{1}],
+                                fillColor : '{2}',
+                                color : '{2}'
+                            }}, " + Environment.NewLine, eventList.First().Name, eventData, Colors.Black, Colors.TestBorderColor);
+            }
 
-            var testsData = "";
-            foreach (var nunitGoTest in orderedList)
-            {
-                testsData += string.Format(@"{{ x: Date.UTC({0}), y: {1}, marker:{{ fillColor: '{2}'}}, url: '{3}'}},",
-                    nunitGoTest.DateTimeFinish.ToString("yyyy, MM, dd, HH, mm, ss"),
-                    nunitGoTest.TestDuration.ToString(CultureInfo.InvariantCulture).Replace(",", "."),
-                    nunitGoTest.GetBackgroundColor(),
-                    Output.Files.GetTestHtmlName(nunitGoTest.DateTimeFinish));
-            }
-            
-            var testsScreenshotsData = "";
-            foreach (var nunitGoTest in orderedList)
-            {
-                foreach (var screenshot in nunitGoTest.Screenshots)
-                {
-                    testsScreenshotsData += string.Format(@"{{ x: Date.UTC({0}), title: 'img', text: 'Screenshot'}},",
-                    screenshot.Date.ToString("yyyy, MM, dd, HH, mm, ss"));
-                }
-            }
-            
             JsCode = string.Format(@"
                     $(function () {{
                         $('#{0}').highcharts('StockChart', {{       		
@@ -119,9 +142,11 @@ namespace NunitGoCore.CustomElements.NunitTestHtml
                                 width: 16,
                                 fillColor : '{4}',
                                 color : '{2}'
-                            }}]
+                            }},
+                            {5}
+                            ]
                         }});
-                }});", id, testsData, Colors.TestBorderColor, testsScreenshotsData, Colors.BodyBackground);
+                }});", id, testsData, Colors.TestBorderColor, testsScreenshotsData, Colors.BodyBackground, testEventsData);
         }
     }
 }

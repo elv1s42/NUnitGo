@@ -13,6 +13,11 @@ namespace NunitGoCore.NunitGoItems.Events
             get { return (Finished - Started).TotalSeconds; }
         }
 
+        public string DurationString
+        {
+            get { return (Finished - Started).ToString(@"hh\:mm\:ss\:fff"); }
+        }
+
         public TestEvent()
         {
             Name = "";

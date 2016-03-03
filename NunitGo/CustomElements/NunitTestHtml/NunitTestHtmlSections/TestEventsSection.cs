@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.UI;
 using NunitGoCore.CustomElements.HtmlCustomElements;
 using NunitGoCore.Extensions;
@@ -29,7 +28,7 @@ namespace NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
                 writer.Write(Bullet.HtmlCode + "Finished: " + testEvent.Finished.ToString("dd.MM.yy HH:mm:ss.fff"));
                 writer.RenderEndTag();
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Duration: " + testEvent.Duration);
+                writer.Write(Bullet.HtmlCode + "Duration: " + testEvent.DurationString);
                 writer.RenderEndTag();
 
             }
