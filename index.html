@@ -39,10 +39,29 @@
 <h1>
 <a id="nunitgo" class="anchor" href="#nunitgo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NUnitGo</h1>
 
-<p>NUnit 3.0 HTML reports</p>
+<h3>
+<a id="creating-html-reports-for-nunit-tests" class="anchor" href="#creating-html-reports-for-nunit-tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating HTML reports for NUnit tests</h3>
+
+<p>Main report page:</p>
+
+<p align="center">
+  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/mainPage.png?raw=true" alt="Main page screenshot">
+</p>
+
+<p>Tests list page:</p>
+
+<p align="center">
+  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/testListPage.png?raw=true" alt="Test list page screenshot">
+</p>
+
+<p>Test page:</p>
+
+<p align="center">
+  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/testPage.png?raw=true" alt="Test page screenshot">
+</p>
 
 <h2>
-<a id="wiki" class="anchor" href="#wiki" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wiki</h2>
+<a id="project-wiki" class="anchor" href="#project-wiki" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Project Wiki</h2>
 
 <p>Click <a href="https://github.com/elv1s42/NUnitGo/wiki">here</a> to read project wiki.</p>
 
@@ -54,15 +73,15 @@
 <p>Click <a href="http://elv1s42.github.io/NUnitGo/">here</a> to visit site.</p>
 
 <h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+<a id="usage-example" class="anchor" href="#usage-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage example</h2>
 
-<p>The most simple way to add your test to NUnitGo HTML report is to add <em>NunitGoAction</em> Attribute for your Test method. To receive Emails with test result add <strong>Subsciption</strong> or <strong>SingleTestSubscription</strong> Attribute.</p>
+<p>The most simple way to add your test to NUnitGo HTML report is to add <strong><code>NunitGoAction</code></strong> Attribute for your Test method. To receive Emails with test result add <strong><code>Subsciption</code></strong> or <strong><code>SingleTestSubscription</code></strong> Attribute. For more information please read <a href="https://github.com/elv1s42/NUnitGo/wiki">wiki</a> documentation.</p>
 
 <div class="highlight highlight-source-cs"><pre>[TestFixture]
 <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">TestClass1</span>
 {
     [Test, NunitGoAction]
-    [Subsciption(Name = <span class="pl-s"><span class="pl-pds">"</span>TestSubscription1<span class="pl-pds">"</span></span>)]
+    [Subsciption(Name = <span class="pl-s"><span class="pl-pds">"</span>TestSubscriptionName<span class="pl-pds">"</span></span>)]
     <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">SimpleTest</span>()
     {
         Assert.AreEqual(<span class="pl-c1">1</span>, <span class="pl-c1">1</span>);
