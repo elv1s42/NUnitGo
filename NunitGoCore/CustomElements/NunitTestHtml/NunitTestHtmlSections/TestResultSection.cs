@@ -1,4 +1,5 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.Web.UI;
 using NunitGoCore.Extensions;
 using NunitGoCore.NunitGoItems;
 
@@ -24,7 +25,7 @@ namespace NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
 
             writer.RenderBeginTag(HtmlTextWriterTag.P);
             writer.AddTag(HtmlTextWriterTag.B, "Test duration: ");
-            writer.Write(nunitGoTest.TestDuration);
+            writer.Write(TimeSpan.FromSeconds(nunitGoTest.TestDuration).ToString(@"hh\:mm\:ss\:fff"));
             writer.RenderEndTag(); //P
 
             writer.RenderBeginTag(HtmlTextWriterTag.P);

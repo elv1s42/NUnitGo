@@ -205,10 +205,6 @@ namespace NunitGoCore.Attributes
                         var previuosEvent = previousTest.Events.First(x => x.Name.Equals(sub.EventName));
                         var currentEvent = _nunitGoTest.Events.First(x => x.Name.Equals(sub.EventName));
 
-                        Log.Write("d: " + Math.Abs(currentEvent.Duration - previuosEvent.Duration));
-                        Log.Write("m: " + sub.MaxDifference);
-                        Log.Write("b: " + (Math.Abs(currentEvent.Duration - previuosEvent.Duration) > sub.MaxDifference));
-
                         if (Math.Abs(currentEvent.Duration - previuosEvent.Duration) > sub.MaxDifference)
                         {
                             if (subscription != null)
@@ -226,7 +222,6 @@ namespace NunitGoCore.Attributes
                             }
                             else if (sub.Targets.Any())
                             {
-                                Log.Write("t: " + sub.Targets.Count);
                                 EmailHelper.Send(_configuration.SendFromList, sub.Targets,
                                     _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
                                     true, sub.EventName, previuosEvent);
