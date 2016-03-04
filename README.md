@@ -33,7 +33,7 @@ Click [here](http://elv1s42.github.io/NUnitGo/) to visit site.
 
 ##  Usage example
 
-The most simple way to add your test to NUnitGo HTML report is to add *`NunitGoAction`* Attribute for your Test method. To receive Emails with test result add *`Subsciption`* or *`SingleTestSubscription`* Attribute. For more information please read [wiki](https://github.com/elv1s42/NUnitGo/wiki) documentation.
+The most simple way to add your test to NUnitGo HTML report is to add **`NunitGoAction`** Attribute for your Test method. To receive Emails with test result add **`Subsciption`** or **`SingleTestSubscription`** Attribute. For more information please read [wiki](https://github.com/elv1s42/NUnitGo/wiki) documentation.
 
 ```csharp
 [TestFixture]
