@@ -10,15 +10,15 @@
 ###Creating HTML reports for NUnit tests
 Main report page:
 <p align="center">
-  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/mainPage.png?raw=true" alt="Project icon">
+  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/mainPage.png?raw=true" alt="Main page screenshot">
 </p>
 Tests list page:
 <p align="center">
-  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/testListPage.png?raw=true" alt="Project icon">
+  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/testListPage.png?raw=true" alt="Test list page screenshot">
 </p>
 Test page:
 <p align="center">
-  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/testPage.png?raw=true" alt="Project icon">
+  <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/testPage.png?raw=true" alt="Test page screenshot">
 </p>
 
 ## Project Wiki
