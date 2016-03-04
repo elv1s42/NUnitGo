@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\EventDurationSubscriptionAttribute.cs" />
     <Compile Include="Attributes\SubscriptionAttribute.cs" />
     <Compile Include="Attributes\SingleTestSubscriptionAttribute.cs" />
     <Compile Include="CustomElements\CSSElements\CssElement.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Attributes\NunitGoActionAttribute.cs" />
     <Compile Include="NunitGo.cs" />
+    <Compile Include="NunitGoItems\Events\EventDurationSubscription.cs" />
     <Compile Include="NunitGoItems\Events\TestEvent.cs" />
     <Compile Include="NunitGoItems\NunitGoConfiguration.cs" />
     <Compile Include="NunitGoItems\Screenshots\Screenshot.cs" />

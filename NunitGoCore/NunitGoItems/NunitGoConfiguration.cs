@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NunitGoCore.NunitGoItems.Events;
 using NunitGoCore.NunitGoItems.Subscriptions;
 
 namespace NunitGoCore.NunitGoItems
@@ -13,6 +14,7 @@ namespace NunitGoCore.NunitGoItems
         public string ServerLink;
         public List<Subsciption> Subsciptions;
         public List<SingleTestSubscription> SingleTestSubscriptions;
+        public List<EventDurationSubscription> EventDurationSubscriptions;
         public string SmtpHost;
         public int SmtpPort;
         public bool EnableSsl;

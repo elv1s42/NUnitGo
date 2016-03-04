@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using NunitGoCore.NunitGoItems.Events;
 using NunitGoCore.Utils;
 
 namespace NunitGoCore.NunitGoItems.Subscriptions
@@ -44,7 +45,8 @@ namespace NunitGoCore.NunitGoItems.Subscriptions
         }
 
         public static void Send(List<Address> mailFromList, List<Address> targetEmails,
-            NunitGoTest nunitGoTest, string screenshotsPath, bool addLinks)
+            NunitGoTest nunitGoTest, string screenshotsPath, bool addLinks, 
+            bool isEventEmail = false, string eventName = "", TestEvent previousRunEvent = null)
         {
             foreach (var address in targetEmails)
             {
@@ -55,15 +57,17 @@ namespace NunitGoCore.NunitGoItems.Subscriptions
                     using (var message = new MailMessage
                     {
                         IsBodyHtml = true,
-                        Subject = MailGenerator.GetMailSubject(nunitGoTest),
-                        Body = MailGenerator.GetMailBody(nunitGoTest, addLinks)
+                        Subject = MailGenerator.GetMailSubject(nunitGoTest, isEventEmail, eventName),
+                        Body = MailGenerator.GetMailBody(nunitGoTest, addLinks, isEventEmail, eventName, previousRunEvent)
                     })
                     {
                         var attachments = MailGenerator.GetAttachmentsFromScreenshots(nunitGoTest, screenshotsPath);
                         message.AddAttachments(attachments);
                         success = SingleSend(fromMails.First(), address, message);
                         if (!success)
+                        {
                             fromMails = fromMails.Skip(1).ToList();
+                        }
 
                     }
                 }

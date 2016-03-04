@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Web.UI;
 using NunitGoCore.CustomElements.NunitTestHtml;
 using NunitGoCore.Extensions;
+using NunitGoCore.NunitGoItems.Events;
 using NunitGoCore.Utils;
 
 namespace NunitGoCore.NunitGoItems.Subscriptions
@@ -23,8 +24,14 @@ namespace NunitGoCore.NunitGoItems.Subscriptions
                     .ToList();
         }
 
-        public static string GetMailSubject(NunitGoTest nunitGoTest)
+        public static string GetMailSubject(NunitGoTest nunitGoTest, bool isEventEmail = false, string eventName = "")
         {
+            if (isEventEmail)
+            {
+                return string.Format("Test '{0}' has wrong event duration! Event '{1}'", 
+                    nunitGoTest.Name, 
+                    nunitGoTest.Events.First(x => x.Name.Equals(eventName)).Name);
+            } 
             return nunitGoTest.IsSuccess() 
                 ? string.Format("Test '{0}' was finished successfully", nunitGoTest.Name) 
                 : (nunitGoTest.IsFailed() 
@@ -38,7 +45,8 @@ namespace NunitGoCore.NunitGoItems.Subscriptions
                 : string.Format("Test '{0}' was not successfully finished", nunitGoTest.Name)))));
         }
 
-        public static string GetMailBody(NunitGoTest nunitGoTest, bool addLinks)
+        public static string GetMailBody(NunitGoTest nunitGoTest, bool addLinks, 
+            bool isEventEmail = false, string eventName = "", TestEvent previousRunEvent = null)
         {
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
@@ -71,8 +79,7 @@ namespace NunitGoCore.NunitGoItems.Subscriptions
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "100%");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.FontFamily, "Tahoma,Verdana,Segoe,sans-serif");
                 writer.RenderBeginTag(HtmlTextWriterTag.Body);
-
-
+                
                 writer.AddStyleAttribute("box-sizing", "border-box");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Overflow, "auto");
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Top, "0%");
@@ -95,6 +102,27 @@ namespace NunitGoCore.NunitGoItems.Subscriptions
                 writer.AddTag(HtmlTextWriterTag.B, "Test name: ");
                 writer.Write(nunitGoTest.Name);
                 writer.RenderEndTag(); //P
+
+                if (isEventEmail && previousRunEvent != null)
+                {
+                    var currentEvent = nunitGoTest.Events.First(x => x.Name.Equals(eventName));
+                    writer.RenderBeginTag(HtmlTextWriterTag.P);
+                    writer.AddTag(HtmlTextWriterTag.B, "Event name: ");
+                    writer.Write(currentEvent.Name);
+                    writer.RenderEndTag(); //P
+                    writer.RenderBeginTag(HtmlTextWriterTag.P);
+                    writer.AddTag(HtmlTextWriterTag.B, string.Format("Current duration (event finished at {0}): ", currentEvent.Finished));
+                    writer.Write(TimeSpan.FromSeconds(currentEvent.Duration).ToString(@"hh\:mm\:ss\:fff"));
+                    writer.RenderEndTag(); //P
+                    writer.RenderBeginTag(HtmlTextWriterTag.P);
+                    writer.AddTag(HtmlTextWriterTag.B, string.Format("Previous duration (event finished at {0}): ", previousRunEvent.Finished));
+                    writer.Write(TimeSpan.FromSeconds(previousRunEvent.Duration).ToString(@"hh\:mm\:ss\:fff"));
+                    writer.RenderEndTag(); //P
+                    writer.RenderBeginTag(HtmlTextWriterTag.P);
+                    writer.AddTag(HtmlTextWriterTag.B, "Difference: ");
+                    writer.Write(TimeSpan.FromSeconds(currentEvent.Duration - previousRunEvent.Duration).ToString(@"hh\:mm\:ss\:fff"));
+                    writer.RenderEndTag(); //P
+                }
 
                 writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, nunitGoTest.GetBackgroundColor());
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
@@ -159,9 +187,6 @@ namespace NunitGoCore.NunitGoItems.Subscriptions
                     writer.Write(Environment.NewLine + "View on site");
                     writer.RenderEndTag(); //A
                     writer.RenderEndTag(); //P
-                    
-                    //var openButton = new OpenButton("View on site", nunitGoTest.TestHrefAbsolute, Colors.OpenLogsButtonBackground);
-                    //writer.Write(openButton.ButtonHtml);
                     
                 }
                 

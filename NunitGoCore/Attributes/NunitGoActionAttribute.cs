@@ -6,6 +6,7 @@ using NunitGoCore.CustomElements;
 using NunitGoCore.CustomElements.NunitTestHtml;
 using NunitGoCore.CustomElements.ReportSections.MainInformationSection;
 using NunitGoCore.NunitGoItems;
+using NunitGoCore.NunitGoItems.Events;
 using NunitGoCore.NunitGoItems.Screenshots;
 using NunitGoCore.NunitGoItems.Subscriptions;
 using NunitGoCore.Utils;
@@ -186,6 +187,51 @@ namespace NunitGoCore.Attributes
                     {
                         EmailHelper.Send(_configuration.SendFromList, singleSub.Targets,
                             _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail);
+                    }
+                }
+
+                var eventSubs = test.Method.MethodInfo.GetCustomAttributes<EventDurationSubscriptionAttribute>();
+                foreach (var sub in eventSubs)
+                {
+                    var currentTestVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
+                    var subscription = _configuration.EventDurationSubscriptions.FirstOrDefault(x => x.Name.Equals(sub.Name));
+                    Log.Write("Count: " + currentTestVersions.Count);
+                    if (currentTestVersions.Count > 1)
+                    {
+                        var previousTest = currentTestVersions
+                            .OrderByDescending(x => x.DateTimeFinish)
+                            .Skip(1)
+                            .First(x => x.Events.Any(e => e.Name.Equals(sub.EventName)));
+                        var previuosEvent = previousTest.Events.First(x => x.Name.Equals(sub.EventName));
+                        var currentEvent = _nunitGoTest.Events.First(x => x.Name.Equals(sub.EventName));
+
+                        Log.Write("d: " + Math.Abs(currentEvent.Duration - previuosEvent.Duration));
+                        Log.Write("m: " + sub.MaxDifference);
+                        Log.Write("b: " + (Math.Abs(currentEvent.Duration - previuosEvent.Duration) > sub.MaxDifference));
+
+                        if (Math.Abs(currentEvent.Duration - previuosEvent.Duration) > sub.MaxDifference)
+                        {
+                            if (subscription != null)
+                            {
+                                EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
+                                    _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
+                                    true, sub.EventName, previuosEvent);
+                            }
+                            else if (sub.FullPath != null)
+                            {
+                                subscription = XmlHelper.Load<EventDurationSubscription>(sub.FullPath);
+                                EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
+                                    _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
+                                    true, sub.EventName, previuosEvent);
+                            }
+                            else if (sub.Targets.Any())
+                            {
+                                Log.Write("t: " + sub.Targets.Count);
+                                EmailHelper.Send(_configuration.SendFromList, sub.Targets,
+                                    _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
+                                    true, sub.EventName, previuosEvent);
+                            }
+                        }
                     }
                 }
             }

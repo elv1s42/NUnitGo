@@ -42,6 +42,16 @@
       </TargetEmails>
     </SingleTestSubscription>
   </SingleTestSubscriptions>
+  <EventDurationSubscriptions>
+    <EventDurationSubscription>
+      <Name>EventDurationSubscription1</Name>
+      <TargetEmails>
+        <Address>
+          <Email>Evgeniy.Kosyakov@katharsis.ru</Email>
+        </Address>
+      </TargetEmails>
+    </EventDurationSubscription>
+  </EventDurationSubscriptions>
   <SmtpHost>mail.katharsis.ru</SmtpHost>
   <SmtpPort>25</SmtpPort>
   <EnableSsl>false</EnableSsl>

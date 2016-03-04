@@ -26,15 +26,18 @@ namespace NunitTestsExample
             NunitGo.EventFinished("Some operation time");
         }
 
+        private const string EventName1 = "Checking some stuff 1";
+
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111110", "Project1", "Subsystem1", "Successful test with 3 events"), Category("SuccessCategory")]
         [Subscription(Name = "TestSubscription1", UnsuccessfulOnly = false)]
+        [EventDurationSubscription(EventName1, 0.001, "Evgeniy.Kosyakov@katharsis.ru")]
         public void SuccessTestThreeEvents()
         {
             var r = new Random();
             //first test event
-            NunitGo.EventStarted("Checking some stuff 1");
+            NunitGo.EventStarted(EventName1);
             Thread.Sleep(r.Next(500));
-            NunitGo.EventFinished("Checking some stuff 1");
+            NunitGo.EventFinished(EventName1);
             //second test event
             NunitGo.EventStarted("Checking some stuff 2");
             Thread.Sleep(200);
