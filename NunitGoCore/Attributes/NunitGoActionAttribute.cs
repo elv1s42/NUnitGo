@@ -259,7 +259,7 @@ namespace NunitGoCore.Attributes
                         var previuosEvent = previousTest.Events.First(x => x.Name.Equals(sub.EventName));
                         var currentEvent = _nunitGoTest.Events.First(x => x.Name.Equals(sub.EventName));
 
-                        if (Math.Abs(currentEvent.Duration - previuosEvent.Duration) > sub.MaxDifference)
+                        if (currentEvent.Duration - previuosEvent.Duration > sub.MaxDifference)
                         {
                             if (subscription != null)
                             {

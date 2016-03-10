@@ -7,6 +7,7 @@ using NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections;
 using NunitGoCore.Extensions;
 using NunitGoCore.NunitGoItems;
 using NunitGoCore.Utils;
+// ReSharper disable AccessToDisposedClosure
 
 namespace NunitGoCore.CustomElements.NunitTestHtml
 {
