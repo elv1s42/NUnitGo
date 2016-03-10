@@ -43,6 +43,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FolderWithTests\AnotherBigFolderWithLongName\AndAnotherBigFolderWithLongName\AndAnotherBigFolderWithLongNameAgain\TestClass0.cs" />
     <Compile Include="TestClass1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass2.cs" />

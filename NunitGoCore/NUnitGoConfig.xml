@@ -2,7 +2,7 @@
 <NunitGoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LocalOutputPath>C:\_NUnitGoResults</LocalOutputPath>
   <TakeScreenshotAfterTestFailed>true</TakeScreenshotAfterTestFailed>
-  <GenerateReport>false</GenerateReport>
+  <GenerateReport>true</GenerateReport>
   <SendEmails>true</SendEmails>
   <AddLinksInsideEmail>true</AddLinksInsideEmail>
   <ServerLink>http://server/folder/</ServerLink>

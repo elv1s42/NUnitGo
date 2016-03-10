@@ -148,21 +148,28 @@ namespace NunitGoCore.CustomElements.NunitTestHtml
 			                .Css("margin", "0")
 			                .CssShadow("0 0 20px -5px black")
 			                .Tag(HtmlTextWriterTag.H2,
-			                    () => writer.Text(string.Format("{0}. Result: ", nunitGoTest.Name))
+			                    () => writer
+                                    .Text(string.Format("{0}. Result: ", nunitGoTest.Name))
 			                        .Css("padding", "10px")
 			                        .Css(HtmlTextWriterStyle.BackgroundColor, BackgroundColor)
 			                        .Tag(HtmlTextWriterTag.Span, nunitGoTest.Result))
 			                .Css("float", "right")
 			                .Css("padding", "10px")
 			                .Tag(HtmlTextWriterTag.Div,
-			                    () => writer.Write(new CloseButton("Back", "./../../" + Output.Files.TestListFile).ButtonHtml))
-			                .Css(HtmlTextWriterStyle.Display, "table")
+                                () => writer.Write(new CloseButton("Back", "./../../" + Output.Files.TestListFile).ButtonHtml))
+                            .Css("table-layout", "fixed")
+                            .Css("word-break", "break-all")
 			                .Css(HtmlTextWriterStyle.Width, "100%")
 			                .Css(HtmlTextWriterStyle.BackgroundColor, Colors.BodyBackground)
 			                .Css("border-spacing", "0")
 			                .CssShadow("0 0 20px 0 " + Colors.TestBorderColor)
 			                .Tag(HtmlTextWriterTag.Table,
-			                    () => writer.Tag(HtmlTextWriterTag.Tr,
+                                () => writer
+                                    .Css(HtmlTextWriterStyle.Width, "50%")
+                                    .Tag(HtmlTextWriterTag.Col)
+                                    .Css(HtmlTextWriterStyle.Width, "50%")
+                                    .Tag(HtmlTextWriterTag.Col)
+                                    .Tag(HtmlTextWriterTag.Tr,
 			                        () => writer
 			                            .Css(HtmlTextWriterStyle.Width, "50%")
 			                            .Css(HtmlTextWriterStyle.BackgroundColor, Colors.White)
