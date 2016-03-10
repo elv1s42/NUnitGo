@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGoCore.CustomElements.CSSElements;
+using NUnitGoCore.CustomElements.CSSElements;
 
-namespace NunitGoCore.CustomElements.HtmlCustomElements
+namespace NUnitGoCore.CustomElements.HtmlCustomElements
 {
     public class OpenButton : HrefButtonBase
     {

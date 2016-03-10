@@ -1,7 +1,7 @@
 ﻿<NUnitProject>
   <Settings activeconfig="Default"/>
   <Config name="Default" binpathtype="Auto">
-    <assembly path="NunitTestsExample.dll" />
-    <assembly path="NunitTestsExample2.dll" />
+    <assembly path="NUnitGoTestsExample.dll" />
+    <assembly path="NUnitGoTestsExample2.dll" />
   </Config>
 </NUnitProject>

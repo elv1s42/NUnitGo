@@ -2,18 +2,18 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using NunitGoCore.CustomElements;
-using NunitGoCore.CustomElements.NunitTestHtml;
-using NunitGoCore.CustomElements.ReportSections.MainInformationSection;
-using NunitGoCore.NunitGoItems;
-using NunitGoCore.NunitGoItems.Events;
-using NunitGoCore.NunitGoItems.Screenshots;
-using NunitGoCore.NunitGoItems.Subscriptions;
-using NunitGoCore.Utils;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using NUnitGoCore.CustomElements;
+using NUnitGoCore.CustomElements.NunitTestHtml;
+using NUnitGoCore.CustomElements.ReportSections.MainInformationSection;
+using NUnitGoCore.NunitGoItems;
+using NUnitGoCore.NunitGoItems.Events;
+using NUnitGoCore.NunitGoItems.Screenshots;
+using NUnitGoCore.NunitGoItems.Subscriptions;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore.Attributes
+namespace NUnitGoCore.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction

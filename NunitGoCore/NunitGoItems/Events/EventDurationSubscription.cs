@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using NunitGoCore.NunitGoItems.Subscriptions;
+using NUnitGoCore.NunitGoItems.Subscriptions;
 
-namespace NunitGoCore.NunitGoItems.Events
+namespace NUnitGoCore.NunitGoItems.Events
 {
     public class EventDurationSubscription
     {

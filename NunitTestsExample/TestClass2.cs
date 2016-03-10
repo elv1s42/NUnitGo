@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using NUnit.Framework;
-using NunitGoCore.Attributes;
+using NUnitGoCore.Attributes;
 
-namespace NunitTestsExample
+namespace NUnitGoTestsExample
 {
     [TestFixture]
     public class TestClass2

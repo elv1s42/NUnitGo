@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NunitGoCore.NunitGoItems
+namespace NUnitGoCore.NunitGoItems
 {
     public class NunitGoSuite
     {

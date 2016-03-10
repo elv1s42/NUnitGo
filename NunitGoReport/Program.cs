@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using System.Linq;
-using NunitGoCore.CustomElements;
-using NunitGoCore.CustomElements.ReportSections.MainInformationSection;
-using NunitGoCore.Utils;
+using NUnitGoCore.CustomElements;
+using NUnitGoCore.CustomElements.ReportSections.MainInformationSection;
+using NUnitGoCore.Utils;
 
-namespace NunitGoReport
+namespace NUnitGoReport
 {
     public class Program
     {

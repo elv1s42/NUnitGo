@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Web.UI;
-using NunitGoCore.CustomElements.NunitTestHtml;
-using NunitGoCore.Extensions;
-using NunitGoCore.NunitGoItems.Events;
-using NunitGoCore.Utils;
+using NUnitGoCore.CustomElements.NunitTestHtml;
+using NUnitGoCore.Extensions;
+using NUnitGoCore.NunitGoItems.Events;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore.NunitGoItems.Subscriptions
+namespace NUnitGoCore.NunitGoItems.Subscriptions
 {
     internal static class MailGenerator
     {

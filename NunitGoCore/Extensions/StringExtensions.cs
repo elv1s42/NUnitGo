@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NunitGoCore.Extensions
+namespace NUnitGoCore.Extensions
 {
     public static class StringExtensions
     {

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace NunitGoCore.NunitGoItems.Screenshots
+namespace NUnitGoCore.NunitGoItems.Screenshots
 {
     public class ScreenshotHelper
     {

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGoCore.CustomElements.CSSElements;
-using NunitGoCore.CustomElements.HtmlCustomElements;
-using NunitGoCore.Extensions;
-using NunitGoCore.Utils;
+using NUnitGoCore.CustomElements.CSSElements;
+using NUnitGoCore.CustomElements.HtmlCustomElements;
+using NUnitGoCore.Extensions;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore.CustomElements.ReportSections
+namespace NUnitGoCore.CustomElements.ReportSections
 {
     public class MenuSection : HtmlBaseElement
     {

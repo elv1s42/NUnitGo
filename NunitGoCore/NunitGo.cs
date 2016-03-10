@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NunitGoCore.NunitGoItems.Events;
-using NunitGoCore.NunitGoItems.Screenshots;
-using NunitGoCore.Utils;
+using NUnitGoCore.NunitGoItems.Events;
+using NUnitGoCore.NunitGoItems.Screenshots;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore
+namespace NUnitGoCore
 {
     public static class NunitGo
     {

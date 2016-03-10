@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NunitGoCore.NunitGoItems.Events
+namespace NUnitGoCore.NunitGoItems.Events
 {
     public class TestEvent
     {

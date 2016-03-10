@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace NunitGoCore.Utils
+namespace NUnitGoCore.Utils
 {
     public static class Log
     {

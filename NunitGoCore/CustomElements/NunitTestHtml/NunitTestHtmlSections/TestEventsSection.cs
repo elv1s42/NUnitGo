@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Web.UI;
-using NunitGoCore.CustomElements.HtmlCustomElements;
-using NunitGoCore.Extensions;
-using NunitGoCore.NunitGoItems;
+using NUnitGoCore.CustomElements.HtmlCustomElements;
+using NUnitGoCore.Extensions;
+using NUnitGoCore.NunitGoItems;
 
-namespace NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
+namespace NUnitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class TestEventsSection
     {

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Serialization;
 
-namespace NunitGoCore.Utils
+namespace NUnitGoCore.Utils
 {
     public static class XmlHelper
     {

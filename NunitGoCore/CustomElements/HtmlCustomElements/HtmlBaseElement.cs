@@ -1,4 +1,4 @@
-﻿namespace NunitGoCore.CustomElements.HtmlCustomElements
+﻿namespace NUnitGoCore.CustomElements.HtmlCustomElements
 {
     public class HtmlBaseElement
     {

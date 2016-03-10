@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using NunitGoCore.NunitGoItems.Events;
-using NunitGoCore.Utils;
+using NUnitGoCore.NunitGoItems.Events;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore.NunitGoItems.Subscriptions
+namespace NUnitGoCore.NunitGoItems.Subscriptions
 {
     internal static class EmailHelper
     {

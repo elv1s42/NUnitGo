@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using NunitGoCore.NunitGoItems.Events;
-using NunitGoCore.NunitGoItems.Subscriptions;
+using NUnitGoCore.NunitGoItems.Events;
+using NUnitGoCore.NunitGoItems.Subscriptions;
 
-namespace NunitGoCore.NunitGoItems
+namespace NUnitGoCore.NunitGoItems
 {
     public class NunitGoConfiguration
     {

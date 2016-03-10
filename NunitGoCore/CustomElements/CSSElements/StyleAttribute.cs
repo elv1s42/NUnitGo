@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.UI;
 
-namespace NunitGoCore.CustomElements.CSSElements
+namespace NUnitGoCore.CustomElements.CSSElements
 {
     public class StyleAttribute
     {

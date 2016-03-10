@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Mail;
 
-namespace NunitGoCore.NunitGoItems.Subscriptions
+namespace NUnitGoCore.NunitGoItems.Subscriptions
 {
     internal static class MailMessageExtensions
     {

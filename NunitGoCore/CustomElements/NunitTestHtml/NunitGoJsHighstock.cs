@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using NunitGoCore.NunitGoItems;
-using NunitGoCore.Utils;
+using NUnitGoCore.NunitGoItems;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore.CustomElements.NunitTestHtml
+namespace NUnitGoCore.CustomElements.NunitTestHtml
 {
     public class NunitGoJsHighstock
     {

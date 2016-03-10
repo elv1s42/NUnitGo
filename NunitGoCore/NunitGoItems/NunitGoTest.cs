@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using NunitGoCore.NunitGoItems.Events;
-using NunitGoCore.NunitGoItems.Screenshots;
-using NunitGoCore.Utils;
+using NUnitGoCore.NunitGoItems.Events;
+using NUnitGoCore.NunitGoItems.Screenshots;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore.NunitGoItems
+namespace NUnitGoCore.NunitGoItems
 {
     public class NunitGoTest
     {

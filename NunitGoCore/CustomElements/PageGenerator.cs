@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using NunitGoCore.CustomElements.CSSElements;
-using NunitGoCore.CustomElements.HtmlCustomElements;
-using NunitGoCore.CustomElements.ReportSections;
-using NunitGoCore.CustomElements.ReportSections.MainInformationSection;
-using NunitGoCore.NunitGoItems;
-using NunitGoCore.Utils;
+using NUnitGoCore.CustomElements.CSSElements;
+using NUnitGoCore.CustomElements.HtmlCustomElements;
+using NUnitGoCore.CustomElements.ReportSections;
+using NUnitGoCore.CustomElements.ReportSections.MainInformationSection;
+using NUnitGoCore.NunitGoItems;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore.CustomElements
+namespace NUnitGoCore.CustomElements
 {
 	public static class PageGenerator
 	{

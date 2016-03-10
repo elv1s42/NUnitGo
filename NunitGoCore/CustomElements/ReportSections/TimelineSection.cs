@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
-using NunitGoCore.CustomElements.HtmlCustomElements;
-using NunitGoCore.NunitGoItems;
-using NunitGoCore.Utils;
+using NUnitGoCore.CustomElements.HtmlCustomElements;
+using NUnitGoCore.NunitGoItems;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore.CustomElements.ReportSections
+namespace NUnitGoCore.CustomElements.ReportSections
 {
     internal class TimelineSection
     {

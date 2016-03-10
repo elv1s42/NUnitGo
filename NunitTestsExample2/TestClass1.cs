@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
-using NunitGoCore;
-using NunitGoCore.Attributes;
 using NUnit.Framework;
+using NUnitGoCore;
+using NUnitGoCore.Attributes;
 
-namespace NunitTestsExample2
+namespace NUnitGoTestsExample2
 {
     [TestFixture]
     public class TestClass1

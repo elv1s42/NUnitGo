@@ -1,6 +1,6 @@
-﻿using NunitGoCore.Extensions;
+﻿using NUnitGoCore.Extensions;
 
-namespace NunitGoCore.CustomElements.HtmlCustomElements
+namespace NUnitGoCore.CustomElements.HtmlCustomElements
 {
     public class ReportMenuItem : HtmlBaseElement
     {

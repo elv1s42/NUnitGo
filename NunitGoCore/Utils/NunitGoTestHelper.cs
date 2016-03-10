@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NunitGoCore.NunitGoItems;
+using NUnitGoCore.NunitGoItems;
 
-namespace NunitGoCore.Utils
+namespace NUnitGoCore.Utils
 {
     public static class NunitGoTestHelper
     {

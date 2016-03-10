@@ -1,9 +1,9 @@
 ﻿using System.Threading;
-using NunitGoCore;
-using NunitGoCore.Attributes;
 using NUnit.Framework;
+using NUnitGoCore;
+using NUnitGoCore.Attributes;
 
-namespace NunitTestsExample.FolderWithTests.AnotherBigFolderWithLongName.AndAnotherBigFolderWithLongName.AndAnotherBigFolderWithLongNameAgain
+namespace NUnitGoTestsExample.FolderWithTests.AnotherBigFolderWithLongName.AndAnotherBigFolderWithLongName.AndAnotherBigFolderWithLongNameAgain
 {
     [TestFixture]
     public class TestClass0

@@ -1,4 +1,4 @@
-﻿namespace NunitGoCore.NunitGoItems.Subscriptions
+﻿namespace NUnitGoCore.NunitGoItems.Subscriptions
 {
     public class Address
     {

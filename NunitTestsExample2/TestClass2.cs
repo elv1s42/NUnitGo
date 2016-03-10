@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace NunitTestsExample2
+namespace NUnitGoTestsExample2
 {
     [TestFixture, Ignore("Ignored test fixture")]
     public class TestClass2

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.UI;
 
-namespace NunitGoCore.Extensions
+namespace NUnitGoCore.Extensions
 {
     public static class HtmlTextWriterExtensions
     {

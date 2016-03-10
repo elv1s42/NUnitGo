@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NunitGoCore.NunitGoItems.Screenshots
+namespace NUnitGoCore.NunitGoItems.Screenshots
 {
     public class Screenshot
     {

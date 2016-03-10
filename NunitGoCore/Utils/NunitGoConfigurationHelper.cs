@@ -1,6 +1,6 @@
-﻿using NunitGoCore.NunitGoItems;
+﻿using NUnitGoCore.NunitGoItems;
 
-namespace NunitGoCore.Utils
+namespace NUnitGoCore.Utils
 {
     internal static class NunitGoConfigurationHelper
     {

@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
-using NunitGoCore.CustomElements.CSSElements;
-using NunitGoCore.CustomElements.HtmlCustomElements;
-using NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections;
-using NunitGoCore.Extensions;
-using NunitGoCore.NunitGoItems;
-using NunitGoCore.Utils;
+using NUnitGoCore.CustomElements.CSSElements;
+using NUnitGoCore.CustomElements.HtmlCustomElements;
+using NUnitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections;
+using NUnitGoCore.Extensions;
+using NUnitGoCore.NunitGoItems;
+using NUnitGoCore.Utils;
+
 // ReSharper disable AccessToDisposedClosure
 
-namespace NunitGoCore.CustomElements.NunitTestHtml
+namespace NUnitGoCore.CustomElements.NunitTestHtml
 {
 	internal class NunitTestHtml : HtmlBaseElement
 	{

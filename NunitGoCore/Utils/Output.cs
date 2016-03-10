@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NunitGoCore.Utils
+namespace NUnitGoCore.Utils
 {
     public class Output
     {

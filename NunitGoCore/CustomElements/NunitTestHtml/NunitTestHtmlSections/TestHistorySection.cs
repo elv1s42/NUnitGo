@@ -1,8 +1,8 @@
 ﻿using System.Web.UI;
-using NunitGoCore.NunitGoItems;
-using NunitGoCore.Utils;
+using NUnitGoCore.NunitGoItems;
+using NUnitGoCore.Utils;
 
-namespace NunitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
+namespace NUnitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
 {
     public static class TestHistorySection
     {
