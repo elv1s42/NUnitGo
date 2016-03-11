@@ -37,6 +37,16 @@ namespace NUnitGoCore
             _events.First(x => x.Name.Equals(name)).Finished = DateTime.Now;
         }
 
+        public static void EventStarted(string name, DateTime date)
+        {
+            _events.Add(new TestEvent(name, date));
+        }
+
+        public static void EventFinished(string name, DateTime date)
+        {
+            _events.First(x => x.Name.Equals(name)).Finished = date;
+        }
+
         public static void SetTestGuid(string guid)
         {
             TestGuid = new Guid(guid);

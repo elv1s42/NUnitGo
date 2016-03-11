@@ -107,7 +107,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
 					new StyleAttribute(HtmlTextWriterStyle.Display, "none")
 				}
             });
-            testCssSet.AddElement(new CssElement("#test-environment-href")
+            testCssSet.AddElement(new CssElement("#test-screenshots-href")
             {
                 StyleFields = new List<StyleAttribute>
 				{
@@ -185,17 +185,17 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
 			                .WithAttr(HtmlTextWriterAttribute.Id, "tabs-container")
 			                .Tag(HtmlTextWriterTag.Div, () => writer
 			                .WithAttr(HtmlTextWriterAttribute.Class, "tabs-menu")
-			                .Tag(HtmlTextWriterTag.Ul, () => writer
-			                    .WithAttr(HtmlTextWriterAttribute.Class, "current")
+                            .Tag(HtmlTextWriterTag.Ul, () => writer
+                                .WithAttr(HtmlTextWriterAttribute.Class, "current")
+                                .Tag(HtmlTextWriterTag.Li, () => writer
+                                    .WithAttr(HtmlTextWriterAttribute.Href, "#test-screenshots-href")
+                                    .Tag(HtmlTextWriterTag.A, "Screenshots"))
+                                .Tag(HtmlTextWriterTag.Li, () => writer
+                                    .WithAttr(HtmlTextWriterAttribute.Href, "#test-failure-href")
+                                    .Tag(HtmlTextWriterTag.A, "Failure"))
 			                    .Tag(HtmlTextWriterTag.Li, () => writer
 			                        .WithAttr(HtmlTextWriterAttribute.Href, "#test-environment-href")
 			                        .Tag(HtmlTextWriterTag.A, "Test environment"))
-			                    .Tag(HtmlTextWriterTag.Li, () => writer
-			                        .WithAttr(HtmlTextWriterAttribute.Href, "#test-failure-href")
-			                        .Tag(HtmlTextWriterTag.A, "Failure"))
-			                    .Tag(HtmlTextWriterTag.Li, () => writer
-			                        .WithAttr(HtmlTextWriterAttribute.Href, "#test-screenshots-href")
-                                    .Tag(HtmlTextWriterTag.A, "Screenshots"))
                                 .Tag(HtmlTextWriterTag.Li, () => writer
                                     .WithAttr(HtmlTextWriterAttribute.Href, "#test-output-href")
                                     .Tag(HtmlTextWriterTag.A, "Output"))
@@ -205,21 +205,27 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
 			                )
 			                .WithAttr(HtmlTextWriterAttribute.Class, "test-tab")
 			                .Tag(HtmlTextWriterTag.Div,
-			                    () => writer.WithAttr(HtmlTextWriterAttribute.Id, "test-environment-href")
+                                () => writer
+                                    .WithAttr(HtmlTextWriterAttribute.Id, "test-screenshots-href")
+                                    .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
+                                    .Tag(HtmlTextWriterTag.Div, () => writer
+                                        .AddScreenshots(nunitGoTest))
+                                    .WithAttr(HtmlTextWriterAttribute.Id, "test-failure-href")
+                                    .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
+                                    .Tag(HtmlTextWriterTag.Div, () => writer
+                                        .AddFailure(nunitGoTest))
+                                    .WithAttr(HtmlTextWriterAttribute.Id, "test-environment-href")
 			                        .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
-			                        .Tag(HtmlTextWriterTag.Div, () => writer.AddEnvironment())
-			                        .WithAttr(HtmlTextWriterAttribute.Id, "test-failure-href")
-			                        .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
-			                        .Tag(HtmlTextWriterTag.Div, () => writer.AddFailure(nunitGoTest))
-			                        .WithAttr(HtmlTextWriterAttribute.Id, "test-screenshots-href")
-			                        .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
-                                    .Tag(HtmlTextWriterTag.Div, () => writer.AddScreenshots(nunitGoTest))
+			                        .Tag(HtmlTextWriterTag.Div, () => writer
+                                        .AddEnvironment())
                                     .WithAttr(HtmlTextWriterAttribute.Id, "test-output-href")
                                     .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
-                                    .Tag(HtmlTextWriterTag.Div, () => writer.AddOutput(nunitGoTest, testOutput))
+                                    .Tag(HtmlTextWriterTag.Div, () => writer
+                                        .AddOutput(nunitGoTest, testOutput))
                                     .WithAttr(HtmlTextWriterAttribute.Id, "test-events-href")
                                     .WithAttr(HtmlTextWriterAttribute.Class, "tab-content")
-                                    .Tag(HtmlTextWriterTag.Div, () => writer.AddTestEvents(nunitGoTest)))
+                                    .Tag(HtmlTextWriterTag.Div, () => writer
+                                        .AddTestEvents(nunitGoTest)))
 			                )
 			        );
 

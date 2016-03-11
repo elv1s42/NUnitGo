@@ -14,12 +14,12 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
             if (!nunitGoTest.IsSuccess())
             {
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.AddTag(HtmlTextWriterTag.B, "Stack trace: ");
-                writer.Write(NunitTestHtml.GenerateTxtView(nunitGoTest.TestStackTrace));
-                writer.RenderEndTag(); //P
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.AddTag(HtmlTextWriterTag.B, "Message: ");
                 writer.Write(NunitTestHtml.GenerateTxtView(nunitGoTest.TestMessage));
+                writer.RenderEndTag(); //P
+                writer.RenderBeginTag(HtmlTextWriterTag.P);
+                writer.AddTag(HtmlTextWriterTag.B, "Stack trace: ");
+                writer.Write(NunitTestHtml.GenerateTxtView(nunitGoTest.TestStackTrace));
                 writer.RenderEndTag(); //P
             }
             else
