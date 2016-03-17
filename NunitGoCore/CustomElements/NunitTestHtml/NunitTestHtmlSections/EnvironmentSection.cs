@@ -26,10 +26,10 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
             writer.Write(Bullet.HtmlCode + "Machine name: " + Environment.MachineName);
             writer.RenderEndTag();
             writer.RenderBeginTag(HtmlTextWriterTag.P);
-            writer.Write(Bullet.HtmlCode + "User domain: " + Environment.UserName);
+            writer.Write(Bullet.HtmlCode + "User domain: " + Environment.UserDomainName);
             writer.RenderEndTag();
             writer.RenderBeginTag(HtmlTextWriterTag.P);
-            writer.Write(Bullet.HtmlCode + "User: " + Environment.UserDomainName);
+            writer.Write(Bullet.HtmlCode + "User: " + Environment.UserName);
             writer.RenderEndTag();
             writer.RenderEndTag();//DIV
             return writer;
