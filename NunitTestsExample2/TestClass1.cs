@@ -23,7 +23,7 @@ namespace NUnitGoTestsExample2
         [TestCase("0", 1, "11111111-1111-1111-1111-111111111214", TestName = "param test 1")]
         [TestCase("1", 1, "11111111-1111-1111-1111-111111111215", TestName = "param test 2")]
         [TestCase("2", 1, "11111111-1111-1111-1111-111111111216", TestName = "param test 3")]
-        [NunitGoAction]
+        [NunitGoAction("00000000-0000-0000-0000-000000000000", "Subsystem 3", "Subsubsystem 1")]
         public void ParamTestName2(string input, int expected, string guid)
         {
             NunitGo.SetTestGuid(guid);

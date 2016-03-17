@@ -33,8 +33,6 @@ namespace NUnitGoCore.Attributes
         private DateTime _finish;
         private string _testOutput;
 
-        //public static Guid TestGuid = Guid.Empty;
-        
         public NunitGoActionAttribute(string testGuidString = "", string projectName = "", string className = "", 
             string testName = "")
         {
