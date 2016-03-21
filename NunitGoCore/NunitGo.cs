@@ -12,6 +12,7 @@ namespace NUnitGoCore
         private static List<TestEvent> _events;
         private static List<Screenshot> _screenshots;
         internal static Guid TestGuid = Guid.Empty;
+        internal static string TestName = "";
 
         public static void Event(string name, Action testEventAction)
         {
@@ -52,9 +53,9 @@ namespace NUnitGoCore
             TestGuid = new Guid(guid);
         }
 
-        internal static Guid GetTestGuid()
+        public static void SetTestName(string name)
         {
-            return TestGuid;
+            TestName = name;
         }
 
         internal static List<Screenshot> GetScreenshots()
@@ -83,6 +84,7 @@ namespace NUnitGoCore
 
         private static void CleanUp()
         {
+            TestName = "";
             TestGuid = Guid.Empty;
             _events = new List<TestEvent>();
             _screenshots = new List<Screenshot>();

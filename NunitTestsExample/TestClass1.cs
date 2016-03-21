@@ -85,11 +85,11 @@ namespace NUnitGoTestsExample
         [Test, NunitGoAction(
             "11111111-1111-1111-1111-111111111113", 
             "Project1", 
-            "Subsystem2",
-            "Three screenshots expected test")]
+            "Subsystem2")]
         [SingleTestSubscription]
         public void ThreeScreenshotsExpected()
         {
+            NunitGo.SetTestName("Three screenshots expected test");
             Console.WriteLine("Testing log writing 1");
             Console.WriteLine("Testing log writing 2");
             NunitGo.TakeScreenshot();

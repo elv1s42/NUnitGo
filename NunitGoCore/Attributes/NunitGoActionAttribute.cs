@@ -19,9 +19,9 @@ namespace NUnitGoCore.Attributes
     public class NunitGoActionAttribute : NUnitAttribute, ITestAction
     {
         private Guid _guid;
+        private string _testName;
         private readonly string _projectName;
         private readonly string _className;
-        private readonly string _testName;
         private static NunitGoConfiguration _configuration;
 
         private static string _outputPath;
@@ -63,7 +63,8 @@ namespace NUnitGoCore.Attributes
                 ? (NunitGo.TestGuid.Equals(Guid.Empty) ? Guid.NewGuid() : NunitGo.TestGuid)
                 : _guid;
             _testOutput = TestContext.Out.ToString();
-            
+            _testName = _testName.Equals("") ? NunitGo.TestName : _testName;
+
             var context = TestContext.CurrentContext;
             var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Files.GetTestHtmlName(_finish);
             
@@ -86,7 +87,7 @@ namespace NUnitGoCore.Attributes
                 TestHrefAbsolute = _configuration.ServerLink + relativeTestHref,
                 Events = NunitGo.GetEvents()
             };
-
+            
             Directory.CreateDirectory(_nunitGoTest.AttachmentsPath);
             
             TakeScreenshotIfFailed();
