@@ -36,7 +36,7 @@ The most simple way to add your test to NUnitGo HTML report is to add **`NunitGo
 
 ```csharp
 [TestFixture]
-public class TestClass1
+public class TestClass
 {
     [Test, NunitGoAction]
     [Subsciption(Name = "TestSubscriptionName")]
