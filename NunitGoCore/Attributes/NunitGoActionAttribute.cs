@@ -79,7 +79,7 @@ namespace NUnitGoCore.Attributes
                 Name = _testName.Equals("") ? test.Name : _testName,
                 TestStackTrace = context.Result.StackTrace ?? "",
                 TestMessage = context.Result.Message ?? "",
-                Result = context.Result.Outcome != null ? context.Result.Outcome.ToString() : "Unknown",
+                Result = context.Result.Outcome?.ToString() ?? "Unknown",
                 Guid = _guid,
                 HasOutput = !_testOutput.Equals(string.Empty),
                 AttachmentsPath = _attachmentsPath + _guid + @"\",
@@ -99,10 +99,7 @@ namespace NUnitGoCore.Attributes
             Flush();
         }
 
-        public ActionTargets Targets
-        {
-            get { return ActionTargets.Test; }
-        }
+        public ActionTargets Targets => ActionTargets.Test;
 
         internal void SetTestGuid(string guid)
         {
