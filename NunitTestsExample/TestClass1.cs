@@ -10,6 +10,7 @@ namespace NUnitGoTestsExample
     public class TestClass1
     {
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111100", "Project1", "Subsystem1", "Unsuccessful test with 3 events")]
+        [TestRemark("Test was changed", 2016, 4, 7, 14, 23)]
         public void UnsuccessTestThreeEvents()
         {
             //first test event
@@ -30,7 +31,7 @@ namespace NUnitGoTestsExample
 
         [Test, NunitGoAction("11111111-1111-1111-1111-111111111110", "Project1", "Subsystem1", "Successful test with 3 events"), Category("SuccessCategory")]
         [Subscription(Name = "TestSubscription1", UnsuccessfulOnly = false)]
-        [EventDurationSubscription(EventName1, 0.001, "Evgeniy.Kosyakov@katharsis.ru")]
+        [EventDurationSubscription(EventName1, 0.001, "tester1@test.test")]
         public void SuccessTestThreeEvents()
         {
             var r = new Random();

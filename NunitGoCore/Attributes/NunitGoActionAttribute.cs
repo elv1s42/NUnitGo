@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -9,6 +10,7 @@ using NUnitGoCore.CustomElements.NunitTestHtml;
 using NUnitGoCore.CustomElements.ReportSections.MainInformationSection;
 using NUnitGoCore.NunitGoItems;
 using NUnitGoCore.NunitGoItems.Events;
+using NUnitGoCore.NunitGoItems.Remarks;
 using NUnitGoCore.NunitGoItems.Screenshots;
 using NUnitGoCore.NunitGoItems.Subscriptions;
 using NUnitGoCore.Utils;
@@ -28,6 +30,7 @@ namespace NUnitGoCore.Attributes
         private static string _screenshotsPath;
         private static string _attachmentsPath;
 
+        private MethodInfo _methodInfo;
         private NunitGoTest _nunitGoTest;
         private DateTime _start;
         private DateTime _finish;
@@ -54,6 +57,7 @@ namespace NUnitGoCore.Attributes
             CreateDirectories();
             NunitGo.SetUp();
             _start = DateTime.Now;
+            _methodInfo = test.Method.MethodInfo;
         }
 
         public void AfterTest(ITest test)
@@ -93,8 +97,8 @@ namespace NUnitGoCore.Attributes
             TakeScreenshotIfFailed();
             AddScreenshots();
             SaveTestFiles();
-            SendEmails(_nunitGoTest.IsSuccess(), test);
-            SendEmailsForEvents(test);
+            SendEmails(_nunitGoTest.IsSuccess());
+            SendEmailsForEvents();
             GenerateReport();
             Flush();
         }
@@ -111,14 +115,31 @@ namespace NUnitGoCore.Attributes
             return _guid.ToString();
         }
 
+        private List<Remark> GetTestRemarks()
+        {
+            var remarks = new List<Remark>();
+            try
+            {
+                var rmrks = _methodInfo.GetCustomAttributes<TestRemarkAttribute>();
+                remarks.AddRange(rmrks.Select(
+                    remarkAttribute => new Remark(remarkAttribute.RemarkDate, remarkAttribute.RemarkMessage)));
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Exception in GetTestRemarks");
+            }
+            return remarks;
+        }
+
         private void SaveTestFiles()
         {
             try
             {
                 _nunitGoTest.SaveAsXml(_nunitGoTest.AttachmentsPath + Output.Files.GetTestXmlName(_nunitGoTest.DateTimeFinish));
                 var testVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
+                var testRemarks = GetTestRemarks();
                 var chartId = Output.GetHistoryChartId(_nunitGoTest.Guid, _nunitGoTest.DateTimeFinish);
-                var highstockHistory = new NunitGoJsHighstock(testVersions, chartId);
+                var highstockHistory = new NunitGoJsHighstock(testVersions, testRemarks, chartId);
                 highstockHistory.SaveScript(_nunitGoTest.AttachmentsPath);
                 
                 var testPath = _nunitGoTest.AttachmentsPath + Output.Files.GetTestHtmlName(_nunitGoTest.DateTimeFinish);
@@ -130,13 +151,13 @@ namespace NUnitGoCore.Attributes
             }
         }
 
-        private void SendEmails(bool isSuccess, ITest test)
+        private void SendEmails(bool isSuccess)
         {
             try
             {
                 if (!_configuration.SendEmails) return;
 
-                var subs = test.Method.MethodInfo.GetCustomAttributes<SubscriptionAttribute>();
+                var subs = _methodInfo.GetCustomAttributes<SubscriptionAttribute>();
                 foreach (var sub in subs)
                 {
                     var sendCondition = (sub.UnsuccessfulOnly && !isSuccess) || (!sub.UnsuccessfulOnly);
@@ -161,7 +182,7 @@ namespace NUnitGoCore.Attributes
                     }
                 }
 
-                var singleSubs = test.Method.MethodInfo.GetCustomAttributes<SingleTestSubscriptionAttribute>();
+                var singleSubs = _methodInfo.GetCustomAttributes<SingleTestSubscriptionAttribute>();
                 foreach (var singleSub in singleSubs)
                 {
                     var sendCondition = (singleSub.UnsuccessfulOnly && !isSuccess) || (!singleSub.UnsuccessfulOnly);
@@ -187,12 +208,11 @@ namespace NUnitGoCore.Attributes
                     }
                 }
 
-                var eventSubs = test.Method.MethodInfo.GetCustomAttributes<EventDurationSubscriptionAttribute>();
+                var eventSubs = _methodInfo.GetCustomAttributes<EventDurationSubscriptionAttribute>();
                 foreach (var sub in eventSubs)
                 {
                     var currentTestVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
                     var subscription = _configuration.EventDurationSubscriptions.FirstOrDefault(x => x.Name.Equals(sub.Name));
-                    Log.Write("Count: " + currentTestVersions.Count);
                     if (currentTestVersions.Count > 1)
                     {
                         var previousTest = currentTestVersions
@@ -234,18 +254,17 @@ namespace NUnitGoCore.Attributes
 
         }
 
-        private void SendEmailsForEvents(ITest test)
+        private void SendEmailsForEvents()
         {
             try
             {
                 if (!_configuration.SendEmails) return;
 
-                var eventSubs = test.Method.MethodInfo.GetCustomAttributes<EventDurationSubscriptionAttribute>();
+                var eventSubs = _methodInfo.GetCustomAttributes<EventDurationSubscriptionAttribute>();
                 foreach (var sub in eventSubs)
                 {
                     var currentTestVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
                     var subscription = _configuration.EventDurationSubscriptions.FirstOrDefault(x => x.Name.Equals(sub.Name));
-                    Log.Write("Count: " + currentTestVersions.Count);
                     if (currentTestVersions.Count > 1)
                     {
                         var previousTest = currentTestVersions

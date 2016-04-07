@@ -48,6 +48,7 @@
     <Compile Include="Attributes\EventDurationSubscriptionAttribute.cs" />
     <Compile Include="Attributes\SubscriptionAttribute.cs" />
     <Compile Include="Attributes\SingleTestSubscriptionAttribute.cs" />
+    <Compile Include="Attributes\TestRemarkAttribute.cs" />
     <Compile Include="CustomElements\CSSElements\CssElement.cs" />
     <Compile Include="CustomElements\CSSElements\CssPage.cs" />
     <Compile Include="CustomElements\CSSElements\CssSet.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="CustomElements\HtmlCustomElements\Tooltip.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\Tree.cs" />
     <Compile Include="CustomElements\HtmlPage.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\HtmlTextWriterExtensions.cs" />
     <Compile Include="CustomElements\PageGenerator.cs" />
     <Compile Include="CustomElements\ReportSections\StatisticsSection.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="NunitGoItems\Events\EventDurationSubscription.cs" />
     <Compile Include="NunitGoItems\Events\TestEvent.cs" />
     <Compile Include="NunitGoItems\NunitGoConfiguration.cs" />
+    <Compile Include="NunitGoItems\Remarks\Remark.cs" />
     <Compile Include="NunitGoItems\Screenshots\Screenshot.cs" />
     <Compile Include="NunitGoItems\Screenshots\ScreenshotHelper.cs" />
     <Compile Include="NunitGoItems\Screenshots\Taker.cs" />

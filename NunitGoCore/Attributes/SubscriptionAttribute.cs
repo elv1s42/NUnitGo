@@ -21,6 +21,6 @@ namespace NUnitGoCore.Attributes
         public bool UnsuccessfulOnly = true;
         public string Name { get; set; }
         public string FullPath { get; set; }
-        public List<Address> Targets { private set; get; }
+        public List<Address> Targets { get; }
     }
 }

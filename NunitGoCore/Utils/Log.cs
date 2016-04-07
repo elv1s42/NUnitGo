@@ -15,7 +15,7 @@ namespace NUnitGoCore.Utils
             {
                 try
                 {
-                    var logLine = string.Format("{0:G}: {1}", DateTime.Now, msg);
+                    var logLine = $"{DateTime.Now:G}: {msg}";
                     sw.WriteLine(logLine);
                 }
                 finally
@@ -32,7 +32,7 @@ namespace NUnitGoCore.Utils
             {
                 try
                 {
-                    var logLine = string.Format("{0:G}: {1}", DateTime.Now, msg);
+                    var logLine = $"{DateTime.Now:G}: {msg}";
                     sw.WriteLine(logLine);
                 }
                 finally
@@ -49,7 +49,7 @@ namespace NUnitGoCore.Utils
             {
                 try
                 {
-                    var logLine = string.Format("{0:G}: {1}", DateTime.Now, msg);
+                    var logLine = $"{DateTime.Now:G}: {msg}";
                     sw.WriteLine(logLine);
                 }
                 catch (Exception ex)

@@ -3,7 +3,7 @@
   <LocalOutputPath>C:\_NUnitGoResults</LocalOutputPath>
   <TakeScreenshotAfterTestFailed>true</TakeScreenshotAfterTestFailed>
   <GenerateReport>false</GenerateReport>
-  <SendEmails>true</SendEmails>
+  <SendEmails>false</SendEmails>
   <AddLinksInsideEmail>true</AddLinksInsideEmail>
   <ServerLink>http://server/folder/</ServerLink>
   <Subsciptions>

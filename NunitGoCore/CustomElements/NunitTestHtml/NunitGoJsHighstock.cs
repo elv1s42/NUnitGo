@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using NUnitGoCore.Extensions;
 using NUnitGoCore.NunitGoItems;
+using NUnitGoCore.NunitGoItems.Remarks;
 using NUnitGoCore.Utils;
 
 namespace NUnitGoCore.CustomElements.NunitTestHtml
@@ -21,7 +23,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
             File.WriteAllText(fullPath, JsCode);
         }
 
-        public NunitGoJsHighstock(List<NunitGoTest> nunitGoTests, string id)
+        public NunitGoJsHighstock(List<NunitGoTest> nunitGoTests, List<Remark> testRemarks, string chartId)
         {
             var orderedList = nunitGoTests.OrderBy(x => x.DateTimeFinish);
             var lastTest = orderedList.Last();
@@ -29,17 +31,18 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
             
             var testsData = orderedList
                 .Aggregate("", 
-                (current, nunitGoTest) => current + string.Format(@"{{ x: Date.UTC({0}), y: {1}, marker:{{ fillColor: '{2}'}}, url: '{3}'}},", 
-                    nunitGoTest.DateTimeFinish.ToString("yyyy, MM, dd, HH, mm, ss"), 
-                    nunitGoTest.TestDuration.ToString(CultureInfo.InvariantCulture).Replace(",", "."), 
-                    nunitGoTest.GetBackgroundColor(), Output.Files.GetTestHtmlName(nunitGoTest.DateTimeFinish)));
+                (current, nunitGoTest) => current +
+                                          $@"{{ x: {nunitGoTest.DateTimeFinish.ToJsString()}, y: {nunitGoTest.TestDuration.ToString(
+                                                  CultureInfo.InvariantCulture).Replace(",", ".")}, marker:{{ fillColor: '{nunitGoTest
+                                                      .GetBackgroundColor()}'}}, url: '{Output.Files.GetTestHtmlName(
+                                                          nunitGoTest.DateTimeFinish)}'}},");
             var testsScreenshotsData = orderedList
                 .Aggregate("", 
                 (current1, nunitGoTest) => nunitGoTest
                     .Screenshots
                     .Aggregate(current1, 
-                    (current, screenshot) => current + string.Format(@"{{ x: Date.UTC({0}), title: 'img', text: 'Screenshot'}},", 
-                        screenshot.Date.ToString("yyyy, MM, dd, HH, mm, ss"))));
+                    (current, screenshot) => current +
+                                             $@"{{ x: {screenshot.Date.ToJsString()}, title: 'img', text: 'Screenshot'}},"));
             var lastTestEvents = lastTest.Events;
             var allEvents = lastTestEvents
                 .Select(testEvent => 
@@ -51,10 +54,11 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
             {
                 var eventData = eventList
                     .Aggregate("",
-                    (current, testEvent) => current + string.Format(@"{{ x: Date.UTC({0}), y: {1}, text: '{2}'}},", 
-                        testEvent.Finished.ToString("yyyy, MM, dd, HH, mm, ss"), 
-                        testEvent.Duration.ToString(CultureInfo.InvariantCulture).Replace(",", "."),
-                        "Event duration: " + testEvent.DurationString));
+                    (current, testEvent) => current +
+                                            $@"{{ x: {testEvent.Finished.ToJsString()}, y: {testEvent
+                                                .Duration.ToString(CultureInfo.InvariantCulture).Replace(",", ".")}, text: '{"Event duration: " +
+                                                                                                                             testEvent
+                                                                                                                                 .DurationString}'}},");
                 testEventsData += string.Format(@"{{
                                 marker: {{
                 		                enabled: true,
@@ -68,6 +72,12 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
                                 color : '{2}'
                             }}, " + Environment.NewLine, eventList.First().Name, eventData, Colors.Black, Colors.TestBorderColor);
             }
+
+            var testRemarksData = testRemarks.Aggregate("",
+                (current, remark) =>
+                    current +
+                    $@"{{ x: {remark.RemarkDate.ToJsString()}, title: 'Test remark', text: '{remark
+                        .RemarkMessage}'}},");
 
             JsCode = string.Format(@"
                     $(function () {{
@@ -142,11 +152,18 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
                                 width: 16,
                                 fillColor : '{4}',
                                 color : '{2}'
+                            }}, {{
+                                name: 'Remarks',
+                                type: 'flags',
+                                data: [{6}],
+                                shape: 'flag',
+                                fillColor : '{4}',
+                                color : '{2}'
                             }},
                             {5}
                             ]
                         }});
-                }});", id, testsData, Colors.TestBorderColor, testsScreenshotsData, Colors.BodyBackground, testEventsData);
+                }});", chartId, testsData, Colors.TestBorderColor, testsScreenshotsData, Colors.BodyBackground, testEventsData, testRemarksData);
         }
     }
 }
