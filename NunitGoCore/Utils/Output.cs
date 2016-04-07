@@ -24,6 +24,11 @@ namespace NUnitGoCore.Utils
             {
                 return "Test-" + finishTime.ToString("yy-MM-dd-HH-mm-ss-fff") + FileType.Html;
             }
+
+            public static string GetTestHistoryScriptName(DateTime testFinishDateTime)
+            {
+                return "test-script-" + testFinishDateTime.ToString("yy-MM-dd-HH-mm-ss-fff") + ".js";
+            }
         }
 
         public static string GetHistoryChartId(Guid testGuid, DateTime testFinishDateTime)
@@ -45,12 +50,7 @@ namespace NUnitGoCore.Utils
         {
             return localOutputPath + @"\Attachments\";
         }
-
-        public static string GetTestHistoryScriptName(DateTime testFinishDateTime)
-        {
-            return "test-script-" + testFinishDateTime.ToString("yy-MM-dd-HH-mm-ss-fff") + ".js";
-        }
-
+        
         public static string GetMainStatsScriptName()
         {
             return "stats.js";

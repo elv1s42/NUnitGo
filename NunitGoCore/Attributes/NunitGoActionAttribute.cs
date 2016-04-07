@@ -96,6 +96,7 @@ namespace NUnitGoCore.Attributes
             
             TakeScreenshotIfFailed();
             AddScreenshots();
+            CleanUpTestFiles();
             SaveTestFiles();
             SendEmails(_nunitGoTest.IsSuccess());
             SendEmailsForEvents();
@@ -141,13 +142,39 @@ namespace NUnitGoCore.Attributes
                 var chartId = Output.GetHistoryChartId(_nunitGoTest.Guid, _nunitGoTest.DateTimeFinish);
                 var highstockHistory = new NunitGoJsHighstock(testVersions, testRemarks, chartId);
                 highstockHistory.SaveScript(_nunitGoTest.AttachmentsPath);
-                
+
                 var testPath = _nunitGoTest.AttachmentsPath + Output.Files.GetTestHtmlName(_nunitGoTest.DateTimeFinish);
-                _nunitGoTest.GenerateTestPage(testPath, _testOutput, Output.GetTestHistoryScriptName(_nunitGoTest.DateTimeFinish));
+                _nunitGoTest.GenerateTestPage(testPath, _testOutput, Output.Files.GetTestHistoryScriptName(_nunitGoTest.DateTimeFinish));
             }
             catch (Exception ex)
             {
                 Log.Exception(ex, "Exception in SaveTestFiles");
+            }
+        }
+
+        private void CleanUpTestFiles()
+        {
+            try
+            {
+                var maxDate = DateTime.Now.AddDays(-_configuration.TestHistoryDaysLength);
+                NunitGoTestHelper
+                    .GetTestsFromFolder(_nunitGoTest.AttachmentsPath)
+                    .Where(x => x.DateTimeFinish < maxDate)
+                    .ToList()
+                    .ForEach(x => x.DeleteTestFiles(_screenshotsPath));
+                var currentTestVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
+                var currentTestVersionsNumber = currentTestVersions.Count;
+                if (currentTestVersionsNumber >= _configuration.MaxTestVersionsNumber)
+                {
+                    currentTestVersions.OrderByDescending(x => x.DateTimeFinish)
+                        .Skip(_configuration.MaxTestVersionsNumber - 1)
+                        .ToList()
+                        .ForEach(x => x.DeleteTestFiles(_screenshotsPath));
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Exception in CleanUpTestFiles");
             }
         }
 

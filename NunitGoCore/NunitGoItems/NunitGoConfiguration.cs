@@ -19,7 +19,8 @@ namespace NUnitGoCore.NunitGoItems
         public int SmtpPort;
         public bool EnableSsl;
         public List<Address> SendFromList;
-
+        public int TestHistoryDaysLength;
+        public int MaxTestVersionsNumber;
 
     }
 }

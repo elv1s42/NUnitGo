@@ -12,6 +12,28 @@ namespace NUnitGoCore.Utils
         {
             test.Save(fullPath);
         }
+        
+        public static void DeleteTestFiles(this NunitGoTest test, string screenshotsPath)
+        {
+            try
+            {
+                var finishDate = test.DateTimeFinish;
+                var scriptPath = Path.Combine(test.AttachmentsPath, Output.Files.GetTestHistoryScriptName(finishDate));
+                var htmlPath = Path.Combine(test.AttachmentsPath, Output.Files.GetTestHtmlName(finishDate));
+                var xmlPath = Path.Combine(test.AttachmentsPath, Output.Files.GetTestXmlName(finishDate));
+                File.Delete(scriptPath);
+                File.Delete(htmlPath);
+                File.Delete(xmlPath);
+                foreach (var screenshot in test.Screenshots)
+                {
+                    File.Delete(Path.Combine(screenshotsPath, screenshot.Name));
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Exception in CleanUpTestFiles");
+            }
+        }
 
         private static NunitGoTest Load(string fullPath)
         {

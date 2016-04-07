@@ -17,7 +17,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
 
         public void SaveScript(string path)
         {
-            var name = Output.GetTestHistoryScriptName(_lastTestFinishDateTime);
+            var name = Output.Files.GetTestHistoryScriptName(_lastTestFinishDateTime);
             var fullPath = Path.Combine(path, name);
             File.WriteAllText(fullPath, JsCode);
         }
