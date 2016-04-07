@@ -171,6 +171,11 @@ namespace NUnitGoCore.Attributes
                         .ToList()
                         .ForEach(x => x.DeleteTestFiles(_screenshotsPath));
                 }
+                Directory.GetDirectories(_attachmentsPath)
+                     .Select(f => new DirectoryInfo(f))
+                     .Where(f => f.LastWriteTime < maxDate)
+                     .ToList()
+                     .ForEach(f => f.Delete(true));
             }
             catch (Exception ex)
             {
