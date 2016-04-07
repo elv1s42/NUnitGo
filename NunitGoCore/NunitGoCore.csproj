@@ -80,6 +80,7 @@
     <Compile Include="CustomElements\HtmlCustomElements\Tree.cs" />
     <Compile Include="CustomElements\HtmlPage.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\DoubleExtensions.cs" />
     <Compile Include="Extensions\HtmlTextWriterExtensions.cs" />
     <Compile Include="CustomElements\PageGenerator.cs" />
     <Compile Include="CustomElements\ReportSections\StatisticsSection.cs" />

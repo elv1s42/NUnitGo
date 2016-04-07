@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using NUnitGoCore.Extensions;
@@ -32,8 +31,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
             var testsData = orderedList
                 .Aggregate("", 
                 (current, nunitGoTest) => current +
-                                          $@"{{ x: {nunitGoTest.DateTimeFinish.ToJsString()}, y: {nunitGoTest.TestDuration.ToString(
-                                                  CultureInfo.InvariantCulture).Replace(",", ".")}, marker:{{ fillColor: '{nunitGoTest
+                                          $@"{{ x: {nunitGoTest.DateTimeFinish.ToJsString()}, y: {nunitGoTest.TestDuration.ToJsString()}, marker:{{ fillColor: '{nunitGoTest
                                                       .GetBackgroundColor()}'}}, url: '{Output.Files.GetTestHtmlName(
                                                           nunitGoTest.DateTimeFinish)}'}},");
             var testsScreenshotsData = orderedList
@@ -56,7 +54,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
                     .Aggregate("",
                     (current, testEvent) => current +
                                             $@"{{ x: {testEvent.Finished.ToJsString()}, y: {testEvent
-                                                .Duration.ToString(CultureInfo.InvariantCulture).Replace(",", ".")}, text: '{"Event duration: " +
+                                                .Duration.ToJsString()}, text: '{"Event duration: " +
                                                                                                                              testEvent
                                                                                                                                  .DurationString}'}},");
                 testEventsData += string.Format(@"{{
@@ -158,12 +156,12 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
                                 data: [{6}],
                                 shape: 'flag',
                                 fillColor : '{4}',
-                                color : '{2}'
+                                color : '{7}'
                             }},
                             {5}
                             ]
                         }});
-                }});", chartId, testsData, Colors.TestBorderColor, testsScreenshotsData, Colors.BodyBackground, testEventsData, testRemarksData);
+                }});", chartId, testsData, Colors.TestBorderColor, testsScreenshotsData, Colors.BodyBackground, testEventsData, testRemarksData, Colors.Remarks);
         }
     }
 }

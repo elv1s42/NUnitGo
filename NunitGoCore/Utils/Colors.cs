@@ -15,7 +15,8 @@
         public const string TestInconclusive = "#D6FAF7"; //"grey"
         public const string TestUnknown = "#bdbdbd"; //"grey"
         public const string OpenLogsButtonBackground = "#bdbdbd"; //"grey"
-        
+        public const string Remarks = "#81d4fa"; //"blue"
+
         public const string White = "white"; //"white"
         public const string Black = "#000000";
     }

@@ -20,5 +20,6 @@ namespace NUnitGoCore.NunitGoItems
         public bool EnableSsl;
         public List<Address> SendFromList;
 
+
     }
 }
