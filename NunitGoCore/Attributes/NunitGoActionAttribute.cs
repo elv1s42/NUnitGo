@@ -92,8 +92,6 @@ namespace NUnitGoCore.Attributes
                 Events = NunitGo.GetEvents()
             };
             
-            Directory.CreateDirectory(_nunitGoTest.AttachmentsPath);
-            
             TakeScreenshotIfFailed();
             AddScreenshots();
             CleanUpTestFiles();
@@ -136,6 +134,7 @@ namespace NUnitGoCore.Attributes
         {
             try
             {
+                Directory.CreateDirectory(_nunitGoTest.AttachmentsPath);
                 _nunitGoTest.SaveAsXml(_nunitGoTest.AttachmentsPath + Output.Files.GetTestXmlName(_nunitGoTest.DateTimeFinish));
                 var testVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
                 var testRemarks = GetTestRemarks();
@@ -157,25 +156,34 @@ namespace NUnitGoCore.Attributes
             try
             {
                 var maxDate = DateTime.Now.AddDays(-_configuration.TestHistoryDaysLength);
-                NunitGoTestHelper
-                    .GetTestsFromFolder(_nunitGoTest.AttachmentsPath)
-                    .Where(x => x.DateTimeFinish < maxDate)
-                    .ToList()
-                    .ForEach(x => x.DeleteTestFiles(_screenshotsPath));
-                var currentTestVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
-                var currentTestVersionsNumber = currentTestVersions.Count;
-                if (currentTestVersionsNumber >= _configuration.MaxTestVersionsNumber)
+                var folders = Directory.GetDirectories(_attachmentsPath);
+                foreach (var folder in folders)
                 {
-                    currentTestVersions.OrderByDescending(x => x.DateTimeFinish)
-                        .Skip(_configuration.MaxTestVersionsNumber - 1)
-                        .ToList()
-                        .ForEach(x => x.DeleteTestFiles(_screenshotsPath));
+                    var dirInfo = new DirectoryInfo(folder);
+                    var allFiles = dirInfo.GetFiles("*.xml").OrderByDescending(x => x.CreationTime);
+                    if (dirInfo.LastWriteTime < maxDate || dirInfo.CreationTime < maxDate || !allFiles.Any())
+                    {
+                        Log.Write("Deleting: " + dirInfo.FullName);
+                        Directory.Delete(dirInfo.FullName, true);
+                    }
+                    else
+                    {
+                        var folderTestVersions = NunitGoTestHelper.GetTestsFromFolder(folder);
+                        var folderTestVersionsNumber = folderTestVersions.Count;
+                        if (folderTestVersionsNumber >= _configuration.MaxTestVersionsNumber)
+                        {
+                            folderTestVersions.OrderByDescending(x => x.DateTimeFinish)
+                                .Skip(_configuration.MaxTestVersionsNumber)
+                                .ToList()
+                                .ForEach(x => x.DeleteTestFiles(_screenshotsPath));
+                        }
+                        NunitGoTestHelper
+                            .GetTestsFromFolder(folder)
+                            .Where(x => x.DateTimeFinish < maxDate)
+                            .ToList()
+                            .ForEach(x => x.DeleteTestFiles(_screenshotsPath));
+                    }
                 }
-                Directory.GetDirectories(_attachmentsPath)
-                     .Select(f => new DirectoryInfo(f))
-                     .Where(f => f.LastWriteTime < maxDate)
-                     .ToList()
-                     .ForEach(f => f.Delete(true));
             }
             catch (Exception ex)
             {

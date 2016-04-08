@@ -17,6 +17,7 @@ namespace NUnitGoCore.Utils
         {
             try
             {
+                Log.Write("Deleting: " + test.Guid);
                 var finishDate = test.DateTimeFinish;
                 var scriptPath = Path.Combine(test.AttachmentsPath, Output.Files.GetTestHistoryScriptName(finishDate));
                 var htmlPath = Path.Combine(test.AttachmentsPath, Output.Files.GetTestHtmlName(finishDate));
@@ -46,7 +47,7 @@ namespace NUnitGoCore.Utils
             try
             {
                 var dirInfo = new DirectoryInfo(folder);
-                var files = dirInfo.GetFiles("*.xml");
+                var files = dirInfo.GetFiles("*.xml", SearchOption.AllDirectories);
                 tests.AddRange(files.Select(fileInfo => Load(fileInfo.FullName)));
             }
             catch (Exception ex)
@@ -66,8 +67,16 @@ namespace NUnitGoCore.Utils
                 try
                 {
                     var dirInfo = new DirectoryInfo(folder);
-                    var newestFile = dirInfo.GetFiles("*.xml").OrderByDescending(x => x.CreationTime).First().FullName;
-                    tests.Add(Load(newestFile));
+                    var allFiles = dirInfo.GetFiles("*.xml").OrderByDescending(x => x.CreationTime);
+                    if (allFiles.Any())
+                    {
+                        var newestFile = allFiles.First().FullName;
+                        tests.Add(Load(newestFile));
+                    }
+                    else
+                    {
+                        Directory.Delete(dirInfo.FullName);
+                    }
                 }
                 catch (Exception ex)
                 {
