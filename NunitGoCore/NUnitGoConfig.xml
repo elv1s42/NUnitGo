@@ -61,6 +61,6 @@
       <Name>Autotests</Name>
     </Address>
   </SendFromList>
-  <TestHistoryDaysLength>1</TestHistoryDaysLength>
+  <TestHistoryDaysLength>2</TestHistoryDaysLength>
   <MaxTestVersionsNumber>10</MaxTestVersionsNumber>
 </NunitGoConfiguration>

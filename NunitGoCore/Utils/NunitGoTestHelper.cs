@@ -17,7 +17,6 @@ namespace NUnitGoCore.Utils
         {
             try
             {
-                Log.Write("Deleting: " + test.Guid);
                 var finishDate = test.DateTimeFinish;
                 var scriptPath = Path.Combine(test.AttachmentsPath, Output.Files.GetTestHistoryScriptName(finishDate));
                 var htmlPath = Path.Combine(test.AttachmentsPath, Output.Files.GetTestHtmlName(finishDate));
