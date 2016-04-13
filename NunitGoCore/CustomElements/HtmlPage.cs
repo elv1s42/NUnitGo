@@ -68,6 +68,10 @@ namespace NUnitGoCore.CustomElements
             }
         }
 
+        public string PageScriptString;
+        public List<string> PageStylePaths;
+        public List<string> ScriptFilePaths;
+
         public HtmlPage(string pageTitle, string styleFullPath = "", string scriptString = "", string localScriptFilePath = "")
         {
             var strWr = new StringWriter();
@@ -91,7 +95,9 @@ namespace NUnitGoCore.CustomElements
                 writer.AddAttribute(HtmlTextWriterAttribute.Src, "https://code.highcharts.com/stock/highstock.js");
                 writer.AddTag(HtmlTextWriterTag.Script);
                 if (!scriptString.Equals(""))
+                {
                     writer.AddTag(HtmlTextWriterTag.Script, scriptString);
+                }
                 if (!localScriptFilePath.Equals(""))
                 {
                     writer.AddAttribute(HtmlTextWriterAttribute.Src, localScriptFilePath);

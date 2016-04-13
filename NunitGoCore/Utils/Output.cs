@@ -14,6 +14,8 @@ namespace NUnitGoCore.Utils
             public static string TimelineFile = "Timeline" + FileType.Html;
             public static string FullReportFile = "index" + FileType.Html;
             public static string ReportStyleFile = "reportStyle" + FileType.Css;
+            public static string PrimerStyleFile = "primer" + FileType.Css;
+            public static string StatsScript = "stats" + FileType.Js;
 
             public static string GetTestXmlName(DateTime finishTime)
             {
@@ -51,11 +53,6 @@ namespace NUnitGoCore.Utils
             return localOutputPath + @"\Attachments\";
         }
         
-        public static string GetMainStatsScriptName()
-        {
-            return "stats.js";
-        }
-
         public struct FileType
         {
             public static string Default = ".html";
@@ -63,6 +60,7 @@ namespace NUnitGoCore.Utils
             public static string Xml = ".xml";
             public static string Html = ".html";
             public static string Css = ".css";
+            public static string Js = ".js";
         }
     }
 }

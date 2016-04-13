@@ -346,6 +346,24 @@ namespace NUnitGoCore.Attributes
 
         }
 
+        private void ExtractResource(string embeddedFileName, string destinationPath)
+        {
+            var currentAssembly = GetType().Assembly;
+            var arrResources = GetType().Assembly.GetManifestResourceNames();
+            foreach (var resourceName in arrResources
+                .Where(resourceName => resourceName.ToUpper().EndsWith(embeddedFileName.ToUpper())))
+            {
+                using (var resourceToSave = currentAssembly.GetManifestResourceStream(resourceName))
+                {
+                    using (var output = File.OpenWrite(destinationPath))
+                    {
+                        resourceToSave?.CopyTo(output);
+                    }
+                    resourceToSave?.Close();
+                }
+            }
+        }
+        
         public void GenerateReport()
         {
             try
@@ -353,6 +371,13 @@ namespace NUnitGoCore.Attributes
                 if (!_configuration.GenerateReport) return;
 
                 PageGenerator.GenerateStyleFile(_outputPath);
+
+                var primerName = Output.Files.PrimerStyleFile;
+                var primerFullPath = Path.Combine(_outputPath, primerName);
+                if (!File.Exists(primerFullPath))
+                {
+                    ExtractResource(primerName, primerFullPath);
+                }
 
                 var tests = NunitGoTestHelper.GetNewestTests(_attachmentsPath).OrderBy(x => x.DateTimeFinish).ToList();
                 var stats = new MainStatistics(tests);

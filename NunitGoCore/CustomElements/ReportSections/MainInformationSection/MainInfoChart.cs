@@ -9,25 +9,23 @@ namespace NUnitGoCore.CustomElements.ReportSections.MainInformationSection
 
         public void SaveScript(string path)
         {
-            var fullPath = Path.Combine(path, Output.GetMainStatsScriptName());
+            var fullPath = Path.Combine(path, Output.Files.StatsScript);
             File.WriteAllText(fullPath, JsCode);
         }
 
         public MainInfoChart(MainStatistics stats, string id)
         {
-            var data = string
-                .Format("[" +
-                        "{{name: 'Passed', y: {0}, color: '" + Colors.TestPassed + "'}}," +
-                        "{{name: 'Failed', y: {1}, color: '" + Colors.TestFailed + "'}}," +
-                        "{{name: 'Broken', y: {2}, color: '" + Colors.TestBroken + "'}}," +
-                        "{{name: 'Ignored', y: {3}, color: '" + Colors.TestIgnored + "'}}," +
-                        "{{name: 'Inconclusive', y: {4}, color: '" + Colors.TestInconclusive + "'}}" +
-                        "]", stats.TotalPassed, stats.TotalFailed, stats.TotalBroken, stats.TotalIgnored,
-                    stats.TotalInconclusive);
+            var data = "[" + $"{{name: 'Passed', y: {stats.TotalPassed}, color: '" + Colors.TestPassed + "'}," +
+                       $"{{name: 'Failed', y: {stats.TotalFailed}, color: '" + Colors.TestFailed + "'}," +
+                       $"{{name: 'Broken', y: {stats.TotalBroken}, color: '" + Colors.TestBroken + "'}," +
+                       $"{{name: 'Ignored', y: {stats.TotalIgnored}, color: '" + Colors.TestIgnored + "'}," +
+                       $"{{name: 'Inconclusive', y: {stats.TotalInconclusive}, color: '" + Colors.TestInconclusive +
+                       "'}" + "]";
             
-            JsCode = string.Format(@"
+            JsCode =
+                $@"
                     $(function () {{
-                        $('#{0}').highcharts({{       		
+                        $('#{id}').highcharts({{       		
            	                chart: {{
             		                type: 'pie'
         		                }},
@@ -37,10 +35,10 @@ namespace NUnitGoCore.CustomElements.ReportSections.MainInformationSection
                             series: 
                             [{{
                                 name: 'Results',
-                                data: {1}
+                                data: {data}
                             }}]
                         }});
-                }});", id, data);
+                }});";
         }
     }
 }
