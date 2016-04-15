@@ -12,7 +12,7 @@ namespace NUnitGoCore.CustomElements
 {
 	public static class PageGenerator
 	{
-		public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath, string testOutput = "", string chartFile = "")
+		public static void GenerateTestPage(this NunitGoTest nunitGoTest, string fullPath, string testOutput, string chartFile)
 		{
 			try
 			{
@@ -28,11 +28,19 @@ namespace NUnitGoCore.CustomElements
 						});
 					});
 				";
-				var page = new HtmlPage("Test page", "./../../" + Output.Files.ReportStyleFile, script);
-				var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest, testOutput);
-				page.AddScript(chartFile);
-				page.AddToBody(htmlTest.HtmlCode);
-				page.SavePage(fullPath);
+                //var page = new HtmlPage("Test page", "./../../" + Output.Files.ReportStyleFile, script);
+                //var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest, testOutput);
+                //page.AddScript(chartFile);
+                //page.AddToBody(htmlTest.HtmlCode);
+
+                var page = new HtmlPage("Test page")
+                {
+                    PageStylePaths = new List<string>{ "./../../" + Output.Files.ReportStyleFile },
+                    PageScriptString = script,
+                    ScriptFilePaths = new List<string> { chartFile }
+                };
+
+                page.SavePage(fullPath);
 			}
 			catch (Exception ex)
 			{
@@ -126,7 +134,10 @@ namespace NUnitGoCore.CustomElements
 		{
 			try
 			{
-				var report = new HtmlPage("NUnitGo Report", "", "", Output.Files.StatsScript);
+				var report = new HtmlPage("NUnitGo Report")
+				{
+				    ScriptFilePaths = new List<string> { Output.Files.StatsScript }
+                };
 				var mainTitle = new PageTitle();
 				report.AddToBody(mainTitle.HtmlCode);
 				var mainInformation = new MainInformationSection(mainStats);

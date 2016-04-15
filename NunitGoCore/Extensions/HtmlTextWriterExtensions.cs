@@ -21,7 +21,7 @@ namespace NUnitGoCore.Extensions
             writer.RenderEndTag();
         }
 
-        public static void AddTag(this HtmlTextWriter writer, HtmlTextWriterTag tag,
+        public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag,
             Dictionary<HtmlTextWriterAttribute, string> attributes, string value = "")
         {
             foreach (var attribute in attributes)
@@ -34,6 +34,7 @@ namespace NUnitGoCore.Extensions
                 writer.Write(value);
             }
             writer.RenderEndTag();
+            return writer;
         }
 
         public static void AddTag(this HtmlTextWriter writer, HtmlTextWriterTag tag,
@@ -99,7 +100,19 @@ namespace NUnitGoCore.Extensions
             writer.RenderEndTag();//UL
         }
 
+        public static HtmlTextWriter WriteString(this HtmlTextWriter writer, string value = "")
+        {
+            writer.Write(value != "" ? value : Environment.NewLine);
+            return writer;
+        }
+
         public static HtmlTextWriter OpenTag(this HtmlTextWriter writer, HtmlTextWriterTag tag)
+        {
+            writer.RenderBeginTag(tag);
+            return writer;
+        }
+
+        public static HtmlTextWriter OpenTag(this HtmlTextWriter writer, string tag)
         {
             writer.RenderBeginTag(tag);
             return writer;
@@ -113,10 +126,10 @@ namespace NUnitGoCore.Extensions
 
         public static HtmlTextWriter CssShadow(this HtmlTextWriter writer, string value)
         {
-            writer.AddStyleAttribute("box-shadow", value);
-            writer.AddStyleAttribute("-moz-box-shadow", value);
-            writer.AddStyleAttribute("-webkit-box-shadow", value);
-            return writer;
+            return writer
+                .WithAttr("box-shadow", value)
+                .WithAttr("-moz-box-shadow", value)
+                .WithAttr("-webkit-box-shadow", value);
         }
 
         public static HtmlTextWriter Css(this HtmlTextWriter writer, string styleAttr, string value)
@@ -148,6 +161,11 @@ namespace NUnitGoCore.Extensions
             return writer.OpenTag(tag).Text(value).CloseTag();
         }
 
+        public static HtmlTextWriter Tag(this HtmlTextWriter writer, string tag)
+        {
+            return writer.OpenTag(tag).CloseTag();
+        }
+
         public static HtmlTextWriter CloseTag(this HtmlTextWriter writer)
         {
             writer.RenderEndTag();
@@ -161,6 +179,13 @@ namespace NUnitGoCore.Extensions
             return writer.CloseTag();
         }
 
+        public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag, Action<HtmlTextWriter> someAction)
+        {
+            writer.OpenTag(tag);
+            someAction.Invoke(writer);
+            return writer.CloseTag();
+        }
+        
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag, params Action[] someActions)
         {
             writer.OpenTag(tag);
@@ -169,6 +194,72 @@ namespace NUnitGoCore.Extensions
                 action.Invoke();
             }
             return writer.CloseTag();
+        }
+
+        public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag,
+            Dictionary<string, string> attributes, string value = "")
+        {
+            foreach (var attribute in attributes)
+            {
+                writer.AddAttribute(attribute.Key, attribute.Value);
+            }
+            writer.RenderBeginTag(tag);
+            if (value != "")
+            {
+                writer.Write(value);
+            }
+            writer.RenderEndTag();
+            return writer;
+        }
+
+        public static HtmlTextWriter DoAction(this HtmlTextWriter writer, Action someAction)
+        {
+            someAction.Invoke();
+            return writer;
+        }
+
+        public static HtmlTextWriter If(this HtmlTextWriter writer, bool condition, Action someAction)
+        {
+            return condition ? writer.DoAction(someAction) : writer;
+        }
+
+        public static HtmlTextWriter TagIf(this HtmlTextWriter writer, bool condition, HtmlTextWriterTag tag)
+        {
+            return condition ? writer.Tag(tag) : writer;
+        }
+
+        public static HtmlTextWriter TagIf(this HtmlTextWriter writer, bool condition, HtmlTextWriterTag tag, string value)
+        {
+            return condition ? writer.Tag(tag, value) : writer;
+        }
+
+        public static HtmlTextWriter TagIf(this HtmlTextWriter writer, bool condition, HtmlTextWriterTag tag, Action someAction)
+        {
+            return condition ? writer.Tag(tag, someAction) : writer;
+        }
+
+        public static HtmlTextWriter Stylesheets(this HtmlTextWriter writer, List<string> pathsToCss)
+        {
+            foreach (var path in pathsToCss)
+            {
+                writer.Tag(HtmlTextWriterTag.Link, new Dictionary<HtmlTextWriterAttribute, string>
+                {
+                    {HtmlTextWriterAttribute.Rel, @"stylesheet"},
+                    {HtmlTextWriterAttribute.Type, @"text/css"},
+                    {HtmlTextWriterAttribute.Href, path}
+                });
+            }
+            return writer;
+        }
+
+        public static HtmlTextWriter Scripts(this HtmlTextWriter writer, List<string> pathsToScripts)
+        {
+            foreach (var path in pathsToScripts)
+            {
+                writer.WithAttr(HtmlTextWriterAttribute.Src, path)
+                    .Tag(HtmlTextWriterTag.Script);
+            }
+            return writer;
         }
     }
 }

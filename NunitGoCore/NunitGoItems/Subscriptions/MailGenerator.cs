@@ -54,18 +54,18 @@ namespace NUnitGoCore.NunitGoItems.Subscriptions
                 writer.Write("<!DOCTYPE html>");
                 writer.Write(Environment.NewLine);
                 writer.RenderBeginTag(HtmlTextWriterTag.Head);
-                writer.AddTag(HtmlTextWriterTag.Meta, new Dictionary<string, string>
+                writer.Tag(HtmlTextWriterTag.Meta, new Dictionary<string, string>
                 {
                     {"http-equiv", "X-UA-Compatible"},
                     {"content", @"IE=edge"},
                     {"charset", "utf-8"}
                 });
-                writer.AddTag(HtmlTextWriterTag.Title, "NUnitGo Email");
-                writer.AddTag(HtmlTextWriterTag.Style, new Dictionary<HtmlTextWriterAttribute, string>
+                writer.Tag(HtmlTextWriterTag.Title, "NUnitGo Email");
+                writer.Tag(HtmlTextWriterTag.Style, new Dictionary<HtmlTextWriterAttribute, string>
                 {
                     {HtmlTextWriterAttribute.Type, @"text/css"}
                 });
-                writer.AddTag(HtmlTextWriterTag.Link, new Dictionary<HtmlTextWriterAttribute, string>
+                writer.Tag(HtmlTextWriterTag.Link, new Dictionary<HtmlTextWriterAttribute, string>
                 {
                     {HtmlTextWriterAttribute.Rel, @"stylesheet"},
                     {HtmlTextWriterAttribute.Type, @"text/css"}

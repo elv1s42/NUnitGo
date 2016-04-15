@@ -11,13 +11,11 @@ namespace NUnitGoCore.CustomElements
 {
     public class HtmlPage
     {
-        private string _page;
-
         public static string StyleString
         {
             get
             {
-                var mainCssSet = new CssSet("main-style"); 
+                var mainCssSet = new CssSet("main-style");
                 mainCssSet.AddElement(new CssElement("body")
                 {
                     StyleFields = new List<StyleAttribute>
@@ -26,9 +24,9 @@ namespace NUnitGoCore.CustomElements
                         new StyleAttribute(HtmlTextWriterStyle.Margin, "0px"),
                         new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
                         //new StyleAttribute(HtmlTextWriterStyle.FontFamily, "Tahoma,Verdana,Segoe,sans-serif");
-                        new StyleAttribute(HtmlTextWriterStyle.FontFamily, 
+                        new StyleAttribute(HtmlTextWriterStyle.FontFamily,
                             "\"Lucida Grande\", \"Lucida Sans Unicode\", Arial, Helvetica, sans-serif")
-                        
+
                         //new StyleAttribute(HtmlTextWriterStyle.FontFamily, "\"Segoe UI\",Frutiger,\"Frutiger Linotype\"," +
                         //                                                   "\"Dejavu Sans\",\"Helvetica Neue\",Arial,sans-serif")
                         //new StyleAttribute(HtmlTextWriterStyle.FontFamily, "\"Franklin Gothic Medium\",\"Franklin Gothic\"," +
@@ -68,84 +66,67 @@ namespace NUnitGoCore.CustomElements
             }
         }
 
-        public string PageScriptString;
-        public List<string> PageStylePaths;
-        public List<string> ScriptFilePaths;
+        public string FullPage { get; private set; }
 
-        public HtmlPage(string pageTitle, string styleFullPath = "", string scriptString = "", string localScriptFilePath = "")
+        public string PageTitle;
+        public string PageBodyCode = "";
+        public string PageScriptString = "";
+        public List<string> PageStylePaths = new List<string>();
+        public List<string> ScriptFilePaths = new List<string>();
+
+        //public HtmlPage(string pageTitle, string styleFullPath = "", string scriptString = "", string localScriptFilePath = "")
+        public HtmlPage(string pageTitle)
+        {
+            PageTitle = pageTitle;
+        }
+
+        private void GeneratePageString()
         {
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
             {
                 //writer.RenderBeginTag(HtmlTextWriterTag.Html);
-                writer.Write("<!DOCTYPE html>");
-                writer.Write(Environment.NewLine);
-
-                writer.RenderBeginTag(HtmlTextWriterTag.Head);
-
-                writer.AddTag(HtmlTextWriterTag.Meta, new Dictionary<string, string>
-                {
-                    {"http-equiv", "X-UA-Compatible"},
-                    {"content", @"IE=edge"},
-                    {"charset", "utf-8"}
-                });
-                writer.AddTag(HtmlTextWriterTag.Title, pageTitle);
-                writer.AddAttribute(HtmlTextWriterAttribute.Src, "http://code.jquery.com/jquery-1.11.0.min.js");
-                writer.AddTag(HtmlTextWriterTag.Script);
-                writer.AddAttribute(HtmlTextWriterAttribute.Src, "https://code.highcharts.com/stock/highstock.js");
-                writer.AddTag(HtmlTextWriterTag.Script);
-                if (!scriptString.Equals(""))
-                {
-                    writer.AddTag(HtmlTextWriterTag.Script, scriptString);
-                }
-                if (!localScriptFilePath.Equals(""))
-                {
-                    writer.AddAttribute(HtmlTextWriterAttribute.Src, localScriptFilePath);
-                    writer.AddTag(HtmlTextWriterTag.Script);
-                }
-                writer.AddTag(HtmlTextWriterTag.Style, new Dictionary<HtmlTextWriterAttribute, string>
-                {
-                    {HtmlTextWriterAttribute.Type, @"text/css"}
-                }); 
-                writer.AddTag(HtmlTextWriterTag.Link, new Dictionary<HtmlTextWriterAttribute, string>
-                {
-                    {HtmlTextWriterAttribute.Rel, @"stylesheet"},
-                    {HtmlTextWriterAttribute.Type, @"text/css"},
-                    {HtmlTextWriterAttribute.Href, styleFullPath.Equals("") ? Output.Files.ReportStyleFile : styleFullPath}
-                });
-
-                writer.RenderEndTag(); //HEAD
-
-                writer.AddTag(HtmlTextWriterTag.Body);
-
-                writer.Write(Environment.NewLine);
-
-                writer.AddTag("footer");
-
-                //writer.RenderEndTag(); //HTML
-                writer.Write(Environment.NewLine);
-                writer.Write("</html>");
-                writer.Write(Environment.NewLine);
-
+                writer
+                    .WriteString("<!DOCTYPE html>")
+                    .WriteString(Environment.NewLine)
+                    .Tag(HtmlTextWriterTag.Head, () => writer
+                        .Tag(HtmlTextWriterTag.Meta, new Dictionary<string, string>
+                        {
+                            {"http-equiv", "X-UA-Compatible"},
+                            {"content", @"IE=edge"},
+                            {"charset", "utf-8"}
+                        })
+                        .Tag(HtmlTextWriterTag.Title, PageTitle)
+                        .WithAttr(HtmlTextWriterAttribute.Src, "http://code.jquery.com/jquery-1.11.0.min.js")
+                        .Tag(HtmlTextWriterTag.Script)
+                        .WithAttr(HtmlTextWriterAttribute.Src, "https://code.highcharts.com/stock/highstock.js")
+                        .Tag(HtmlTextWriterTag.Script)
+                        .TagIf(!PageScriptString.Equals(""), HtmlTextWriterTag.Script, PageScriptString)
+                        .Scripts(ScriptFilePaths)
+                        .WithAttr(HtmlTextWriterAttribute.Type, @"text/css")
+                        .Tag(HtmlTextWriterTag.Style)
+                        .Stylesheets(PageStylePaths)
+                    )
+                    .Tag(HtmlTextWriterTag.Body, PageBodyCode)
+                    .WriteString(Environment.NewLine)
+                    .Tag("footer")
+                    .WriteString(Environment.NewLine)
+                    .WriteString("</html>")
+                    .Write(Environment.NewLine);
             }
-            _page = strWr.ToString();
-        }
-
-        public string GetFullPage()
-        {
-            return _page;
+            FullPage = strWr.ToString();
         }
 
         public string AddInsideTag(string tagName, string stringToAdd)
         {
-            var lines = _page.SplitToLines().ToList();
+            var lines = FullPage.SplitToLines().ToList();
             foreach (var line in lines.Where(line => line.Contains(@"</" + tagName + @">")))
             {
                 lines.Insert(lines.IndexOf(line), stringToAdd);
-                _page = string.Join(Environment.NewLine, lines);
-                return _page;
+                FullPage = string.Join(Environment.NewLine, lines);
+                return FullPage;
             }
-            return _page;
+            return FullPage;
         }
 
         public string AddToBody(string stringToAdd)
@@ -168,7 +149,7 @@ namespace NUnitGoCore.CustomElements
             }
             AddInsideTag("head", strWr.ToString());
         }
-        
+
         public string AddToHead(string text = "")
         {
             return AddInsideTag("head", text);
@@ -176,7 +157,8 @@ namespace NUnitGoCore.CustomElements
 
         public void SavePage(string fullpath)
         {
-            File.WriteAllText(fullpath, _page);
+            GeneratePageString();
+            File.WriteAllText(fullpath, FullPage);
         }
     }
 }
