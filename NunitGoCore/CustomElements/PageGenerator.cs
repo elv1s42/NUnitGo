@@ -31,7 +31,7 @@ namespace NUnitGoCore.CustomElements
                 var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest, testOutput);
                 var page = new HtmlPage("Test page")
                 {
-                    PageStylePaths = new List<string>{ "./../../" + Output.Files.ReportStyleFile },
+                    PageStylePaths = new List<string>{ "./../../" + Output.Files.ReportStyleFile, "./../../" + Output.Files.PrimerStyleFile },
                     PageScriptString = script,
                     ScriptFilePaths = new List<string> { chartFile },
                     PageBodyCode = htmlTest.HtmlCode
@@ -48,7 +48,7 @@ namespace NUnitGoCore.CustomElements
 		{
 			try
             {
-                var reportMenuTitle = new PageTitle("Main statistics", "main-statistics");
+                var reportMenuTitle = new SectionName("Main statistics");
                 var statisticsSection = new StatisticsSection(stats);
                 var page = new HtmlPage("Main statistics page")
                 {
@@ -67,7 +67,7 @@ namespace NUnitGoCore.CustomElements
 		{
 			try
             {
-                var reportMenuTitle = new PageTitle("Test list", "main-test-list");
+                var reportMenuTitle = new SectionName("Test list");
                 var testListSection = new TestListSection(tests);
                 var page = new HtmlPage("Test list page")
                 {
@@ -86,7 +86,7 @@ namespace NUnitGoCore.CustomElements
 		{
 			try
             {
-                var reportMenuTitle = new PageTitle("Tests timeline", "tests-timeline");
+                var reportMenuTitle = new SectionName("Tests timeline");
                 var timeline = new TimelineSection(tests);
                 var page = new HtmlPage("Timeline page")
                 {
@@ -108,23 +108,28 @@ namespace NUnitGoCore.CustomElements
             {
                 var menuElements = new List<ReportMenuItem>
                 {
-                    new ReportMenuItem("Main statistics", Output.Files.TestStatisticsFile),
-                    new ReportMenuItem("Test list", Output.Files.TestListFile),
-                    new ReportMenuItem("Timeline", Output.Files.TimelineFile)
+                    new ReportMenuItem("Main statistics", Output.Files.TestStatisticsFile , "octicon octicon-graph"),
+                    new ReportMenuItem("Test list", Output.Files.TestListFile, "octicon octicon-checklist"),
+                    new ReportMenuItem("Timeline", Output.Files.TimelineFile, "octicon octicon-clock")
                 };
-                var mainTitle = new PageTitle();
+                var mainTitle = new SectionName("Test Run Report");
                 var mainInformation = new MainInformationSection(mainStats);
                 var reportMenu = new MenuSection(menuElements, "main-menu", "Report menu");
-                var reportPageName = Output.Files.FullReportFile;
-                var footer = new FooterSection();
                 var report = new HtmlPage("NUnitGo Report")
 				{
-				    ScriptFilePaths = new List<string> { Output.Files.StatsScript },
-                    PageStylePaths = new List<string> { Output.Files.ReportStyleFile, Output.Files.PrimerStyleFile },
-                    PageBodyCode = mainTitle.HtmlCode + mainInformation.HtmlCode + reportMenu.ReportMenuHtml,
-                    PageFooterCode = footer.HtmlCode
+				    ScriptFilePaths = new List<string>
+				    {
+                        Output.Files.StatsScript
+				    },
+                    PageStylePaths = new List<string>
+                    {
+                        Output.Files.ReportStyleFile,
+                        Output.Files.PrimerStyleFile,
+                        Output.Files.OcticonStyleFile
+                    },
+                    PageBodyCode = mainTitle.HtmlCode + mainInformation.HtmlCode + reportMenu.ReportMenuHtml
                 };
-				report.SavePage(Path.Combine(pathToSave, reportPageName));
+				report.SavePage(Path.Combine(pathToSave, Output.Files.FullReportFile));
 			}
 			catch (Exception ex)
 			{
@@ -139,17 +144,13 @@ namespace NUnitGoCore.CustomElements
                 var cssPage = new CssPage();
                 cssPage.AddStyles(new List<string>
                 {
-                    PageTitle.StyleString,
                     HtmlPage.StyleString,
                     Tooltip.StyleString,
                     HorizontalBar.StyleString,
-                    FooterSection.StyleString,
-                    MainInformationSection.StyleString,
                     Bullet.StyleString,
                     HrefButtonBase.StyleString,
                     Tree.StyleString,
                     NunitTestHtml.NunitTestHtml.StyleString,
-                    MenuSection.StyleString,
                     OpenButton.StyleString
                 });
                 cssPage.SavePage(cssFullPath);

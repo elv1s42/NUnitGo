@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
 using NUnitGoCore.CustomElements.CSSElements;
+using NUnitGoCore.CustomElements.ReportSections;
 using NUnitGoCore.Extensions;
 using NUnitGoCore.Utils;
 
@@ -69,7 +69,6 @@ namespace NUnitGoCore.CustomElements
 
         public string PageTitle;
         public string PageBodyCode = "";
-        public string PageFooterCode = "";
         public string PageScriptString = "";
         public List<string> PageStylePaths = new List<string>();
         public List<string> ScriptFilePaths = new List<string>();
@@ -86,7 +85,7 @@ namespace NUnitGoCore.CustomElements
             {
                 writer
                     .WriteString("<!DOCTYPE html>")
-                    .WriteString(Environment.NewLine)
+                    .NewLine()
                     .Tag(HtmlTextWriterTag.Head, () => writer
                         .Tag(HtmlTextWriterTag.Meta, new Dictionary<string, string>
                         {
@@ -94,23 +93,33 @@ namespace NUnitGoCore.CustomElements
                             {"content", @"IE=edge"},
                             {"charset", "utf-8"}
                         })
-                        .Tag(HtmlTextWriterTag.Title, PageTitle)
-                        .WithAttr(HtmlTextWriterAttribute.Src, "http://code.jquery.com/jquery-1.11.0.min.js")
-                        .Tag(HtmlTextWriterTag.Script)
-                        .WithAttr(HtmlTextWriterAttribute.Src, "https://code.highcharts.com/stock/highstock.js")
-                        .Tag(HtmlTextWriterTag.Script)
+                        .Title(PageTitle)
+                        .Script("http://code.jquery.com/jquery-1.11.0.min.js")
+                        .Script("https://code.highcharts.com/stock/highstock.js")
                         .TagIf(!PageScriptString.Equals(""), HtmlTextWriterTag.Script, PageScriptString)
                         .Scripts(ScriptFilePaths)
                         .WithAttr(HtmlTextWriterAttribute.Type, @"text/css")
                         .Tag(HtmlTextWriterTag.Style)
                         .Stylesheets(PageStylePaths)
                     )
-                    .Tag(HtmlTextWriterTag.Body, PageBodyCode)
-                    .WriteString(Environment.NewLine)
-                    .Tag("footer", PageFooterCode)
-                    .WriteString(Environment.NewLine)
+                    .Tag(HtmlTextWriterTag.Body, () => writer
+                        .Class("border-bottom p-3 mb-3 bg-gray")
+                        .Div(() => writer
+                            .Class("container")
+                            .Div(() => writer
+                                .H1(PageTitle)
+                            )    
+                        )
+                        .Class("container")
+                        .Tag(HtmlTextWriterTag.Div, () => writer
+                            .Write(PageBodyCode)
+                        )
+                    )
+                    .NewLine()
+                    .Footer(FooterSection.HtmlCode)
+                    .NewLine()
                     .WriteString("</html>")
-                    .Write(Environment.NewLine);
+                    .NewLine();
             }
             FullPage = strWr.ToString();
         }

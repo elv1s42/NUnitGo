@@ -1,16 +1,14 @@
-﻿using NUnitGoCore.Extensions;
-
-namespace NUnitGoCore.CustomElements.HtmlCustomElements
+﻿namespace NUnitGoCore.CustomElements.HtmlCustomElements
 {
     public class ReportMenuItem : HtmlBaseElement
     {
         public string Href;
-        public double Value;
+        public string Octicon;
 
-        public ReportMenuItem(string title, string href, string id = "")
+        public ReportMenuItem(string title, string href, string octicon = "")
         {
             Title = title;
-            Id = id.Equals("") ? title.ToCamelCase() : id;
+            Octicon = octicon;
             Href = href;
         }
     }

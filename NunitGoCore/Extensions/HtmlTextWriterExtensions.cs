@@ -106,6 +106,12 @@ namespace NUnitGoCore.Extensions
             return writer;
         }
 
+        public static HtmlTextWriter NewLine(this HtmlTextWriter writer)
+        {
+            writer.Write(Environment.NewLine);
+            return writer;
+        }
+
         public static HtmlTextWriter OpenTag(this HtmlTextWriter writer, HtmlTextWriterTag tag)
         {
             writer.RenderBeginTag(tag);
@@ -144,6 +150,24 @@ namespace NUnitGoCore.Extensions
             return writer;
         }
 
+        public static HtmlTextWriter Href(this HtmlTextWriter writer, string value)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Href, value);
+            return writer;
+        }
+
+        public static HtmlTextWriter Class(this HtmlTextWriter writer, string value)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, value);
+            return writer;
+        }
+
+        public static HtmlTextWriter Src(this HtmlTextWriter writer, string value)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Src, value);
+            return writer;
+        }
+
         public static HtmlTextWriter WithAttr(this HtmlTextWriter writer, string attr, string value)
         {
             writer.AddAttribute(attr, value);
@@ -161,12 +185,47 @@ namespace NUnitGoCore.Extensions
             return writer.OpenTag(tag).Text(value).CloseTag();
         }
 
+        public static HtmlTextWriter Title(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag(HtmlTextWriterTag.Title, value);
+        }
+
+        public static HtmlTextWriter H1(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag(HtmlTextWriterTag.H1, value);
+        }
+
+        public static HtmlTextWriter H2(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag(HtmlTextWriterTag.H2, value);
+        }
+
+        public static HtmlTextWriter Li(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag(HtmlTextWriterTag.Li, value);
+        }
+
+        public static HtmlTextWriter A(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag(HtmlTextWriterTag.A, value);
+        }
+        
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, string tag, string value)
         {
             return writer.OpenTag(tag).Text(value).CloseTag();
         }
 
+        public static HtmlTextWriter Footer(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag("footer", value);
+        }
+
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, string tag)
+        {
+            return writer.OpenTag(tag).CloseTag();
+        }
+
+        public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag)
         {
             return writer.OpenTag(tag).CloseTag();
         }
@@ -184,6 +243,23 @@ namespace NUnitGoCore.Extensions
             return writer.CloseTag();
         }
 
+        public static HtmlTextWriter Div(this HtmlTextWriter writer, Action someAction)
+        {
+            return writer.Tag(HtmlTextWriterTag.Div, someAction);
+        }
+
+        public static HtmlTextWriter Ul(this HtmlTextWriter writer, Action someAction)
+        {
+            return writer.Tag(HtmlTextWriterTag.Ul, someAction);
+        }
+
+        public static HtmlTextWriter Script(this HtmlTextWriter writer, string value)
+        {
+            return writer
+                .Src(value)
+                .Tag(HtmlTextWriterTag.Script);
+        }
+
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag, Action<HtmlTextWriter> someAction)
         {
             writer.OpenTag(tag);
@@ -191,16 +267,6 @@ namespace NUnitGoCore.Extensions
             return writer.CloseTag();
         }
         
-        public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag, params Action[] someActions)
-        {
-            writer.OpenTag(tag);
-            foreach (var action in someActions)
-            {
-                action.Invoke();
-            }
-            return writer.CloseTag();
-        }
-
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag,
             Dictionary<string, string> attributes, string value = "")
         {

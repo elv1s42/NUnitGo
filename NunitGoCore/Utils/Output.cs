@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace NUnitGoCore.Utils
 {
@@ -6,16 +7,26 @@ namespace NUnitGoCore.Utils
     {
         public struct Files
         {
-            public static string TestHtmlFile = "Test" + FileType.Html;
-            public static string TestXmlFile = "Test" + FileType.Xml;
+            public const string TestHtmlFile = "Test" + FileType.Html;
+            public const string TestXmlFile = "Test" + FileType.Xml;
             
-            public static string TestListFile = "TestList" + FileType.Html;
-            public static string TestStatisticsFile = "TestStatistics" + FileType.Html;
-            public static string TimelineFile = "Timeline" + FileType.Html;
-            public static string FullReportFile = "index" + FileType.Html;
-            public static string ReportStyleFile = "reportStyle" + FileType.Css;
-            public static string PrimerStyleFile = "primer" + FileType.Css;
-            public static string StatsScript = "stats" + FileType.Js;
+            public const string TestListFile = "TestList" + FileType.Html;
+            public const string TestStatisticsFile = "TestStatistics" + FileType.Html;
+            public const string TimelineFile = "Timeline" + FileType.Html;
+            public const string FullReportFile = "index" + FileType.Html;
+            public const string ReportStyleFile = "reportStyle" + FileType.Css;
+            public const string PrimerStyleFile = "primer" + FileType.Css;
+            public const string OcticonStyleFile = "octicons" + FileType.Css;
+            public const string StatsScript = "stats" + FileType.Js;
+            
+            public static List<string> OcticonsStyleFiles = new List<string>
+            {
+                "octicons" + FileType.Css,
+                "octicons" + FileType.Eot,
+                "octicons" + FileType.Svg,
+                "octicons" + FileType.Ttf,
+                "octicons" + FileType.Woff
+            };
 
             public static string GetTestXmlName(DateTime finishTime)
             {
@@ -55,12 +66,16 @@ namespace NUnitGoCore.Utils
         
         public struct FileType
         {
-            public static string Default = ".html";
-            public static string Txt = ".txt";
-            public static string Xml = ".xml";
-            public static string Html = ".html";
-            public static string Css = ".css";
-            public static string Js = ".js";
+            public const string Default = ".html";
+            public const string Txt = ".txt";
+            public const string Xml = ".xml";
+            public const string Html = ".html";
+            public const string Css = ".css";
+            public const string Js = ".js";
+            public const string Ttf = ".ttf";
+            public const string Eot = ".eot";
+            public const string Woff = ".woff";
+            public const string Svg = ".svg";
         }
     }
 }

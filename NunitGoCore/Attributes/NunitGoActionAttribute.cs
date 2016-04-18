@@ -350,20 +350,32 @@ namespace NUnitGoCore.Attributes
         {
             var currentAssembly = GetType().Assembly;
             var arrResources = GetType().Assembly.GetManifestResourceNames();
-            foreach (var resourceName in arrResources
-                .Where(resourceName => resourceName.ToUpper().EndsWith(embeddedFileName.ToUpper())))
+            var destinationFullPath = Path.Combine(destinationPath, embeddedFileName);
+            if (!File.Exists(destinationFullPath))
             {
-                using (var resourceToSave = currentAssembly.GetManifestResourceStream(resourceName))
+                foreach (var resourceName in arrResources
+                    .Where(resourceName => resourceName.ToUpper().EndsWith(embeddedFileName.ToUpper())))
                 {
-                    using (var output = File.OpenWrite(destinationPath))
+                    using (var resourceToSave = currentAssembly.GetManifestResourceStream(resourceName))
                     {
-                        resourceToSave?.CopyTo(output);
+                        using (var output = File.Create(destinationFullPath))
+                        {
+                            resourceToSave?.CopyTo(output);
+                        }
+                        resourceToSave?.Close();
                     }
-                    resourceToSave?.Close();
                 }
             }
         }
-        
+
+        private void ExtractResources(List<string> embeddedFileNames, string destinationPath)
+        {
+            foreach (var embeddedFileName in embeddedFileNames)
+            {
+                ExtractResource(embeddedFileName, destinationPath);
+            }
+        }
+
         public void GenerateReport()
         {
             try
@@ -378,12 +390,11 @@ namespace NUnitGoCore.Attributes
                 }
 
                 var primerName = Output.Files.PrimerStyleFile;
-                var primerFullPath = Path.Combine(_outputPath, primerName);
-                if (!File.Exists(primerFullPath))
-                {
-                    ExtractResource(primerName, primerFullPath);
-                }
-
+                ExtractResource(primerName, _outputPath);
+                
+                var octiconsName = Output.Files.OcticonsStyleFiles;
+                ExtractResources(octiconsName, _outputPath);
+                
                 var tests = NunitGoTestHelper.GetNewestTests(_attachmentsPath).OrderBy(x => x.DateTimeFinish).ToList();
                 var stats = new MainStatistics(tests);
                 var statsChart = new MainInfoChart(stats, Output.GetStatsPieId());
