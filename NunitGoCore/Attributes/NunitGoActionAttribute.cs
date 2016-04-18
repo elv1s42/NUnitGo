@@ -370,7 +370,12 @@ namespace NUnitGoCore.Attributes
             {
                 if (!_configuration.GenerateReport) return;
 
-                PageGenerator.GenerateStyleFile(_outputPath);
+                var cssPageName = Output.Files.ReportStyleFile;
+                var cssFullPath = Path.Combine(_outputPath, cssPageName);
+                if (!File.Exists(cssFullPath))
+                {
+                    PageGenerator.GenerateStyleFile(cssFullPath);
+                }
 
                 var primerName = Output.Files.PrimerStyleFile;
                 var primerFullPath = Path.Combine(_outputPath, primerName);

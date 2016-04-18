@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web.UI;
 using NUnitGoCore.CustomElements.CSSElements;
 using NUnitGoCore.Extensions;
@@ -70,11 +69,11 @@ namespace NUnitGoCore.CustomElements
 
         public string PageTitle;
         public string PageBodyCode = "";
+        public string PageFooterCode = "";
         public string PageScriptString = "";
         public List<string> PageStylePaths = new List<string>();
         public List<string> ScriptFilePaths = new List<string>();
-
-        //public HtmlPage(string pageTitle, string styleFullPath = "", string scriptString = "", string localScriptFilePath = "")
+        
         public HtmlPage(string pageTitle)
         {
             PageTitle = pageTitle;
@@ -85,7 +84,6 @@ namespace NUnitGoCore.CustomElements
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
             {
-                //writer.RenderBeginTag(HtmlTextWriterTag.Html);
                 writer
                     .WriteString("<!DOCTYPE html>")
                     .WriteString(Environment.NewLine)
@@ -109,52 +107,14 @@ namespace NUnitGoCore.CustomElements
                     )
                     .Tag(HtmlTextWriterTag.Body, PageBodyCode)
                     .WriteString(Environment.NewLine)
-                    .Tag("footer")
+                    .Tag("footer", PageFooterCode)
                     .WriteString(Environment.NewLine)
                     .WriteString("</html>")
                     .Write(Environment.NewLine);
             }
             FullPage = strWr.ToString();
         }
-
-        public string AddInsideTag(string tagName, string stringToAdd)
-        {
-            var lines = FullPage.SplitToLines().ToList();
-            foreach (var line in lines.Where(line => line.Contains(@"</" + tagName + @">")))
-            {
-                lines.Insert(lines.IndexOf(line), stringToAdd);
-                FullPage = string.Join(Environment.NewLine, lines);
-                return FullPage;
-            }
-            return FullPage;
-        }
-
-        public string AddToBody(string stringToAdd)
-        {
-            return AddInsideTag("body", stringToAdd);
-        }
-
-        public string AddScriptText(string script)
-        {
-            return AddInsideTag("script", script);
-        }
-
-        public void AddScript(string scriptFile)
-        {
-            var strWr = new StringWriter();
-            using (var writer = new HtmlTextWriter(strWr))
-            {
-                writer.AddAttribute(HtmlTextWriterAttribute.Src, scriptFile);
-                writer.AddTag(HtmlTextWriterTag.Script);
-            }
-            AddInsideTag("head", strWr.ToString());
-        }
-
-        public string AddToHead(string text = "")
-        {
-            return AddInsideTag("head", text);
-        }
-
+        
         public void SavePage(string fullpath)
         {
             GeneratePageString();

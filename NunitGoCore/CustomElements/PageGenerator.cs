@@ -28,18 +28,14 @@ namespace NUnitGoCore.CustomElements
 						});
 					});
 				";
-                //var page = new HtmlPage("Test page", "./../../" + Output.Files.ReportStyleFile, script);
-                //var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest, testOutput);
-                //page.AddScript(chartFile);
-                //page.AddToBody(htmlTest.HtmlCode);
-
+                var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest, testOutput);
                 var page = new HtmlPage("Test page")
                 {
                     PageStylePaths = new List<string>{ "./../../" + Output.Files.ReportStyleFile },
                     PageScriptString = script,
-                    ScriptFilePaths = new List<string> { chartFile }
+                    ScriptFilePaths = new List<string> { chartFile },
+                    PageBodyCode = htmlTest.HtmlCode
                 };
-
                 page.SavePage(fullPath);
 			}
 			catch (Exception ex)
@@ -51,12 +47,14 @@ namespace NUnitGoCore.CustomElements
 		public static void GenerateMainStatisticsPage(this MainStatistics stats, string fullPath)
 		{
 			try
-			{
-				var page = new HtmlPage("Main statistics page");
-				var reportMenuTitle = new PageTitle("Main statistics", "main-statistics");
-				page.AddToBody(reportMenuTitle.HtmlCode);
-				var statisticsSection = new StatisticsSection(stats);
-				page.AddToBody(statisticsSection.HtmlCode);
+            {
+                var reportMenuTitle = new PageTitle("Main statistics", "main-statistics");
+                var statisticsSection = new StatisticsSection(stats);
+                var page = new HtmlPage("Main statistics page")
+                {
+                    PageStylePaths = new List<string> { Output.Files.ReportStyleFile, Output.Files.PrimerStyleFile },
+                    PageBodyCode = reportMenuTitle.HtmlCode + statisticsSection.HtmlCode
+                };
 				page.SavePage(fullPath);
 			}
 			catch (Exception ex)
@@ -68,12 +66,14 @@ namespace NUnitGoCore.CustomElements
 		public static void GenerateTestListPage(this List<NunitGoTest> tests, string fullPath)
 		{
 			try
-			{
-				var page = new HtmlPage("Test list page");
-				var reportMenuTitle = new PageTitle("Test list", "main-test-list");
-				page.AddToBody(reportMenuTitle.HtmlCode);
-				var testListSection = new TestListSection(tests);
-				page.AddToBody(testListSection.HtmlCode);
+            {
+                var reportMenuTitle = new PageTitle("Test list", "main-test-list");
+                var testListSection = new TestListSection(tests);
+                var page = new HtmlPage("Test list page")
+                {
+                    PageStylePaths = new List<string> { Output.Files.ReportStyleFile, Output.Files.PrimerStyleFile },
+                    PageBodyCode = reportMenuTitle.HtmlCode + testListSection.HtmlCode
+                };
 				page.SavePage(fullPath);
 			}
 			catch (Exception ex)
@@ -85,12 +85,14 @@ namespace NUnitGoCore.CustomElements
 		public static void GenerateTimelinePage(this List<NunitGoTest> tests, string fullPath)
 		{
 			try
-			{
-				var page = new HtmlPage("Timeline page");
-				var reportMenuTitle = new PageTitle("Tests timeline", "tests-timeline");
-				page.AddToBody(reportMenuTitle.HtmlCode);
-				var timeline = new TimelineSection(tests);
-				page.AddToBody(timeline.HtmlCode);
+            {
+                var reportMenuTitle = new PageTitle("Tests timeline", "tests-timeline");
+                var timeline = new TimelineSection(tests);
+                var page = new HtmlPage("Timeline page")
+                {
+                    PageStylePaths = new List<string> { Output.Files.ReportStyleFile, Output.Files.PrimerStyleFile },
+                    PageBodyCode = reportMenuTitle.HtmlCode + timeline.HtmlCode
+                };
 				page.SavePage(fullPath);
 			}
 			catch (Exception ex)
@@ -99,66 +101,63 @@ namespace NUnitGoCore.CustomElements
 			}
 		}
 
-		public static void GenerateStyleFile(string pathToSave)
-		{
-			try
-			{
-				var cssPage = new CssPage();
-				cssPage.AddStyles(new List<string>
-				{
-					PageTitle.StyleString,
-					HtmlPage.StyleString,
-					Tooltip.StyleString,
-					HorizontalBar.StyleString,
-					FooterSection.StyleString,
-					MainInformationSection.StyleString,
-					Bullet.StyleString,
-					HrefButtonBase.StyleString,
-					Tree.StyleString,
-					NunitTestHtml.NunitTestHtml.StyleString,
-					MenuSection.StyleString,
-					OpenButton.StyleString
-				});
-
-				var cssPageName = Output.Files.ReportStyleFile;
-				cssPage.SavePage(Path.Combine(pathToSave, cssPageName));
-			}
-			catch (Exception ex)
-			{
-				Log.Exception(ex, "Exception while generating css style page");
-			}
-		}
-
 		public static void GenerateReportMainPage(this List<NunitGoTest> tests, 
 			string pathToSave, MainStatistics mainStats)
 		{
 			try
-			{
-				var report = new HtmlPage("NUnitGo Report")
-				{
-				    ScriptFilePaths = new List<string> { Output.Files.StatsScript }
+            {
+                var menuElements = new List<ReportMenuItem>
+                {
+                    new ReportMenuItem("Main statistics", Output.Files.TestStatisticsFile),
+                    new ReportMenuItem("Test list", Output.Files.TestListFile),
+                    new ReportMenuItem("Timeline", Output.Files.TimelineFile)
                 };
-				var mainTitle = new PageTitle();
-				report.AddToBody(mainTitle.HtmlCode);
-				var mainInformation = new MainInformationSection(mainStats);
-				report.AddToBody(mainInformation.HtmlCode);
-				var menuElements = new List<ReportMenuItem>
+                var mainTitle = new PageTitle();
+                var mainInformation = new MainInformationSection(mainStats);
+                var reportMenu = new MenuSection(menuElements, "main-menu", "Report menu");
+                var reportPageName = Output.Files.FullReportFile;
+                var footer = new FooterSection();
+                var report = new HtmlPage("NUnitGo Report")
 				{
-					new ReportMenuItem("Main statistics", Output.Files.TestStatisticsFile),
-					new ReportMenuItem("Test list", Output.Files.TestListFile),
-					new ReportMenuItem("Timeline", Output.Files.TimelineFile)
-				};
-				var reportMenu = new MenuSection(menuElements, "main-menu", "Report menu");
-				report.AddToBody(reportMenu.ReportMenuHtml);
-				var footer = new FooterSection();
-				report.AddInsideTag("footer", footer.HtmlCode);
-				var reportPageName = Output.Files.FullReportFile;
+				    ScriptFilePaths = new List<string> { Output.Files.StatsScript },
+                    PageStylePaths = new List<string> { Output.Files.ReportStyleFile, Output.Files.PrimerStyleFile },
+                    PageBodyCode = mainTitle.HtmlCode + mainInformation.HtmlCode + reportMenu.ReportMenuHtml,
+                    PageFooterCode = footer.HtmlCode
+                };
 				report.SavePage(Path.Combine(pathToSave, reportPageName));
 			}
 			catch (Exception ex)
 			{
 				Log.Exception(ex, "Exception while generating full report page");
 			}
-		}
-	}
+        }
+
+        public static void GenerateStyleFile(string cssFullPath)
+        {
+            try
+            {
+                var cssPage = new CssPage();
+                cssPage.AddStyles(new List<string>
+                {
+                    PageTitle.StyleString,
+                    HtmlPage.StyleString,
+                    Tooltip.StyleString,
+                    HorizontalBar.StyleString,
+                    FooterSection.StyleString,
+                    MainInformationSection.StyleString,
+                    Bullet.StyleString,
+                    HrefButtonBase.StyleString,
+                    Tree.StyleString,
+                    NunitTestHtml.NunitTestHtml.StyleString,
+                    MenuSection.StyleString,
+                    OpenButton.StyleString
+                });
+                cssPage.SavePage(cssFullPath);
+            }
+            catch (Exception ex)
+            {
+                Log.Exception(ex, "Exception while generating css style page");
+            }
+        }
+    }
 }

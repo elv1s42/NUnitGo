@@ -161,6 +161,11 @@ namespace NUnitGoCore.Extensions
             return writer.OpenTag(tag).Text(value).CloseTag();
         }
 
+        public static HtmlTextWriter Tag(this HtmlTextWriter writer, string tag, string value)
+        {
+            return writer.OpenTag(tag).Text(value).CloseTag();
+        }
+
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, string tag)
         {
             return writer.OpenTag(tag).CloseTag();
