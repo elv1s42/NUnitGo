@@ -162,6 +162,12 @@ namespace NUnitGoCore.Extensions
             return writer;
         }
 
+        public static HtmlTextWriter Type(this HtmlTextWriter writer, string value)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Type, value);
+            return writer;
+        }
+
         public static HtmlTextWriter Src(this HtmlTextWriter writer, string value)
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Src, value);
@@ -209,7 +215,12 @@ namespace NUnitGoCore.Extensions
         {
             return writer.Tag(HtmlTextWriterTag.A, value);
         }
-        
+
+        public static HtmlTextWriter Button(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag(HtmlTextWriterTag.Button, value);
+        }
+
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, string tag, string value)
         {
             return writer.OpenTag(tag).Text(value).CloseTag();

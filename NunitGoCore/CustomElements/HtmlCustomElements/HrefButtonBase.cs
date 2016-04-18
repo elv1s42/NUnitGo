@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Web.UI;
-using NUnitGoCore.CustomElements.CSSElements;
 
 namespace NUnitGoCore.CustomElements.HtmlCustomElements
 {
@@ -10,17 +8,12 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
         private readonly string _buttonText;
         private readonly string _href;
         public string HrefButtonHtml;
-        public static string StyleString
-        {
-            get { return GetStyle(); }
-        }
 
         public HrefButtonBase(string id, string buttonText, string href)
         {
             Id = id;
             _buttonText = buttonText;
             _href = href;
-            Style = GetStyle();
             HrefButtonHtml = GetHtml();
         }
 
@@ -28,31 +21,7 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
         {
             _buttonText = buttonText;
             _href = href;
-            Style = GetStyle();
             HrefButtonHtml = GetHtml();
-        }
-
-        private static string GetStyle()
-        {
-            var hrefButtonCssSet = new CssSet("href-button-style");
-            hrefButtonCssSet.AddElement(new CssElement(".href-button")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
-                    new StyleAttribute(HtmlTextWriterStyle.Display, "block"),
-					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
-				}
-            });
-            hrefButtonCssSet.AddElement(new CssElement(".href-button:hover")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Color, "red"),
-					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none !important")
-				}
-            });
-            return hrefButtonCssSet.ToString();
         }
 
         private string GetHtml()

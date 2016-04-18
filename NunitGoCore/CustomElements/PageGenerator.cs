@@ -71,7 +71,12 @@ namespace NUnitGoCore.CustomElements
                 var testListSection = new TestListSection(tests);
                 var page = new HtmlPage("Test list page")
                 {
-                    PageStylePaths = new List<string> { Output.Files.ReportStyleFile, Output.Files.PrimerStyleFile },
+                    PageStylePaths = new List<string>
+                    {
+                        Output.Files.ReportStyleFile,
+                        Output.Files.PrimerStyleFile,
+                        Output.Files.OcticonStyleFile
+                    },
                     PageBodyCode = reportMenuTitle.HtmlCode + testListSection.HtmlCode
                 };
 				page.SavePage(fullPath);
@@ -148,7 +153,6 @@ namespace NUnitGoCore.CustomElements
                     Tooltip.StyleString,
                     HorizontalBar.StyleString,
                     Bullet.StyleString,
-                    HrefButtonBase.StyleString,
                     Tree.StyleString,
                     NunitTestHtml.NunitTestHtml.StyleString,
                     OpenButton.StyleString

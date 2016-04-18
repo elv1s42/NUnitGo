@@ -1,18 +1,17 @@
 ﻿using System.IO;
 using System.Web.UI;
+using NUnitGoCore.Extensions;
 
 namespace NUnitGoCore.CustomElements.HtmlCustomElements
 {
-    public class CloseButton : HrefButtonBase
+    public class CloseButton
     {
         private readonly string _buttonText = "Close";
         private readonly string _href;
         public string ButtonHtml;
 
-        public CloseButton(string buttonText, string href) 
-            : base(buttonText, href)
+        public CloseButton(string buttonText, string href)
         {
-            Id = "";
             _buttonText = buttonText.Equals("") ? _buttonText : buttonText;
             _href = href;
             ButtonHtml = GetHtml();
@@ -23,12 +22,11 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
-                writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
-                writer.AddAttribute(HtmlTextWriterAttribute.Href, _href);
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "href-button");
-                writer.RenderBeginTag(HtmlTextWriterTag.A);
-                writer.Write(_buttonText);
-                writer.RenderEndTag();
+                writer
+                    .Class("btn btn-danger")
+                    .Href(_href)
+                    .Type("button")
+                    .A(_buttonText);
             }
             return stringWriter.ToString();
         }

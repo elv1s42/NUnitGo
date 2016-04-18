@@ -12,12 +12,9 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
 	internal class Tree : HtmlBaseElement
 	{
         public string HtmlCode;
-		public static string StyleString
-		{
-			get { return GetStyle(); }
-		}
-		
-		private new const string Id = "tests-tree";
+		public static string StyleString => GetStyle();
+
+	    private new const string Id = "tests-tree";
 		private const string IdString = "#" + Id + " ";
 		private static int _idSuiteCounter;
 
@@ -133,7 +130,7 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
                 var tests = suite.Tests;
                 var id = GetSuiteId();
                 var allSuiteTests = suite.GetTests();
-                var count = allSuiteTests.Count();
+                var count = allSuiteTests.Count;
                 var passedCount = allSuiteTests.Count(x => x.IsSuccess());
                 var labelName = suite.Name + " (Tests: " + passedCount + @"/" + count + ")";
                 writer.OpenTreeItem(labelName, id, "110%", suite.Tests.Count.Equals(0));
@@ -178,7 +175,10 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
 				writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
 				writer.Css(HtmlTextWriterStyle.Padding, "20px")
                     .RenderBeginTag(HtmlTextWriterTag.Div);
-                BuildTreeFromSuites(writer, new List<NunitGoSuite> {tests.GetSuite("All tests")});
+                BuildTreeFromSuites(writer, new List<NunitGoSuite>
+                {
+                    tests.GetSuite("All tests")
+                });
                 writer.RenderEndTag(); //DIV
 			}
 
