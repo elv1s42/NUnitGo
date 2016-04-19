@@ -2,128 +2,22 @@
 using System.IO;
 using System.Linq;
 using System.Web.UI;
-using NUnitGoCore.CustomElements.CSSElements;
 using NUnitGoCore.Extensions;
 using NUnitGoCore.NunitGoItems;
 using NUnitGoCore.Utils;
 
 namespace NUnitGoCore.CustomElements.HtmlCustomElements
 {
-	internal class Tree : HtmlBaseElement
+	internal static class Tree
 	{
-        public string HtmlCode;
-		public static string StyleString => GetStyle();
-
-	    private new const string Id = "tests-tree";
-		private const string IdString = "#" + Id + " ";
 		private static int _idSuiteCounter;
-
-		public static string GetStyle()
-		{
-			var treeCssSet = new CssSet("tests-tree-style");
-			treeCssSet.AddElement(new CssElement(IdString + "ul, " + IdString + "li")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Margin, "0"),
-					new StyleAttribute(HtmlTextWriterStyle.Padding, "0"),
-					new StyleAttribute("list-style", "none")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "input")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Position, "absolute"),
-					new StyleAttribute("opacity", "0")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "a")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "a:hover")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "underline")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "input + label + ul")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Margin, "0 0 0 22px"),
-					new StyleAttribute(HtmlTextWriterStyle.Display, "none")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "label, " + IdString + "label::before")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Cursor, "pointer")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "input:disabled + label")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Cursor, "default"),
-					new StyleAttribute("opacity", ".6")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "input:checked:not(:disabled) + label + ul")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Display, "block")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "label, " + IdString + "a, " + IdString + "label::before")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute(HtmlTextWriterStyle.Display, "block")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "label")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute("background-position", "18px 0")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "label::before")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute("content", "\"\""),
-					new StyleAttribute(HtmlTextWriterStyle.Width, "16px"),
-					new StyleAttribute(HtmlTextWriterStyle.Margin, "0 22px 0 0"),
-					new StyleAttribute(HtmlTextWriterStyle.VerticalAlign, "middle"),
-					new StyleAttribute("background-position", "0 -32px")
-				}
-			});
-			treeCssSet.AddElement(new CssElement(IdString + "input:checked + label::before")
-			{
-				StyleFields = new List<StyleAttribute>
-				{
-					new StyleAttribute("background-position", "0 -16px")
-				}
-			});
-			return treeCssSet.ToString();
-		}
-
-		private static string GetSuiteId()
+        private static string GetSuiteId()
 		{
 			_idSuiteCounter++;
 			return "test-suite-" + _idSuiteCounter.ToString("D");
 		}
         
-        private void BuildTreeFromSuites(HtmlTextWriter writer, IEnumerable<NunitGoSuite> suites)
+        private static void BuildTreeFromSuites(this HtmlTextWriter writer, IEnumerable<NunitGoSuite> suites)
         {
             foreach (var suite in suites)
             {
@@ -139,50 +33,44 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
                 foreach (var nunitGoTest in tests)
                 {
                     var testId = nunitGoTest.Guid.ToString();
-                    var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest);
                     var buttonText = nunitGoTest.Name
                                      + " (" + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
                                      nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss") + ")";
-                    var openButton = new OpenButton(buttonText, nunitGoTest.TestHrefRelative,  htmlTest.BackgroundColor);
-
-                    writer.AddAttribute(HtmlTextWriterAttribute.Id, testId);
-                    writer.RenderBeginTag(HtmlTextWriterTag.Li);
-                    writer.AddAttribute(HtmlTextWriterAttribute.Title, nunitGoTest.Name);
-                    writer.RenderBeginTag(HtmlTextWriterTag.A);
-                    writer.Write(openButton.ButtonHtml);
-                    writer.RenderEndTag(); //A
-                    writer.RenderEndTag(); //LI
-
+                    var openButton = new OpenButton(buttonText, nunitGoTest.TestHrefRelative,  nunitGoTest.GetColor());
+                    writer
+                        .Id(testId)
+                        .Li(() => writer
+                            .Title(nunitGoTest.Name)
+                            .A(openButton.ButtonHtml)
+                        );
                 }
                 if (suite.Suites.Any())
                 {
-                    BuildTreeFromSuites(writer, suite.Suites);
+                    writer.BuildTreeFromSuites(suite.Suites);
                 }
                 writer.RenderEndTag(); //UL
-                writer.RenderEndTag(); //LI
-                writer.RenderEndTag(); //UL
+                writer.CloseTreeItem();
+                //writer.RenderEndTag(); //LI
+                //writer.RenderEndTag(); //UL
             }
         }
 
-        public Tree(List<NunitGoTest> tests)
+        public static string GetTreeCode(List<NunitGoTest> tests)
 		{
 			_idSuiteCounter = 0;
-			Style = GetStyle();
-
 			var strWr = new StringWriter();
 			using (var writer = new HtmlTextWriter(strWr))
 			{
-				writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
-				writer.Css(HtmlTextWriterStyle.Padding, "20px")
-                    .RenderBeginTag(HtmlTextWriterTag.Div);
-                BuildTreeFromSuites(writer, new List<NunitGoSuite>
-                {
-                    tests.GetSuite("All tests")
-                });
-                writer.RenderEndTag(); //DIV
+			    writer
+			        .Id("tests-tree")
+			        .Div(() => writer
+			            .BuildTreeFromSuites(new List<NunitGoSuite>
+			            {
+			                tests.GetSuite("All tests")
+			            })
+			        );
 			}
-
-			HtmlCode = strWr.ToString();
+			return strWr.ToString();
 		}
 	}
 }

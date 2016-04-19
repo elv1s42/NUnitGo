@@ -14,7 +14,7 @@ namespace NUnitGoCore.CustomElements.ReportSections
 
         public TestListSection(List<NunitGoTest> tests)
         {
-            var tree = new Tree(tests);
+            var treeCode = Tree.GetTreeCode(tests);
             var backButton = new CloseButton("Back", Output.Files.FullReportFile);
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
@@ -28,7 +28,7 @@ namespace NUnitGoCore.CustomElements.ReportSections
                             )
                     )
                     .Tag(HtmlTextWriterTag.Div, () => writer
-                        .Write(tree.HtmlCode)
+                        .Write(treeCode)
                     );
             }
             HtmlCode = stringWriter.ToString();

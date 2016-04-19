@@ -11,7 +11,7 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
         private readonly string _href;
         private readonly string _backgroundColor = "white";
         public string ButtonHtml;
-        public new static string StyleString
+        public static string StyleString
         {
             get { return GetStyle(); }
         }

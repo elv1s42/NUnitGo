@@ -94,20 +94,22 @@ namespace NUnitGoCore.CustomElements
                             {"charset", "utf-8"}
                         })
                         .Title(PageTitle)
-                        .Script("http://code.jquery.com/jquery-1.11.0.min.js")
-                        .Script("https://code.highcharts.com/stock/highstock.js")
-                        .TagIf(!PageScriptString.Equals(""), HtmlTextWriterTag.Script, PageScriptString)
                         .Scripts(ScriptFilePaths)
-                        .WithAttr(HtmlTextWriterAttribute.Type, @"text/css")
+                        .TagIf(!PageScriptString.Equals(""), HtmlTextWriterTag.Script, PageScriptString)
+                        .Type(@"text/css")
                         .Tag(HtmlTextWriterTag.Style)
                         .Stylesheets(PageStylePaths)
+                        
                     )
                     .Tag(HtmlTextWriterTag.Body, () => writer
                         .Class("border-bottom p-3 mb-3 bg-gray")
                         .Div(() => writer
                             .Class("container")
                             .Div(() => writer
-                                .H1(PageTitle)
+                                .TextAlign("center")
+                                .Div(() => writer
+                                    .H1(PageTitle)
+                                )
                             )    
                         )
                         .Class("container")

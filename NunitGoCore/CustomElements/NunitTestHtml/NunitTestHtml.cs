@@ -14,7 +14,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
 {
     internal class NunitTestHtml : HtmlBaseElement
     {
-        public string BackgroundColor;
+        public string ResultColor;
         public string HtmlCode;
         public static string StyleString => GetStyle();
 
@@ -128,7 +128,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
         public NunitTestHtml(NunitGoTest nunitGoTest, string testOutput = "")
         {
             Style = GetStyle();
-            BackgroundColor = nunitGoTest.GetBackgroundColor();
+            ResultColor = nunitGoTest.GetColor();
 
             var strWr = new StringWriter();
             using (var writer = new HtmlTextWriter(strWr))
@@ -148,7 +148,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
                         .Tag(HtmlTextWriterTag.H2, () => writer
                             .Text($"{nunitGoTest.Name}. Result: ")
                             .Css("padding", "10px")
-                            .Css(HtmlTextWriterStyle.BackgroundColor, BackgroundColor)
+                            .Css(HtmlTextWriterStyle.BackgroundColor, ResultColor)
                             .Tag(HtmlTextWriterTag.Span, nunitGoTest.Result))
                         .Css("float", "right")
                         .Css("padding", "10px")

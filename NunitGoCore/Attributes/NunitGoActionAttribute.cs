@@ -69,6 +69,11 @@ namespace NUnitGoCore.Attributes
             _testOutput = TestContext.Out.ToString();
             _testName = _testName.Equals("") ? NunitGo.TestName : _testName;
 
+            Log.Write("fn: " + test.FullName);
+            Log.Write("cn: " + test.ClassName);
+            Log.Write("pfn: " + test.Parent?.FullName);
+            Log.Write("pcn: " + test.Parent?.ClassName);
+
             var context = TestContext.CurrentContext;
             var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Files.GetTestHtmlName(_finish);
             
@@ -103,17 +108,7 @@ namespace NUnitGoCore.Attributes
         }
 
         public ActionTargets Targets => ActionTargets.Test;
-
-        internal void SetTestGuid(string guid)
-        {
-            _guid = new Guid(guid);
-        }
-
-        internal string GetTestGuid()
-        {
-            return _guid.ToString();
-        }
-
+        
         private List<Remark> GetTestRemarks()
         {
             var remarks = new List<Remark>();
@@ -394,7 +389,12 @@ namespace NUnitGoCore.Attributes
                 
                 var octiconsName = Output.Files.OcticonsStyleFiles;
                 ExtractResources(octiconsName, _outputPath);
-                
+
+                //jquery - 1.11.0.min.js
+                var jqueryName = Output.Files.JQueryScriptFile;
+                ExtractResource(jqueryName, _outputPath);
+
+
                 var tests = NunitGoTestHelper.GetNewestTests(_attachmentsPath).OrderBy(x => x.DateTimeFinish).ToList();
                 var stats = new MainStatistics(tests);
                 var statsChart = new MainInfoChart(stats, Output.GetStatsPieId());

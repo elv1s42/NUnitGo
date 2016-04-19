@@ -124,7 +124,7 @@ namespace NUnitGoCore.NunitGoItems.Subscriptions
                     writer.RenderEndTag(); //P
                 }
 
-                writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, nunitGoTest.GetBackgroundColor());
+                writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, nunitGoTest.GetColor());
                 writer.RenderBeginTag(HtmlTextWriterTag.P);
                 writer.RenderBeginTag(HtmlTextWriterTag.B);
                 writer.Write("Test result: ");

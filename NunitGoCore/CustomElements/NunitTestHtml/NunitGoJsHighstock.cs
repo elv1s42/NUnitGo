@@ -32,7 +32,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
                 .Aggregate("", 
                 (current, nunitGoTest) => current +
                                           $@"{{ x: {nunitGoTest.DateTimeFinish.ToJsString()}, y: {nunitGoTest.TestDuration.ToJsString()}, marker:{{ fillColor: '{nunitGoTest
-                                                      .GetBackgroundColor()}'}}, url: '{Output.Files.GetTestHtmlName(
+                                                      .GetColor()}'}}, url: '{Output.Files.GetTestHtmlName(
                                                           nunitGoTest.DateTimeFinish)}'}},");
             var testsScreenshotsData = orderedList
                 .Aggregate("", 
@@ -54,9 +54,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
                     .Aggregate("",
                     (current, testEvent) => current +
                                             $@"{{ x: {testEvent.Finished.ToJsString()}, y: {testEvent
-                                                .Duration.ToJsString()}, text: '{"Event duration: " +
-                                                                                                                             testEvent
-                                                                                                                                 .DurationString}'}},");
+                                                .Duration.ToJsString()}, text: '{"Event duration: " + testEvent.DurationString}'}},");
                 testEventsData += string.Format(@"{{
                                 marker: {{
                 		                enabled: true,

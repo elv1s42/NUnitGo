@@ -35,7 +35,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml.NunitTestHtmlSections
             writer.Write(start + " - " + end);
             writer.RenderEndTag(); //P
 
-            writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, nunitGoTest.GetBackgroundColor());
+            writer.AddStyleAttribute(HtmlTextWriterStyle.BackgroundColor, nunitGoTest.GetColor());
             writer.RenderBeginTag(HtmlTextWriterTag.P);
             writer.RenderBeginTag(HtmlTextWriterTag.B);
             writer.Write("Test result: ");

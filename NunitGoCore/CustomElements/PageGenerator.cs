@@ -31,9 +31,18 @@ namespace NUnitGoCore.CustomElements
                 var htmlTest = new NunitTestHtml.NunitTestHtml(nunitGoTest, testOutput);
                 var page = new HtmlPage("Test page")
                 {
-                    PageStylePaths = new List<string>{ "./../../" + Output.Files.ReportStyleFile, "./../../" + Output.Files.PrimerStyleFile },
+                    PageStylePaths = new List<string>
+                    {
+                        "./../../" + Output.Files.ReportStyleFile,
+                        "./../../" + Output.Files.PrimerStyleFile
+                    },
                     PageScriptString = script,
-                    ScriptFilePaths = new List<string> { chartFile },
+                    ScriptFilePaths = new List<string>
+                    {
+                        "./../../" + Output.Files.JQueryScriptFile,
+                        Output.Files.HighstockScriptFile,
+                        chartFile
+                    },
                     PageBodyCode = htmlTest.HtmlCode
                 };
                 page.SavePage(fullPath);
@@ -52,7 +61,11 @@ namespace NUnitGoCore.CustomElements
                 var statisticsSection = new StatisticsSection(stats);
                 var page = new HtmlPage("Main statistics page")
                 {
-                    PageStylePaths = new List<string> { Output.Files.ReportStyleFile, Output.Files.PrimerStyleFile },
+                    PageStylePaths = new List<string>
+                    {
+                        Output.Files.ReportStyleFile,
+                        Output.Files.PrimerStyleFile
+                    },
                     PageBodyCode = reportMenuTitle.HtmlCode + statisticsSection.HtmlCode
                 };
 				page.SavePage(fullPath);
@@ -95,7 +108,11 @@ namespace NUnitGoCore.CustomElements
                 var timeline = new TimelineSection(tests);
                 var page = new HtmlPage("Timeline page")
                 {
-                    PageStylePaths = new List<string> { Output.Files.ReportStyleFile, Output.Files.PrimerStyleFile },
+                    PageStylePaths = new List<string>
+                    {
+                        Output.Files.ReportStyleFile,
+                        Output.Files.PrimerStyleFile
+                    },
                     PageBodyCode = reportMenuTitle.HtmlCode + timeline.HtmlCode
                 };
 				page.SavePage(fullPath);
@@ -123,9 +140,11 @@ namespace NUnitGoCore.CustomElements
                 var report = new HtmlPage("NUnitGo Report")
 				{
 				    ScriptFilePaths = new List<string>
-				    {
+                    {
+                        Output.Files.JQueryScriptFile,
+                        Output.Files.HighstockScriptFile,
                         Output.Files.StatsScript
-				    },
+                    },
                     PageStylePaths = new List<string>
                     {
                         Output.Files.ReportStyleFile,
@@ -153,7 +172,6 @@ namespace NUnitGoCore.CustomElements
                     Tooltip.StyleString,
                     HorizontalBar.StyleString,
                     Bullet.StyleString,
-                    Tree.StyleString,
                     NunitTestHtml.NunitTestHtml.StyleString,
                     OpenButton.StyleString
                 });

@@ -76,16 +76,16 @@ namespace NUnitGoCore.Extensions
 
         public static void OpenTreeItem(this HtmlTextWriter writer, string name, string id, string fontSize = "100%", bool isChecked = true)
         {
-            writer.RenderBeginTag(HtmlTextWriterTag.Ul);
+            //writer.RenderBeginTag(HtmlTextWriterTag.Ul);
             writer.RenderBeginTag(HtmlTextWriterTag.Li);
-            writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
+            /*writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
             if (isChecked)
             {
                 writer.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
             }
             writer.AddAttribute(HtmlTextWriterAttribute.Id, id);
             writer.RenderBeginTag(HtmlTextWriterTag.Input);
-            writer.RenderEndTag(); //INPUT
+            writer.RenderEndTag(); //INPUT*/
             writer.AddAttribute(HtmlTextWriterAttribute.For, id);
             writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
             writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, fontSize);
@@ -97,7 +97,7 @@ namespace NUnitGoCore.Extensions
         public static void CloseTreeItem(this HtmlTextWriter writer)
         {
             writer.RenderEndTag();//LI
-            writer.RenderEndTag();//UL
+           // writer.RenderEndTag();//UL
         }
 
         public static HtmlTextWriter WriteString(this HtmlTextWriter writer, string value = "")
@@ -150,6 +150,12 @@ namespace NUnitGoCore.Extensions
             return writer;
         }
 
+        public static HtmlTextWriter Id(this HtmlTextWriter writer, string value)
+        {
+            writer.AddAttribute(HtmlTextWriterAttribute.Id, value);
+            return writer;
+        }
+
         public static HtmlTextWriter Href(this HtmlTextWriter writer, string value)
         {
             writer.AddAttribute(HtmlTextWriterAttribute.Href, value);
@@ -177,6 +183,12 @@ namespace NUnitGoCore.Extensions
         public static HtmlTextWriter WithAttr(this HtmlTextWriter writer, string attr, string value)
         {
             writer.AddAttribute(attr, value);
+            return writer;
+        }
+
+        public static HtmlTextWriter TextAlign(this HtmlTextWriter writer, string value)
+        {
+            writer.AddStyleAttribute("text-align", value);
             return writer;
         }
 
@@ -262,6 +274,11 @@ namespace NUnitGoCore.Extensions
         public static HtmlTextWriter Ul(this HtmlTextWriter writer, Action someAction)
         {
             return writer.Tag(HtmlTextWriterTag.Ul, someAction);
+        }
+
+        public static HtmlTextWriter Li(this HtmlTextWriter writer, Action someAction)
+        {
+            return writer.Tag(HtmlTextWriterTag.Li, someAction);
         }
 
         public static HtmlTextWriter Script(this HtmlTextWriter writer, string value)

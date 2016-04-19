@@ -21,7 +21,7 @@ namespace NUnitGoCore.CustomElements.ReportSections
                                    let toolitipText = "Test: " + test.FullName + ", " + 
                                                        "Time: " + start + " - " + finish + ", " + 
                                                        Environment.NewLine + "Result: " + test.Result 
-                                   let bcgColor = test.GetBackgroundColor() 
+                                   let bcgColor = test.GetColor() 
                                    select new HorizontalBarElement("", toolitipText, bcgColor, test.TestDuration, 
                                        test.TestHrefRelative)).ToList();
             var timelineBar = new HorizontalBar("timeline-bar", "", testResultsList, false);

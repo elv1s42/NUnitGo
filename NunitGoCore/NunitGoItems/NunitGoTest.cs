@@ -74,7 +74,7 @@ namespace NUnitGoCore.NunitGoItems
             return Result.Equals("Inconclusive");
         }
 
-        public string GetBackgroundColor()
+        public string GetColor()
         {
             switch (Result)
             {

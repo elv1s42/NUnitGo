@@ -9,7 +9,6 @@ namespace NUnitGoCore.Utils
         {
             public const string TestHtmlFile = "Test" + FileType.Html;
             public const string TestXmlFile = "Test" + FileType.Xml;
-            
             public const string TestListFile = "TestList" + FileType.Html;
             public const string TestStatisticsFile = "TestStatistics" + FileType.Html;
             public const string TimelineFile = "Timeline" + FileType.Html;
@@ -17,7 +16,9 @@ namespace NUnitGoCore.Utils
             public const string ReportStyleFile = "reportStyle" + FileType.Css;
             public const string PrimerStyleFile = "primer" + FileType.Css;
             public const string OcticonStyleFile = "octicons" + FileType.Css;
+            public const string JQueryScriptFile = "jquery-1.11.0.min" + FileType.Js;
             public const string StatsScript = "stats" + FileType.Js;
+            public const string HighstockScriptFile = "https://code.highcharts.com/stock/highstock.js";
             
             public static List<string> OcticonsStyleFiles = new List<string>
             {
