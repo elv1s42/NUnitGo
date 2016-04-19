@@ -74,31 +74,29 @@ namespace NUnitGoCore.Extensions
             writer.RenderEndTag();
         }
 
-        public static void OpenTreeItem(this HtmlTextWriter writer, string name, string id, string fontSize = "100%", bool isChecked = true)
+        public static HtmlTextWriter OpenTreeItem(this HtmlTextWriter writer, string name)
         {
-            //writer.RenderBeginTag(HtmlTextWriterTag.Ul);
-            writer.RenderBeginTag(HtmlTextWriterTag.Li);
-            /*writer.AddAttribute(HtmlTextWriterAttribute.Type, "checkbox");
-            if (isChecked)
-            {
-                writer.AddAttribute(HtmlTextWriterAttribute.Checked, "checked");
-            }
-            writer.AddAttribute(HtmlTextWriterAttribute.Id, id);
-            writer.RenderBeginTag(HtmlTextWriterTag.Input);
-            writer.RenderEndTag(); //INPUT*/
-            writer.AddAttribute(HtmlTextWriterAttribute.For, id);
+            writer.RenderBeginTag(HtmlTextWriterTag.Ul);
             writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
-            writer.AddStyleAttribute(HtmlTextWriterStyle.FontSize, fontSize);
             writer.RenderBeginTag(HtmlTextWriterTag.Label);
             writer.Write(name);
             writer.RenderEndTag(); //LABEL
+            return writer;
         }
 
-        public static void CloseTreeItem(this HtmlTextWriter writer)
+        public static HtmlTextWriter CloseTreeItem(this HtmlTextWriter writer)
         {
-            writer.RenderEndTag();//LI
-           // writer.RenderEndTag();//UL
+            writer.RenderEndTag();//UL
+            return writer;
         }
+
+        public static HtmlTextWriter TreeItem(this HtmlTextWriter writer, string name, string id)
+        {
+
+            return writer;
+        }
+
+
 
         public static HtmlTextWriter WriteString(this HtmlTextWriter writer, string value = "")
         {
@@ -357,6 +355,15 @@ namespace NUnitGoCore.Extensions
             {
                 writer.WithAttr(HtmlTextWriterAttribute.Src, path)
                     .Tag(HtmlTextWriterTag.Script);
+            }
+            return writer;
+        }
+
+        public static HtmlTextWriter ForEach<T>(this HtmlTextWriter writer, List<T> objects, Action<T> action)
+        {
+            foreach (var obj in objects)
+            {
+                action.Invoke(obj);
             }
             return writer;
         }
