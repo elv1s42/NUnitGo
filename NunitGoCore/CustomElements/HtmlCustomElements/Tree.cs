@@ -19,30 +19,26 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
                 var count = allSuiteTests.Count;
                 var passedCount = allSuiteTests.Count(x => x.IsSuccess());
                 var suiteName = suite.Name + " (Tests: " + passedCount + @"/" + count + ")";
-                writer.OpenTreeItem(suiteName);
-                writer.RenderBeginTag(HtmlTextWriterTag.Ul);
 
-                foreach (var nunitGoTest in tests)
-                {
-                    var buttonText = nunitGoTest.Name
-                                     + " (" + nunitGoTest.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
-                                     nunitGoTest.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss") + ")";
-                    var openButton = new OpenButton(buttonText, nunitGoTest.TestHrefRelative,  nunitGoTest.GetColor());
-                    writer
-                        .Id(nunitGoTest.Guid.ToString())
-                        .Li(() => writer
-                            .Title(nunitGoTest.Name)
-                            .A(openButton.ButtonHtml)
-                        );
-                }
-                if (suite.Suites.Any())
-                {
-                    writer.BuildTreeFromSuites(suite.Suites);
-                }
-                writer.RenderEndTag(); //UL
-                writer.CloseTreeItem();
-                //writer.RenderEndTag(); //LI
-                //writer.RenderEndTag(); //UL
+                writer
+                    .TreeItem(suiteName, () => writer
+                        .Css(HtmlTextWriterStyle.PaddingLeft, "1em")
+                        .Ul(() => writer
+                            .ForEach(tests, test => writer
+                                .Id(test.Guid.ToString())
+                                .Li(() => writer
+                                    .Title(test.Name)
+                                    .A(new OpenButton(test.Name
+                                                      + " (" + test.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                                                      test.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss") + ")",
+                                        test.TestHrefRelative, test.GetColor()).ButtonHtml)
+                                )
+                            )
+                            .If(suite.Suites.Any(), () => writer
+                                .BuildTreeFromSuites(suite.Suites)
+                            )
+                        )
+                    );
             }
         }
 

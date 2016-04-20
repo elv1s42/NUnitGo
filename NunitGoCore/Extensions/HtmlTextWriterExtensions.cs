@@ -90,9 +90,13 @@ namespace NUnitGoCore.Extensions
             return writer;
         }
 
-        public static HtmlTextWriter TreeItem(this HtmlTextWriter writer, string name, string id)
+        public static HtmlTextWriter TreeItem(this HtmlTextWriter writer, string name, Action action)
         {
-
+            writer.Ul(() => writer
+                .Bold()
+                .Label(name)
+                .DoAction(action)
+            );
             return writer;
         }
 
@@ -125,6 +129,12 @@ namespace NUnitGoCore.Extensions
         public static HtmlTextWriter Css(this HtmlTextWriter writer, HtmlTextWriterStyle styleAttr, string value)
         {
             writer.AddStyleAttribute(styleAttr, value);
+            return writer;
+        }
+
+        public static HtmlTextWriter Bold(this HtmlTextWriter writer)
+        {
+            writer.AddStyleAttribute(HtmlTextWriterStyle.FontWeight, "bold");
             return writer;
         }
 
@@ -224,6 +234,11 @@ namespace NUnitGoCore.Extensions
         public static HtmlTextWriter A(this HtmlTextWriter writer, string value)
         {
             return writer.Tag(HtmlTextWriterTag.A, value);
+        }
+
+        public static HtmlTextWriter Label(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag(HtmlTextWriterTag.Label, value);
         }
 
         public static HtmlTextWriter Button(this HtmlTextWriter writer, string value)
