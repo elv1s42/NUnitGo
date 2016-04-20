@@ -232,3 +232,7 @@ $RECYCLE.BIN/
 README.md
 README.md
 .vs/config/applicationhost.config
+.idea/modules.xml
+.idea/vcs.xml
+NunitGo.sln.iml
+.idea/workspace.xml
