@@ -3,6 +3,7 @@
 [![Issue Count](https://codeclimate.com/github/elv1s42/NUnitGo/badges/issue_count.svg)](https://codeclimate.com/github/elv1s42/NUnitGo)
 [![Lisence Information](https://img.shields.io/npm/l/express.svg)](https://github.com/elv1s42/NUnitGo/blob/master/LICENSE.txt)
 [![Website](https://img.shields.io/badge/Website-visit-brightgreen.svg)](http://elv1s42.github.io/NUnitGo/)
+[![NuGet Version and Downloads count](https://buildstats.info/nuget/NUnitGo)](https://www.nuget.org/packages/NUnitGo/)
 
 # NUnitGo
 ###Creating HTML reports for NUnit tests
