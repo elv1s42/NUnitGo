@@ -4,6 +4,10 @@
 [![Lisence Information](https://img.shields.io/npm/l/express.svg)](https://github.com/elv1s42/NUnitGo/blob/master/LICENSE.txt)
 [![Website](https://img.shields.io/badge/Website-visit-brightgreen.svg)](http://elv1s42.github.io/NUnitGo/)
 [![NuGet Version and Downloads count](https://buildstats.info/nuget/NUnitGo)](https://www.nuget.org/packages/NUnitGo/)
+<a href="https://scan.coverity.com/projects/elv1s42-nunitgo">
+  <img alt="Coverity Scan Build Status"
+       src="https://scan.coverity.com/projects/8644/badge.svg"/>
+</a>
 
 # NUnitGo
 ###Creating HTML reports for NUnit tests
