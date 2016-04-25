@@ -153,7 +153,7 @@ namespace NUnitGoCore.CustomElements.NunitTestHtml
                         .Css("float", "right")
                         .Css("padding", "10px")
                         .Tag(HtmlTextWriterTag.Div, () => writer
-                            .Write(new CloseButton("Back", "./../../" + Output.Files.TestListFile).ButtonHtml))
+                            .DangerButton("Back", "./../../" + Output.Files.TestListFile))
                         .Css("table-layout", "fixed")
                         .Css("word-break", "break-all")
                         .Css(HtmlTextWriterStyle.Width, "100%")

@@ -172,8 +172,7 @@ namespace NUnitGoCore.CustomElements
                     Tooltip.StyleString,
                     HorizontalBar.StyleString,
                     Bullet.StyleString,
-                    NunitTestHtml.NunitTestHtml.StyleString,
-                    OpenButton.StyleString
+                    NunitTestHtml.NunitTestHtml.StyleString
                 });
                 cssPage.SavePage(cssFullPath);
             }

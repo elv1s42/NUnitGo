@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web.UI;
 using NUnitGoCore.CustomElements.HtmlCustomElements;
+using NUnitGoCore.Extensions;
 using NUnitGoCore.NunitGoItems;
 using NUnitGoCore.Utils;
 
@@ -35,7 +36,7 @@ namespace NUnitGoCore.CustomElements.ReportSections
 
                 writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "1% 2% 3% 97%");
                 writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                writer.Write(new CloseButton("Back", Output.Files.FullReportFile).ButtonHtml);
+                writer.DangerButton("Back", Output.Files.FullReportFile);
                 writer.RenderEndTag(); //DIV
 
                 writer.AddStyleAttribute(HtmlTextWriterStyle.PaddingLeft, "30px");

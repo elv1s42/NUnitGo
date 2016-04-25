@@ -100,8 +100,6 @@ namespace NUnitGoCore.Extensions
             return writer;
         }
 
-
-
         public static HtmlTextWriter WriteString(this HtmlTextWriter writer, string value = "")
         {
             writer.Write(value != "" ? value : Environment.NewLine);
@@ -138,6 +136,12 @@ namespace NUnitGoCore.Extensions
             return writer;
         }
 
+        public static HtmlTextWriter Width(this HtmlTextWriter writer, string value)
+        {
+            writer.AddStyleAttribute(HtmlTextWriterStyle.Width, value);
+            return writer;
+        }
+
         public static HtmlTextWriter CssShadow(this HtmlTextWriter writer, string value)
         {
             return writer
@@ -149,6 +153,24 @@ namespace NUnitGoCore.Extensions
         public static HtmlTextWriter Css(this HtmlTextWriter writer, string styleAttr, string value)
         {
             writer.AddStyleAttribute(styleAttr, value);
+            return writer;
+        }
+
+        public static HtmlTextWriter Color(this HtmlTextWriter writer, string value)
+        {
+            writer.AddStyleAttribute("color", value);
+            return writer;
+        }
+
+        public static HtmlTextWriter BackgroundColor(this HtmlTextWriter writer, string value)
+        {
+            writer.AddStyleAttribute("background-color", value);
+            return writer;
+        }
+
+        public static HtmlTextWriter Float(this HtmlTextWriter writer, string value)
+        {
+            writer.AddStyleAttribute("float", value);
             return writer;
         }
 
@@ -236,14 +258,19 @@ namespace NUnitGoCore.Extensions
             return writer.Tag(HtmlTextWriterTag.A, value);
         }
 
+        public static HtmlTextWriter P(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag(HtmlTextWriterTag.P, value);
+        }
+
+        public static HtmlTextWriter B(this HtmlTextWriter writer, string value)
+        {
+            return writer.Tag(HtmlTextWriterTag.B, value);
+        }
+
         public static HtmlTextWriter Label(this HtmlTextWriter writer, string value)
         {
             return writer.Tag(HtmlTextWriterTag.Label, value);
-        }
-
-        public static HtmlTextWriter Button(this HtmlTextWriter writer, string value)
-        {
-            return writer.Tag(HtmlTextWriterTag.Button, value);
         }
 
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, string tag, string value)
@@ -264,6 +291,20 @@ namespace NUnitGoCore.Extensions
         public static HtmlTextWriter Tag(this HtmlTextWriter writer, HtmlTextWriterTag tag)
         {
             return writer.OpenTag(tag).CloseTag();
+        }
+
+        public static HtmlTextWriter Span(this HtmlTextWriter writer)
+        {
+            return writer.OpenTag(HtmlTextWriterTag.Span).CloseTag();
+        }
+
+        public static HtmlTextWriter Span(this HtmlTextWriter writer, string value)
+        {
+            writer
+                .OpenTag(HtmlTextWriterTag.Span)
+                .Text(value)
+                .CloseTag();
+            return writer;
         }
 
         public static HtmlTextWriter CloseTag(this HtmlTextWriter writer)
@@ -292,6 +333,16 @@ namespace NUnitGoCore.Extensions
         public static HtmlTextWriter Li(this HtmlTextWriter writer, Action someAction)
         {
             return writer.Tag(HtmlTextWriterTag.Li, someAction);
+        }
+
+        public static HtmlTextWriter A(this HtmlTextWriter writer, Action someAction)
+        {
+            return writer.Tag(HtmlTextWriterTag.A, someAction);
+        }
+
+        public static HtmlTextWriter Span(this HtmlTextWriter writer, Action someAction)
+        {
+            return writer.Tag(HtmlTextWriterTag.Span, someAction);
         }
 
         public static HtmlTextWriter Script(this HtmlTextWriter writer, string value)
@@ -380,6 +431,48 @@ namespace NUnitGoCore.Extensions
             {
                 action.Invoke(obj);
             }
+            return writer;
+        }
+
+        public static HtmlTextWriter DangerButton(this HtmlTextWriter writer, string text, string href)
+        {
+            writer
+                .Class("btn btn-danger")
+                .Href(href)
+                .Type("button")
+                .A(text);
+            return writer;
+        }
+
+        public static HtmlTextWriter ViewButton(this HtmlTextWriter writer, string text, string href)
+        {
+            writer
+                .Class("btn btn-sm")
+                .Href(href)
+                .Type("button")
+                .OpenTag(HtmlTextWriterTag.A)
+                .Class("octicon octicon-eye")
+                .Tag(HtmlTextWriterTag.Span)
+                .Text("  " + text)
+                .CloseTag();//A
+            return writer;
+        }
+        
+        public static HtmlTextWriter TooltippedSpan(this HtmlTextWriter writer, string tooltipText, string text)
+        {
+            writer
+                .Class("tooltipped tooltipped-n")
+                .WithAttr("aria-label", tooltipText)
+                .Span(text);
+            return writer;
+        }
+
+        public static HtmlTextWriter TooltippedSpan(this HtmlTextWriter writer, string tooltipText, Action action)
+        {
+            writer
+                .Class("tooltipped tooltipped-n")
+                .WithAttr("aria-label", tooltipText)
+                .Span(action.Invoke);
             return writer;
         }
     }

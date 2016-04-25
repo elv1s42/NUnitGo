@@ -58,7 +58,6 @@
     <Compile Include="CustomElements\HtmlCustomElements\HorizontalBarElement.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\HrefButtonBase.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\HtmlBaseElement.cs" />
-    <Compile Include="CustomElements\HtmlCustomElements\CloseButton.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\OpenButton.cs" />
     <Compile Include="CustomElements\HtmlCustomElements\SectionName.cs" />
     <Compile Include="CustomElements\NunitTestHtml\NunitTestHtmlSections\FailureSection.cs" />

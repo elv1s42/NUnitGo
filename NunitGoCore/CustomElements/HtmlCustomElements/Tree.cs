@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.UI;
@@ -26,12 +27,33 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
                         .Ul(() => writer
                             .ForEach(tests, test => writer
                                 .Id(test.Guid.ToString())
+                                .Class("border-bottom")
                                 .Li(() => writer
-                                    .Title(test.Name)
-                                    .A(new OpenButton(test.Name
-                                                      + " (" + test.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
-                                                      test.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss") + ")",
-                                        test.TestHrefRelative, test.GetColor()).ButtonHtml)
+                                    .Text("Test: ")
+                                    .TooltippedSpan("Test result: " + Environment.NewLine + test.Result, () => writer
+                                            .Class("octicon octicon-primitive-square")
+                                            .Color(test.GetColor())
+                                            .Span()
+                                        )
+                                    .Text(" ")
+                                    .Href(test.TestHrefRelative)
+                                        .A(() => writer
+                                            .TooltippedSpan("View test page", () => writer
+                                                .Class("octicon octicon-eye")
+                                                .Color("black")
+                                                .Span()
+                                            )
+                                        )
+                                    .Span("  " + test.Name + " (" + test.DateTimeStart.ToString("dd.MM.yy HH:mm:ss") + " - " +
+                                        test.DateTimeFinish.ToString("dd.MM.yy HH:mm:ss") + ")")
+                                    .Float("right")
+                                    .Class("border-left border-right px-3")
+                                    .BackgroundColor(test.GetColor())
+                                    .Width("15%")
+                                    .B(test.Result)
+                                    .Float("right")
+                                    .Class("border-left px-3")
+                                    .B("Result: ")
                                 )
                             )
                             .If(suite.Suites.Any(), () => writer

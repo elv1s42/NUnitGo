@@ -11,11 +11,7 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
         private readonly string _href;
         private readonly string _backgroundColor = "white";
         public string ButtonHtml;
-        public static string StyleString
-        {
-            get { return GetStyle(); }
-        }
-        
+
         public OpenButton(string buttonText, string href, string bcgColor = "white")
             : base(buttonText, href)
         {
@@ -24,37 +20,8 @@ namespace NUnitGoCore.CustomElements.HtmlCustomElements
             _href = href;
             _backgroundColor = bcgColor;
             ButtonHtml = GetHtml();
-            Style = GetStyle();
         }
-
-        private static string GetStyle()
-        {
-            var hrefButtonCssSet = new CssSet("href-open-button-style");
-            hrefButtonCssSet.AddElement(new CssElement(".href-open-button")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute(HtmlTextWriterStyle.Height, "100%"),
-                    new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
-                    new StyleAttribute(HtmlTextWriterStyle.Display, "block"),
-					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none"),
-                    new StyleAttribute(HtmlTextWriterStyle.Padding, "2px")
-				}
-            });
-            hrefButtonCssSet.AddElement(new CssElement(".href-open-button:hover")
-            {
-                StyleFields = new List<StyleAttribute>
-				{
-                    new StyleAttribute("filter", "alpha(opacity=85)"),
-					new StyleAttribute("-moz-opacity", "0.85"),
-					new StyleAttribute("opacity", ".85"),
-                    new StyleAttribute(HtmlTextWriterStyle.Color, "black"),
-					new StyleAttribute(HtmlTextWriterStyle.TextDecoration, "none !important")
-				}
-            });
-            return hrefButtonCssSet.ToString();
-        }
-
+        
         private string GetHtml()
         {
             var stringWriter = new StringWriter();

@@ -15,16 +15,15 @@ namespace NUnitGoCore.CustomElements.ReportSections
         public TestListSection(List<NunitGoTest> tests)
         {
             var treeCode = Tree.GetTreeCode(tests);
-            var backButton = new CloseButton("Back", Output.Files.FullReportFile);
             var stringWriter = new StringWriter();
             using (var writer = new HtmlTextWriter(stringWriter))
             {
                 writer
                     .Tag(HtmlTextWriterTag.Div,
                         () => writer
-                            .Css("float", "right")
-                            .Tag(HtmlTextWriterTag.Div,
-                                () => writer.Write(backButton.ButtonHtml)
+                            .Float("right")
+                            .Div(() => writer
+                                .DangerButton("Back", Output.Files.FullReportFile)
                             )
                     )
                     .Tag(HtmlTextWriterTag.Div, () => writer
