@@ -29,5 +29,11 @@ namespace NUnitGoTestsExample
             Thread.Sleep(100);
             Assert.AreEqual(1, 1);
         }
+
+        [Test, NunitGoAction, Category("SuccessCategory")]
+        public void NoGuidTest()
+        {
+            Assert.AreEqual(1, 1);
+        }
     }
 }

@@ -68,12 +68,7 @@ namespace NUnitGoCore.Attributes
                 : _guid;
             _testOutput = TestContext.Out.ToString();
             _testName = _testName.Equals("") ? NunitGo.TestName : _testName;
-
-            Log.Write("fn: " + test.FullName);
-            Log.Write("cn: " + test.ClassName);
-            Log.Write("pfn: " + test.Parent?.FullName);
-            Log.Write("pcn: " + test.Parent?.ClassName);
-
+            
             var context = TestContext.CurrentContext;
             var relativeTestHref = "Attachments" + @"/" + _guid + @"/" + Output.Files.GetTestHtmlName(_finish);
             
@@ -158,7 +153,6 @@ namespace NUnitGoCore.Attributes
                     var allFiles = dirInfo.GetFiles("*.xml").OrderByDescending(x => x.CreationTime);
                     if (dirInfo.LastWriteTime < maxDate || dirInfo.CreationTime < maxDate || !allFiles.Any())
                     {
-                        Log.Write("Deleting: " + dirInfo.FullName);
                         Directory.Delete(dirInfo.FullName, true);
                     }
                     else
