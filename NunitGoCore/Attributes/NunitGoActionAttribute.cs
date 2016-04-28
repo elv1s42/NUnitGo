@@ -64,7 +64,7 @@ namespace NUnitGoCore.Attributes
         {
             _finish = DateTime.Now;
             _guid = _guid.Equals(Guid.Empty) 
-                ? (NunitGo.TestGuid.Equals(Guid.Empty) ? Guid.NewGuid() : NunitGo.TestGuid)
+                ? (NunitGo.TestGuid.Equals(Guid.Empty) ? GuidConverter.ToMd5HashGuid(test.FullName) : NunitGo.TestGuid)
                 : _guid;
             _testOutput = TestContext.Out.ToString();
             _testName = _testName.Equals("") ? NunitGo.TestName : _testName;
