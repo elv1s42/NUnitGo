@@ -241,37 +241,37 @@ namespace NUnitGoCore.Attributes
                 foreach (var sub in eventSubs)
                 {
                     var currentTestVersions = NunitGoTestHelper.GetTestsFromFolder(_nunitGoTest.AttachmentsPath);
-                    var subscription = _configuration.EventDurationSubscriptions.FirstOrDefault(x => x.Name.Equals(sub.Name));
-                    if (currentTestVersions.Count > 1)
-                    {
-                        var previousTest = currentTestVersions
-                            .OrderByDescending(x => x.DateTimeFinish)
-                            .Skip(1)
-                            .First(x => x.Events.Any(e => e.Name.Equals(sub.EventName)));
-                        var previuosEvent = previousTest.Events.First(x => x.Name.Equals(sub.EventName));
-                        var currentEvent = _nunitGoTest.Events.First(x => x.Name.Equals(sub.EventName));
 
-                        if (Math.Abs(currentEvent.Duration - previuosEvent.Duration) > sub.MaxDifference)
+                    if (currentTestVersions.Count <= 1) continue;
+
+                    var previousTest = currentTestVersions
+                        .OrderByDescending(x => x.DateTimeFinish)
+                        .Skip(1)
+                        .First(x => x.Events.Any(e => e.Name.Equals(sub.EventName)));
+                    var previuosEvent = previousTest.Events.First(x => x.Name.Equals(sub.EventName));
+                    var currentEvent = _nunitGoTest.Events.First(x => x.Name.Equals(sub.EventName));
+
+                    if (Math.Abs(currentEvent.Duration - previuosEvent.Duration) > sub.MaxDifference)
+                    {
+                        var subscription = _configuration.EventDurationSubscriptions.FirstOrDefault(x => x.Name.Equals(sub.Name));
+                        if (subscription != null)
                         {
-                            if (subscription != null)
-                            {
-                                EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
-                                    _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
-                                    true, sub.EventName, previuosEvent);
-                            }
-                            else if (sub.FullPath != null)
-                            {
-                                subscription = XmlHelper.Load<EventDurationSubscription>(sub.FullPath);
-                                EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
-                                    _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
-                                    true, sub.EventName, previuosEvent);
-                            }
-                            else if (sub.Targets.Any())
-                            {
-                                EmailHelper.Send(_configuration.SendFromList, sub.Targets,
-                                    _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
-                                    true, sub.EventName, previuosEvent);
-                            }
+                            EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
+                                _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
+                                true, sub.EventName, previuosEvent);
+                        }
+                        else if (sub.FullPath != null)
+                        {
+                            subscription = XmlHelper.Load<EventDurationSubscription>(sub.FullPath);
+                            EmailHelper.Send(_configuration.SendFromList, subscription.TargetEmails,
+                                _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
+                                true, sub.EventName, previuosEvent);
+                        }
+                        else if (sub.Targets.Any())
+                        {
+                            EmailHelper.Send(_configuration.SendFromList, sub.Targets,
+                                _nunitGoTest, _screenshotsPath, _configuration.AddLinksInsideEmail,
+                                true, sub.EventName, previuosEvent);
                         }
                     }
                 }
@@ -357,7 +357,7 @@ namespace NUnitGoCore.Attributes
             }
         }
 
-        private void ExtractResources(List<string> embeddedFileNames, string destinationPath)
+        private void ExtractResources(IEnumerable<string> embeddedFileNames, string destinationPath)
         {
             foreach (var embeddedFileName in embeddedFileNames)
             {
@@ -371,7 +371,7 @@ namespace NUnitGoCore.Attributes
             {
                 if (!_configuration.GenerateReport) return;
 
-                var cssPageName = Output.Files.ReportStyleFile;
+                const string cssPageName = Output.Files.ReportStyleFile;
                 var cssFullPath = Path.Combine(_outputPath, cssPageName);
                 if (!File.Exists(cssFullPath))
                 {
