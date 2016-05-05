@@ -3,14 +3,13 @@ using System.Web.UI;
 using NUnitGoCore.CustomElements.HtmlCustomElements;
 using NUnitGoCore.Extensions;
 using NUnitGoCore.Utils;
+// ReSharper disable AccessToDisposedClosure
 
 namespace NUnitGoCore.CustomElements.ReportSections.MainInformationSection
 {
     internal class MainInformationSection : HtmlBaseElement
     {
         public string HtmlCode;
-
-        private new const string Id = "main-information";
         
         public MainInformationSection(MainStatistics stats)
         {
@@ -56,62 +55,6 @@ namespace NUnitGoCore.CustomElements.ReportSections.MainInformationSection
                             .Tag(HtmlTextWriterTag.Div)
                         )
                     );
-                /*
-
-                writer.AddAttribute(HtmlTextWriterAttribute.Id, Id);
-                writer.RenderBeginTag(HtmlTextWriterTag.Table);
-                writer.RenderBeginTag(HtmlTextWriterTag.Tr);
-
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "column-1");
-                writer.RenderBeginTag(HtmlTextWriterTag.Td);
-                writer.RenderBeginTag(HtmlTextWriterTag.H1);
-                writer.Write("Main information:");
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Start datetime: " + stats.StartDate);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Finish datetime: " + stats.EndDate);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Duration: " + stats.Duration);
-                writer.RenderEndTag();
-                writer.RenderEndTag();//Td
-                
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "column-2");
-                writer.RenderBeginTag(HtmlTextWriterTag.Td);
-                writer.RenderBeginTag(HtmlTextWriterTag.H1);
-                writer.Write("Main results:");
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Total: " + stats.TotalAll);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Success: " + stats.TotalPassed);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Errors: " + stats.TotalBroken);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Failures: " + stats.TotalFailed);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Inconclusive: " + stats.TotalInconclusive);
-                writer.RenderEndTag();
-                writer.RenderBeginTag(HtmlTextWriterTag.P);
-                writer.Write(Bullet.HtmlCode + "Ignored: " + stats.TotalIgnored);
-                writer.RenderEndTag();
-                writer.RenderEndTag();
-
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "column-3");
-                writer.Css(HtmlTextWriterStyle.Width, "50%")
-                    .WithAttr(HtmlTextWriterAttribute.Id, Output.GetStatsPieId())
-                    .Tag(HtmlTextWriterTag.Td);
-
-                writer.RenderEndTag();//TR
-                writer.RenderEndTag();//TABLE
-
-                */
 
             }
 
