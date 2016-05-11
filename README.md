@@ -1,13 +1,9 @@
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/elv1s42/nunitgo?branch=master&svg=true)](https://ci.appveyor.com/project/elv1s42/nunitgo/branch/master)
 [![NuGet Version](https://img.shields.io/nuget/v/NUnitGo.svg)](https://www.nuget.org/packages/NUnitGo/)
-[![Issue Count](https://codeclimate.com/github/elv1s42/NUnitGo/badges/issue_count.svg)](https://codeclimate.com/github/elv1s42/NUnitGo)
 [![Lisence Information](https://img.shields.io/npm/l/express.svg)](https://github.com/elv1s42/NUnitGo/blob/master/LICENSE.txt)
 [![Website](https://img.shields.io/badge/Website-visit-brightgreen.svg)](http://elv1s42.github.io/NUnitGo/)
 [![NuGet Version and Downloads count](https://buildstats.info/nuget/NUnitGo)](https://www.nuget.org/packages/NUnitGo/)
-<a href="https://scan.coverity.com/projects/elv1s42-nunitgo">
-  <img alt="Coverity Scan Build Status"
-       src="https://scan.coverity.com/projects/8644/badge.svg"/>
-</a>
+
 
 # NUnitGo
 ###Newest version - 2.1.5, available in Nuget
