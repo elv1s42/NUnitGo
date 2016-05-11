@@ -1,7 +1,4 @@
--
-  branches:
-    only:
-    - master
+
 
   before_build:
     - nuget restore NunitGo.sln
