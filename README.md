@@ -10,6 +10,7 @@
 </a>
 
 # NUnitGo
+###Newest version - 2.1.5, available in Nuget
 ###Creating HTML reports for NUnit tests
 Main report page:
 <p align="center">
