@@ -3,7 +3,7 @@
 [![Lisence Information](https://img.shields.io/npm/l/express.svg)](https://github.com/elv1s42/NUnitGo/blob/master/LICENSE.txt)
 [![Website](https://img.shields.io/badge/Website-visit-brightgreen.svg)](http://elv1s42.github.io/NUnitGo/)
 [![NuGet Version and Downloads count](https://buildstats.info/nuget/NUnitGo)](https://www.nuget.org/packages/NUnitGo/)
-
+[![Language](http://gh-toprated.info/Badges/LanguageBadge?user=elv1s42&repo=nunitgo)](https://github.com/elv1s42/NUnitGo)
 
 # NUnitGo
 ###Newest version - 2.1.5, available in Nuget
