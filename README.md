@@ -1,4 +1,4 @@
-##IMPORTANT NOTE:  this project is no longer maintained! Try using this one: https://github.com/GHPReporter/Ghpr.NUnit
+## IMPORTANT NOTE:  this project is no longer maintained! Try using this one: https://github.com/GHPReporter/Ghpr.NUnit
 
 
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/elv1s42/nunitgo?branch=master&svg=true)](https://ci.appveyor.com/project/elv1s42/nunitgo/branch/master)
@@ -8,8 +8,8 @@
 [![Language](http://gh-toprated.info/Badges/LanguageBadge?user=elv1s42&repo=NUnitGo&badgeSize=medium&theme=light&fontWeight=bold)](https://github.com/elv1s42/NUnitGo)
 
 # NUnitGo
-###Newest version - 2.1.5, available in Nuget
-###Creating HTML reports for NUnit tests
+### Newest version - 2.1.5, available in Nuget
+### Creating HTML reports for NUnit tests
 Main report page:
 <p align="center">
   <img src="https://github.com/elv1s42/NUnitGo/blob/master/ReportScreenshots/mainPage.png?raw=true" alt="Main page screenshot">
